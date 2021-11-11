@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import User from './User'
+import User from './Movie'
 
 const UserList = (props) => {
   const [userList, setUserList] = useState([])

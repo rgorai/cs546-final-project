@@ -1,6 +1,6 @@
 import HomePage from './components/home/HomePage'
-import UserList from './components/users/UserList'
-import PostList from './components/posts/PostList'
+import UserList from './components/movies/MovieList'
+import PostList from './components/shows/ShowList'
 import {
   BrowserRouter as Router,
   Routes,
