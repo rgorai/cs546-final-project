@@ -11,7 +11,7 @@ const PostList = (props) => {
       .catch((e) => console.log('post fetch error: ', e))
     console.log(postList)
   })
-  // console
+
   return (
     <div className="post-list-container">
       {postList.map((post, i) => (
