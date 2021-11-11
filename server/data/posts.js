@@ -1,4 +1,4 @@
-const mongoCollections = require('../config/mongoCollections');
+const mongoCollections = require('./config/mongoCollections');
 const posts = mongoCollections.posts;
 const users = require('./users');
 const { v4: uuid } = require('uuid');
