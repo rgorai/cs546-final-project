@@ -1,4 +1,4 @@
-import HomePage from './components/home/UserList'
+import HomePage from './components/home/HomePage'
 import UserList from './components/users/UserList'
 import PostList from './components/posts/PostList'
 import {
