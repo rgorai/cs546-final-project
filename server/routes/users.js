@@ -5,7 +5,6 @@ const { create } = require('../data/users')
 
 router.post('/', async (req, res) => {
   const { firstName, lastName, email } = req.body
-  console.log(req.body)
   
   // error check
 

@@ -23,7 +23,7 @@ const create = async (firstName, lastName, email) => {
 const get = async (userId) => {
   // error check
   if (typeof(userId) !== 'string' || userId.length === 0 || userId === ' '.repeat(userId.length))
-    throw 'Error: id must be a non-empty string.'
+    throw 'Error: userId must be a non-empty string.'
   
   // convert id to object
   try {

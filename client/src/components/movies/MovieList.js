@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import User from './Movie'
+import Movie from './Movie'
 
-const UserList = (props) => {
-  const [userList, setUserList] = useState([])
+const MovieList = (props) => {
+  const [movieList, setMovieList] = useState([])
 
   useEffect(() => {
     // update to use axios
-    fetch('/users')
+    fetch('/movies')
       .then((res) => res.json())
-      .then((users) => setUserList(users))
-      .catch((e) => console.log('user fetch error: ', e))
+      .then((movies) => setMovieList(movies))
+      // ui if fetch fails
+      .catch((e) => console.log('movie fetch error: ', e))
   })
   
   return (
-    <div className="user-list-container">
-      {userList.map((user, i) => (
-        <User 
+    <div className="movie-list-container">
+      {movieList.map((movie, i) => (
+        <Movie 
           key={i}
-          firstName={user.firstName}
-          lastName={user.lastName}
-          posts={user.posts}
+          name={movie.name}
+          year={movie.year}
+          mpaRating={movie.mpaRating}
         />
       ))}
     </div>
   )
 }
 
-export default UserList
+export default MovieList
