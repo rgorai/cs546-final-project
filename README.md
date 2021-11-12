@@ -1,3 +1,7 @@
 # cs546-final-project
 
-Movie Website Idea
+Code Style:
+ - use singlequotes except html
+ - use arrow functions
+ - no semicolons
+ - no brackets for one-line clauses

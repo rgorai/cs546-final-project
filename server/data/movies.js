@@ -1,13 +1,13 @@
 const mongoCollections = require('../config/mongoCollections')
-const userCollection = mongoCollections.users
+const movieCollection = mongoCollections.movies
 const { ObjectId } = require('mongodb')
 
-const create = async (firstName, lastName, email) => {
+const create = async (name, year, rating) => {
   // error check
 
-  // add new user to db
-  const users = await userCollection()
-  const insertRet = await users.insertOne({
+  // add new movie to db
+  const movies = await movieCollection()
+  const insertRet = await movies.insertOne({
     firstName: firstName,
     lastName: lastName,
     email: email
@@ -20,28 +20,28 @@ const create = async (firstName, lastName, email) => {
   return await get(insertRet.insertedId.toString())
 }
 
-const get = async (userId) => {
+const get = async (movieId) => {
   // error check
-  if (typeof(userId) !== 'string' || userId.length === 0 || userId === ' '.repeat(userId.length))
+  if (typeof(movieId) !== 'string' || movieId.length === 0 || movieId === ' '.repeat(movieId.length))
     throw 'Error: id must be a non-empty string.'
   
   // convert id to object
   try {
-    userId = ObjectId(userId)
+    movieId = ObjectId(movieId)
   } catch (e) {
     throw String(e)
   }
 
   // find restaurant
-  const users = await userCollection()
-  const user = await users.findOne({ _id: userId })
+  const movies = await movieCollection()
+  const movie = await movies.findOne({ _id: movieId })
 
-  if (!user) 
-    throw 'Error: failed to find user.'
+  if (!movie) 
+    throw 'Error: failed to find movie.'
 
   return { 
-    ...user, 
-    _id: user._id.toString(),
+    ...movie, 
+    _id: movie._id.toString(),
     // reviews: restaurant.reviews.map((e) => (
     //   { ...e, _id: e._id.toString() }
     // ))

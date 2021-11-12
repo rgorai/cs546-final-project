@@ -5,7 +5,7 @@ const UserList = (props) => {
   const [userList, setUserList] = useState([])
 
   useEffect(() => {
-    // update to axios
+    // update to use axios
     fetch('/users')
       .then((res) => res.json())
       .then((users) => setUserList(users))
