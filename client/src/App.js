@@ -1,6 +1,6 @@
 import HomePage from './components/home/HomePage'
-import UserList from './components/movies/MovieList'
-import PostList from './components/shows/ShowList'
+import MovieList from './components/movies/MovieList'
+import ShowList from './components/shows/ShowList'
 import {
   BrowserRouter as Router,
   Routes,
@@ -15,16 +15,18 @@ const App = () => {
         <nav>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/posts">Posts</Link></li>
-            <li><Link to="/users">Users</Link></li>
+            <li><Link to="/movies">Movies</Link></li>
+            <li><Link to="/posts">Shows</Link></li>
           </ul>
         </nav>
 
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/posts" element={<PostList />} />
-          <Route path="/users" element={<UserList />} />
-        </Routes>
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/movies" element={<MovieList />} />
+            <Route path="/shows" element={<ShowList />} />
+          </Routes>
+        </main>
         
       </Router>
     </div>

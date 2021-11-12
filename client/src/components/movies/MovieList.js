@@ -5,11 +5,11 @@ const UserList = (props) => {
   const [userList, setUserList] = useState([])
 
   useEffect(() => {
+    // update to axios
     fetch('/users')
       .then((res) => res.json())
       .then((users) => setUserList(users))
       .catch((e) => console.log('user fetch error: ', e))
-    console.log(userList)
   })
   
   return (

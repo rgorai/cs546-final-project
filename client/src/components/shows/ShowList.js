@@ -9,7 +9,6 @@ const PostList = (props) => {
       .then((res) => res.json())
       .then((posts) => setPostList(posts))
       .catch((e) => console.log('post fetch error: ', e))
-    console.log(postList)
   })
   // console
   return (
