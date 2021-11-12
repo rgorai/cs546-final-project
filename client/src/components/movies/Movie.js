@@ -1,21 +1,22 @@
 import React from 'react';
 
-const user = (props) => {
+const Movie = (props) => {
   return (
-    <div className="user-container">
+    <div className="movie-container">
       <div>
-        {props.firstName}
+        {props.name}
       </div>
       <div>
-        {props.lastName}
+        {props.lastyearName}
       </div>
       <div>
-        {props.posts.map((e) => (
-          <div>{JSON.stringify(e)}</div>
-        ))}
+        {props.mpaRating}
+      </div>
+      <div>
+        {props.description}
       </div>
     </div>
   )
 }
 
-export default user
+export default Movie

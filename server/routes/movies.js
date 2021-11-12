@@ -3,8 +3,6 @@ const router = express.Router()
 const { get, getAll } = require('../data/movies')
 
 router.get('/', async (req, res) => {
-  const { name, year, mpaRating, description } = req.body
-  
   // error check
 
   // send all movies
