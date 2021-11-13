@@ -1,6 +1,4 @@
-import React from 'react';
-
-const Movie = (props) => {
+const MovieCard = (props) => {
   return (
     <div className="movie-container">
       <div>
@@ -19,4 +17,4 @@ const Movie = (props) => {
   )
 }
 
-export default Movie
+export default MovieCard

@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import Movie from './Movie'
+import MovieCard from './MovieCard'
 const axios = require('axios')
 
 const MovieList = (props) => {
   const [movieList, setMovieList] = useState([])
 
   useEffect(() => {
-    console.log('axios get')
-    // axios.get('/movies')
-    //   .then((movies) => setMovieList(movies))
-    //   // ui if fetch fails
-    //   .catch((e) => console.log('movie fetch error: ', e))
-    fetch('/movies')
-      .then((res) => res.json())
-      .then((movies) => setMovieList(movies))
+    axios.get('/movies')
+      .then((res) => setMovieList(res.data))
       // ui if fetch fails
       .catch((e) => console.log('movie fetch error: ', e))
   })
@@ -21,7 +15,7 @@ const MovieList = (props) => {
   return (
     <div className="movie-list-container">
       {movieList.map((movie, i) => (
-        <Movie 
+        <MovieCard 
           key={i}
           name={movie.name}
           year={movie.year}
