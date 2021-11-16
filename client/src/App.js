@@ -7,18 +7,13 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+import NavBar from './components/home/NavBar'
 
 const App = () => {
   return (
     <div className="App">
       <Router>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/movies">Movies</Link></li>
-            <li><Link to="/posts">Shows</Link></li>
-          </ul>
-        </nav>
+        <NavBar />
 
         <main>
           <Routes>
