@@ -1,34 +1,39 @@
 const connection = require('../config/mongoConnection')
 const axios = require('axios')
 const allMovies = require('./movie_ids_11_14_2021.json')
+const allShows = require('./tv_series_ids_11_14_2021.json')
 
 const { create: createMovie } = require('../data/movies')
 
+/*
+ * DOCUMENTATION: https://developers.themoviedb.org/3/getting-started/introduction
+ */
+const tmbdUrl = 'https://api.themoviedb.org/3/'
 const tmdbApiKey = '?api_key=31cc954c3de9a91aecd102e07e4d4707'
-const tmbdUrl = 'https://api.themoviedb.org/3/movie/'
-
-const NUM_GENRES = 10   // number of genres to gather
-const NUM_MOVIES = 20   // number of movies per genre
+const append = '&append_to_response=images,videos'
 
 const getMovie = async (movieId) => {
-  try {
-    const { data } = await axios.get(
-      tmbdUrl + movieId + tmdbApiKey
-    )
-    return data
-  } catch(e) {
-    console.error(e)
-  }
+  const url = tmbdUrl + 'movie/' + movieId + tmdbApiKey + append
+  return await tmdbRequest(url)
 }
-
 const getMovieProviders = async (movieId) => {
+  const url = tmbdUrl + 'movie/' + movieId + '/watch/providers' + tmdbApiKey
+  return await tmdbRequest(url)
+}
+const getShow = async (showId) => {
+  const url = tmbdUrl + 'tv/' + showId + tmdbApiKey + append
+  return await tmdbRequest(url)
+}
+const getShowProviders = async (showId) => {
+  const url = tmbdUrl + 'tv/' + showId + '/watch/providers' + tmdbApiKey
+  return await tmdbRequest(url)
+}
+const tmdbRequest = async (url) => {
   try {
-    const { data } = await axios.get(
-      tmbdUrl + movieId + '/watch/providers' + tmdbApiKey
-    )
+    const { data } = await axios.get(url)
     return data
   } catch(e) {
-    console.error(e)
+    throw 'TMDB '+ String(e)
   }
 }
 
@@ -36,23 +41,28 @@ const main = async () => {
   const db = await connection.connectToDb()
   await db.dropDatabase()
 
-  // gather movie data
-  const moviesToSeed = []
-  let foundGenres = []
-  while (foundGenres.length < NUM_GENRES) {
-    // get random movie id
-    const randomMovieId = allMovies[Math.floor(Math.random() * allMovies.length)].id
+  // get random media using local json files
+  const movieId = allMovies[Math.floor(Math.random() * allMovies.length)].id
+  const showId = allShows[Math.floor(Math.random() * allShows.length)].id
 
-    // check genre
-    const randomMovie = await getMovie('1726')
-    console.log(randomMovie)
-    const { results } = await getMovieProviders('1726')
-    console.log(results.US.rent)
-    break
-  }
+  // get media info with tmdb api
+  const movieRes = await getMovie(movieId)
+  const showRes = await getShow(showId)
+  // console.log(movieRes)
+  // console.log(showRes)
+
+  // get streaming providers
+  const movieProviders = await getMovieProviders(movieId)
+  const showProviders = await getShowProviders(showId)
+  // console.log(movieProviders)
+  // console.log(showProviders)
+
 
   console.log('Done seeding database');
   connection.closeConnection()
 }
 
-main()
+main().catch((e) => {
+  console.error(e)
+  connection.closeConnection()
+})
