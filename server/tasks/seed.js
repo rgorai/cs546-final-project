@@ -3,6 +3,10 @@ const axios = require('axios')
 const allMovies = require('./movie_ids_11_14_2021.json')
 const allShows = require('./tv_series_ids_11_14_2021.json')
 
+//raw shows data for the database
+const mongoCollections = require('../config/mongoCollections')
+const showCollection = mongoCollections.shows
+
 const { create: createMovie } = require('../data/movies')
 
 /*
@@ -45,15 +49,49 @@ const main = async () => {
   const movieId = allMovies[Math.floor(Math.random() * allMovies.length)].id
   // const showId = allShows[Math.floor(Math.random() * allShows.length)].id
 
+  let showList = []
+
+  let someShows = allShows.slice(0,21);
+  await Promise.all(someShows.map(async el => {
+
+    let showOutput = await getShow(el.id)
+    const {id, name, first_air_date, overview, number_of_seasons, number_of_episodes, genres} = showOutput
+    let showInput = {
+      id : id,
+      name : name,
+      first_air_date : first_air_date,
+      overview : overview,
+      number_of_seasons : number_of_seasons,
+      number_of_episodes : number_of_episodes,
+      genres : genres,
+      overallRating : 0, //initializing overallRating to be 0 when a show is created
+      review : [] //initializing review as empty array
+    }
+
+    showList.push(showInput)
+
+    const shows = await showCollection()
+    const insertRet = await shows.insertOne(showInput)
+      if (insertRet.insertedCount === 0) throw 'Could not add show'
+
+  }));
+
+  // console.log(showList)
+  
+
+
+
+
+
   // get media info with tmdb api
-  const movieRes = await getMovie(movieId)
-  const showRes = await getShow(showId)
+  // const movieRes = await getMovie(movieId)
+  // const showRes = await getShow(showId)
   // console.log(movieRes)
   // console.log(showRes)
 
   // get streaming providers
-  const movieProviders = await getMovieProviders(movieId)
-  const showProviders = await getShowProviders(showId)
+  // const movieProviders = await getMovieProviders(movieId)
+  // const showProviders = await getShowProviders(showId)
   // console.log(movieProviders)
   // console.log(showProviders)
 

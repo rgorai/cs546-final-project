@@ -4,7 +4,7 @@ const { ObjectId } = require('mongodb')
 
 const create = async (
     name,
-    year,
+    first_air_date,
     overview,
     number_of_seasons,
     number_of_episodes,
@@ -13,7 +13,7 @@ const create = async (
     const shows = await showCollection()
     let newShow = {
         name : name,
-        year : year,
+        first_air_date : first_air_date,
         overview : overview,
         number_of_seasons : number_of_seasons,
         number_of_episodes : number_of_episodes,
@@ -25,3 +25,6 @@ const create = async (
     const insertRet = await shows.insertOne(newShow)
     if (insertRet.insertedCount === 0) throw 'Could not add show'
 }
+
+
+module.exports = {create}
