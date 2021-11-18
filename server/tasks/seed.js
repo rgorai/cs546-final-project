@@ -43,7 +43,7 @@ const main = async () => {
 
   // get random media using local json files
   const movieId = allMovies[Math.floor(Math.random() * allMovies.length)].id
-  const showId = allShows[Math.floor(Math.random() * allShows.length)].id
+  // const showId = allShows[Math.floor(Math.random() * allShows.length)].id
 
   // get media info with tmdb api
   const movieRes = await getMovie(movieId)
