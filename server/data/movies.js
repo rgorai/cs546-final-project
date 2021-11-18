@@ -2,7 +2,12 @@ const mongoCollections = require('../config/mongoCollections')
 const movieCollection = mongoCollections.movies
 const { ObjectId } = require('mongodb')
 
-const create = async (name, year, mpaRating, description) => {
+const create = async (
+    name, 
+    year, 
+    mpaRating, 
+    description
+  ) => {
   // error check
 
   // add new movie to db
