@@ -1,0 +1,38 @@
+<h1>Sign Up Form</h1>
+    <main>
+        <form id="signup-form" action="/signup" method="POST">
+        <div>
+            <label>First Name</label>
+            <input type="text" name="firstName" id="firstName">
+        </div>
+
+        <div>
+            <label>Last Name</label>
+            <input type="text" name="lastName" id="lastName">
+        </div> 
+
+        <div>
+            <label>Email ID</label>
+            <input type="email" name="email" id="email">
+        </div>
+
+        <div>
+            <label>Password</label>
+            <input type="password" name="password" id="password">
+        </div>    
+        <input type="submit" value="Submit">
+        </form>
+        </form>
+        
+    </main>
+<a href="/">Already have an account? Click here to log-in</a>
+
+{{#if hasErrors}}
+<ul>
+    {{#each errors}}
+    <li>
+        {{this}}
+    </li>
+    {{/each}}
+</ul>
+{{/if}}
