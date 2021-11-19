@@ -4,9 +4,14 @@ const { ObjectId } = require('mongodb')
 
 const create = async (
     name, 
-    year, 
-    mpaRating, 
-    description
+    releaseDate, 
+    certifications, 
+    runtime,
+    genres,
+    description,
+    posterPath,
+    videos,
+    streamingPlatforms,
   ) => {
   // error check
 
@@ -14,9 +19,14 @@ const create = async (
   const movies = await movieCollection()
   const insertRet = await movies.insertOne({
     name: name,
-    year: year,
-    mpaRating: mpaRating,
-    description: description
+    releaseDate: releaseDate,
+    certifications: certifications,
+    runtime: runtime,
+    genres: genres,
+    description: description,
+    posterPath: posterPath,
+    videos: videos,
+    streamingPlatforms: streamingPlatforms,
   })
 
   // throw if insertion failed
