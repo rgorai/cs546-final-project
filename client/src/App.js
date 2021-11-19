@@ -1,6 +1,7 @@
 import HomePage from './components/home/HomePage'
 import MovieList from './components/movies/MovieList'
 import ShowList from './components/shows/ShowList'
+import MoviePage from './components/movies/MoviePage'
 import {
   BrowserRouter as Router,
   Routes,
@@ -24,6 +25,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/movies" element={<MovieList />} />
+            <Route exact path="/movies/:id" element={<MoviePage />} />
             <Route path="/shows" element={<ShowList />} />
           </Routes>
         </main>
