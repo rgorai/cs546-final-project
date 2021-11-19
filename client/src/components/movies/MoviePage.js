@@ -15,7 +15,7 @@ const MoviePage = (props) => {
       // should ui if fetch fails
       .catch((e) => console.log('movie fetch error: ', e))
   }, [movieId])  
-  // nothing
+  
   return (
     <div className="movie-page-container">
       <img 

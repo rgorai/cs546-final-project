@@ -20,11 +20,8 @@ const MovieList = (props) => {
             <MovieCard 
               key={i}
               id={movie._id}
-              name={movie.name}
-              year={movie.releaseDate}
-              // mpaRating={movie.mpaRating}
-              description={movie.description}
               posterPath={movie.posterPath}
+              name={movie.name}
             />
           ))
         }
