@@ -4,7 +4,7 @@ const allMovies = require('./movie_ids_11_14_2021.json')
 const allShows = require('./tv_series_ids_11_14_2021.json')
 
 const { create: createMovie } = require('../data/movies')
-// const { create: createShow } = require('../data/shows')
+const { create: createShow } = require('../data/shows')
 
 /*
  * DOCUMENTATION: https://developers.themoviedb.org/3/getting-started/introduction
@@ -72,9 +72,16 @@ const main = async () => {
       movieRes.videos.results,
       movieProviders.results
     )
-    // await createShow(
-      // TODO
-    // )
+    await createShow(
+      showRes.name,
+      showRes.first_air_date,
+      showRes.overview,
+      showRes.number_of_seasons,
+      showRes.number_of_episodes,
+      showRes.genres,
+      showRes.poster_path,
+      showProviders.results
+    )
   }
 
   console.log('Done seeding database');
