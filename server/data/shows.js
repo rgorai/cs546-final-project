@@ -71,8 +71,11 @@ const get = async (showId) => {
   
   const getByGenre = async (str) => {
     // error check
-  
+    if (typeof(str) !== 'string' || str.length === 0 || str === ' '.repeat(str.length))
+      throw 'Error: Genre name must be a non-empty string.'
+
     // get all shows of given genre
+
     // mongo
   
   }
