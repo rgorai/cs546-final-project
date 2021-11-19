@@ -1,5 +1,6 @@
 // import { useEffect, useState } from 'react'
 import NewUserForm from '../users/NewUserForm'
+import '../../styles/home/homePage.css'
 
 const HomePage = (props) => {
   

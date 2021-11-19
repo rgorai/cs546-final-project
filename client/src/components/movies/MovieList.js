@@ -8,21 +8,26 @@ const MovieList = (props) => {
   useEffect(() => {
     axios.get('/movies')
       .then((res) => setMovieList(res.data))
-      // ui if fetch fails
+      // should ui if fetch fails
       .catch((e) => console.log('movie fetch error: ', e))
-  })
-  
+  }, [])
+    
   return (
     <div className="movie-list-container">
-      {movieList.map((movie, i) => (
-        <MovieCard 
-          key={i}
-          name={movie.name}
-          year={movie.year}
-          mpaRating={movie.mpaRating}
-          description={movie.description}
-        />
-      ))}
+      {movieList.length === 0
+        ? <div>error</div>
+        : movieList.map((movie, i) => (
+            <MovieCard 
+              key={i}
+              id={movie._id}
+              name={movie.name}
+              year={movie.releaseDate}
+              // mpaRating={movie.mpaRating}
+              description={movie.description}
+              posterPath={movie.posterPath}
+            />
+          ))
+        }
     </div>
   )
 }
