@@ -97,9 +97,9 @@ module.exports = {
         checkIsUrl(video);
 
         name = name.toLowerCase();
-        releaseDate = releaseDate.toLowerCase();
+        releaseDate = parseInt(releaseDate);
         certification = certification.toLowerCase();
-        runtime = runtime.toLowerCase();
+        runtime = parseInt(runtime);
         genres = genres.map(genre => genre.toLowerCase());
         description = description.toLowerCase();
         posterPath = posterPath.toLowerCase();
@@ -175,6 +175,7 @@ module.exports = {
         if(!genre) throw "Must provide a genre";
 
         checkIsString(genre);
+        genre = genre.toLowerCase();
 
         const movieCollection = await movies();
 
