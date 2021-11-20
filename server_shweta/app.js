@@ -1,26 +1,42 @@
 
-const shows = require("./data/shows");
+const users = require("./data/users");
 const connection = require("./config/mongoConnection");
-const { rename } = require("./data/shows");
+const { rename } = require("./data/users");
+//const { users } = require("./config/mongoCollections");
 
 async function main(){
- 
+  let id;
+ /*
     try{
        const t1 = await shows.create("Seinfeld", "1989", "Events of Jerry Seinfeld", "7", "84", ["Comedy", "Feel-Good"], "https://www.shutterstock.com/image-photo/san-francisco-california-united-states-june-1459316807", ["Netflix", "Youtube TV"]);
        console.log(t1);
     } catch(e){
         console.log(e);
     }
-    
+    */
 
     try{
-        const t2 = await shows.getByGenre("horror");
+        const t2 = await users.createUser("Abhinav", "Naik", "naikabhinav@gmail.com", "23071986");
         console.log(t2);
      } catch(e){
          console.log(e);
      }
 
-     
+    
+     try{
+      const t3 = await users.getByEmail("naikabhinav@gmail.com");
+      id = t3._id;
+      console.log(t3);
+    } catch(e){
+       console.log(e);
+    }
+
+    try{
+      const t3 = await users.updatePassword(id, "longisland");
+      console.log(t3);
+    } catch(e){
+      console.log(e);
+    }
      
 }
 
