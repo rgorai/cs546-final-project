@@ -1,10 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ReactSession from 'react-client-session/dist/ReactSession'
 const axios = require('axios')
 
 const LoginPage = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [loginRes, setLoginRes] = useState({})
+  const [error, setError] = useState({})
+
+  useEffect(() => {
+    console.log(loginRes)
+    if (loginRes.authenticated) {
+      ReactSession.set('userId', loginRes.userId)
+      console.log('authenicated')
+    } else {
+      ReactSession.set('userId', null)
+      console.log('not authenticated')
+    }
+  }, [loginRes])
 
   const onFormSubmit = (e) => {
     e.preventDefault()
@@ -15,8 +28,9 @@ const LoginPage = (props) => {
     axios.post('/users/authenticate', {
       username: username,
       password: password,
-    }).then((res) => console.log('AUTH USER POST RES:', res))
-      .catch((e) => console.error('AUTH USER POST ERROR:,', e))
+    }).then((res) => setLoginRes(res.data))
+      // ui error
+      .catch((e) => console.error('AUTH USER POST ERROR:', e))
   }
 
   return (

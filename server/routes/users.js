@@ -1,7 +1,7 @@
 const express = require('express')
 const { ConnectionPoolClosedEvent } = require('mongodb')
 const router = express.Router()
-const { create } = require('../data/users')
+const { create, authenticate } = require('../data/users')
 
 router.post('/', async (req, res) => {
   const { 
@@ -35,9 +35,9 @@ router.post('/authenticate', async (req, res) => {
 
   // authenticate user
   try {
-    res.status(200).json(await checkUser(username, password))
+    res.status(200).json(await authenticate(username, password))
   } catch (e) {
-    res.status(401).json({ authenticated: false })
+    res.status(500)
   }
 })
 

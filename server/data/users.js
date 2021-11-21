@@ -28,22 +28,22 @@ const create = async (
   return await get(insertRet.insertedId.toString())
 }
 
-const checkUser = async (username, password) => {
+const authenticate = async (username, password) => {
   // error check
 
 
   // get user
   const users = await userCollection()
-  const user = users.findOne({
+  const user = await users.findOne({
     username: username
   })
 
   if (!user || user.password !== password)
-    throw 'Invalid username or password.'
+   return { authenticated: false }
 
   return { 
     authenticated: true,
-    token: token
+    userId: user._id
   }
 }
 
@@ -77,5 +77,6 @@ const get = async (userId) => {
 
 module.exports = {
   create,
+  authenticate,
   get,
 }
