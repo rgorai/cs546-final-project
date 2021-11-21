@@ -2,7 +2,13 @@ const mongoCollections = require('../config/mongoCollections')
 const userCollection = mongoCollections.users
 const { ObjectId } = require('mongodb')
 
-const create = async (firstName, lastName, email) => {
+const create = async (
+    firstName, 
+    lastName, 
+    email,
+    username,
+    password
+  ) => {
   // error check
 
   // add new user to db
@@ -10,14 +16,35 @@ const create = async (firstName, lastName, email) => {
   const insertRet = await users.insertOne({
     firstName: firstName,
     lastName: lastName,
-    email: email
+    email: email,
+    username: username,
+    password: password
   })
 
   // throw if insertion failed
   if (!insertRet.acknowledged)
-    throw 'Error: failed to add new restaurant.'
+    throw 'Error: failed to add new user.'
 
   return await get(insertRet.insertedId.toString())
+}
+
+const checkUser = async (username, password) => {
+  // error check
+
+
+  // get user
+  const users = await userCollection()
+  const user = users.findOne({
+    username: username
+  })
+
+  if (!user || user.password !== password)
+    throw 'Invalid username or password.'
+
+  return { 
+    authenticated: true,
+    token: token
+  }
 }
 
 const get = async (userId) => {

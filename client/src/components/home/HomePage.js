@@ -1,4 +1,5 @@
 // import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import NewUserForm from '../users/NewUserForm'
 import '../../styles/home/homePage.css'
 
@@ -6,8 +7,13 @@ const HomePage = (props) => {
   
   return (
     <div className="home-page-container">
-      This is the home page
-      <NewUserForm />
+      <Link to="/login">
+        Login
+      </Link>
+      <br />
+      <Link to="/signup">
+        Signup
+      </Link>
     </div>
   )
 }

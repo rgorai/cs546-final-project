@@ -5,6 +5,8 @@ const NewUserForm = (props) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const onFormSubmit = (e) => {
     e.preventDefault()
@@ -15,7 +17,9 @@ const NewUserForm = (props) => {
     axios.post('/users', {
       firstName: firstName,
       lastName: lastName,
-      email: email
+      email: email,
+      username: username,
+      password: password
     }).then((res) => console.log('NEW USER POST RES:', res))
       .catch((e) => console.error('NEW USER POST ERROR:,', e))
   }
@@ -56,6 +60,30 @@ const NewUserForm = (props) => {
         type="text"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <label className="form-label" htmlFor="input-username">
+        Username
+      </label>
+      <input 
+        id="input-username"
+        className="form-input"
+        placeholder="Username"
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+
+      <label className="form-label" htmlFor="input-password">
+        Password
+      </label>
+      <input 
+        id="input-password"
+        className="form-input"
+        placeholder="Password"
+        type="text"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
 
       <input 
