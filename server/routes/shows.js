@@ -4,10 +4,6 @@ const { get, getAll } = require('../data/shows')
 
 router.get('/', async (req, res) => {
   // error check
-  if (typeof(x) !== 'undefined'){
-    res.status(400).json({ error: "no parameters should be given."})
-    return
-  }
   
   // send all shows
   try {

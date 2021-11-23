@@ -27,7 +27,7 @@ const create = async (
         posterPath : posterPath,
         streamingPlatforms : streamingPlatforms,
         overallRating : 0, //initializing overallRating to be 0 when a show is created
-        review : [] //initializing review as empty array
+        reviews : [] //initializing review as empty array
     }
   // throw if insertion failed
     const insertRet = await shows.insertOne(newShow)
@@ -71,12 +71,28 @@ const get = async (showId) => {
     })).toArray()
   }
   
-  const getByGenre = async (str) => {
+  const getByGenre = async (genre) => {
     // error check
-    if (typeof(str) !== 'string' || str.length === 0 || str === ' '.repeat(str.length))
+    if (typeof(genre) !== 'string' || genre.length === 0 || genre === ' '.repeat(str.length))
       throw 'Error: Genre name must be a non-empty string.'
 
     // get all shows of given genre
+    const showsList = await getAll()
+    
+
+    showList.forEach(e => {
+
+      e.forEach(el => {
+        el.genres.find(i => i.name === genre)
+      });
+    });
+    
+//Work Pending
+
+    return await shows.find({}).map((e) => ({ 
+      ...e, 
+      _id: e._id.toString(),
+    })).toArray()
 
     // mongo
   
