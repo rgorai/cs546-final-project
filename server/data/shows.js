@@ -80,12 +80,22 @@ const get = async (showId) => {
     const showsList = await getAll()
     
 
-    showList.forEach(e => {
+    // showList.forEach(e => {
 
-      e.forEach(el => {
-        el.genres.find(i => i.name === genre)
-      });
-    });
+    //   e.forEach(el => {
+    //     el.genres.find(i => i.name === genre)
+    //   });
+    // });
+
+    for(let i=0;i<showsList.length;i++){
+      let currObj = showsList[i];
+      let geners = currObj['genres'];
+      for(let j=0;j<geners.length;j++){
+          if(geners[j]["name"] == genre){
+            return currObj;
+          }
+      }
+    }
     
 //Work Pending
 
