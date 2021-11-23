@@ -4,7 +4,11 @@ const { get, getAll } = require('../data/shows')
 
 router.get('/', async (req, res) => {
   // error check
-
+  if (typeof(x) !== 'undefined'){
+    res.status(400).json({ error: "no parameters should be given."})
+    return
+  }
+  
   // send all shows
   try {
     res.status(200).json(await getAll())
@@ -17,6 +21,10 @@ router.get('/:id', async (req, res) => {
   const showId = req.params.id
   
   // error check
+  if (typeof(showId) !== 'string' || showId.length === 0 || showId === ' '.repeat(showId.length)){
+    res.status(400).json({ error: "no parameters should be given."})
+    return
+  }
 
   // send requested show
   try {

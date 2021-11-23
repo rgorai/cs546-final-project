@@ -3,6 +3,9 @@ const axios = require('axios')
 const allMovies = require('./movie_ids_11_14_2021.json')
 const allShows = require('./tv_series_ids_11_14_2021.json')
 
+const moviesGenreList = require('./movies_genre_list.json')
+const showsGenreList = require('./tv_series_genre_list.json')
+
 const { create: createMovie } = require('../data/movies')
 const { create: createShow } = require('../data/shows')
 

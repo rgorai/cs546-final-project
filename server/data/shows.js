@@ -32,6 +32,8 @@ const create = async (
   // throw if insertion failed
     const insertRet = await shows.insertOne(newShow)
     if (insertRet.insertedCount === 0) throw 'Could not add show'
+
+    return await get(insertRet.insertedId.toString())
 }
 
 const get = async (showId) => {
