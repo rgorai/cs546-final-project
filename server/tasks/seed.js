@@ -1,31 +1,94 @@
 const connection = require('../config/mongoConnection')
-const { create: createMovie } = require('../data/movies')
+const axios = require('axios')
+const allMovies = require('./movie_ids_11_14_2021.json')
+const allShows = require('./tv_series_ids_11_14_2021.json')
 
-async function main() {
+const { create: createMovie } = require('../data/movies')
+const { create: createShow } = require('../data/shows')
+
+/*
+ * DOCUMENTATION: https://developers.themoviedb.org/3/getting-started/introduction
+ */
+const tmbdUrl = 'https://api.themoviedb.org/3/'
+const tmdbApiKey = '?api_key=31cc954c3de9a91aecd102e07e4d4707'
+const append = '&append_to_response=videos,release_dates'
+
+const getMovie = async (movieId) => {
+  const url = tmbdUrl + 'movie/' + movieId + tmdbApiKey + append
+  return await tmdbRequest(url)
+}
+const getMovieProviders = async (movieId) => {
+  const url = tmbdUrl + 'movie/' + movieId + '/watch/providers' + tmdbApiKey
+  return await tmdbRequest(url)
+}
+const getShow = async (showId) => {
+  const url = tmbdUrl + 'tv/' + showId + tmdbApiKey + append
+  return await tmdbRequest(url)
+}
+const getShowProviders = async (showId) => {
+  const url = tmbdUrl + 'tv/' + showId + '/watch/providers' + tmdbApiKey
+  return await tmdbRequest(url)
+}
+const tmdbRequest = async (url) => {
+  try {
+    const { data } = await axios.get(url)
+    return data
+  } catch(e) {
+    throw 'TMDB '+ String(e)
+  }
+}
+
+const main = async () => {
   const db = await connection.connectToDb()
   await db.dropDatabase()
 
-  const wolf = await createMovie(
-    'The Wolf of Wall Street', 
-    2013,
-    'R',
-    'The Wolf of Wall Street follows the rise and fall of Jordan Belfort, who became a wealthy stockbroker before being found guilty of corruption and fraud by the federal government. Directed by Martin Scorsese and starring Leonardo DiCaprio, the film is based on Jordan Belfort’s memoir of the same name.'
-  )
-  const endgame = await createMovie(
-    'Avengers: Endgame', 
-    2019,
-    'PG-13',
-    'After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos\' actions and restore order to the universe once and for all, no matter what consequences may be in store.'
-  )
-  const dune = await createMovie(
-    'Dune', 
-    2021,
-    'PG-13',
-    'Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet\'s exclusive supply of the most precious resource in existence-a commodity capable of unlocking humanity\'s greatest potential-only those who can conquer their fear will survive.'
-  )
-  
+  // get 20 of each media
+  for (let i = 0; i < 20; i++) {
+    // get random media using local json files
+    const movieId = allMovies[Math.floor(Math.random() * allMovies.length)].id
+    const showId = allShows[Math.floor(Math.random() * allShows.length)].id
+
+    // get media info with tmdb api
+    const movieRes = await getMovie(movieId)
+    const showRes = await getShow(showId)
+    // console.log(movieRes)
+    // console.log(showRes)
+
+    // get streaming providers
+    const movieProviders = await getMovieProviders(movieId)
+    const showProviders = await getShowProviders(showId)
+    // console.log(movieProviders)
+    // console.log(showProviders)
+
+    // create db entries
+    await createMovie(
+      movieRes.original_title,
+      movieRes.release_date,
+      movieRes.release_dates.results.find((e) => e.iso_3166_1 === 'US'),
+      movieRes.runtime,
+      movieRes.genres,
+      movieRes.overview,
+      movieRes.poster_path,
+      movieRes.videos.results,
+      movieProviders.results
+    )
+    await createShow(
+      showRes.name,
+      showRes.first_air_date,
+      showRes.overview,
+      showRes.number_of_seasons,
+      showRes.number_of_episodes,
+      showRes.genres,
+      showRes.poster_path,
+      showProviders.results
+    )
+  }
+
   console.log('Done seeding database');
   connection.closeConnection()
 }
 
-main()
+main().catch((e) => {
+  console.error(e)
+  connection.closeConnection()
+})

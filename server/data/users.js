@@ -1,26 +1,68 @@
 const mongoCollections = require('../config/mongoCollections')
 const userCollection = mongoCollections.users
 const { ObjectId } = require('mongodb')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const config = require('../config/authConfig')
 
-const create = async (firstName, lastName, email) => {
+const createUser = async (
+    firstName, 
+    lastName, 
+    email,
+    username,
+    password
+  ) => {
   // error check
 
-  // add new user to db
+
+  // check if email exists
   const users = await userCollection()
+  if (await users.findOne({ email: email }))
+    throw 'Email address is taken.'
+
+  // check if username exists
+  if (await users.findOne({ username: username }))
+    throw 'Username is taken.'
+
+  // add new user to db
   const insertRet = await users.insertOne({
-    firstName: firstName,
-    lastName: lastName,
-    email: email
+    firstName,
+    lastName,
+    email,
+    username,
+    password: bcrypt.hashSync(password, 8)
   })
 
   // throw if insertion failed
   if (!insertRet.acknowledged)
-    throw 'Error: failed to add new restaurant.'
+    throw 'Failed to add new user.'
 
-  return await get(insertRet.insertedId.toString())
+  return { userInserted: true }
 }
 
-const get = async (userId) => {
+const authenticateUser = async (username, password) => {
+  // error check
+
+
+  // get user
+  const users = await userCollection()
+  const user = await users.findOne({ username: username })
+
+  // authenticate user
+  if (!user || !bcrypt.compareSync(password, user.password))
+    return { authenticated: false }
+
+  return { 
+    authenticated: true,
+    userId: user._id,
+    access_token: jwt.sign(
+      { id: user._id.toString() }, 
+      config.secret, 
+      { /* expiresIn: 86400 */ })
+  }
+}
+
+const getUser = async (userId) => {
   // error check
   if (typeof(userId) !== 'string' || userId.length === 0 || userId === ' '.repeat(userId.length))
     throw 'Error: userId must be a non-empty string.'
@@ -49,6 +91,7 @@ const get = async (userId) => {
 }
 
 module.exports = {
-  create,
-  get,
+  createUser,
+  authenticateUser,
+  getUser,
 }
