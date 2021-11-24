@@ -1,48 +1,31 @@
-import { useState, useEffect } from 'react'
-import ReactSession from 'react-client-session/dist/ReactSession'
-const axios = require('axios')
+import { useState, } from 'react'
+import { login } from '../../services/authService'
 
 const LoginPage = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loginRes, setLoginRes] = useState({})
-  const [loggedIn, setLoggedIn] = useState(false)
   const [error, setError] = useState({})
-
-  // handle authentication
-  useEffect(() => {
-    if (ReactSession.get('userId')) {
-      setLoggedIn(true)
-      console.log('already signed in')
-    } else if (loginRes.authenticated) {
-      ReactSession.set('userId', loginRes.userId)
-      console.log('authenticated')
-    } else {
-      ReactSession.remove('userId')
-      setLoggedIn(false)
-      console.log('not authenticated')
-    }
-  }, [loginRes])
 
   const onFormSubmit = (e) => {
     e.preventDefault()
 
     // error check
+    // try using 'validations'
 
     // post data to server
-    axios.post('/auth/login', {
-      username: username,
-      password: password,
-    }).then((res) => setLoginRes(res.data))
-      // ui on error
-      .catch((e) => console.error('AUTH USER POST ERROR:', e))
+    const res = login(username, password)
+      .then((res) => console.log('LOGIN RES:', res))
+      // change to respond with ui
+      .catch((e) => console.log('LOGIN ERROR:', e.response.data))
+    // console.log('res', res)
   }
 
-  console.log(ReactSession.get('userId'))
   return (
     <div>
-      {!loggedIn
-        ? <form id="login-form" onSubmit={onFormSubmit}>
+      {props.loggedIn
+        ? <div>You are already signed in.</div>
+        : <form id="login-form" onSubmit={onFormSubmit}>
             <label className="form-label" htmlFor="input-username">
               Username
             </label>
@@ -73,7 +56,6 @@ const LoginPage = (props) => {
               value="Login"
             />
           </form>
-        : <div>You are already signed in.</div>
       }
     </div>
   )

@@ -26,10 +26,10 @@ const createUser = async (
 
   // add new user to db
   const insertRet = await users.insertOne({
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    username: username,
+    firstName,
+    lastName,
+    email,
+    username,
     password: bcrypt.hashSync(password, 8)
   })
 
@@ -55,7 +55,7 @@ const authenticateUser = async (username, password) => {
   return { 
     authenticated: true,
     userId: user._id,
-    token: jwt.sign(
+    access_token: jwt.sign(
       { id: user._id.toString() }, 
       config.secret, 
       { /* expiresIn: 86400 */ })

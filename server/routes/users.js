@@ -5,6 +5,7 @@ const { createUser, authenticateUser } = require('../data/users')
 const { verifyToken } = require('../middleware/auth')
 
 router.get('/', verifyToken, (req, res) => {
+  console.log(req.userId)
   res.status(200).send('you are authenticated.')
 })
 

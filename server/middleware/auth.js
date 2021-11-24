@@ -19,9 +19,20 @@ const verifyToken = (req, res, next) => {
 }
 
 const isLoggedIn = (req, res, next) => {
+  const { access_token } = req.headers
 
+  if (access_token !== null)
+    // validate token
+    jwt.verify(access_token, config.secret, (error, decoded) => {
+      if (error)
+        return next()
+      res.status(400).send('You are already signed in')
+    })
+  else 
+    next()
 }
 
 module.exports = {
-  verifyToken
+  verifyToken,
+  isLoggedIn
 }

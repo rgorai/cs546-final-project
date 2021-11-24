@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const { createUser, authenticateUser } = require('../data/users')
-const { verifyToken } = require('../middleware/auth')
+const { isLoggedIn } = require('../middleware/auth')
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', isLoggedIn, async (req, res) => {
   const { 
     firstName, 
     lastName, 
@@ -24,13 +24,13 @@ router.post('/signup', async (req, res) => {
       password
     ))
   } catch (e) {
-    res.status(400).json({ error: String(e) })
+    res.status(400).send(String(e))
   }
 })
 
-router.post('/login', async (req, res) => {
+router.post('/login', isLoggedIn, async (req, res) => {
   const { username, password } = req.body
-  
+
   // error check
 
   // authenticate user
@@ -41,7 +41,7 @@ router.post('/login', async (req, res) => {
     else 
       res.status(401).json({ error: 'Invalid username or password' })
   } catch (e) {
-    res.status(500).json({ error: String(e) })
+    res.status(500).send(String(e))
   }
 })
 
