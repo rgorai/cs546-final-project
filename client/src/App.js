@@ -4,6 +4,7 @@ import LoginPage from './components/home/LoginPage'
 import MovieList from './components/movies/MovieList'
 import ShowList from './components/shows/ShowList'
 import MoviePage from './components/movies/MoviePage'
+import ShowPage from './components/shows/Showpage'
 import UserProfile from './components/users/UserProfile'
 import { logout, getCurrUser } from './services/authService'
 import { useState, useEffect } from 'react'
@@ -44,6 +45,7 @@ const App = () => {
             <Route exact path="/movies" element={<MovieList />} />
             <Route exact path="/movies/:id" element={<MoviePage />} />
             <Route exact path="/shows" element={<ShowList />} />
+            <Route exact path="/shows/:id" element={<ShowPage />} />
             <Route exact path="*" element={<div>not found</div>} />
           </Routes>
         </main>

@@ -1,27 +1,39 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import '../../styles/movies/moviePage.css'
-const axios = require('axios')
+import '../../styles/movies/showPage.css'
+import axios from 'axios'
 
+// error when invalid id typed in route
 
+const ShowPage = (props) => {
+  const { id: showId } = useParams()
+  const [showData, setShowData] = useState({})
 
-
-
-// replace all
-const user = (props) => {
+  useEffect(() => {
+    axios.get(`/shows/${showId}`)
+      .then((res) => setShowData(res.data))
+      // should ui if fetch fails
+      .catch((e) => console.log('show fetch error: ', e))
+  }, [showId])  
+  
   return (
-    <div className="post-container">
+    <div className="show-page-container">
+      <img 
+        className="show-page-img"
+        src={`https://image.tmdb.org/t/p/original${showData.posterPath}`}
+        alt="Show Poster"
+      />
       <div>
-        {props.title}
+        {showData.name}
       </div>
       <div>
-        {props.posterName}
+        {showData.releaseDate}
       </div>
       <div>
-        {props.body}
+        {showData.description}
       </div>
     </div>
   )
 }
 
-export default user
+export default ShowPage
