@@ -1,29 +1,41 @@
 import { useEffect, useState } from 'react'
-import Post from './Showpage'
+import ShowCard from './ShowCard'
+import axios from 'axios'
+// import Post from './ShowPage'
 
-const PostList = (props) => {
-  const [postList, setPostList] = useState([])
+const ShowList = (props) => {
+  const [showList, setshowList] = useState([])
 
   useEffect(() => {
-    fetch('/posts')
-      .then((res) => res.json())
-      .then((posts) => setPostList(posts))
-      .catch((e) => console.log('post fetch error: ', e))
-    console.log(postList)
-  })
+    axios.get('/shows')
+      .then((res) => setshowList(res.data))
+      // should ui if fetch fails
+      .catch((e) => console.log('show fetch error: ', e))
+  }, [])
+
+  // useEffect(() => {
+  //   fetch('/posts')
+  //     .then((res) => res.json())
+  //     .then((posts) => setPostList(posts))
+  //     .catch((e) => console.log('post fetch error: ', e))
+  //   console.log(postList)
+  // })
   // console
   return (
-    <div className="post-list-container">
-      {postList.map((post, i) => (
-        <Post 
-          key={i}
-          title={post.title}
-          posterName={post.poster.name}
-          body={post.body}
-        />
-      ))}
+    <div className="show-list-container">
+      {showList.length === 0
+        ? <div>error</div>
+        : showList.map((show, i) => (
+            <ShowCard 
+              key={i}
+              id={show._id}
+              posterPath={show.posterPath}
+              name={show.name}
+            />
+          ))
+        }
     </div>
   )
 }
 
-export default PostList
+export default ShowList
