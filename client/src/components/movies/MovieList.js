@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import MovieCard from './MovieCard'
-const axios = require('axios')
+import axios from 'axios'
 
 const MovieList = (props) => {
   const [movieList, setMovieList] = useState([])

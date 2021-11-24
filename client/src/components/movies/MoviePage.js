@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import '../../styles/movies/moviePage.css'
-const axios = require('axios')
+import axios from 'axios'
 
 // error when invalid id typed in route
 
