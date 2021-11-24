@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Post from './Show'
+import Post from './Showpage'
 
 const PostList = (props) => {
   const [postList, setPostList] = useState([])
