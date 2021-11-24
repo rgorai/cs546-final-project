@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { get, getAll } = require('../data/shows')
+const { get, getAll, getByGenre } = require('../data/shows')
 
 router.get('/', async (req, res) => {
   // error check
@@ -28,6 +28,25 @@ router.get('/:id', async (req, res) => {
   } catch (e) {
     res.status(500).json({ error: String(e) })
   }
+})
+
+router.get('/genre/:genre', async (req, res) => {
+  const genre = req.params.genre
+  console.log(genre);
+  // error check
+  if (typeof(genre) !== 'string' || genre.length === 0 || genre === ' '.repeat(genre.length)){
+    res.status(400).json({ error: "Genre name must be a non-empty string."})
+    return
+  }
+
+  // send requested shows by genre
+  try {
+    res.status(200).json(await getByGenre(genre))
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: String(e) })
+  }
+  
 })
 
 module.exports = router

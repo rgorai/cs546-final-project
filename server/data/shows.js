@@ -73,45 +73,27 @@ const get = async (showId) => {
   
   const getByGenre = async (genre) => {
     // error check
-    if (typeof(genre) !== 'string' || genre.length === 0 || genre === ' '.repeat(str.length))
+    if (typeof(genre) !== 'string' || genre.length === 0 || genre === ' '.repeat(genre.length))
       throw 'Error: Genre name must be a non-empty string.'
 
     // get all shows of given genre
     const showsList = await getAll()
-    
+    let showsbyGenre = []
+    showsList.forEach(e => {
 
-    // showList.forEach(e => {
+        if(e.genres.find(i => i.name === genre)){
+          showsbyGenre.push(e)
+        }
 
-    //   e.forEach(el => {
-    //     el.genres.find(i => i.name === genre)
-    //   });
-    // });
-
-    for(let i=0;i<showsList.length;i++){
-      let currObj = showsList[i];
-      let geners = currObj['genres'];
-      for(let j=0;j<geners.length;j++){
-          if(geners[j]["name"] == genre){
-            return currObj;
-          }
-      }
-    }
-    
-//Work Pending
-
-    return await shows.find({}).map((e) => ({ 
-      ...e, 
-      _id: e._id.toString(),
-    })).toArray()
-
-    // mongo
-  
+    });
+    return showsbyGenre  
   }
 
 module.exports = {
     create,
     get,
-    getAll
+    getAll,
+    getByGenre
 }
 
 //Show object example: https://api.themoviedb.org/3/tv/1668?api_key=eafd486601fa7c42b1dd9d374c56f365&language=en-US
