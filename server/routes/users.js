@@ -1,20 +1,19 @@
 const express = require('express')
-const { ConnectionPoolClosedEvent } = require('mongodb')
+const { append } = require('express/lib/response')
 const router = express.Router()
-const { create } = require('../data/users')
+const { createUser, authenticateUser } = require('../data/users')
+const { verifyToken } = require('../middleware/auth')
 
-router.post('/', async (req, res) => {
-  const { firstName, lastName, email } = req.body
-  
-  // error check
-
-  // create new user
-  try {
-    const newUser = await create(firstName, lastName, email)
-    res.status(200).json(newUser)
-  } catch (e) {
-    res.status(500).json({ error: String(e) })
-  }
+router.get('/', verifyToken, (req, res) => {
+  console.log(req.userId)
+  res.status(200).send('you are authenticated.')
 })
+
+// use verifyToken for things that need authentication:
+// adding to watchlist
+// removing from watchlist
+// creating a review
+// deleting a review
+// liking/disliking a movie
 
 module.exports = router
