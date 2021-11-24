@@ -6,15 +6,20 @@ const LoginPage = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loginRes, setLoginRes] = useState({})
+  const [loggedIn, setLoggedIn] = useState(false)
   const [error, setError] = useState({})
 
+  // handle authentication
   useEffect(() => {
-    console.log(loginRes)
-    if (loginRes.authenticated) {
+    if (ReactSession.get('userId')) {
+      setLoggedIn(true)
+      console.log('already signed in')
+    } else if (loginRes.authenticated) {
       ReactSession.set('userId', loginRes.userId)
-      console.log('authenicated')
+      console.log('authenticated')
     } else {
-      ReactSession.set('userId', null)
+      ReactSession.remove('userId')
+      setLoggedIn(false)
       console.log('not authenticated')
     }
   }, [loginRes])
@@ -25,46 +30,52 @@ const LoginPage = (props) => {
     // error check
 
     // post data to server
-    axios.post('/users/authenticate', {
+    axios.post('/auth/login', {
       username: username,
       password: password,
     }).then((res) => setLoginRes(res.data))
-      // ui error
+      // ui on error
       .catch((e) => console.error('AUTH USER POST ERROR:', e))
   }
 
+  console.log(ReactSession.get('userId'))
   return (
-    <form id="login-form" onSubmit={onFormSubmit}>
-      <label className="form-label" htmlFor="input-username">
-        Username
-      </label>
-      <input 
-        id="input-username"
-        className="form-input"
-        placeholder="Username"
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
+    <div>
+      {!loggedIn
+        ? <form id="login-form" onSubmit={onFormSubmit}>
+            <label className="form-label" htmlFor="input-username">
+              Username
+            </label>
+            <input 
+              id="input-username"
+              className="form-input"
+              placeholder="Username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
 
-      <label className="form-label" htmlFor="input-password">
-        Password
-      </label>
-      <input 
-        id="input-password"
-        className="form-input"
-        placeholder="Password"
-        type="text"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+            <label className="form-label" htmlFor="input-password">
+              Password
+            </label>
+            <input 
+              id="input-password"
+              className="form-input"
+              placeholder="Password"
+              type="text"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-      <input 
-        className="form-submit"
-        type="submit"
-        value="Login"
-      />
-    </form>
+            <input 
+              className="form-submit"
+              type="submit"
+              value="Login"
+            />
+          </form>
+        : <div>You are already signed in.</div>
+      }
+    </div>
   )
 }
 

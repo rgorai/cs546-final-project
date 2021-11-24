@@ -14,7 +14,7 @@ const NewUserForm = (props) => {
     // error check
 
     // post data to server
-    axios.post('/users', {
+    axios.post('/auth/signup', {
       firstName: firstName,
       lastName: lastName,
       email: email,
