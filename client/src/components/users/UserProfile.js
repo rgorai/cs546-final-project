@@ -18,7 +18,9 @@ const UserProfile = (props) => {
 
   return (
     <div className="user-page-container">
-      User content
+      {user
+        ? JSON.stringify(user)
+        : 'You are not signed in.'}
     </div>
   )
 }
