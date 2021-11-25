@@ -1,8 +1,11 @@
 .search-bar-container {
-  height: 30px !important;
+  height: 100% !important;
   /* padding: 5px 0 5px 0; */
 }
 
-.search-bar {
-  height: auto;
+#search-bar {
+  height: 100%;
+  border: 0;
+  padding: 0 0 0 5px;
+  outline: 1px solid black;
 }
