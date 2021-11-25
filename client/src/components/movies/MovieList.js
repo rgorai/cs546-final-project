@@ -15,7 +15,7 @@ const MovieList = (props) => {
   return (
     <div className="movie-list-container">
       {movieList.length === 0
-        ? <div>error</div>
+        ? <div>Loading</div>
         : movieList.map((movie, i) => (
             <MovieCard 
               key={i}

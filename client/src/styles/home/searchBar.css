@@ -1,0 +1,8 @@
+.search-bar-container {
+  height: 30px !important;
+  /* padding: 5px 0 5px 0; */
+}
+
+.search-bar {
+  height: auto;
+}

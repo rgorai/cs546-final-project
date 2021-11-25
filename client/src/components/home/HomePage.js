@@ -6,13 +6,7 @@ const HomePage = (props) => {
   
   return (
     <div className="home-page-container">
-      <Link to="/login">
-        Login
-      </Link>
-      <br />
-      <Link to="/signup">
-        Signup
-      </Link>
+      Home Page
     </div>
   )
 }
