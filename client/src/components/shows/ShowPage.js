@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import '../../styles/movies/showPage.css'
+import '../../styles/shows/showPage.css'
 import axios from 'axios'
 
 // error when invalid id typed in route
