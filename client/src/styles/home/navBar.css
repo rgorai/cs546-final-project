@@ -8,6 +8,10 @@
   border-bottom: 1px solid black;
 }
 
+.nav-bar-container button {
+  height: 100%;
+}
+
 .nav-bar {
   list-style-type: none;
   margin: 0;

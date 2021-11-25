@@ -9,7 +9,7 @@ const NavBar = (props) => {
   return (
     <nav className="nav-bar-container">
       <div className="website-logo">
-        <Link className="nav-item" to="/">MovieHub</Link>
+        <Link className="nav-item" to="/">MediaHub</Link>
       </div>
       <ul className="nav-bar">
         <li><Link className="nav-item" to="/">Home</Link></li>
@@ -27,6 +27,7 @@ const NavBar = (props) => {
             >
               Profile
             </button>
+
             <button 
               onClick={logout}
               type="button"
@@ -42,6 +43,7 @@ const NavBar = (props) => {
             >
               Login
             </button>
+
             <button 
               id="signup-button"
               onClick={() => navigate('/signup')}
