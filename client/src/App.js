@@ -1,3 +1,10 @@
+import { useState, useEffect } from 'react'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom'
+
 import HomePage from './components/home/HomePage'
 import NewUserForm from './components/users/NewUserForm'
 import LoginPage from './components/home/LoginPage'
@@ -5,21 +12,18 @@ import MovieList from './components/movies/MovieList'
 import ShowList from './components/shows/ShowList'
 import MoviePage from './components/movies/MoviePage'
 import UserProfile from './components/users/UserProfile'
-import { logout, getCurrUser } from './services/authService'
-import { useState, useEffect } from 'react'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
-} from 'react-router-dom'
+import NavBar from './components/home/NavBar'
+
+import { getCurrUser } from './services/authService'
+import './styles/root.css'
+
 
 const App = () => {
   const [user, setUser] = useState(false)
   
+  // get user session info
   useEffect(() => {
-    const user = getCurrUser()
-    console.log('user', user)
+    const user = getCurrUser()  
     if (user)
       setUser(user)
   }, [])
@@ -27,13 +31,7 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/movies">Movies</Link></li>
-            <li><Link to="/shows">Shows</Link></li>
-          </ul>
-        </nav>
+        <NavBar loggedIn={user} />
 
         <main>
           <Routes>
@@ -48,9 +46,9 @@ const App = () => {
           </Routes>
         </main>
 
-        <footer>
+        {/* <footer>
           <button onClick={logout}>Logout</button>
-        </footer>
+        </footer> */}
         
       </Router>
     </div>
