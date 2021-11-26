@@ -198,8 +198,8 @@ const getByGenre = async (str) => {
 }
 
 const getByName = async(str) =>{
-  console.log("in getByName");
-  console.log(str);
+  //console.log("in getByName");
+  //console.log(str);
   if(!str) throw "Must provide a movie name";
 
   checkIsString(str);
@@ -208,8 +208,11 @@ const getByName = async(str) =>{
   const movies = await movieCollection()
 
   return await movies.find({name: {$eq: str}}).toArray();
-
 }
+
+
+
+
 
 module.exports = {
   create,
