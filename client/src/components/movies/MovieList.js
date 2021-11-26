@@ -9,7 +9,7 @@ const MovieList = (props) => {
       {props.movieList.length === 0
         ? <div>Loading</div>
         : <div>
-            <label>Genre</label>
+            <label>[Genre]</label>
             <div className="movie-list-container">
               {props.movieList.map((movie, i) => (
                 <MovieCard 
