@@ -30,6 +30,7 @@ function checkIsArray(arr){
 
     for(let x of arr){
         checkIsString(x);
+        x = x.trim();
     }
 }
 
@@ -96,14 +97,14 @@ module.exports = {
         checkIsUrl(posterPath);
         checkIsUrl(video);
 
-        name = name.toLowerCase();
-        releaseDate = parseInt(releaseDate);
-        certification = certification.toLowerCase();
+        name = name.toLowerCase().trim();
+        releaseDate = parseInt(releaseDate).trim();
+        certification = certification.toLowerCase().trim();
         runtime = parseInt(runtime);
         genres = genres.map(genre => genre.toLowerCase());
-        description = description.toLowerCase();
-        posterPath = posterPath.toLowerCase();
-        video = video.toLowerCase();
+        description = description.toLowerCase().trim();
+        posterPath = posterPath.toLowerCase().trim();
+        video = video.toLowerCase().trim();
         streamingPlatforms = streamingPlatforms.map(platform => platform.toLowerCase());
 
         const movieCollection = await movies();
@@ -126,6 +127,8 @@ module.exports = {
             video: video,
             streamingPlatforms: streamingPlatforms,
             rating: 0,
+            likes: 0,
+            dislikes: 0,
             reviews: []
         };
 
@@ -175,11 +178,22 @@ module.exports = {
         if(!genre) throw "Must provide a genre";
 
         checkIsString(genre);
-        genre = genre.toLowerCase();
+        genre = genre.toLowerCase().trim();
 
         const movieCollection = await movies();
 
 
         return await movieCollection.find({genres: {$eq: genre}}).toArray();
+    },
+
+    async getByName(name){
+        if(!name) throw "Must provide a movie name";
+
+        checkIsString(name);
+        name = name.toLowerCase().trim();
+
+        const movieCollection = await movies();
+
+        return await movieCollection.find({name: {$eq: name}}).toArray();
     }
 }

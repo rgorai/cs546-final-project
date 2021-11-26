@@ -110,6 +110,8 @@ module.exports = {
             posterPath: posterPath,
             streamingPlatforms: streamingPlatforms,
             rating: 0,
+            likes: 0,
+            dislikes: 0,
             reviews: []
         };
 
@@ -164,5 +166,16 @@ module.exports = {
 
 
         return await showCollection.find({genres: {$eq: genre}}).toArray();
+    },
+
+    async getByName(name){
+        if(!name) throw "Must provide a tv show name";
+
+        checkIsString(name);
+        name = name.toLowerCase().trim();
+
+        const showCollection = await shows();
+
+        return await showCollection.find({name: {$eq: name}}).toArray();
     }
 }
