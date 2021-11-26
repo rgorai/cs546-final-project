@@ -1,5 +1,7 @@
 # cs546-final-project
 
+NOTE: Seeding the database may yield explicit results.
+
 Code Style:
  - use single-quotes except in html
  - use arrow functions

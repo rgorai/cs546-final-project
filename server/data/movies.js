@@ -15,6 +15,9 @@ const create = async (
   ) => {
   // error check
 
+  // .results.find((e) => e.iso_3166_1 === 'US') to get MPAA rating
+  // videos.results to get vids
+
   // add new movie to db
   const movies = await movieCollection()
   const insertRet = await movies.insertOne({
@@ -27,11 +30,13 @@ const create = async (
     posterPath: posterPath,
     videos: videos,
     streamingPlatforms: streamingPlatforms,
+    overallRating: 0,
+    reviews: []
   })
 
   // throw if insertion failed
   if (!insertRet.acknowledged)
-    throw 'Error: failed to add new restaurant.'
+    throw 'Error: failed to add new movie.'
 
   return await get(insertRet.insertedId.toString())
 }

@@ -20,9 +20,10 @@ const AllMoviesPage = (props) => {
       {movieList.length === 0
         ? <div>Loading</div>
         : <div>
-            <MovieList movieList={movieList.slice(0, 7)}/>
-            <MovieList movieList={movieList.slice(7, 14)}/>
-            <MovieList movieList={movieList.slice(14)}/>
+            <MovieList movieList={movieList.slice(0, 12)}/>
+            <MovieList movieList={movieList.slice(12, 25)}/>
+            <MovieList movieList={movieList.slice(25, 37)}/>
+            <MovieList movieList={movieList.slice(37)}/>
           </div>
       }
     </div>
