@@ -1,7 +1,9 @@
-import { useState, } from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { login } from '../../services/authService'
 
 const LoginPage = (props) => {
+  const navigate = useNavigate()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loginRes, setLoginRes] = useState({})
@@ -15,7 +17,10 @@ const LoginPage = (props) => {
 
     // post data to server
     const res = login(username, password)
-      .then((res) => console.log('LOGIN RES:', res))
+      .then((res) => {
+        console.log('LOGIN RES:', res)
+        navigate('/')
+      })
       // change to respond with ui
       .catch((e) => console.log('LOGIN ERROR:', e.response.data))
     // console.log('res', res)
@@ -50,11 +55,13 @@ const LoginPage = (props) => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <input 
+            <button 
               className="form-submit"
               type="submit"
-              value="Login"
-            />
+              form="login-form"
+            > 
+              Login
+            </button>
           </form>
       }
     </div>

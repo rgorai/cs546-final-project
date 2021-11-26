@@ -1,26 +1,30 @@
-import HomePage from './components/home/HomePage'
-import NewUserForm from './components/users/NewUserForm'
-import LoginPage from './components/home/LoginPage'
-import MovieList from './components/movies/MovieList'
-import ShowList from './components/shows/ShowList'
-import MoviePage from './components/movies/MoviePage'
-import ShowPage from './components/shows/ShowPage'
-import UserProfile from './components/users/UserProfile'
-import { logout, getCurrUser } from './services/authService'
 import { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from 'react-router-dom'
+
+import HomePage from './components/home/HomePage'
+import NewUserForm from './components/users/NewUserForm'
+import LoginPage from './components/home/LoginPage'
+import AllMoviesPage from './components/movies/AllMoviesPage'
+import AllshowsPage from './components/shows/AllShowsPage'
+import MoviePage from './components/movies/MoviePage'
+import ShowPage from './components/shows/ShowPage'
+import UserProfile from './components/users/UserProfile'
+import NavBar from './components/home/NavBar'
+
+import { getCurrUser } from './services/authService'
+import './styles/root.css'
+
 
 const App = () => {
   const [user, setUser] = useState(false)
   
+  // get user session info
   useEffect(() => {
-    const user = getCurrUser()
-    console.log('user', user)
+    const user = getCurrUser()  
     if (user)
       setUser(user)
   }, [])
@@ -28,13 +32,7 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/movies">Movies</Link></li>
-            <li><Link to="/shows">Shows</Link></li>
-          </ul>
-        </nav>
+        <NavBar loggedIn={user} />
 
         <main>
           <Routes>
@@ -42,16 +40,16 @@ const App = () => {
             <Route exact path="/signup" element={<NewUserForm loggedIn={user} />} />
             <Route exact path="/login" element={<LoginPage loggedIn={user} />} />
             <Route exact path="/profile" element={<UserProfile />} />
-            <Route exact path="/movies" element={<MovieList />} />
+            <Route exact path="/movies" element={<AllMoviesPage />} />
             <Route exact path="/movies/:id" element={<MoviePage />} />
-            <Route exact path="/shows" element={<ShowList />} />
+            <Route exact path="/shows" element={<AllshowsPage />} />
             <Route exact path="/shows/:id" element={<ShowPage />} />
             <Route exact path="*" element={<div>not found</div>} />
           </Routes>
         </main>
 
         <footer>
-          <button onClick={logout}>Logout</button>
+          {/* This is the footer */}
         </footer>
         
       </Router>

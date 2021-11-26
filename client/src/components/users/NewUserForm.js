@@ -92,11 +92,21 @@ const NewUserForm = (props) => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <input 
+            <button 
+              className="form-reset"
+              type="reset"
+              form="new-user-form"
+            >
+              Reset
+            </button>
+
+            <button 
               className="form-submit"
               type="submit"
-              value="Submit"
-            />
+              form="new-user-form"
+            >
+              Submit
+            </button>
           </form>
       }
     </div>

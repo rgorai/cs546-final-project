@@ -1,0 +1,32 @@
+html {
+  /* background-color: #585858; */
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  height: 100%;
+  padding: 20px;
+  overflow: hidden auto;
+}
+
+button {
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  outline: 1px solid grey;
+  transition: linear 0.15s;
+  /* will-change: outline; */
+}
+
+button:hover {
+  filter: brightness(0.8);
+  /* outline: 2px solid grey; */
+}
+
+button:active {
+  filter: brightness(0.6);
+}

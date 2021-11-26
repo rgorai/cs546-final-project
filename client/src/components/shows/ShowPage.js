@@ -20,7 +20,10 @@ const ShowPage = (props) => {
     <div className="show-page-container">
       <img 
         className="show-page-img"
-        src={`https://image.tmdb.org/t/p/original${showData.posterPath}`}
+        src={showData.posterPath
+          ? `https://image.tmdb.org/t/p/original${showData.posterPath}`
+          : process.env.PUBLIC_URL + '/images/not-found.jpg'
+        }
         alt="Show Poster"
       />
       <div>
@@ -31,6 +34,12 @@ const ShowPage = (props) => {
       </div>
       <div>
         {showData.description}
+      </div>
+      <div>
+        Total number of Seasons: {showData.number_of_seasons}
+      </div>
+      <div>
+        Total number of episodes: {showData.number_of_episodes}
       </div>
     </div>
   )
