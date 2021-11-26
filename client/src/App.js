@@ -8,7 +8,7 @@ import {
 import HomePage from './components/home/HomePage'
 import NewUserForm from './components/users/NewUserForm'
 import LoginPage from './components/home/LoginPage'
-import MovieList from './components/movies/MovieList'
+import AllMoviesPage from './components/movies/AllMoviesPage'
 import ShowList from './components/shows/ShowList'
 import MoviePage from './components/movies/MoviePage'
 import UserProfile from './components/users/UserProfile'
@@ -39,16 +39,16 @@ const App = () => {
             <Route exact path="/signup" element={<NewUserForm loggedIn={user} />} />
             <Route exact path="/login" element={<LoginPage loggedIn={user} />} />
             <Route exact path="/profile" element={<UserProfile />} />
-            <Route exact path="/movies" element={<MovieList />} />
+            <Route exact path="/movies" element={<AllMoviesPage />} />
             <Route exact path="/movies/:id" element={<MoviePage />} />
             <Route exact path="/shows" element={<ShowList />} />
             <Route exact path="*" element={<div>not found</div>} />
           </Routes>
         </main>
 
-        {/* <footer>
-          <button onClick={logout}>Logout</button>
-        </footer> */}
+        <footer>
+          {/* This is the footer */}
+        </footer>
         
       </Router>
     </div>
