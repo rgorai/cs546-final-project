@@ -20,9 +20,10 @@ const AllShowsPage = (props) => {
       {showList.length === 0
         ? <div>Loading</div>
         : <div>
-            <ShowList showList={showList.slice(0, 7)}/>
-            <ShowList showList={showList.slice(7, 14)}/>
-            <ShowList showList={showList.slice(14)}/>
+            <ShowList showList={showList.slice(0, 12)}/>
+            <ShowList showList={showList.slice(12, 25)}/>
+            <ShowList showList={showList.slice(25, 37)}/>
+            <ShowList showList={showList.slice(37)}/>
           </div>
       }
     </div>
