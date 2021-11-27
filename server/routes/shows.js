@@ -32,7 +32,6 @@ router.get('/:id', async (req, res) => {
 
 router.get('/genre/:genre', async (req, res) => {
   const genre = req.params.genre
-  console.log(genre);
   // error check
   if (typeof(genre) !== 'string' || genre.length === 0 || genre === ' '.repeat(genre.length)){
     res.status(400).json({ error: "Genre name must be a non-empty string."})

@@ -34,9 +34,9 @@ const movieReqs = {
   providers: 5
 }
 const showReqs = {
-  // poster_path: 2,
-  // overview: 2,
-  // genres: 0
+  poster_path: 2,
+  overview: 2,
+  genres: 0
 }
 
 const main = async () => {
