@@ -14,9 +14,11 @@ import MoviePage from './components/movies/MoviePage'
 import ShowPage from './components/shows/ShowPage'
 import UserProfile from './components/users/UserProfile'
 import NavBar from './components/home/NavBar'
+import SearchBar from './components/home/SearchBar'
 
 import { getCurrUser } from './services/authService'
 import './styles/root.css'
+import SearchPage from './components/search/SearchPage'
 
 
 const App = () => {
@@ -44,6 +46,8 @@ const App = () => {
             <Route exact path="/movies/:id" element={<MoviePage />} />
             <Route exact path="/shows" element={<AllshowsPage />} />
             <Route exact path="/shows/:id" element={<ShowPage />} />
+            <Route exact path="/search/:query" element={<SearchPage />} />
+
             <Route exact path="*" element={<div>not found</div>} />
           </Routes>
         </main>

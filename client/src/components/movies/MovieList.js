@@ -6,7 +6,7 @@ const MovieList = (props) => {
 
   return (
     <div>
-      {props.movieList.length === 0
+      {props.movieList && props.movieList.length === 0
         ? <div>Loading</div>
         : <div>
             <label>[Genre]</label>

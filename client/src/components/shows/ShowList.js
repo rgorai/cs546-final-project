@@ -5,7 +5,7 @@ const ShowList = (props) => {
 
   return (
     <div>
-      {props.showList.length === 0
+      {props.showList && props.showList.length === 0
         ? <div>Loading</div>
         : <div>
             <label>Genre</label>

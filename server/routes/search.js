@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 const { searchMedia } = require('../data/search')
 
-router.get('/:name', async (req, res) => {
-    const searchName = req.params.name
+router.get('/:query', async (req, res) => {
+    const searchName = req.params.query
     
     // error check
     if (typeof(searchName) !== 'string' || searchName.length === 0 || searchName === ' '.repeat(searchName.length)){
@@ -13,7 +13,8 @@ router.get('/:name', async (req, res) => {
 
     //search
     try {
-        res.status(200).json( await searchMedia(searchName))
+        let result = await searchMedia(searchName)
+        res.status(200).json(result)
     } catch (e) {
         res.status(500).json({ error: String(e) })
     }
