@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken')
 const config = require('../config/authConfig')
-const { createUser, authenticateUser } = require('../data/users')
 
 const verifyToken = (req, res, next) => {
   const { access_token } = req.headers
