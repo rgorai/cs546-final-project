@@ -11,7 +11,7 @@ const constructorMethod = (app) => {
   app.use('/reviews', reviewRoutes)
   app.use('/users', userRoutes)
   app.use('/auth', authRoutes)
-  app.use('./search', searchRoutes)
+  app.use('/search', searchRoutes)
 
   app.use('*', (req, res) => {
     res.sendStatus(404)
