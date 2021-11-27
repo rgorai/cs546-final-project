@@ -29,126 +29,100 @@ const tmdbRequest = async (url) => {
   try {
     const { data } = await axios.get(url)
     return data
-  } catch(e) {
-    throw 'TMDB '+ String(e)
+  } catch (e) {
+    throw 'TMDB ' + String(e)
   }
-}
-
-/* 
- * API data requirements:
- * This is to help populate the database with more complete data (less empty fields)
- * This will only work with top-level properties of the API response
- * 
- * Format: 
- * {
- *  property_name: N = maximum number of empty values allowed
- * }
- * 
- * Ex:
- * {
- *  poster_path: 5
- * }
- * There will be a maximum of 5 movies with no poster_path added
- * 
-*/
-const movieReqs = {
-  poster_path: 2,
-  overview: 2,
-  genres: 0
-}
-const showReqs = {
-  // poster_path: 2,
-  // overview: 2,
-  // genres: 0
 }
 
 const getMediaData = async (
   numMedia,
-  allMedia, 
-  mediaReqs, 
-  getMedia, 
+  allMedia,
+  mediaReqs,
+  getMedia,
   getMediaProviders,
   propsToAdd
-  ) => {
+) => {
   const media = []
 
   for (let i = 0; i < numMedia; i++) {
     const mediaId = allMedia[Math.floor(Math.random() * allMedia.length)].id
     const mediaRes = await getMedia(mediaId)
-    
+
     // check reqs
     let skip = false
     for (const k of Object.keys(mediaReqs))
-      if (!mediaRes[k] || 
-          ((typeof(mediaRes[k]) === 'string' || Array.isArray(mediaRes[k]))
-            && mediaRes[k].length === 0))
-        if (mediaReqs[k] > 0)
-          mediaReqs[k]--
+      if (
+        k !== 'providers' &&
+        (!mediaRes[k] ||
+          ((typeof mediaRes[k] === 'string' || Array.isArray(mediaRes[k])) &&
+            mediaRes[k].length === 0))
+      )
+        if (mediaReqs[k] > 0) mediaReqs[k]--
         else {
           i--
           skip = true
           break
         }
-    if (skip)
-      continue
+    if (skip) continue
 
-    // console.log(mediaRes.poster_path, mediaRes.overview ? 'overview' : '', mediaRes.genres.length === 0)
-
-    // const mediaProviders = await getMediaProviders(mediaId)
+    const mediaProviders = await getMediaProviders(mediaId)
+    if (!mediaProviders.results.US)
+      if (mediaReqs.providers > 0) mediaReqs.providers--
+      else {
+        i--
+        continue
+      }
 
     // add media to return
     media.push(propsToAdd.map((k) => mediaRes[k]))
+    media[media.length - 1].push(mediaProviders.results.US)
+
     process.stdout.write('|')
   }
 
   return media
 }
 
-const getMovieData = async (numMedia) => {
-  return await getMediaData(numMedia, allMovies, movieReqs, getMovie, getMovieProviders, [
-    'original_title',
-    'release_date',
-    'release_dates',
-    'runtime',
-    'genres',
-    'overview',
-    'poster_path',
-    'videos',
-    // movieProviders.results
-  ])
+const getMovieData = async (numMedia, mediaReqs) => {
+  return await getMediaData(
+    numMedia,
+    allMovies,
+    mediaReqs,
+    getMovie,
+    getMovieProviders,
+    [
+      'original_title',
+      'release_date',
+      'release_dates',
+      'runtime',
+      'genres',
+      'overview',
+      'poster_path',
+      'videos',
+    ]
+  )
 }
 
-const getShowData = async (numMedia) => {
-  return await getMediaData(numMedia, allShows, showReqs, getShow, getShowProviders, [
-    'name',
-    'first_air_date',
-    'overview',
-    'number_of_seasons',
-    'number_of_episodes',
-    'genres',
-    'poster_path',
-    // showProviders.results
-  ])
-
-  // return [
-  //   'name',
-  //   'first_air_date',
-  //   'overview',
-  //   'number_of_seasons',
-  //   'number_of_episodes',
-  //   'genres',
-  //   'poster_path',
-  // ]
+const getShowData = async (numMedia, mediaReqs) => {
+  return await getMediaData(
+    numMedia,
+    allShows,
+    mediaReqs,
+    getShow,
+    getShowProviders,
+    [
+      'name',
+      'first_air_date',
+      'overview',
+      'number_of_seasons',
+      'number_of_episodes',
+      'genres',
+      'poster_path',
+    ]
+  )
 }
 
 module.exports = {
   getMovieData,
   getShowData,
-
-  getMovie, 
-  getMovieProviders, 
-  getShow, 
-  getShowProviders, 
-  allMovies, 
-  allShows 
 }
