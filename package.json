@@ -1,0 +1,31 @@
+{
+  "name": "cs546-final-project",
+  "version": "1.0.0",
+  "description": "cs546-final-project",
+  "main": "index.js",
+  "scripts": {
+    "start": "echo \"Error: no test specified\" && exit 1",
+    "precommit": "lint-staged",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rgorai/cs546-final-project.git"
+  },
+  "author": "cs546-group5",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rgorai/cs546-final-project/issues"
+  },
+  "homepage": "https://github.com/rgorai/cs546-final-project#readme",
+  "dependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2",
+    "prettier": "^2.5.0"
+  }
+}
