@@ -1,13 +1,13 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "cs-546-group5-final-project server",
+  "description": "cs546-group5-final-project-server",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
     "seed": "node ./tasks/seed.js"
   },
-  "author": "Group 5",
+  "author": "cs546-group5",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
