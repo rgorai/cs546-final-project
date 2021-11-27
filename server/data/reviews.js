@@ -117,6 +117,44 @@ const remove = async (reviewId) => {
   }
 }
 
+const updateReview = async (
+  userId,
+  reviewId,
+  contentId,
+  dateOfReview,
+  review,
+  like_dislike
+) => {
+  const parsedUserId = ObjectId(userId)
+  const parsedReviewId = ObjectId(reviewId)
+  const users = await userCollection()
+  const user = await users.findOne({ reviews_id: parsedReviewId })
+
+  const updatedReview = {
+    _id: parsedReviewId,
+    reviewerId: parsedUserId,
+    reviewer: user.username,
+    contentId: contentId,
+    dateOfReview: dateOfReview,
+    review: review,
+    like_dislike: like_dislike,
+  }
+
+  const updatedInfo = await users.updateOne(
+    { _id: parsedUserId },
+    { $set: updatedReview }
+  )
+
+  if (updatedInfo.modifiedCount !== 1) {
+    throwError(
+      ErrorCode.INTERNAL_SERVER_ERROR,
+      'Error: Could not update restaurant.'
+    )
+  }
+
+  return user
+}
+
 const getAverageOfRestaurantRatings = (reviews) => {
   let totalCount = 0
   let sum = 0
