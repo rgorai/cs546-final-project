@@ -5,6 +5,30 @@ const shows = mongoCollections.shows;
 const movies = mongoCollections.movies;
 
 //create review for a specific userId
+
+const updateCollection = async (collection) => {
+
+    collection.reviews.push(newReview);
+
+    const updatedInfo = await collection.updateOne(
+        { _id: ObjectId(collection._id) },
+        {
+            $push: { reviews: newReview },
+            $set: { overallRating: newOverallRating },
+        }
+    );
+
+    if (updatedInfo.modifiedCount !== 1) {
+        throwError(
+            ErrorCode.INTERNAL_SERVER_ERROR,
+            "Error: Could not add review."
+        );
+    }
+
+    return await getReview(newReview._id);
+
+}
+
 const createReview = async (
     _id,
     reviewerId,
@@ -42,45 +66,13 @@ const createReview = async (
         };
 
         if (!movie) {
-            show.reviews.push(newReview);
-
-            const updatedInfo = await show.updateOne(
-                { _id: ObjectId(show._id) },
-                {
-                    $push: { reviews: newReview },
-                    $set: { overallRating: newOverallRating },
-                }
-            );
-
-            if (updatedInfo.modifiedCount !== 1) {
-                throwError(
-                    ErrorCode.INTERNAL_SERVER_ERROR,
-                    "Error: Could not add review."
-                );
-            }
-
-            return await getReview(newReview._id);
+            updateCollection(shows);
+            updateCollection(users);
         }
 
         if (!show) {
-            movie.reviews.push(newReview);
-
-            const updatedInfo = await movie.updateOne(
-                { _id: ObjectId(movie._id) },
-                {
-                    $push: { reviews: newReview },
-                    $set: { overallRating: newOverallRating },
-                }
-            );
-
-            if (updatedInfo.modifiedCount !== 1) {
-                throwError(
-                    ErrorCode.INTERNAL_SERVER_ERROR,
-                    "Error: Could not add review."
-                );
-            }
-
-            return await getReview(newReview._id);
+            updateCollection(movies);
+            updateCollection(users);
         }
     } catch (error) {
         throwCatchError(error);
