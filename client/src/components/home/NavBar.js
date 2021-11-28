@@ -6,37 +6,45 @@ import '../../styles/home/navBar.css'
 const NavBar = (props) => {
   const navigate = useNavigate()
 
+  const navLinks = [
+    { name: 'Home', link: '/' },
+    { name: 'Movies', link: '/movies' },
+    { name: 'Shows', link: '/shows' },
+  ]
+
   return (
     <nav className="nav-bar-container">
       <div className="website-logo">
-        <Link className="nav-item" to="/">MediaHub</Link>
+        <Link className="nav-item" to="/">
+          MediaHub
+        </Link>
       </div>
       <ul className="nav-bar">
-        <li><Link className="nav-item" to="/">Home</Link></li>
-        <li><Link className="nav-item" to="/movies">Movies</Link></li>
-        <li><Link className="nav-item" to="/shows">Shows</Link></li>
+        {navLinks.map((e) => (
+          <li>
+            <Link className="nav-item" to={e.link}>
+              {e.name}
+            </Link>
+          </li>
+        ))}
       </ul>
-      
+
       <SearchBar />
 
-      {props.loggedIn
-        ? <div>
-            <button 
-              onClick={() => navigate('/profile')}
-              type="button"
-            >
+      <div className="nav-bar-button container">
+        {props.loggedIn ? (
+          <>
+            <button onClick={() => navigate('/profile')} type="button">
               Profile
             </button>
 
-            <button 
-              onClick={logout}
-              type="button"
-            >
+            <button onClick={logout} type="button">
               Logout
             </button>
-          </div>
-        : <div>
-            <button 
+          </>
+        ) : (
+          <>
+            <button
               id="login-button"
               onClick={() => navigate('/login')}
               type="button"
@@ -44,15 +52,16 @@ const NavBar = (props) => {
               Login
             </button>
 
-            <button 
+            <button
               id="signup-button"
               onClick={() => navigate('/signup')}
               type="button"
             >
               Sign Up
             </button>
-          </div>
-      }  
+          </>
+        )}
+      </div>
     </nav>
   )
 }
