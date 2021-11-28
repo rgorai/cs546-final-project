@@ -1,29 +1,33 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import '../../styles/movies/moviePage.css'
-// import notFound from '../../../public/not-found.jpg'
 import axios from 'axios'
+
+import ApiError from '../errors/ApiError'
+import '../../styles/movies/moviePage.css'
 
 // error when invalid id typed in route
 
 const MoviePage = (props) => {
   const { id: movieId } = useParams()
   const [movieData, setMovieData] = useState(null)
+  const [error, setError] = useState(null)
 
+  // request server with given movie id
   useEffect(() => {
     axios
       .get(`/movies/${movieId}`)
       .then((res) => setMovieData(res.data))
-      // should ui if fetch fails
-      .catch((e) => console.log('movie fetch error: ', e))
+      .catch((e) => setError(e.response))
   }, [movieId])
 
   return (
-    <div className="movie-page-container">
-      {!movieData ? (
+    <>
+      {!movieData && !error ? (
         <div>Loading</div>
+      ) : error ? (
+        <ApiError status={error.status} statusMessage={error.statusText} />
       ) : (
-        <>
+        <div className="movie-page-container">
           <img
             className="movie-page-img"
             src={
@@ -37,9 +41,9 @@ const MoviePage = (props) => {
           <div className="movie-year">{movieData.releaseDate}</div>
           <div className="movie-mpa-rating">{movieData.mpaRating}</div>
           <div className="movie-description">{movieData.description}</div>
-        </>
+        </div>
       )}
-    </div>
+    </>
   )
 }
 

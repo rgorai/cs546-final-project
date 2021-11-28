@@ -6,6 +6,12 @@ import '../../styles/home/navBar.css'
 const NavBar = (props) => {
   const navigate = useNavigate()
 
+  const navLinks = [
+    { name: 'Home', link: '/' },
+    { name: 'Movies', link: '/movies' },
+    { name: 'Shows', link: '/shows' },
+  ]
+
   return (
     <nav className="nav-bar-container">
       <div className="website-logo">
@@ -14,21 +20,13 @@ const NavBar = (props) => {
         </Link>
       </div>
       <ul className="nav-bar">
-        <li>
-          <Link className="nav-item" to="/">
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link className="nav-item" to="/movies">
-            Movies
-          </Link>
-        </li>
-        <li>
-          <Link className="nav-item" to="/shows">
-            Shows
-          </Link>
-        </li>
+        {navLinks.map((e) => (
+          <li>
+            <Link className="nav-item" to={e.link}>
+              {e.name}
+            </Link>
+          </li>
+        ))}
       </ul>
 
       <SearchBar />

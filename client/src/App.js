@@ -1,9 +1,5 @@
 import { useState, useEffect } from 'react'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import HomePage from './components/home/HomePage'
 import NewUserForm from './components/users/NewUserForm'
@@ -13,19 +9,18 @@ import ShowList from './components/shows/ShowList'
 import MoviePage from './components/movies/MoviePage'
 import UserProfile from './components/users/UserProfile'
 import NavBar from './components/home/NavBar'
+import ApiError from './components/errors/ApiError'
 
 import { getCurrUser } from './services/authService'
 import './styles/root.css'
 
-
 const App = () => {
   const [user, setUser] = useState(false)
-  
+
   // get user session info
   useEffect(() => {
-    const user = getCurrUser()  
-    if (user)
-      setUser(user)
+    const user = getCurrUser()
+    if (user) setUser(user)
   }, [])
 
   return (
@@ -36,20 +31,29 @@ const App = () => {
         <main>
           <Routes>
             <Route exact path="/" element={<HomePage />} />
-            <Route exact path="/signup" element={<NewUserForm loggedIn={user} />} />
-            <Route exact path="/login" element={<LoginPage loggedIn={user} />} />
+            <Route
+              exact
+              path="/signup"
+              element={<NewUserForm loggedIn={user} />}
+            />
+            <Route
+              exact
+              path="/login"
+              element={<LoginPage loggedIn={user} />}
+            />
             <Route exact path="/profile" element={<UserProfile />} />
             <Route exact path="/movies" element={<AllMoviesPage />} />
             <Route exact path="/movies/:id" element={<MoviePage />} />
             <Route exact path="/shows" element={<ShowList />} />
-            <Route exact path="*" element={<div>not found</div>} />
+            <Route
+              exact
+              path="*"
+              element={<ApiError status="404" statusMessage="Not Found" />}
+            />
           </Routes>
         </main>
 
-        <footer>
-          {/* This is the footer */}
-        </footer>
-        
+        <footer>{/* This is the footer */}</footer>
       </Router>
     </div>
   )
