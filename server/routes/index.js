@@ -9,7 +9,7 @@ const constructorMethod = (app) => {
   app.use('/movies', movieRoutes)
   app.use('/shows', showRoutes)
   app.use('/reviews', reviewRoutes)
-  app.use('/users', userRoutes)
+  app.use('/user', userRoutes)
   app.use('/auth', authRoutes)
   app.use('/search', searchRoutes)
 

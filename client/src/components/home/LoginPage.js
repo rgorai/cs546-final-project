@@ -27,44 +27,41 @@ const LoginPage = (props) => {
   }
 
   return (
-    <div>
-      {props.loggedIn
-        ? <div>You are already signed in.</div>
-        : <form id="login-form" onSubmit={onFormSubmit}>
-            <label className="form-label" htmlFor="input-username">
-              Username
-            </label>
-            <input 
-              id="input-username"
-              className="form-input"
-              placeholder="Username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+    <>
+      {props.loggedIn ? (
+        <div>You are already signed in.</div>
+      ) : (
+        <form id="login-form" onSubmit={onFormSubmit}>
+          <label className="form-label" htmlFor="input-username">
+            Username
+          </label>
+          <input
+            id="input-username"
+            className="form-input"
+            placeholder="Username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
 
-            <label className="form-label" htmlFor="input-password">
-              Password
-            </label>
-            <input 
-              id="input-password"
-              className="form-input"
-              placeholder="Password"
-              type="text"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+          <label className="form-label" htmlFor="input-password">
+            Password
+          </label>
+          <input
+            id="input-password"
+            className="form-input"
+            placeholder="Password"
+            type="text"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-            <button 
-              className="form-submit"
-              type="submit"
-              form="login-form"
-            > 
-              Login
-            </button>
-          </form>
-      }
-    </div>
+          <button className="form-submit" type="submit" form="login-form">
+            Login
+          </button>
+        </form>
+      )}
+    </>
   )
 }
 
