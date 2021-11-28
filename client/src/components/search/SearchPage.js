@@ -24,9 +24,16 @@ const SearchPage = (props) => {
         {!searchList
           ? <div>No Result found!</div>
           : <div>
-              <MovieList movieList={searchList.movieResult}/>
-              <ShowList showList={searchList.showResult}/>
-
+              {(searchList.movieResult.length > 0) ? 
+                <MovieList genre="Movie Search Result" movieList={searchList.movieResult}/>
+                :
+                <MovieList genre="No search result for movies!" movieList={searchList.movieResult}/>
+              }
+              {(searchList.showResult.length > 0) ? 
+                <ShowList genre="Show Search Result" showList={searchList.showResult}/>
+                :
+                <ShowList genre="No search result for shows!" showList={searchList.showResult}/>
+              }
             </div>
         }
       </div>

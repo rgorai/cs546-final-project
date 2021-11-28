@@ -5,7 +5,7 @@ const ShowList = (props) => {
 
   return (
     <>
-      <label>[Genre]</label>
+      <label>{props.genre ? props.genre :"[Genre]"}</label>
       <div className="show-list-container">
         {props.showList.map((show, i) => (
           <ShowCard
