@@ -1,12 +1,17 @@
 const express = require('express')
-const { append } = require('express/lib/response')
 const router = express.Router()
-const { createUser, authenticateUser } = require('../data/users')
 const { verifyToken } = require('../middleware/auth')
+const { getUser } = require('../data/users')
 
-router.get('/', verifyToken, (req, res) => {
-  // console.log(req.userId)
-  res.status(200).send('you are authenticated.')
+router.get('/profile', verifyToken, async (req, res) => {
+  // error check
+
+  // get user info
+  try {
+    res.status(200).json(await getUser(req.userId))
+  } catch (e) {
+    res.status(404).send('User Error')
+  }
 })
 
 // use verifyToken for things that need authentication:
