@@ -19,8 +19,7 @@ let searchResult = {}
 searchResult['movieResult'] = await movieList.find({name: {$regex: `${query}`, $options:'i'}}).toArray()
 searchResult['showResult'] = await showsList.find({name: {$regex: `${query}`, $options:'i'}}).toArray()
 
-if (searchResult.movieResult.length === 0 && searchResult.showResult.length === 0)
-    throw 'No result found!'
+
 
 return searchResult
 }

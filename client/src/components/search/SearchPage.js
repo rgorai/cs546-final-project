@@ -16,12 +16,13 @@ const SearchPage = (props) => {
             setSearchList(res.data)})
         // should ui if fetch fails
         .catch((e) => console.log('search fetch error: ', e))
-    }, [])
+    }, [searchName])
       
     return (
-      <div className="search-page-container">
+      <>
+      {searchList && <div className="search-page-container">
         {/* will be mapped to search result */}
-        {!searchList
+        {(searchList.movieResult.length === 0 && searchList.showResult.length === 0)
           ? <div>No Result found!</div>
           : <div>
               {(searchList.movieResult.length > 0) ? 
@@ -36,7 +37,8 @@ const SearchPage = (props) => {
               }
             </div>
         }
-      </div>
+      </div>}
+      </>
     )
   }
   

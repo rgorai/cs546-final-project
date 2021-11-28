@@ -4,7 +4,6 @@ const { searchMedia } = require('../data/search')
 
 router.get('/:query', async (req, res) => {
     const searchName = req.params.query
-    
     // error check
     if (typeof(searchName) !== 'string' || searchName.length === 0 || searchName === ' '.repeat(searchName.length)){
         res.status(400).json({ error: "Name must be a non-empty string."})
