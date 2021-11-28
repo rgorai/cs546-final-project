@@ -20,12 +20,12 @@ const UserProfile = (props) => {
 
   return (
     <>
-      {!user && !error ? (
-        <div>Loading</div>
-      ) : error ? (
+      {error ? (
         <ApiError status={error.status} statusMessage={error.statusText} />
-      ) : (
+      ) : user ? (
         <div className="user-page-container">{JSON.stringify(user)}</div>
+      ) : (
+        <div>Loading</div>
       )}
     </>
   )

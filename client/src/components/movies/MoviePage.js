@@ -22,11 +22,9 @@ const MoviePage = (props) => {
 
   return (
     <>
-      {!movieData && !error ? (
-        <div>Loading</div>
-      ) : error ? (
+      {error ? (
         <ApiError status={error.status} statusMessage={error.statusText} />
-      ) : (
+      ) : movieData ? (
         <div className="movie-page-container">
           <img
             className="movie-page-img"
@@ -42,6 +40,8 @@ const MoviePage = (props) => {
           <div className="movie-mpa-rating">{movieData.mpaRating}</div>
           <div className="movie-description">{movieData.description}</div>
         </div>
+      ) : (
+        <div>Loading</div>
       )}
     </>
   )
