@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const { get, getAll, getByGenre } = require('../data/shows')
 
+
+//route to get all tv shows
 router.get('/', async (req, res) => {
   // error check
 
@@ -13,6 +15,7 @@ router.get('/', async (req, res) => {
   }
 })
 
+//route to get tv shows of a specific id
 router.get('/:id', async (req, res) => {
   const showId = req.params.id
 
@@ -34,6 +37,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+//route to get tv show of a specific name
 router.get('/name/:name', async (req, res) => {
   try {
     let show = await getByName(req.params.name)
@@ -43,6 +47,7 @@ router.get('/name/:name', async (req, res) => {
   }
 })
 
+//route to get all tv shows of a specific genre
 router.get('/genre/:genre', async (req, res) => {
   try {
     let show = await getByGenre(req.params.genre)

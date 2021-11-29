@@ -116,6 +116,7 @@ const create = async (
   return await get(insertRet.insertedId.toString())
 }
 
+//func to get tv shows with id
 const get = async (showId) => {
   // error check
   if (
@@ -141,6 +142,7 @@ const get = async (showId) => {
   return { ...show, _id: show._id.toString() }
 }
 
+//func to get all tv shows
 const getAll = async (x) => {
   // error check
   if (typeof x !== 'undefined') throw 'Error: no parameters should be given.'
@@ -156,6 +158,7 @@ const getAll = async (x) => {
     .toArray()
 }
 
+//func to get all tv shows of a particular genre
 const getByGenre = async (str) => {
   // error check
   //console.log("in genre");
@@ -179,6 +182,7 @@ const getByGenre = async (str) => {
   return showsbyGenre
 }
 
+//func to get tv show of a specific name
 const getByName = async (str) => {
   if (!str) throw 'Must provide a name'
   checkIsString(str)

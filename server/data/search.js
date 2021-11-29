@@ -7,6 +7,7 @@ const { ObjectId } = require('mongodb')
 
 //collection.find({name: `/${query}/i`}).toArray();
 
+//func to search movies and tv shows of a specific keyword entered in the search bar
 const searchMedia = async (query) => {
   // error check
   if (
