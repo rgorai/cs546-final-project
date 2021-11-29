@@ -4,10 +4,9 @@ import { login } from '../../services/authService'
 
 const LoginPage = (props) => {
   const navigate = useNavigate()
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [loginRes, setLoginRes] = useState({})
-  const [error, setError] = useState({})
+  const [username, setUsername] = useState(null)
+  const [password, setPassword] = useState(null)
+  const [error, setError] = useState(null)
 
   const onFormSubmit = (e) => {
     e.preventDefault()
@@ -16,14 +15,12 @@ const LoginPage = (props) => {
     // try using 'validations'
 
     // post data to server
-    const res = login(username, password)
-      .then((res) => {
-        console.log('LOGIN RES:', res)
+    login(username, password)
+      .then((_) => {
         navigate('/')
+        window.location.reload()
       })
-      // change to respond with ui
-      .catch((e) => console.log('LOGIN ERROR:', e.response.data))
-    // console.log('res', res)
+      .catch((e) => setError(e.response))
   }
 
   return (
