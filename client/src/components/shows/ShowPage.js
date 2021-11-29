@@ -19,7 +19,7 @@ const ShowPage = (props) => {
       .then((res) => setShowData(res.data))
       .catch((e) => setError(e.response))
   }, [showId])
-  
+
   return (
     <>
       {error ? (
@@ -38,8 +38,12 @@ const ShowPage = (props) => {
           <div className="show-name">{showData.name}</div>
           <div className="show-year">{showData.releaseDate}</div>
           <div className="show-description">{showData.description}</div>
-          <div className="show-seasons">Total number of Seasons: {showData.number_of_seasons}</div>
-          <div className="show-episodes">Total number of episodes: {showData.number_of_episodes}</div>
+          <div className="show-seasons">
+            Total number of Seasons: {showData.number_of_seasons}
+          </div>
+          <div className="show-episodes">
+            Total number of episodes: {showData.number_of_episodes}
+          </div>
         </div>
       ) : (
         <div>Loading</div>

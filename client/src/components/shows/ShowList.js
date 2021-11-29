@@ -2,10 +2,9 @@ import ShowCard from './ShowCard'
 import '../../styles/shows/showList.css'
 
 const ShowList = (props) => {
-
   return (
     <>
-      <label>{props.genre ? props.genre :"[Genre]"}</label>
+      <label>{props.genre ? props.genre : '[Genre]'}</label>
       <div className="show-list-container">
         {props.showList.map((show, i) => (
           <ShowCard
@@ -19,6 +18,5 @@ const ShowList = (props) => {
     </>
   )
 }
-
 
 export default ShowList

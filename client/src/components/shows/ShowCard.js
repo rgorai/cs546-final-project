@@ -5,11 +5,12 @@ const ShowCard = (props) => {
   return (
     <div className="show-card-container">
       <Link to={`/shows/${props.id}`}>
-        <img 
+        <img
           className="show-card-img"
-          src={props.posterPath
-            ? `https://image.tmdb.org/t/p/original${props.posterPath}`
-            : process.env.PUBLIC_URL + '/images/not-found.jpg'
+          src={
+            props.posterPath
+              ? `https://image.tmdb.org/t/p/original${props.posterPath}`
+              : process.env.PUBLIC_URL + '/images/not-found.jpg'
           }
           alt={`'${props.name}' Show Poster`}
         />

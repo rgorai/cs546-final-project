@@ -16,7 +16,7 @@ const AllShowsPage = (props) => {
       // should ui if fetch fails
       .catch((e) => setError(e.response))
   }, [])
-   
+
   return (
     <>
       {/* will be mapped to list of shows grouped by genre */}
@@ -24,10 +24,10 @@ const AllShowsPage = (props) => {
         <ApiError status={error.status} statusMessage={error.statusText} />
       ) : showList ? (
         <div className="shows-page-container">
-            <ShowList showList={showList.slice(0, 12)}/>
-            <ShowList showList={showList.slice(12, 25)}/>
-            <ShowList showList={showList.slice(25, 37)}/>
-            <ShowList showList={showList.slice(37)}/>
+          <ShowList showList={showList.slice(0, 12)} />
+          <ShowList showList={showList.slice(12, 25)} />
+          <ShowList showList={showList.slice(25, 37)} />
+          <ShowList showList={showList.slice(37)} />
         </div>
       ) : (
         <div>Loading</div>
@@ -35,6 +35,5 @@ const AllShowsPage = (props) => {
     </>
   )
 }
-
 
 export default AllShowsPage
