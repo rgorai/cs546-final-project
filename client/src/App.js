@@ -5,14 +5,17 @@ import HomePage from './components/home/HomePage'
 import NewUserForm from './components/users/NewUserForm'
 import LoginPage from './components/home/LoginPage'
 import AllMoviesPage from './components/movies/AllMoviesPage'
-import ShowList from './components/shows/ShowList'
+import AllshowsPage from './components/shows/AllShowsPage'
 import MoviePage from './components/movies/MoviePage'
+import ShowPage from './components/shows/ShowPage'
 import UserProfile from './components/users/UserProfile'
 import NavBar from './components/home/NavBar'
+import SearchBar from './components/home/SearchBar'
 import ApiError from './components/errors/ApiError'
 
 import { getCurrUser } from './services/authService'
 import './styles/root.css'
+import SearchPage from './components/search/SearchPage'
 
 const App = () => {
   const [user, setUser] = useState(false)
@@ -44,7 +47,9 @@ const App = () => {
             <Route exact path="/profile" element={<UserProfile />} />
             <Route exact path="/movies" element={<AllMoviesPage />} />
             <Route exact path="/movies/:id" element={<MoviePage />} />
-            <Route exact path="/shows" element={<ShowList />} />
+            <Route exact path="/shows" element={<AllshowsPage />} />
+            <Route exact path="/shows/:id" element={<ShowPage />} />
+            <Route exact path="/search/:query" element={<SearchPage />} />
             <Route
               exact
               path="*"

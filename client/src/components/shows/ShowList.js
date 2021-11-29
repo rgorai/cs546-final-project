@@ -1,29 +1,22 @@
-import { useEffect, useState } from 'react'
-import Post from './Show'
+import ShowCard from './ShowCard'
+import '../../styles/shows/showList.css'
 
-const PostList = (props) => {
-  const [postList, setPostList] = useState([])
-
-  useEffect(() => {
-    fetch('/posts')
-      .then((res) => res.json())
-      .then((posts) => setPostList(posts))
-      .catch((e) => console.log('post fetch error: ', e))
-    console.log(postList)
-  })
-  // console
+const ShowList = (props) => {
   return (
-    <div className="post-list-container">
-      {postList.map((post, i) => (
-        <Post 
-          key={i}
-          title={post.title}
-          posterName={post.poster.name}
-          body={post.body}
-        />
-      ))}
-    </div>
+    <>
+      <label>{props.genre ? props.genre : '[Genre]'}</label>
+      <div className="show-list-container">
+        {props.showList.map((show, i) => (
+          <ShowCard
+            key={i}
+            id={show._id}
+            posterPath={show.posterPath}
+            name={show.name}
+          />
+        ))}
+      </div>
+    </>
   )
 }
 
-export default PostList
+export default ShowList

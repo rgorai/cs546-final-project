@@ -5,13 +5,13 @@ const NUM_MEDIA = 10
 // think about including backdrop on moviepage
 
 const main = async () => {
-    // get movie data
-    console.log(await getMovieData(NUM_MEDIA))
+  // get movie data
+  console.log(await getMovieData(NUM_MEDIA))
 
-    // get show data
-    const s = 'hello'
+  // get show data
+  const s = 'hello'
 }
 
 main().catch((e) => {
-    console.error(e)
+  console.error(e)
 })
