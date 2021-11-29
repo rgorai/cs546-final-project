@@ -16,6 +16,11 @@ const SearchBar = (props) => {
         value = {query}
         placeholder="Search movies and shows"
         onChange={e => setQuery(e.target.value)}
+        onKeyPress = {(event) => { 
+          console.log('key pressed');
+          if(event.code === "Enter"){
+            if(query && query.trim().length > 0) navigate(`/search/${query}`)}}
+          } 
       />
       <button 
         type="reset"
@@ -26,7 +31,6 @@ const SearchBar = (props) => {
       <button
         id="search-button"
         type="submit"
-        // onSubmit={() => { if(query && query.trim().length > 0) navigate(`/search/${query}`)} }
         onClick={() =>{ if(query && query.trim().length > 0) navigate(`/search/${query}`)}}
       >
         Search
