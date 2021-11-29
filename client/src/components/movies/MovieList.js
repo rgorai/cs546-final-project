@@ -6,7 +6,7 @@ const MovieList = (props) => {
 
   return (
     <>
-      <label>[Genre]</label>
+      <label>{props.genre ? props.genre : '[Genre]'}</label>
       <div className="movie-list-container">
         {props.movieList.map((movie, i) => (
           <MovieCard

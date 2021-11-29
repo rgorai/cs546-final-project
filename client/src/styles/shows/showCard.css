@@ -1,0 +1,9 @@
+.show-card-container {
+  width: min-content;
+  height: 300px;
+  border-radius: 10px;
+}
+
+.show-card-img {
+  height: 100%;
+}
