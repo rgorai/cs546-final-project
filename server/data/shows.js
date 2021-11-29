@@ -27,11 +27,13 @@ const create = async (
         posterPath : posterPath,
         streamingPlatforms : streamingPlatforms,
         overallRating : 0, //initializing overallRating to be 0 when a show is created
-        review : [] //initializing review as empty array
+        reviews : [] //initializing review as empty array
     }
   // throw if insertion failed
     const insertRet = await shows.insertOne(newShow)
-    if (insertRet.insertedCount === 0) throw 'Could not add show'
+    if (insertRet.insertedCount === 0) throw 'Error: failed to add new show.'
+
+    return await get(insertRet.insertedId.toString())
 }
 
 const get = async (showId) => {
@@ -69,24 +71,30 @@ const get = async (showId) => {
     })).toArray()
   }
   
-  const getByGenre = async (str) => {
+  const getByGenre = async (genre) => {
     // error check
-    if (typeof(str) !== 'string' || str.length === 0 || str === ' '.repeat(str.length))
+    if (typeof(genre) !== 'string' || genre.length === 0 || genre === ' '.repeat(genre.length))
       throw 'Error: Genre name must be a non-empty string.'
 
     // get all shows of given genre
-
-    // mongo
-  
+    const showsList = await getAll()
+    let showsbyGenre = []
+    showsList.forEach(e => {
+        if(e.genres.find(i => i.name === genre)){
+          showsbyGenre.push(e)
+        }
+    });
+    return showsbyGenre  
   }
 
 module.exports = {
     create,
     get,
-    getAll
+    getAll,
+    getByGenre
 }
 
 //Show object example: https://api.themoviedb.org/3/tv/1668?api_key=eafd486601fa7c42b1dd9d374c56f365&language=en-US
 //Show Provider Object example: https://api.themoviedb.org/3/tv/1668/watch/providers?api_key=31cc954c3de9a91aecd102e07e4d4707
-//Movie object exmple: https://api.themoviedb.org/3/movie/18?api_key=31cc954c3de9a91aecd102e07e4d4707&append_to_response=videos,release_dates
-
+//Movie object example: https://api.themoviedb.org/3/movie/18?api_key=31cc954c3de9a91aecd102e07e4d4707&append_to_response=videos,release_dates
+//Show provider object example: https://api.themoviedb.org/3/tv/1668/watch/providers?api_key=31cc954c3de9a91aecd102e07e4d4707

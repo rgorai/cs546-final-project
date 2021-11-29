@@ -3,6 +3,7 @@ const showRoutes = require('./shows')
 const reviewRoutes = require('./reviews')
 const userRoutes = require('./users')
 const authRoutes = require('./auth')
+const searchRoutes = require('./search')
 
 const constructorMethod = (app) => {
   app.use('/movies', movieRoutes)
@@ -10,6 +11,7 @@ const constructorMethod = (app) => {
   app.use('/reviews', reviewRoutes)
   app.use('/user', userRoutes)
   app.use('/auth', authRoutes)
+  app.use('/search', searchRoutes)
 
   app.use('*', (req, res) => {
     res.sendStatus(404)
