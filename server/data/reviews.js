@@ -1,11 +1,11 @@
 const { ObjectId } = require('mongodb')
 const mongoCollections = require('../config/mongoCollections')
+const errors = require('./errors')
 const showCollection = mongoCollections.shows
 const movieCollection = mongoCollections.movies
 const userCollection = mongoCollections.users
 
-//create review for a specific userId
-
+// Function to update a collection
 const updateCollection = async (collection) => {
   collection.reviews.push(newReview)
 
@@ -18,14 +18,17 @@ const updateCollection = async (collection) => {
   )
 
   if (updatedInfo.modifiedCount !== 1) {
-    throwError(ErrorCode.INTERNAL_SERVER_ERROR, 'Error: Could not add review.')
+    errors.throwError(
+      errors.ErrorCode.INTERNAL_SERVER_ERROR,
+      'Error: Could not add review.'
+    )
   }
 
   return await getReview(newReview._id)
 }
 
+//create review for a specific userId
 const createReview = async (
-  _id,
   reviewerId,
   reviewer,
   contentId,
@@ -34,6 +37,17 @@ const createReview = async (
   like_dislike
 ) => {
   try {
+    // console.log(reviewerId, reviewer, contentId, dateOfReview, review, like_dislike);
+    // console.log(reviewerId)
+    // console.log(arguments.length);
+    errors.validateTotalArguments(arguments.length)
+    const reviewerId = errors.validateObjectId(reviewerId)
+    const reviewer = errors.validateReviewer(reviewer)
+    const dateOfReview = errors.validateDateOfReview(dateOfReview)
+    const contentId = errors.validateObjectId(contentId)
+    const review = errors.validateReview(review)
+    const like_dislike = errors.validateLikeDislike(like_dislike)
+
     const users = await userCollection()
     const user = await users.findOne({ _id: contentId })
 
@@ -45,7 +59,7 @@ const createReview = async (
 
     if (!user) throw 'Error: failed to find user.'
 
-    if (!movie || !user)
+    if (!movie && !user)
       throw 'Error: failed to find the content you are looking for.'
 
     const newReview = {
@@ -68,10 +82,11 @@ const createReview = async (
       updateCollection(users)
     }
   } catch (error) {
-    throwCatchError(error)
+    errors.throwCatchError(error)
   }
 }
 
+// Delete review
 const remove = async (reviewId) => {
   try {
     const parsedObjectId = ObjectId(id)
@@ -83,7 +98,10 @@ const remove = async (reviewId) => {
     })
 
     if (!userReview) {
-      throwError(ErrorCode.NOT_FOUND, 'Error: No review with that id.')
+      errors.throwError(
+        errors.ErrorCode.NOT_FOUND,
+        'Error: No review with that id.'
+      )
     }
 
     const nonRemovedReviews = userReview.reviews.filter((currentReview) => {
@@ -93,7 +111,7 @@ const remove = async (reviewId) => {
     let newOverallRating = 0
 
     if (nonRemovedReviews.length > 0) {
-      newOverallRating = getAverageOfRestaurantRatings(nonRemovedReviews)
+      newOverallRating = calculateAvgReviews(nonRemovedReviews)
     }
 
     const updatedInfo = await restaurantCollection.updateOne(
@@ -105,18 +123,19 @@ const remove = async (reviewId) => {
     )
 
     if (updatedInfo.modifiedCount !== 1) {
-      throwError(
-        ErrorCode.INTERNAL_SERVER_ERROR,
+      errors.throwError(
+        errors.ErrorCode.INTERNAL_SERVER_ERROR,
         'Error: Could not remove review.'
       )
     }
 
     return { reviewId: _reviewId, deleted: true }
   } catch (error) {
-    throwCatchError(error)
+    errors.throwCatchError(error)
   }
 }
 
+// Update a specific review
 const updateReview = async (
   userId,
   reviewId,
@@ -146,8 +165,8 @@ const updateReview = async (
   )
 
   if (updatedInfo.modifiedCount !== 1) {
-    throwError(
-      ErrorCode.INTERNAL_SERVER_ERROR,
+    errors.throwError(
+      errors.ErrorCode.INTERNAL_SERVER_ERROR,
       'Error: Could not update restaurant.'
     )
   }
@@ -155,7 +174,8 @@ const updateReview = async (
   return user
 }
 
-const getAverageOfRestaurantRatings = (reviews) => {
+// Calculate Overall Ratings
+const calculateAvgReviews = (reviews) => {
   let totalCount = 0
   let sum = 0
 
@@ -169,5 +189,6 @@ const getAverageOfRestaurantRatings = (reviews) => {
 
 module.exports = {
   createReview,
+  updateReview,
   remove,
 }
