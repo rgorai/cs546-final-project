@@ -48,14 +48,19 @@ router.get('/name/:name', async (req, res) => {
   //error checking
   if (!showName) throw 'Must provide a show name'
 
-  checkIsString(showName)
-  showName = showName.toLowerCase().trim()
+  try {
+    checkIsString(showName)
+  } catch (e) {
+    res.status(404).json({ error: String(e) })
+  }
+
+  //showName = showName.toLowerCase().trim()
 
   try {
     let show = await getByName(showName)
     res.status(200).json(show)
   } catch (e) {
-    res.status(404).json({ error: e })
+    res.status(404).json({ error: String(e) })
   }
 })
 
@@ -64,14 +69,19 @@ router.get('/genre/:genre', async (req, res) => {
   const genre = req.params.genre
   if (!genre) throw 'Must provide a genre'
 
-  checkIsString(genre)
+  try {
+    checkIsString(genre)
+  } catch (e) {
+    res.status(404).json({ error: String(e) })
+  }
+
   genre = genre.toLowerCase().trim()
 
   try {
     let show = await getByGenre(genre)
     res.status(200).json(show)
   } catch (e) {
-    res.status(404).json({ error: e })
+    res.status(404).json({ error: String(e) })
   }
 })
 

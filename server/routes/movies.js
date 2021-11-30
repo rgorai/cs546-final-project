@@ -42,7 +42,8 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-  const movieId = req.params.id
+  let movieId = req.params.id
+  console.log(movieId)
 
   // error check
 
@@ -50,16 +51,12 @@ router.get('/:id', async (req, res) => {
     typeof movieId !== 'string' ||
     movieId.length === 0 ||
     movieId === ' '.repeat(movieId.length)
-  )
-    throw 'Error: movieId must be a non-empty string.'
-
-  movieId = movieId.toLowerCase.trim()
-
-  try {
-    movieId = ObjectId(movieId)
-  } catch (e) {
-    throw String(e)
+  ) {
+    res.status(400).json({ error: 'movieId must be a non-empty string.' })
+    return
   }
+
+  movieId = movieId.toLowerCase().trim()
 
   // send requested movie
   try {
@@ -70,34 +67,44 @@ router.get('/:id', async (req, res) => {
 })
 
 router.get('/name/:name', async (req, res) => {
-  const movieName = req.params.name
+  let movieName = req.params.name
   //error checking
   if (!movieName) throw 'Must provide a movie name'
 
-  checkIsString(movieName)
-  movieName = movieName.toLowerCase().trim()
+  try {
+    checkIsString(movieName)
+  } catch (e) {
+    res.status(404).json({ error: String(e) })
+  }
+
+  //movieName = movieName.toLowerCase().trim()
 
   try {
     let movie = await getByName(movieName)
     res.status(200).json(movie)
   } catch (e) {
-    res.status(404).json({ error: e })
+    res.status(404).json({ error: String(e) })
   }
 })
 
 router.get('/genre/:genre', async (req, res) => {
+  let genre = req.params.genre
   // error check
-  const genre = req.params.genre
   if (!genre) throw 'Must provide a genre'
 
-  checkIsString(genre)
-  genre = genre.toLowerCase().trim()
+  try {
+    checkIsString(genre)
+  } catch (e) {
+    res.status(404).json({ error: String(e) })
+  }
+
+  //genre = genre.toLowerCase().trim()
 
   try {
     let movie = await getByGenre(genre)
     res.status(200).json(movie)
   } catch (e) {
-    res.status(404).json({ error: e })
+    res.status(404).json({ error: String(e) })
   }
 })
 

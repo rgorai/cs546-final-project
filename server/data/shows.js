@@ -160,8 +160,7 @@ const getAll = async (x) => {
 
 const getByGenre = async (str) => {
   // error check
-  //console.log("in genre");
-  //console.log(str);
+
   if (!str) throw 'Must provide a genre'
   if (
     typeof str !== 'string' ||
@@ -183,7 +182,12 @@ const getByGenre = async (str) => {
 
 const getByName = async (str) => {
   if (!str) throw 'Must provide a name'
-  checkIsString(str)
+
+  try {
+    checkIsString(str)
+  } catch (e) {
+    throw e
+  }
 
   str = str.toLowerCase().trim()
 
