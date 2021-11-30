@@ -167,7 +167,6 @@ const getByGenre = async (str) => {
 }
 
 const getByName = async (str) => {
-  console.log(str)
   //error check
   if (!str) throw 'Must provide a movie name'
 
