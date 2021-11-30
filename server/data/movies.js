@@ -150,7 +150,7 @@ const getAll = async (x) => {
 
 const getByGenre = async (str) => {
   // error check
-  console.log(str)
+  //console.log(str)
   if (!str) throw 'Must provide a genre'
 
   checkIsString(str)

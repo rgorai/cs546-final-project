@@ -125,6 +125,8 @@ const get = async (showId) => {
   )
     throw 'Error: showId must be a non-empty string.'
 
+  showId = showId.toLowerCase().trim()
+
   // convert id to object
   try {
     showId = ObjectId(showId)
