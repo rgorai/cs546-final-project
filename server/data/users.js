@@ -153,6 +153,7 @@ const getUser = async (userId) => {
 }
 
 const getByEmail = async (email) => {
+  //error checking
   if (!email) throw 'You must provide an email address'
 
   email = email.toLowercase().trim()
@@ -166,6 +167,7 @@ const getByEmail = async (email) => {
 
   const users = await userCollection()
 
+  //get the user
   const user = await users.findOne({ email: email })
 
   if (user === null) {
@@ -177,6 +179,7 @@ const getByEmail = async (email) => {
 }
 
 const addToWatchlist = async (id, str) => {
+  //error checking
   if (!str) throw 'Must provide a movie name to add to the watchlist'
 
   str = str.toLowerCase().trim()
@@ -213,6 +216,7 @@ const addToWatchlist = async (id, str) => {
   let updatedUser = {
     watchlist: watchlist,
   }
+  //add the item to the watchlist
 
   const updatedInfo = await users.updateOne(
     { _id: parsedId },
@@ -225,6 +229,7 @@ const addToWatchlist = async (id, str) => {
 }
 
 const deleteFromWatchlist = async (id, str) => {
+  //error checking
   if (!str) throw 'Must provide a movie name to add to the watchlist'
 
   str = str.toLowerCase().trim()
@@ -245,6 +250,8 @@ const deleteFromWatchlist = async (id, str) => {
   }
 
   const watchlist = user.watchlist
+
+  //delete the item from the watchlist
 
   const updatedWatchlist = watchlist.filter(function (item) {
     return item !== str

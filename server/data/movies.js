@@ -150,27 +150,31 @@ const getAll = async (x) => {
 
 const getByGenre = async (str) => {
   // error check
-  console.log(str)
   if (!str) throw 'Must provide a genre'
 
-  checkIsString(str)
-  str = str.toLowerCase().trim()
+  try {
+    checkIsString(str)
+  } catch (e) {
+    throw String(e)
+  }
+  //str = str.toLowerCase().trim()
 
   // get all movies of given genre
 
   const movies = await movieCollection()
-  return await movies.find({ genres: { $eq: str } }).toArray()
-
-  // mongo
+  return await movies.find({ 'genres.name': { $eq: str } }).toArray()
 }
 
 const getByName = async (str) => {
-  //console.log("in getByName");
-  //console.log(str);
+  //error check
   if (!str) throw 'Must provide a movie name'
 
-  checkIsString(str)
-  str = str.toLowerCase().trim()
+  try {
+    checkIsString(str)
+  } catch (e) {
+    throw String(e)
+  }
+  //str = str.toLowerCase().trim()
 
   const movies = await movieCollection()
 
