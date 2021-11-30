@@ -1,11 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {
-  createUser,
-  authenticateUser,
-  addToWatchlist,
-  deleteFromWatchlist,
-} = require('../data/users')
+const { addToWatchlist, deleteFromWatchlist } = require('../data/users')
 const { verifyToken } = require('../middleware/auth')
 const { getUser } = require('../data/users')
 
@@ -22,20 +17,22 @@ router.get('/', verifyToken, async (req, res) => {
 
 // use verifyToken for things that need authentication:
 // adding to watchlist
-router.put('./:id', verifyToken, async (req, res) => {
+router.put('/:id', verifyToken, async (req, res) => {
   if (!req.params.id)
     throw 'You must specify an ID of the user to update the watchlist'
   let { name } = req.body
 
   if (!name) {
-    res
-      .status(400)
-      .json({
-        error: 'You must provide a movie/ TV show name to add to the watchlist',
-      })
+    res.status(400).json({
+      error: 'You must provide a movie/ TV show name to add to the watchlist',
+    })
   }
 
-  checkIsString(name)
+  try {
+    checkIsString(name)
+  } catch (e) {
+    return res.status(400).send(String(e))
+  }
 
   try {
     let user = await addToWatchlist(name)
@@ -51,15 +48,17 @@ router.delete('./:id', verifyToken, async (req, res) => {
   let { name } = req.body
 
   if (!name) {
-    res
-      .status(400)
-      .json({
-        error:
-          'You must provide a movie/ TV show name to delete from the watchlist',
-      })
+    res.status(400).json({
+      error:
+        'You must provide a movie/ TV show name to delete from the watchlist',
+    })
   }
 
-  checkIsString(name)
+  try {
+    checkIsString(name)
+  } catch (e) {
+    return res.status(400).send(String(e))
+  }
 
   try {
     let user = await deleteFromWatchlist(name)

@@ -16,7 +16,10 @@ const MoviePage = (props) => {
   useEffect(() => {
     axios
       .get(`/movies/${movieId}`)
-      .then((res) => setMovieData(res.data))
+      .then((res) => {
+        setMovieData(res.data)
+        console.log(res.data)
+      })
       .catch((e) => setError(e.response))
   }, [movieId])
 

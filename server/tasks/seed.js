@@ -28,10 +28,12 @@ const NUM_MEDIA = 50
  *
  */
 const movieReqs = {
-  poster_path: 5,
-  overview: 5,
+  original_title: 0,
+  release_date: 0,
   genres: 0,
-  providers: 5,
+  runtime: 0,
+  poster_path: Math.floor(0.1 * NUM_MEDIA),
+  overview: Math.floor(0.1 * NUM_MEDIA),
 }
 const showReqs = {
   poster_path: 2,
@@ -51,8 +53,8 @@ const main = async () => {
   for (const data of movieData) await createMovie(...data)
 
   // create show entries
-  const showData = await getShowData(NUM_MEDIA, showReqs)
-  for (const data of showData) await createShow(...data)
+  // const showData = await getShowData(NUM_MEDIA, showReqs)
+  // for (const data of showData) await createShow(...data)
 
   console.log('\nDone seeding database')
   console.timeEnd('Time')
@@ -63,3 +65,29 @@ main().catch((e) => {
   console.error(e)
   connection.closeConnection()
 })
+
+// // need to be separately handled
+//   _separate: {
+//     release_dates: {
+//       amt: Math.floor(0.9 * NUM_MEDIA),
+//       func: (val) => {
+//         const temp = val.results.find((e) => e.iso_3166_1 === 'US')
+//         return temp && temp.release_dates.length > 0 && temp.release_dates[0].length > 0
+//           ? temp.release_dates[0].certification
+//           : null
+//       }
+//     },
+//     videos: {
+//       amt: Math.floor(0.9 * NUM_MEDIA),
+//       func: (val) => {
+//         return val.results.find((e) => e.type === 'Trailer')
+//       }
+//     },
+//     providers: {
+//       amt: Math.floor(0.9 * NUM_MEDIA),
+//       func: (val) => {
+//         // console.log(val.results)
+//         return val.results.US
+//       }
+//     },
+//   }
