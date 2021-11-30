@@ -18,6 +18,7 @@ router.get('/', verifyToken, async (req, res) => {
 // use verifyToken for things that need authentication:
 // adding to watchlist
 router.put('/:id', verifyToken, async (req, res) => {
+  //error checking
   if (!req.params.id)
     throw 'You must specify an ID of the user to update the watchlist'
   let { name } = req.body
@@ -43,6 +44,7 @@ router.put('/:id', verifyToken, async (req, res) => {
 })
 // removing from watchlist
 router.delete('./:id', verifyToken, async (req, res) => {
+  //error checking
   if (!req.params.id)
     throw 'You must specify an ID of the user to update the watchlist'
   let { name } = req.body
