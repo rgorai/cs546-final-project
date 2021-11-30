@@ -47,8 +47,6 @@ const create = async (
   name = name.trim()
   releaseDate = releaseDate.trim()
   runtime = parseInt(runtime)
-  description = description.trim()
-  posterPath = posterPath.trim()
   video = video.results.find((e) => e.type === 'Trailer')
 
   const certTemp = certifications.results.find((e) => e.iso_3166_1 === 'US')
@@ -75,9 +73,7 @@ const create = async (
     checkIsString(name)
     checkIsString(releaseDate)
     checkCertification(certifications)
-
     checkIsNumber(runtime)
-
     checkIsArray(genres)
   } catch (e) {
     throw String(e)
@@ -86,10 +82,8 @@ const create = async (
   // add new movie to db
   const movies = await movieCollection()
 
-  //check if the movie already in the database
-
+  // check if the movie already in the database
   let movie = await movies.findOne({ name: name, releaseDate: releaseDate })
-
   if (movie != null) {
     throw 'Movie already in the database'
   }

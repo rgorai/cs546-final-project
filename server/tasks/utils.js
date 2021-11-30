@@ -30,10 +30,12 @@ const tmdbRequest = async (url) => {
     const { data } = await axios.get(url)
     return data
   } catch (e) {
-    // add try again if seeding fails
-    console.log(e.response)
+    // add continue if seeding fails
     throw (
-      'TMDB Error: ' + e.response.status_code + ' ' + e.response.status_message
+      'TMDB Error: ' +
+      e.response.data.status_code +
+      ' ' +
+      e.response.data.status_message
     )
   }
 }
@@ -70,9 +72,8 @@ const getMediaData = async (
         }
     if (skip) continue
 
-    mediaRes.providers = await getMediaProviders(mediaId)
-
     // update retval
+    mediaRes.providers = await getMediaProviders(mediaId)
     media.push(propsToAdd.map((k) => mediaRes[k]))
   }
 

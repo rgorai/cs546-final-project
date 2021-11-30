@@ -7,7 +7,7 @@ const { create: createMovie } = require('../data/movies')
 const { create: createShow } = require('../data/shows')
 const { getMovieData, getShowData } = require('./utils')
 
-const NUM_MEDIA = 5
+const NUM_MEDIA = 50
 
 /*
  * API data requirements:
