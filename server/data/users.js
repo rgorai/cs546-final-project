@@ -62,10 +62,12 @@ const createUser = async (firstName, lastName, email, username, password) => {
 
   // check if email exists
   const users = await userCollection()
-  if (await users.findOne({ email: email })) throw 'Email address is taken.'
+  if (await users.findOne({ email: email }))
+    return { error: 'Email address is taken.' }
 
   // check if username exists
-  if (await users.findOne({ username: username })) throw 'Username is taken.'
+  if (await users.findOne({ username: username }))
+    return { error: 'Username is taken.' }
 
   // add new user to db
   const insertRet = await users.insertOne({
@@ -121,7 +123,6 @@ const authenticateUser = async (username, password) => {
 
 const getUser = async (userId) => {
   // error check
-  if (!userId) throw 'Must provide a valid user id'
   if (
     typeof userId !== 'string' ||
     userId.length === 0 ||
