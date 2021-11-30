@@ -17,6 +17,8 @@ const AllMoviesPage = (props) => {
       .catch((e) => setError(e.response))
   }, [])
 
+  // handle when there are no movies in the DB
+
   return (
     <>
       {/* will be mapped to list of movies grouped by genre */}

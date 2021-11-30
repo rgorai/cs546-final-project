@@ -31,7 +31,10 @@ const tmdbRequest = async (url) => {
     return data
   } catch (e) {
     // add try again if seeding fails
-    throw 'TMDB ' + String(e.status_code, e.status_message)
+    console.log(e.response)
+    throw (
+      'TMDB Error: ' + e.response.status_code + ' ' + e.response.status_message
+    )
   }
 }
 
@@ -48,12 +51,13 @@ const getMediaData = async (
   for (let i = 0; i < numMedia; i++) {
     const mediaId = allMedia[Math.floor(Math.random() * allMedia.length)].id
     const mediaRes = await getMedia(mediaId)
+    process.stdout.write('|')
 
     // check reqs
     let skip = false
-    for (const k of Object.keys(mediaReqs))
+    for (const k in mediaReqs)
       if (
-        k !== 'providers' &&
+        k !== '_separate' &&
         (!mediaRes[k] ||
           ((typeof mediaRes[k] === 'string' || Array.isArray(mediaRes[k])) &&
             mediaRes[k].length === 0))
@@ -66,19 +70,10 @@ const getMediaData = async (
         }
     if (skip) continue
 
-    const mediaProviders = await getMediaProviders(mediaId)
-    if (!mediaProviders.results.US)
-      if (mediaReqs.providers > 0) mediaReqs.providers--
-      else {
-        i--
-        continue
-      }
+    mediaRes.providers = await getMediaProviders(mediaId)
 
-    // add media to return
+    // update retval
     media.push(propsToAdd.map((k) => mediaRes[k]))
-    media[media.length - 1].push(mediaProviders.results.US)
-
-    process.stdout.write('|')
   }
 
   return media
@@ -100,6 +95,7 @@ const getMovieData = async (numMedia, mediaReqs) => {
       'overview',
       'poster_path',
       'videos',
+      'providers',
     ]
   )
 }
@@ -119,6 +115,7 @@ const getShowData = async (numMedia, mediaReqs) => {
       'number_of_episodes',
       'genres',
       'poster_path',
+      'providers',
     ]
   )
 }
@@ -127,6 +124,29 @@ module.exports = {
   getMovieData,
   getShowData,
 }
+
+// // handle separate reqs
+// mediaRes.providers = await getMediaProviders(mediaId)
+// for (const k in mediaReqs._separate) {
+//   // console.log(mediaRes.release_dates.results)
+//   // break
+//   const temp = mediaReqs._separate[k].func(mediaRes[k])
+//   if (!mediaRes[k] || !temp) {
+//     // console.log(k, mediaReqs._separate[k].amt, mediaReqs._separate[k].func(mediaRes[k]))
+//     if (mediaReqs._separate[k].amt > 0) {
+//       mediaReqs._separate[k].amt--
+//     }
+//     else {
+//       i--
+//       skip = true
+//       break
+//     }
+//   } else {
+//     mediaRes[k] = temp
+//   }
+// }
+// if (skip) continue
+// // break
 
 /*
  * SAMPLE MOVIE RESPONSE

@@ -20,8 +20,8 @@ const NavBar = (props) => {
         </Link>
       </div>
       <ul className="nav-bar">
-        {navLinks.map((e) => (
-          <li>
+        {navLinks.map((e, i) => (
+          <li key={i}>
             <Link className="nav-item" to={e.link}>
               {e.name}
             </Link>
