@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 const SearchBar = (props) => {
   const navigate = useNavigate()
-  const [query, setQuery] = useState(null)
+  const [query, setQuery] = useState('')
 
   return (
     <div className="search-bar-container">

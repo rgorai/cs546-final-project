@@ -5,16 +5,16 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const config = require('../config/authConfig')
 
+const saltRounds = 8
+
 function checkIsString(s) {
-  if (typeof s != 'string') throw 'Given input is invalid'
+  if (typeof s !== 'string') throw 'Given input is invalid'
   if (s.length < 1) throw 'Given input is empty'
   if (s.trim().length === 0) throw 'Given input is all white spaces'
-  if (s.indexOf(' ') >= 0) throw 'Given input has spaces'
 }
 
 function checkIsName(s) {
   if (/[^a-zA-Z]/.test(s)) throw 'Given input is not only letters'
-  if (s.length < 4) throw 'Given name size is less than 4'
 }
 
 function checkIsPassword(s) {
@@ -22,28 +22,11 @@ function checkIsPassword(s) {
 }
 
 function checkIsEmail(s) {
-  if (s.indexOf('@') < 0) throw 'Given email id is invalid'
+  if (!/^\S+@[a-zA-Z]+\.[a-zA-Z]+$/.test(s)) throw 'Given email id is invalid'
 }
 
 function checkIsUsername(s) {
   if (s.length < 4) throw 'Given username size is less than 4'
-}
-
-function getObject(id) {
-  let { ObjectId } = require('mongodb')
-  let newObjId = ObjectId()
-  let x = newObjId.toString()
-  if (typeof id === 'object') {
-    parsedId = id
-  } else {
-    checkIsString(id)
-    if (!ObjectId.isValid(id)) {
-      throw 'Given id is invalid'
-    }
-    parsedId = ObjectId(id)
-  }
-
-  return parsedId
 }
 
 const createUser = async (firstName, lastName, email, username, password) => {
@@ -54,25 +37,28 @@ const createUser = async (firstName, lastName, email, username, password) => {
   if (!username) throw 'You must provide a username'
   if (!password) throw 'You must provide a password'
 
-  firstName = firstName.toLowerCase().trim()
-  lastName = lastName.toLowerCase().trim()
+  firstName = firstName.trim()
+  lastName = lastName.trim()
   email = email.toLowerCase().trim()
   username = username.toLowerCase().trim()
-  password = password.toLowerCase().trim()
 
-  checkIsString(firstName)
-  checkIsString(lastName)
-  checkIsString(email)
-  checkIsString(username)
-  checkIsString(password)
+  try {
+    checkIsString(firstName)
+    checkIsString(lastName)
+    checkIsString(email)
+    checkIsString(username)
+    checkIsString(password)
 
-  checkIsName(firstName)
-  checkIsName(lastName)
+    checkIsName(firstName)
+    checkIsName(lastName)
 
-  checkIsUsername(username)
+    checkIsUsername(username)
 
-  checkIsPassword(password)
-  checkIsEmail(email)
+    checkIsPassword(password)
+    checkIsEmail(email)
+  } catch (e) {
+    throw String(e)
+  }
 
   // check if email exists
   const users = await userCollection()
@@ -89,7 +75,7 @@ const createUser = async (firstName, lastName, email, username, password) => {
     lastName,
     email,
     username,
-    password: bcrypt.hashSync(password, 8),
+    password: bcrypt.hashSync(password, saltRounds),
     watchlist: [],
   })
 
@@ -105,18 +91,22 @@ const authenticateUser = async (username, password) => {
   if (!username) throw 'You must provide a username'
   if (!password) throw 'You must provide a password'
 
-  username = username.toLowercase().trim()
-  password = password.toLowercase().trim()
+  username = username.toLowerCase().trim()
 
-  checkIsString(username)
-  checkIsString(password)
+  try {
+    checkIsString(username)
+    checkIsString(password)
 
-  checkIsUsername(username)
-  checkIsPassword(password)
+    checkIsUsername(username)
+    checkIsPassword(password)
+  } catch (e) {
+    throw String(e)
+  }
 
-  // get user
+  // get user by username or email
   const users = await userCollection()
-  const user = await users.findOne({ username: username })
+  let user = await users.findOne({ username: username })
+  if (!user) user = await users.findOne({ email: username })
 
   // authenticate user
   if (!user || !bcrypt.compareSync(password, user.password))
@@ -167,8 +157,12 @@ const getByEmail = async (email) => {
 
   email = email.toLowercase().trim()
 
-  checkIsString(email)
-  checkIsEmail(email)
+  try {
+    checkIsString(email)
+    checkIsEmail(email)
+  } catch (e) {
+    throw String(e)
+  }
 
   const users = await userCollection()
 
@@ -182,45 +176,27 @@ const getByEmail = async (email) => {
   return user
 }
 
-const updatePassword = async (id, password) => {
-  if (!id) throw 'You must provide an Id'
-  if (!password) throw 'You must provide a password'
-
-  checkIsPassword(password)
-
-  let parsedId = getObject(id)
-
-  const hash = await bcrypt.hash(password, saltRounds)
-
-  let updatedUser = {
-    password: hash,
-  }
-
-  const users = await userCollection()
-
-  const updatedInfo = await users.updateOne(
-    { _id: parsedId },
-    { $set: updatedUser }
-  )
-
-  if (updatedInfo.modifiedCount === 0) {
-    throw 'Could not update user successfully'
-  }
-
-  return await this.getById(id)
-}
-
 const addToWatchlist = async (id, str) => {
   if (!str) throw 'Must provide a movie name to add to the watchlist'
-  checkIsString(str)
 
   str = str.toLowerCase().trim()
+
+  try {
+    checkIsString(str)
+  } catch (e) {
+    throw String(e)
+  }
 
   const users = await userCollection()
   let user = await getUser(id)
 
   watchlist = user.watchlist
-  parsedId = getObject(id)
+
+  try {
+    id = ObjectId(id)
+  } catch (e) {
+    throw String(e)
+  }
 
   // if(watchlist.included(str)){
   //   throw "item already in the watchlist"
@@ -250,22 +226,27 @@ const addToWatchlist = async (id, str) => {
 
 const deleteFromWatchlist = async (id, str) => {
   if (!str) throw 'Must provide a movie name to add to the watchlist'
-  checkIsString(str)
 
   str = str.toLowerCase().trim()
+
+  try {
+    checkIsString(str)
+  } catch (e) {
+    throw String(e)
+  }
 
   const users = await userCollection()
   let user = await getUser(id)
 
-  watchlist = user.watchlist
+  try {
+    id = ObjectId(id)
+  } catch (e) {
+    throw String(e)
+  }
 
-  // let index = watchlist.indexOf(str)
+  const watchlist = user.watchlist
 
-  // delete watchlist[index]
-
-  //console.log(updatedWatchlist);
-
-  updatedWatchlist = watchlist.filter(function (item) {
+  const updatedWatchlist = watchlist.filter(function (item) {
     return item !== str
   })
 
@@ -283,6 +264,34 @@ const deleteFromWatchlist = async (id, str) => {
   if (updatedInfo.updatedCount === 0) throw 'Could not update the watchList'
 
   return user
+}
+
+const updatePassword = async (id, password) => {
+  if (!id) throw 'You must provide an Id'
+  if (!password) throw 'You must provide a password'
+
+  try {
+    checkIsPassword(password)
+    id = ObjectId(id)
+  } catch (e) {
+    throw String(e)
+  }
+
+  const hash = await bcrypt.hash(password, saltRounds)
+
+  let updatedUser = {
+    password: hash,
+  }
+
+  const users = await userCollection()
+
+  const updatedInfo = await users.updateOne({ _id: id }, { $set: updatedUser })
+
+  if (updatedInfo.modifiedCount === 0) {
+    throw 'Could not update user successfully'
+  }
+
+  return true //await this.getById(id)
 }
 
 module.exports = {
