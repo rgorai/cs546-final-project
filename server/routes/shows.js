@@ -22,7 +22,8 @@ router.get('/', async (req, res) => {
 
 //route to get tv shows of a specific id
 router.get('/:id', async (req, res) => {
-  const showId = req.params.id
+  let showId = req.params.id
+  // console.log(showId)
 
   // error check
   if (
@@ -34,7 +35,7 @@ router.get('/:id', async (req, res) => {
     return
   }
 
-  showId = showId.toLowerCase.trim()
+  showId = showId.toLowerCase().trim()
 
   // send requested show
   try {

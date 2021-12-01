@@ -7,7 +7,7 @@ const { create: createMovie } = require('../data/movies')
 const { create: createShow } = require('../data/shows')
 const { getMovieData, getShowData } = require('./utils')
 
-const NUM_MEDIA = 5
+const NUM_MEDIA = 50
 
 /*
  * API data requirements:
@@ -36,10 +36,19 @@ const movieReqs = {
   overview: Math.floor(0.1 * NUM_MEDIA),
 }
 const showReqs = {
+  first_air_date: 0,
   poster_path: 2,
   overview: 2,
   genres: 0,
 }
+// const showReqs = {
+//   release_date: 0,
+//   poster_path: 2,
+//   overview: 2,
+//   genres: 0,
+//   poster_path: Math.floor(0.1 * NUM_MEDIA),
+//   overview: Math.floor(0.1 * NUM_MEDIA),  
+// }
 
 const main = async () => {
   const db = await connection.connectToDb()
@@ -50,11 +59,13 @@ const main = async () => {
 
   // create movie entries
   const movieData = await getMovieData(NUM_MEDIA, movieReqs)
+  debugger
   for (const data of movieData) await createMovie(...data)
 
   // create show entries
-  // const showData = await getShowData(NUM_MEDIA, showReqs)
-  // for (const data of showData) await createShow(...data)
+  const showData = await getShowData(NUM_MEDIA, showReqs)
+  debugger
+  for (const data of showData) await createShow(...data)
 
   console.log('\nDone seeding database')
   console.timeEnd('Time')

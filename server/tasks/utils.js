@@ -31,6 +31,7 @@ const tmdbRequest = async (url) => {
     return data
   } catch (e) {
     // add continue if seeding fails
+    debugger
     throw (
       'TMDB Error: ' +
       e.response.data.status_code +
@@ -81,6 +82,7 @@ const getMediaData = async (
 }
 
 const getMovieData = async (numMedia, mediaReqs) => {
+  debugger
   return await getMediaData(
     numMedia,
     allMovies,
@@ -102,6 +104,7 @@ const getMovieData = async (numMedia, mediaReqs) => {
 }
 
 const getShowData = async (numMedia, mediaReqs) => {
+  debugger
   return await getMediaData(
     numMedia,
     allShows,
@@ -116,6 +119,7 @@ const getShowData = async (numMedia, mediaReqs) => {
       'number_of_episodes',
       'genres',
       'poster_path',
+      'videos',
       'providers',
     ]
   )

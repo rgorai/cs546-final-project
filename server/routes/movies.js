@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   let movieId = req.params.id
-  console.log(movieId)
+  // console.log(movieId)
 
   // error check
 
