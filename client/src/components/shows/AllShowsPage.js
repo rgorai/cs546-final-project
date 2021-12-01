@@ -21,20 +21,20 @@ const AllShowsPage = (props) => {
 
     const { data, _names } = showsByGenre
     return Object.keys(data)
-      .sort((x, y) => data[y].length - data[x].length)
+      .filter((k) => data[k].length > 0)
+      .sort((k1, k2) => data[k2].length - data[k1].length)
       .map((k, i) => (
-        <ShowList key={i} genreName={_names[k]} showList={data[k]} />
+        <showList key={i} genreName={_names[k]} showList={data[k]} />
       ))
   }
 
   return (
     <>
-      {/* will be mapped to list of shows grouped by genre */}
       {error ? (
         <ApiError error={error} />
       ) : showsByGenre ? (
         <div className="shows-page-container">
-          {getGenreList(moviesByGenre)}
+          {getGenreList(showsByGenre)}
         </div>
       ) : (
         <div>Loading</div>

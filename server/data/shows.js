@@ -1,6 +1,7 @@
 const mongoCollections = require('../config/mongoCollections')
 const showCollection = mongoCollections.shows
 const { ObjectId } = require('mongodb')
+const showsGenreList = require('../tasks/data/tv_series_genre_list.json')
 
 function checkIsString(s) {
   if (typeof s !== 'string') throw 'Given input is invalid'

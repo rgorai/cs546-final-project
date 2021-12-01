@@ -25,7 +25,10 @@ const ShowPage = (props) => {
   useEffect(() => {
     axios
       .get(`/shows/${showId}`)
-      .then((res) => setShowData(res.data))
+      .then((res) => {
+        setShowData(res.data)
+        console.log(res.data)
+      })
       .catch((e) => setError(e.response))
   }, [showId])
 
