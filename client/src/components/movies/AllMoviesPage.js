@@ -13,9 +13,10 @@ const AllMoviesPage = (props) => {
     axios
       .get('/movies')
       .then((res) => setMovieList(res.data))
-      // should ui if fetch fails
       .catch((e) => setError(e.response))
   }, [])
+
+  // handle when there are no movies in the DB
 
   return (
     <>

@@ -2,10 +2,15 @@ const express = require('express')
 const router = express.Router()
 const { get, getAll, getByGenre } = require('../data/shows')
 
+function checkIsString(s) {
+  if (typeof s != 'string') throw 'Given input is invalid'
+  if (s.length < 1) throw 'Given input is empty'
+  if (s.trim().length === 0) throw 'Given input is all white spaces'
+}
 
-//route to get all tv shows
 router.get('/', async (req, res) => {
   // error check
+  //no checks
 
   // send all shows
   try {
@@ -25,9 +30,11 @@ router.get('/:id', async (req, res) => {
     showId.length === 0 ||
     showId === ' '.repeat(showId.length)
   ) {
-    res.status(400).json({ error: 'no parameters should be given.' })
+    res.status(400).json({ error: 'showId must be a non-empty string.' })
     return
   }
+
+  showId = showId.toLowerCase.trim()
 
   // send requested show
   try {
@@ -39,21 +46,45 @@ router.get('/:id', async (req, res) => {
 
 //route to get tv show of a specific name
 router.get('/name/:name', async (req, res) => {
+  const showName = req.params.name
+  //error checking
+  if (!showName) throw 'Must provide a show name'
+
   try {
-    let show = await getByName(req.params.name)
+    checkIsString(showName)
+  } catch (e) {
+    res.status(404).json({ error: String(e) })
+  }
+
+  //showName = showName.toLowerCase().trim()
+
+  try {
+    let show = await getByName(showName)
     res.status(200).json(show)
   } catch (e) {
-    res.status(404).json({ error: e })
+    res.status(404).json({ error: String(e) })
   }
 })
 
 //route to get all tv shows of a specific genre
 router.get('/genre/:genre', async (req, res) => {
+  // error check
+  const genre = req.params.genre
+  if (!genre) throw 'Must provide a genre'
+
   try {
-    let show = await getByGenre(req.params.genre)
+    checkIsString(genre)
+  } catch (e) {
+    res.status(404).json({ error: String(e) })
+  }
+
+  genre = genre.toLowerCase().trim()
+
+  try {
+    let show = await getByGenre(genre)
     res.status(200).json(show)
   } catch (e) {
-    res.status(404).json({ error: e })
+    res.status(404).json({ error: String(e) })
   }
 })
 
