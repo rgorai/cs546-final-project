@@ -6,6 +6,8 @@ const ApiError = (props) => {
     <div className="api-error-container">
       <div>{error.status}</div>
       <div>{error.statusText}</div>
+
+      {/* for dev use only */}
       <div>{error.data}</div>
     </div>
   )
