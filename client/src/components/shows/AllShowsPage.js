@@ -11,23 +11,30 @@ const AllShowsPage = (props) => {
 
   useEffect(() => {
     axios
-      .get('/shows')
+      .get('/shows/bygenre')
       .then((res) => setShowList(res.data))
-      // should ui if fetch fails
       .catch((e) => setError(e.response))
   }, [])
+
+  const getGenreList = (showsByGenre) => {
+    if (showsByGenre.length === 0) return <div>Theres nothing here</div>
+
+    const { data, _names } = showsByGenre
+    return Object.keys(data)
+      .sort((x, y) => data[y].length - data[x].length)
+      .map((k, i) => (
+        <ShowList key={i} genreName={_names[k]} showList={data[k]} />
+      ))
+  }
 
   return (
     <>
       {/* will be mapped to list of shows grouped by genre */}
       {error ? (
         <ApiError error={error} />
-      ) : showList ? (
+      ) : showsByGenre ? (
         <div className="shows-page-container">
-          <ShowList showList={showList.slice(0, 12)} />
-          <ShowList showList={showList.slice(12, 25)} />
-          <ShowList showList={showList.slice(25, 37)} />
-          <ShowList showList={showList.slice(37)} />
+          {getGenreList(moviesByGenre)}
         </div>
       ) : (
         <div>Loading</div>

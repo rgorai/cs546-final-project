@@ -1,6 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const { get, getAll, getByGenre } = require('../data/shows')
+const { 
+  get, 
+  getAll, 
+  getAllByGenre,
+  getByName,
+  getByGenre 
+} = require('../data/shows')
 
 function checkIsString(s) {
   if (typeof s != 'string') throw 'Given input is invalid'
@@ -9,12 +15,19 @@ function checkIsString(s) {
 }
 
 router.get('/', async (req, res) => {
-  // error check
-  //no checks
-
   // send all shows
   try {
     res.status(200).json(await getAll())
+  } catch (e) {
+    res.status(500).send(String(e))
+  }
+})
+
+//route to get all tv shows of a specific genre
+router.get('/bygenre', async (req, res) => {
+  // send all shows by genre
+  try {
+    res.status(200).json(await getAllByGenre())
   } catch (e) {
     res.status(500).send(String(e))
   }
@@ -67,7 +80,7 @@ router.get('/name/:name', async (req, res) => {
   }
 })
 
-//route to get all tv shows of a specific genre
+//route to get tv shows of a specific genre
 router.get('/genre/:genre', async (req, res) => {
   // error check
   const genre = req.params.genre

@@ -136,6 +136,33 @@ const getAll = async (x) => {
 }
 
 //func to get all tv shows of a particular genre
+const getAllByGenre = async (x) => {
+  // error check
+  if (typeof x !== 'undefined') throw 'Error: no parameters should be given.'
+
+  // start with map of genre id to genre name
+  const showsByGenre = {
+    data: {},
+    _names: showsGenreList.reduce(
+      (prev, curr) => ({
+        ...prev,
+        [curr.id]: curr.name,
+      }),
+      {}
+    ),
+  }
+
+  // assign movies to each genre they have
+  const shows = await getAll()
+  for (const show of shows)
+    for (const genre of show.genres)
+      if (showsByGenre.data[genre.id]) showsByGenre.data[genre.id].push(show)
+      else showsByGenre.data[genre.id] = [show]
+
+  return showsByGenre
+}
+
+//func to get tv shows of a particular genre
 const getByGenre = async (str) => {
   // error check
   if (!str) throw 'Must provide a genre'
@@ -149,27 +176,6 @@ const getByGenre = async (str) => {
   const shows = await showCollection()
   return await shows.find({ 'genres.name': { $eq: str } }).toArray()
 }
-// const getByGenre = async (str) => {
-//   // error check
-
-//   if (!str) throw 'Must provide a genre'
-//   if (
-//     typeof str !== 'string' ||
-//     str.length === 0 ||
-//     str === ' '.repeat(str.length)
-//   )
-//     throw 'Error: Genre name must be a non-empty string.'
-
-//   // get all shows of given genre
-//   const showsList = await getAll()
-//   let showsbyGenre = []
-//   showsList.forEach((e) => {
-//     if (e.genres.find((i) => i.name === genre)) {
-//       showsbyGenre.push(e)
-//     }
-//   })
-//   return showsbyGenre
-// }
 
 //func to get tv show of a specific name
 const getByName = async (str) => {
@@ -192,6 +198,7 @@ module.exports = {
   create,
   get,
   getAll,
+  getAllByGenre,
   getByGenre,
   getByName,
 }

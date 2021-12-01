@@ -6,7 +6,8 @@ const ShowList = (props) => {
     <>
       <label>{props.genre ? props.genre : '[Genre]'}</label>
       <div className="show-list-container">
-        {props.showList.map((show, i) => (
+        {props.showList &&
+          props.showList.map((show, i) => (
           <ShowCard
             key={i}
             id={show._id}
