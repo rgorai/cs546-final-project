@@ -9,6 +9,20 @@ const tmbdUrl = 'https://api.themoviedb.org/3/'
 const tmdbApiKey = '?api_key=31cc954c3de9a91aecd102e07e4d4707'
 const append = '&append_to_response=videos,release_dates'
 
+/*
+
+const youtubeApi = "AIzaSyCMQ5Va_t-fPbxu0eDfw8L89wYy7kxf-5U"
+
+https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyCMQ5Va_t-fPbxu0eDfw8L89wYy7kxf-5U
+     &part=snippet,contentDetails,statistics,status
+
+//https://api.themoviedb.org/3/movie/26639/watch/provider?api_key=31cc954c3de9a91aecd102e07e4d4707&language=en-US
+
+//https://api.themoviedb.org/3/movie/26639/videos?api_key=31cc954c3de9a91aecd102e07e4d4707&language=en-US
+
+https://www.googleapis.com/youtube/v3/videos?key=AIzaSyCMQ5Va_t-fPbxu0eDfw8L89wYy7kxf-5U
+
+*/
 const getMovie = async (movieId) => {
   const url = tmbdUrl + 'movie/' + movieId + tmdbApiKey + append
   return await tmdbRequest(url)

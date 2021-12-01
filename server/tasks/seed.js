@@ -2,12 +2,16 @@ const connection = require('../config/mongoConnection')
 
 const moviesGenreList = require('./movies_genre_list.json')
 const showsGenreList = require('./tv_series_genre_list.json')
+const userList = require('./users.json')
 
 const { create: createMovie } = require('../data/movies')
 const { create: createShow } = require('../data/shows')
+//const { create: createUser } = require('../data/users')
 const { getMovieData, getShowData } = require('./utils')
 
-const NUM_MEDIA = 5
+const users = require('../data/users')
+
+const NUM_MEDIA = 10
 
 /*
  * API data requirements:
@@ -53,8 +57,22 @@ const main = async () => {
   for (const data of movieData) await createMovie(...data)
 
   // create show entries
-  // const showData = await getShowData(NUM_MEDIA, showReqs)
-  // for (const data of showData) await createShow(...data)
+
+  const showData = await getShowData(NUM_MEDIA, showReqs)
+  //console.log(showData)
+  for (const data of showData) await createShow(...data)
+
+  //user entried
+
+  for (let user of userList) {
+    await users.create(
+      user.firstName,
+      user.lastName,
+      user.email,
+      user.username,
+      user.password
+    )
+  }
 
   console.log('\nDone seeding database')
   console.timeEnd('Time')
