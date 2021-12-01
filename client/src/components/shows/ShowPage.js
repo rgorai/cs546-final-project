@@ -4,6 +4,15 @@ import axios from 'axios'
 
 import ApiError from '../errors/ApiError'
 import '../../styles/shows/showPage.css'
+import Youtube from 'react-youtube'
+
+const opts = {
+  height: '390',
+  width: '640',
+  playersVars: {
+    autoplay: 1,
+  },
+}
 
 // error when invalid id typed in route
 
@@ -43,6 +52,13 @@ const ShowPage = (props) => {
           </div>
           <div className="show-episodes">
             Total number of episodes: {showData.number_of_episodes}
+          </div>
+          <div>
+            {showData.video ? (
+              <Youtube videoId={showData.video.key} opts={opts} />
+            ) : (
+              <p>No Trailer Available</p>
+            )}
           </div>
         </div>
       ) : (
