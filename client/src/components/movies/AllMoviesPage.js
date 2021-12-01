@@ -22,7 +22,7 @@ const AllMoviesPage = (props) => {
     <>
       {/* will be mapped to list of movies grouped by genre */}
       {error ? (
-        <ApiError status={error.status} statusMessage={error.statusText} />
+        <ApiError error={error} />
       ) : movieList ? (
         <div className="movies-page-container">
           <MovieList movieList={movieList.slice(0, 12)} />

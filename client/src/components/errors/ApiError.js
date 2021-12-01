@@ -1,10 +1,12 @@
 import '../../styles/errors/apiError.css'
 
 const ApiError = (props) => {
+  const { error } = props
   return (
-    <div className="not-found-container">
-      <div>{props.status}</div>
-      <div>{props.statusMessage}</div>
+    <div className="api-error-container">
+      <div>{error.status}</div>
+      <div>{error.statusText}</div>
+      <div>{error.data}</div>
     </div>
   )
 }
