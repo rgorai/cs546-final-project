@@ -39,7 +39,7 @@ const createReview = async (
   try {
     // console.log(reviewerId, reviewer, contentId, dateOfReview, review, like_dislike);
     // console.log(reviewerId)
-    // console.log(arguments.length);
+    console.log(arguments.length)
     errors.validateTotalArguments(arguments.length)
     const reviewerId = errors.validateObjectId(reviewerId)
     const reviewer = errors.validateReviewer(reviewer)
