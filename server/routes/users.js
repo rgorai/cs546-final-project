@@ -10,9 +10,16 @@ function checkIsString(s) {
   if (s.trim().length === 0) throw 'Given input is all white spaces'
 }
 
-router.get('/', verifyToken, async (req, res) => {
-  // console.log(req.userId)
-  res.status(200).send('you are authenticated.')
+router.get('/profile', verifyToken, async (req, res) => {
+  // error check
+  // req.userId
+
+  try {
+    res.status(200).json(await getUser(req.userId))
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
 })
 
 // use verifyToken for things that need authentication:
@@ -24,9 +31,9 @@ router.put('/:id', verifyToken, async (req, res) => {
   let { name } = req.body
 
   if (!name) {
-    res.status(400).json({
-      error: 'You must provide a movie/ TV show name to add to the watchlist',
-    })
+    res
+      .status(400)
+      .send('You must provide a movie/ TV show name to add to the watchlist')
   }
 
   try {
@@ -39,7 +46,7 @@ router.put('/:id', verifyToken, async (req, res) => {
     let user = await addToWatchlist(name)
     res.status(200).json(user)
   } catch (e) {
-    res.status(400).json({ error: e })
+    res.status(400).send(String(e))
   }
 })
 // removing from watchlist
@@ -50,10 +57,11 @@ router.delete('./:id', verifyToken, async (req, res) => {
   let { name } = req.body
 
   if (!name) {
-    res.status(400).json({
-      error:
-        'You must provide a movie/ TV show name to delete from the watchlist',
-    })
+    res
+      .status(400)
+      .send(
+        'You must provide a movie/ TV show name to delete from the watchlist'
+      )
   }
 
   try {
@@ -66,7 +74,7 @@ router.delete('./:id', verifyToken, async (req, res) => {
     let user = await deleteFromWatchlist(name)
     res.status(200).json(user)
   } catch (e) {
-    res.status(400).json({ error: e })
+    res.status(400).send(String(e))
   }
 })
 // creating a review

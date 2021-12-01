@@ -32,7 +32,7 @@ const ShowPage = (props) => {
   return (
     <>
       {error ? (
-        <ApiError status={error.status} statusMessage={error.statusText} />
+        <ApiError error={error} />
       ) : showData ? (
         <div className="show-page-container">
           <img

@@ -11,7 +11,7 @@ router.get('/:query', async (req, res) => {
     searchName.length === 0 ||
     searchName === ' '.repeat(searchName.length)
   ) {
-    res.status(400).json({ error: 'Name must be a non-empty string.' })
+    res.status(400).send('Name must be a non-empty string.')
     return
   }
 
@@ -20,7 +20,7 @@ router.get('/:query', async (req, res) => {
     let result = await searchMedia(searchName)
     res.status(200).json(result)
   } catch (e) {
-    res.status(500).json({ error: String(e) })
+    res.status(500).send(String(e))
   }
 })
 
