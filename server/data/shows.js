@@ -138,25 +138,38 @@ const getAll = async (x) => {
 //func to get all tv shows of a particular genre
 const getByGenre = async (str) => {
   // error check
-
   if (!str) throw 'Must provide a genre'
-  if (
-    typeof str !== 'string' ||
-    str.length === 0 ||
-    str === ' '.repeat(str.length)
-  )
-    throw 'Error: Genre name must be a non-empty string.'
 
-  // get all shows of given genre
-  const showsList = await getAll()
-  let showsbyGenre = []
-  showsList.forEach((e) => {
-    if (e.genres.find((i) => i.name === genre)) {
-      showsbyGenre.push(e)
-    }
-  })
-  return showsbyGenre
+  try {
+    checkIsString(str)
+  } catch (e) {
+    throw String(e)
+  }
+
+  const shows = await showCollection()
+  return await shows.find({ 'genres.name': { $eq: str } }).toArray()
 }
+// const getByGenre = async (str) => {
+//   // error check
+
+//   if (!str) throw 'Must provide a genre'
+//   if (
+//     typeof str !== 'string' ||
+//     str.length === 0 ||
+//     str === ' '.repeat(str.length)
+//   )
+//     throw 'Error: Genre name must be a non-empty string.'
+
+//   // get all shows of given genre
+//   const showsList = await getAll()
+//   let showsbyGenre = []
+//   showsList.forEach((e) => {
+//     if (e.genres.find((i) => i.name === genre)) {
+//       showsbyGenre.push(e)
+//     }
+//   })
+//   return showsbyGenre
+// }
 
 //func to get tv show of a specific name
 const getByName = async (str) => {

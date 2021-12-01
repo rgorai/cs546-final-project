@@ -79,7 +79,7 @@ router.get('/genre/:genre', async (req, res) => {
     res.status(404).json({ error: String(e) })
   }
 
-  genre = genre.toLowerCase().trim()
+  // genre = genre.toLowerCase().trim()
 
   try {
     let show = await getByGenre(genre)
