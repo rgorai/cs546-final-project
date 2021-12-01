@@ -5,6 +5,16 @@ import axios from 'axios'
 import ApiError from '../errors/ApiError'
 import '../../styles/movies/moviePage.css'
 
+import Youtube from 'react-youtube'
+
+const opts = {
+  height: '390',
+  width: '640',
+  playersVars: {
+    autoplay: 1,
+  },
+}
+
 // error when invalid id typed in route
 
 const MoviePage = (props) => {
@@ -42,6 +52,13 @@ const MoviePage = (props) => {
           <div className="movie-year">{movieData.releaseDate}</div>
           <div className="movie-mpa-rating">{movieData.mpaRating}</div>
           <div className="movie-description">{movieData.description}</div>
+          <div>
+            {movieData.video ? (
+              <Youtube videoId={movieData.video.key} opts={opts} />
+            ) : (
+              <p>No Trailer Available</p>
+            )}
+          </div>
         </div>
       ) : (
         <div>Loading</div>
