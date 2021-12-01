@@ -55,10 +55,8 @@ router.get('/bygenre', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   let movieId = req.params.id
-  console.log(movieId)
 
   // error check
-
   if (
     typeof movieId !== 'string' ||
     movieId.length === 0 ||
