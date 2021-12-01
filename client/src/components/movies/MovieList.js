@@ -7,7 +7,7 @@ const MovieList = (props) => {
       <label>{props.genreName}</label>
       <div className="movie-list-container">
         {props.movieList
-          .sort((_, m) => (m.posterPath ? 1 : -1))
+          .sort((_, m) => m.posterPath ? 1 : -1)
           .map((movie, i) => (
             <MovieCard
               key={i}
