@@ -40,6 +40,7 @@ const NewUserForm = (props) => {
             className="form-input"
             placeholder="John"
             type="text"
+            name="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
@@ -52,6 +53,7 @@ const NewUserForm = (props) => {
             className="form-input"
             placeholder="Doe"
             type="text"
+            name="lastName"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
@@ -64,6 +66,7 @@ const NewUserForm = (props) => {
             className="form-input"
             placeholder="johndoe@example.com"
             type="text"
+            name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -76,6 +79,7 @@ const NewUserForm = (props) => {
             className="form-input"
             placeholder="Username"
             type="text"
+            name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -88,6 +92,7 @@ const NewUserForm = (props) => {
             className="form-input"
             placeholder="Password"
             type="text"
+            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
