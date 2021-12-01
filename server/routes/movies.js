@@ -1,6 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const { get, getAll, getByName, getByGenre } = require('../data/movies')
+const {
+  get,
+  getAll,
+  getAllByGenre,
+  getByName,
+  getByGenre,
+} = require('../data/movies')
 
 function checkIsString(s) {
   if (typeof s !== 'string') throw 'Given input is invalid'
@@ -30,12 +36,18 @@ function checkIsArray(arr) {
 */
 
 router.get('/', async (req, res) => {
-  // error check
-  //no checks
-
   // send all movies
   try {
     res.status(200).json(await getAll())
+  } catch (e) {
+    res.status(500).send(String(e))
+  }
+})
+
+router.get('/bygenre', async (req, res) => {
+  // send all movies by genre
+  try {
+    res.status(200).json(await getAllByGenre())
   } catch (e) {
     res.status(500).send(String(e))
   }
