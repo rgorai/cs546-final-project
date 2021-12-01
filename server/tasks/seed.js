@@ -1,7 +1,7 @@
 const connection = require('../config/mongoConnection')
 
-const moviesGenreList = require('./movies_genre_list.json')
-const showsGenreList = require('./tv_series_genre_list.json')
+const moviesGenreList = require('./data/movies_genre_list.json')
+const showsGenreList = require('./data/tv_series_genre_list.json')
 
 const { create: createMovie } = require('../data/movies')
 const { create: createShow } = require('../data/shows')

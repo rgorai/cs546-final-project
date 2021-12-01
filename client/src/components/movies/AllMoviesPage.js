@@ -6,29 +6,35 @@ import ApiError from '../errors/ApiError'
 import '../../styles/movies/allMoviesPage.css'
 
 const AllMoviesPage = (props) => {
-  const [movieList, setMovieList] = useState(null)
+  const [moviesByGenre, setMoviesByGenre] = useState(null)
   const [error, setError] = useState(null)
 
+  // get movies from server
   useEffect(() => {
     axios
-      .get('/movies')
-      .then((res) => setMovieList(res.data))
+      .get('/movies/bygenre')
+      .then((res) => setMoviesByGenre(res.data))
       .catch((e) => setError(e.response))
   }, [])
 
-  // handle when there are no movies in the DB
+  const getGenreList = (moviesByGenre) => {
+    if (moviesByGenre.length === 0) return <div>Theres nothing here</div>
+
+    const { data, _names } = moviesByGenre
+    return Object.keys(data)
+      .sort((x, y) => data[y].length - data[x].length)
+      .map((k, i) => (
+        <MovieList key={i} genreName={_names[k]} movieList={data[k]} />
+      ))
+  }
 
   return (
     <>
-      {/* will be mapped to list of movies grouped by genre */}
       {error ? (
         <ApiError error={error} />
-      ) : movieList ? (
+      ) : moviesByGenre ? (
         <div className="movies-page-container">
-          <MovieList movieList={movieList.slice(0, 12)} />
-          <MovieList movieList={movieList.slice(12, 25)} />
-          <MovieList movieList={movieList.slice(25, 37)} />
-          <MovieList movieList={movieList.slice(37)} />
+          {getGenreList(moviesByGenre)}
         </div>
       ) : (
         <div>Loading</div>
