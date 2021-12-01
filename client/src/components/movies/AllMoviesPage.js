@@ -22,7 +22,8 @@ const AllMoviesPage = (props) => {
 
     const { data, _names } = moviesByGenre
     return Object.keys(data)
-      .sort((x, y) => data[y].length - data[x].length)
+      .filter((k) => data[k].length > 0)
+      .sort((k1, k2) => data[k2].length - data[k1].length)
       .map((k, i) => (
         <MovieList key={i} genreName={_names[k]} movieList={data[k]} />
       ))
