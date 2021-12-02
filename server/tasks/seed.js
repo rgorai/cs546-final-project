@@ -78,7 +78,6 @@ const main = async () => {
 
   // create movie entries
   const movieData = await getMovieData(NUM_MEDIA, movieReqs)
-  debugger
   for (const data of movieData) await createMovie(...data)
 
   // create show entries

@@ -27,7 +27,7 @@ const create = async (
   genres,
   posterPath,
   video,
-  streamingPlatforms
+  providers
 ) => {
   // error check
   if (!name) throw 'Show should have a name'
@@ -42,17 +42,17 @@ const create = async (
   number_of_episodes = parseInt(number_of_episodes)
   video = video.results.find((e) => e.type === 'Trailer')
 
-  streamingPlatforms = streamingPlatforms.results.US
+  providers = providers.results.US
   let streamTemp = []
   const streamKeys = ['flatrate', 'buy', 'rent', 'ads', 'free']
-  if (streamingPlatforms)
+  if (providers)
     for (const k of streamKeys)
-      if (streamingPlatforms[k])
-        streamTemp = streamTemp.concat(streamingPlatforms[k])
+      if (providers[k])
+        streamTemp = streamTemp.concat(providers[k])
   streamTemp = streamTemp.filter(
     (e, i) => i === streamTemp.findIndex((f) => e.provider_id === f.provider_id)
   )
-  streamingPlatforms = streamTemp.length > 0 ? streamTemp : null
+  providers = streamTemp.length > 0 ? streamTemp : null
 
   try {
     checkIsString(name)
@@ -82,7 +82,7 @@ const create = async (
     genres: genres,
     posterPath: posterPath,
     video: video,
-    streamingPlatforms: streamingPlatforms,
+    providers: providers,
     overallRating: 0, //initializing overallRating to be 0 when a show is created
     reviews: [], //initializing review as empty array
   })

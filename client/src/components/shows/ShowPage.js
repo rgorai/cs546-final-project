@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import ApiError from '../errors/ApiError'
 import '../../styles/shows/showPage.css'
+
 import Youtube from 'react-youtube'
 
 const opts = {
@@ -24,10 +25,13 @@ const ShowPage = (props) => {
   // request server with given movie id
   useEffect(() => {
     axios
-      .get(`/api/shows/${showId}`)
-      .then((res) => setShowData(res.data))
-      .catch((e) => setError(e.response))
-  }, [showId])
+    .get(`/api/shows/${showId}`)
+    .then((res) => {
+      setShowData(res.data)
+      console.log(res.data)
+    })
+    .catch((e) => setError(e.response))
+}, [showId])
 
   return (
     <>
