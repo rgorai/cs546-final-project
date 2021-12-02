@@ -4,10 +4,10 @@ import '../../styles/movies/movieList.css'
 const MovieList = (props) => {
   return (
     <>
-      <label>{props.genreName}</label>
+      <label>{props.name}</label>
       <div className="movie-list-container">
         {props.movieList
-          .sort((_, m) => m.posterPath ? 1 : -1)
+          .sort((_, m) => (m.posterPath ? 1 : -1))
           .map((movie, i) => (
             <MovieCard
               key={i}

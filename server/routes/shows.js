@@ -36,7 +36,6 @@ router.get('/bygenre', async (req, res) => {
 //route to get tv shows of a specific id
 router.get('/:id', async (req, res) => {
   let showId = req.params.id
-  // console.log(showId)
 
   // error check
   if (
@@ -61,7 +60,7 @@ router.get('/:id', async (req, res) => {
 //route to get tv show of a specific name
 router.get('/name/:name', async (req, res) => {
   const showName = req.params.name
-  //error checking
+  // error checking
   if (!showName) throw 'Must provide a show name'
 
   try {

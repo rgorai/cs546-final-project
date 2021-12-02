@@ -24,11 +24,8 @@ const ShowPage = (props) => {
   // request server with given movie id
   useEffect(() => {
     axios
-      .get(`/shows/${showId}`)
-      .then((res) => {
-        setShowData(res.data)
-        console.log(res.data)
-      })
+      .get(`/api/shows/${showId}`)
+      .then((res) => setShowData(res.data))
       .catch((e) => setError(e.response))
   }, [showId])
 

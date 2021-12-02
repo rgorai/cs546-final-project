@@ -19,6 +19,7 @@ const getMovieProviders = async (movieId) => {
 }
 const getShow = async (showId) => {
   const url = tmbdUrl + 'tv/' + showId + tmdbApiKey + append
+
   return await tmdbRequest(url)
 }
 const getShowProviders = async (showId) => {
@@ -90,7 +91,7 @@ const getMovieData = async (numMedia, mediaReqs) => {
     getMovie,
     getMovieProviders,
     [
-      'original_title',
+      'title',
       'release_date',
       'release_dates',
       'runtime',

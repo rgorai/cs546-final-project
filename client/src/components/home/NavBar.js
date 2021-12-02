@@ -13,13 +13,13 @@ const NavBar = (props) => {
   ]
 
   return (
-    <nav className="nav-bar-container">
+    <nav className="navbar-container">
       <div className="website-logo">
         <Link className="nav-item" to="/">
           MediaHub
         </Link>
       </div>
-      <ul className="nav-bar">
+      <ul className="navbar">
         {navLinks.map((e, i) => (
           <li key={i}>
             <Link className="nav-item" to={e.link}>
@@ -31,7 +31,7 @@ const NavBar = (props) => {
 
       <SearchBar />
 
-      <div className="nav-bar-button container">
+      <div className="navbar-button-container">
         {props.loggedIn ? (
           <>
             <button onClick={() => navigate('/profile')} type="button">

@@ -11,7 +11,7 @@ const AllShowsPage = (props) => {
 
   useEffect(() => {
     axios
-      .get('/shows/bygenre')
+      .get('/api/shows')
       .then((res) => setShowList(res.data))
       .catch((e) => setError(e.response))
   }, [])

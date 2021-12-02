@@ -4,17 +4,21 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import HomePage from './components/home/HomePage'
 import NewUserForm from './components/users/NewUserForm'
 import LoginPage from './components/home/LoginPage'
-import AllMoviesPage from './components/movies/AllMoviesPage'
-import AllshowsPage from './components/shows/AllShowsPage'
-import MoviePage from './components/movies/MoviePage'
-import ShowPage from './components/shows/ShowPage'
-import UserProfile from './components/users/UserProfile'
 import NavBar from './components/home/NavBar'
+import UserProfile from './components/users/UserProfile'
 import ApiError from './components/errors/ApiError'
+import SearchPage from './components/search/SearchPage'
+
+import AllMoviesPage from './components/movies/AllMoviesPage'
+import MoviesByGenre from './components/movies/MoviesByGenre'
+import MoviesByProvider from './components/movies/MoviesByProvider'
+import MoviePage from './components/movies/MoviePage'
+
+import AllShowsPage from './components/shows/AllShowsPage'
+import ShowPage from './components/shows/ShowPage'
 
 import { getCurrUser } from './services/authService'
 import './styles/root.css'
-import SearchPage from './components/search/SearchPage'
 
 const App = () => {
   const [user, setUser] = useState(false)
@@ -45,8 +49,14 @@ const App = () => {
             />
             <Route exact path="/profile" element={<UserProfile />} />
             <Route exact path="/movies" element={<AllMoviesPage />} />
+            <Route exact path="/movies/bygenre" element={<MoviesByGenre />} />
+            <Route
+              exact
+              path="/movies/byprovider"
+              element={<MoviesByProvider />}
+            />
             <Route exact path="/movies/:id" element={<MoviePage />} />
-            <Route exact path="/shows" element={<AllshowsPage />} />
+            <Route exact path="/shows" element={<AllShowsPage />} />
             <Route exact path="/shows/:id" element={<ShowPage />} />
             <Route exact path="/search/:query" element={<SearchPage />} />
             <Route

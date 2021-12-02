@@ -11,7 +11,7 @@ const SearchPage = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5001/search/${searchName}`)
+      .get(`/api/search/${searchName}`)
       .then((res) => {
         console.log(res.data)
         setSearchList(res.data)

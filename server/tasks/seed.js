@@ -2,9 +2,11 @@ const connection = require('../config/mongoConnection')
 
 const moviesGenreList = require('./data/movies_genre_list.json')
 const showsGenreList = require('./data/tv_series_genre_list.json')
+const userList = require('./users.json')
 
 const { create: createMovie } = require('../data/movies')
 const { create: createShow } = require('../data/shows')
+const { create: createUser } = require('../data/users')
 const { getMovieData, getShowData } = require('./utils')
 
 const NUM_MEDIA = 50
@@ -21,14 +23,17 @@ const NUM_MEDIA = 50
  *
  * Ex:
  * {
+ *  title: 0,
  *  poster_path: 5
  * }
- * There will be a maximum of 5 movies with no poster_path added
- * This number should be decided in regards to NUM_MEDIA
+ * - Title is required
+ * - There will be a maximum of 5 movies with no poster_path added
+ *
+ * N should be decided in regards to NUM_MEDIA
  *
  */
 const movieReqs = {
-  original_title: 0,
+  title: 0,
   release_date: 0,
   genres: 0,
   runtime: 0,
@@ -37,9 +42,12 @@ const movieReqs = {
 }
 const showReqs = {
   first_air_date: 0,
-  poster_path: 2,
-  overview: 2,
+  name: 0,
+  number_of_episodes: 0,
+  number_of_seasons: 0,
   genres: 0,
+  poster_path: Math.floor(0.1 * NUM_MEDIA),
+  overview: Math.floor(0.1 * NUM_MEDIA),
 }
 // const showReqs = {
 //   release_date: 0,
@@ -57,6 +65,17 @@ const main = async () => {
   // time seeding
   console.time('Time')
 
+  // create user entries
+  for (let user of userList) {
+    await createUser(
+      user.firstName,
+      user.lastName,
+      user.email,
+      user.username,
+      user.password
+    )
+  }
+
   // create movie entries
   const movieData = await getMovieData(NUM_MEDIA, movieReqs)
   debugger
@@ -64,7 +83,6 @@ const main = async () => {
 
   // create show entries
   const showData = await getShowData(NUM_MEDIA, showReqs)
-  debugger
   for (const data of showData) await createShow(...data)
 
   console.log('\nDone seeding database')
