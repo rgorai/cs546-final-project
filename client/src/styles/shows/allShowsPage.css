@@ -1,4 +1,6 @@
-.shows-page-container {
+.all-shows-container {
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
 }

@@ -15,6 +15,8 @@ import MoviesByProvider from './components/movies/MoviesByProvider'
 import MoviePage from './components/movies/MoviePage'
 
 import AllShowsPage from './components/shows/AllShowsPage'
+import ShowsByGenre from './components/shows/ShowsByGenre'
+import ShowsByProvider from './components/shows/ShowsByProvider'
 import ShowPage from './components/shows/ShowPage'
 
 import { getCurrUser } from './services/authService'
@@ -63,6 +65,12 @@ const App = () => {
 
             {/* shows routes */}
             <Route exact path="/shows" element={<AllShowsPage />} />
+            <Route exact path="/shows/bygenre" element={<ShowsByGenre />} />
+            <Route
+              exact
+              path="/shows/byprovider"
+              element={<ShowsByProvider />}
+            />
             <Route exact path="/shows/:id" element={<ShowPage />} />
 
             {/* search routes */}

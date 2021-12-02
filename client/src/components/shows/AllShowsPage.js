@@ -1,39 +1,50 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-import ShowList from './ShowList'
+import ShowCard from './ShowCard'
 import ApiError from '../errors/ApiError'
+import ShowsNavBar from './ShowsNavBar'
 import '../../styles/shows/allShowsPage.css'
 
 const AllShowsPage = (props) => {
-  const [showList, setShowList] = useState(null)
+  const [shows, setShows] = useState(null)
   const [error, setError] = useState(null)
 
+  // get shows from server
   useEffect(() => {
     axios
       .get('/api/shows')
-      .then((res) => setShowList(res.data))
-      // should ui if fetch fails
+      .then((res) => setShows(res.data))
       .catch((e) => setError(e.response))
   }, [])
 
-  return (
-    <>
-      {/* will be mapped to list of shows grouped by genre */}
-      {error ? (
-        <ApiError error={error} />
-      ) : showList ? (
-        <div className="shows-page-container">
-          <ShowList showList={showList.slice(0, 12)} />
-          <ShowList showList={showList.slice(12, 25)} />
-          <ShowList showList={showList.slice(25, 37)} />
-          <ShowList showList={showList.slice(37)} />
-        </div>
-      ) : (
-        <div>Loading</div>
-      )}
-    </>
-  )
-}
+    // construct show list ui
+    const getList = () => {
+      if (shows.length === 0) return <div>Theres nothing here</div>
+      return shows
+        .sort((_, m) => (m.posterPath ? 1 : -1))
+        .map((show, i) => (
+          <ShowCard
+            key={i}
+            id={show._id}
+            posterPath={show.posterPath}
+            name={show.name}
+          />
+        ))
+    }
+
+    return (
+      <>
+        <ShowsNavBar />
+        {error ? (
+          <ApiError error={error} />
+        ) : shows ? (
+          <div className="all-shows-container">{getList()}</div>
+        ) : (
+          <div>Loading</div>
+        )}
+      </>
+    )
+  }
 
 export default AllShowsPage
