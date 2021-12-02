@@ -15,7 +15,7 @@ const ShowPage = (props) => {
   // request server with given movie id
   useEffect(() => {
     axios
-      .get(`/shows/${showId}`)
+      .get(`/api/shows/${showId}`)
       .then((res) => setShowData(res.data))
       .catch((e) => setError(e.response))
   }, [showId])
@@ -23,7 +23,7 @@ const ShowPage = (props) => {
   return (
     <>
       {error ? (
-        <ApiError status={error.status} statusMessage={error.statusText} />
+        <ApiError error={error} />
       ) : showData ? (
         <div className="show-page-container">
           <img

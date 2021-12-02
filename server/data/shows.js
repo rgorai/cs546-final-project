@@ -35,6 +35,12 @@ function checkIsUrl(url) {
   }
 }
 
+function checkIsObject(obj) {
+  if (typeof obj !== 'object') throw 'Given input is not an Object'
+  if (obj == null || obj === undefined || Object.keys(obj).length === 0)
+    throw 'Given Object is invalid'
+}
+
 function getObject(id) {
   let { ObjectId } = require('mongodb')
   let newObjId = ObjectId()
@@ -56,44 +62,33 @@ const create = async (
   name,
   releaseDate,
   description,
-  number_of_seasons,
   number_of_episodes,
+  number_of_seasons,
   genres,
   posterPath,
-  streamingPlatforms
+  providers
 ) => {
   // error check
 
   if (!name) throw 'Show should have a name'
-  if (!releaseDate) throw 'Show should have a release date'
-  if (!number_of_seasons) throw 'Show should have the number of seasons'
-  if (!number_of_episodes) throw 'Show should have the number of episodes'
+  if (!number_of_episodes) throw 'Show should have number of episodes'
+  if (!number_of_seasons) throw 'Show should have number of seasons'
   if (!genres) throw 'Show should have genres'
-  if (!description) throw 'Show should have a description'
-  if (!posterPath) throw 'Show should have a posterPath'
-  if (!streamingPlatforms) throw 'Show should have streaming platforms'
 
-  checkIsString(name)
-  checkIsString(description)
+  try {
+    checkIsString(name)
+    checkIsNumber(number_of_episodes)
+    checkIsNumber(number_of_seasons)
+    checkIsObject(genres)
+  } catch (e) {
+    throw e
+  }
 
-  checkIsNumber(releaseDate)
-  checkIsNumber(number_of_episodes)
-  checkIsNumber(number_of_seasons)
-
-  checkIsArray(genres)
-  checkIsArray(streamingPlatforms)
-  checkIsUrl(posterPath)
-
-  name = name.toLowerCase().trim()
+  name = name.trim()
   releaseDate = parseInt(releaseDate)
-  description = description.toLowerCase().trim()
+  description = description.trim()
   number_of_seasons = parseInt(number_of_seasons)
   number_of_episodes = parseInt(number_of_episodes)
-  genres = genres.map((genre) => genre.toLowerCase())
-  posterPath = posterPath.toLowerCase().trim()
-  streamingPlatforms = streamingPlatforms.map((platform) =>
-    platform.toLowerCase()
-  )
 
   // add new show to db
   const shows = await showCollection()
@@ -105,7 +100,7 @@ const create = async (
     number_of_episodes: number_of_episodes,
     genres: genres,
     posterPath: posterPath,
-    streamingPlatforms: streamingPlatforms,
+    providers: providers,
     overallRating: 0, //initializing overallRating to be 0 when a show is created
     reviews: [], //initializing review as empty array
   }

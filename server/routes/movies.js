@@ -1,6 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const { get, getAll, getByName, getByGenre } = require('../data/movies')
+const {
+  get,
+  getAll,
+  getAllByGenre,
+  getAllByProvider,
+  getByName,
+  getByGenre,
+} = require('../data/movies')
 
 function checkIsString(s) {
   if (typeof s !== 'string') throw 'Given input is invalid'
@@ -30,29 +37,42 @@ function checkIsArray(arr) {
 */
 
 router.get('/', async (req, res) => {
-  // error check
-  //no checks
-
   // send all movies
   try {
     res.status(200).json(await getAll())
   } catch (e) {
-    res.status(500).json({ error: String(e) })
+    res.status(500).send(String(e))
+  }
+})
+
+router.get('/bygenre', async (req, res) => {
+  // send all movies by genre
+  try {
+    res.status(200).json(await getAllByGenre())
+  } catch (e) {
+    res.status(500).send(String(e))
+  }
+})
+
+router.get('/byprovider', async (req, res) => {
+  // send all movies by provider
+  try {
+    res.status(200).json(await getAllByProvider())
+  } catch (e) {
+    res.status(500).send(String(e))
   }
 })
 
 router.get('/:id', async (req, res) => {
   let movieId = req.params.id
-  console.log(movieId)
 
   // error check
-
   if (
     typeof movieId !== 'string' ||
     movieId.length === 0 ||
     movieId === ' '.repeat(movieId.length)
   ) {
-    res.status(400).json({ error: 'movieId must be a non-empty string.' })
+    res.status(400).send('movieId must be a non-empty string.')
     return
   }
 
@@ -62,7 +82,7 @@ router.get('/:id', async (req, res) => {
   try {
     res.status(200).json(await get(movieId))
   } catch (e) {
-    res.status(404).json({ error: String(e) })
+    res.status(404).send(String(e))
   }
 })
 
@@ -74,7 +94,7 @@ router.get('/name/:name', async (req, res) => {
   try {
     checkIsString(movieName)
   } catch (e) {
-    res.status(404).json({ error: String(e) })
+    res.status(404).send(String(e))
   }
 
   //movieName = movieName.toLowerCase().trim()
@@ -83,7 +103,7 @@ router.get('/name/:name', async (req, res) => {
     let movie = await getByName(movieName)
     res.status(200).json(movie)
   } catch (e) {
-    res.status(404).json({ error: String(e) })
+    res.status(404).send(String(e))
   }
 })
 
@@ -95,7 +115,7 @@ router.get('/genre/:genre', async (req, res) => {
   try {
     checkIsString(genre)
   } catch (e) {
-    res.status(404).json({ error: String(e) })
+    res.status(404).send(String(e))
   }
 
   //genre = genre.toLowerCase().trim()
@@ -104,7 +124,7 @@ router.get('/genre/:genre', async (req, res) => {
     let movie = await getByGenre(genre)
     res.status(200).json(movie)
   } catch (e) {
-    res.status(404).json({ error: String(e) })
+    res.status(404).send(String(e))
   }
 })
 

@@ -1,6 +1,7 @@
 const mongoCollections = require('../config/mongoCollections')
 const movieCollection = mongoCollections.movies
 const { ObjectId } = require('mongodb')
+const moviesGenreList = require('../tasks/data/movies_genre_list.json')
 
 function checkIsString(s) {
   if (typeof s !== 'string') throw 'Given input is invalid'
@@ -35,7 +36,7 @@ const create = async (
   description,
   posterPath,
   video,
-  streamingPlatforms
+  providers
 ) => {
   // error check
   if (!name) throw 'Movie should have a name'
@@ -57,17 +58,16 @@ const create = async (
       ? certTemp.release_dates[0].certification
       : null
 
-  streamingPlatforms = streamingPlatforms.results.US
+  providers = providers.results.US
   let streamTemp = []
   const streamKeys = ['flatrate', 'buy', 'rent', 'ads', 'free']
-  if (streamingPlatforms)
+  if (providers)
     for (const k of streamKeys)
-      if (streamingPlatforms[k])
-        streamTemp = streamTemp.concat(streamingPlatforms[k])
+      if (providers[k]) streamTemp = streamTemp.concat(providers[k])
   streamTemp = streamTemp.filter(
     (e, i) => i === streamTemp.findIndex((f) => e.provider_id === f.provider_id)
   )
-  streamingPlatforms = streamTemp.length > 0 ? streamTemp : null
+  providers = streamTemp.length > 0 ? streamTemp : null
 
   try {
     checkIsString(name)
@@ -97,7 +97,7 @@ const create = async (
     description: description,
     posterPath: posterPath,
     video: video,
-    streamingPlatforms: streamingPlatforms,
+    providers: providers,
     overallRating: 0,
     reviews: [],
   })
@@ -137,7 +137,7 @@ const getAll = async (x) => {
   // error check
   if (typeof x !== 'undefined') throw 'Error: no parameters should be given.'
 
-  // get and return all restaurants
+  // get and return all movies
   const movies = await movieCollection()
   return await movies
     .find({})
@@ -146,6 +146,55 @@ const getAll = async (x) => {
       _id: e._id.toString(),
     }))
     .toArray()
+}
+
+const getAllByGenre = async (x) => {
+  // error check
+  if (typeof x !== 'undefined') throw 'Error: no parameters should be given.'
+
+  // start with map of genre id to genre name
+  const moviesByGenre = {
+    data: {},
+    _names: moviesGenreList.reduce(
+      (prev, curr) => ({
+        ...prev,
+        [curr.id]: curr.name,
+      }),
+      {}
+    ),
+  }
+
+  // assign movies to each genre they have
+  const movies = await getAll()
+  for (const movie of movies)
+    for (const genre of movie.genres)
+      if (moviesByGenre.data[genre.id]) moviesByGenre.data[genre.id].push(movie)
+      else moviesByGenre.data[genre.id] = [movie]
+
+  return moviesByGenre
+}
+
+const getAllByProvider = async (x) => {
+  // error check
+  if (typeof x !== 'undefined') throw 'Error: no parameters should be given.'
+
+  // assign movies to each provider they have
+  const moviesByProvider = {
+    data: {},
+    _names: {},
+  }
+  const movies = await getAll()
+  for (const movie of movies)
+    if (movie.providers)
+      for (const p of movie.providers)
+        if (moviesByProvider.data[p.provider_id])
+          moviesByProvider.data[p.provider_id].push(movie)
+        else {
+          moviesByProvider.data[p.provider_id] = [movie]
+          moviesByProvider._names[p.provider_id] = p.provider_name
+        }
+
+  return moviesByProvider
 }
 
 const getByGenre = async (str) => {
@@ -157,10 +206,8 @@ const getByGenre = async (str) => {
   } catch (e) {
     throw String(e)
   }
-  //str = str.toLowerCase().trim()
 
   // get all movies of given genre
-
   const movies = await movieCollection()
   return await movies.find({ 'genres.name': { $eq: str } }).toArray()
 }
@@ -174,10 +221,8 @@ const getByName = async (str) => {
   } catch (e) {
     throw String(e)
   }
-  //str = str.toLowerCase().trim()
 
   const movies = await movieCollection()
-
   return await movies.find({ name: { $eq: str } }).toArray()
 }
 
@@ -185,6 +230,8 @@ module.exports = {
   create,
   get,
   getAll,
+  getAllByGenre,
+  getAllByProvider,
   getByGenre,
   getByName,
 }

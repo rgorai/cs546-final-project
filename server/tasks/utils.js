@@ -1,6 +1,6 @@
 const axios = require('axios')
-const allMovies = require('./movie_ids_11_14_2021.json')
-const allShows = require('./tv_series_ids_11_14_2021.json')
+const allMovies = require('./data/movie_ids_11_14_2021.json')
+const allShows = require('./data/tv_series_ids_11_14_2021.json')
 
 /*
  * DOCUMENTATION: https://developers.themoviedb.org/3/getting-started/introduction
@@ -19,6 +19,7 @@ const getMovieProviders = async (movieId) => {
 }
 const getShow = async (showId) => {
   const url = tmbdUrl + 'tv/' + showId + tmdbApiKey + append
+
   return await tmdbRequest(url)
 }
 const getShowProviders = async (showId) => {
@@ -88,7 +89,7 @@ const getMovieData = async (numMedia, mediaReqs) => {
     getMovie,
     getMovieProviders,
     [
-      'original_title',
+      'title',
       'release_date',
       'release_dates',
       'runtime',

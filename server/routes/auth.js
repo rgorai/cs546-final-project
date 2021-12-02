@@ -88,7 +88,7 @@ router.post('/login', isLoggedIn, async (req, res) => {
   try {
     const auth = await authenticateUser(username, password)
     if (auth.authenticated) res.status(200).json(auth)
-    else res.status(401).json({ error: 'Invalid username or password' })
+    else res.status(401).send('Invalid username or password')
   } catch (e) {
     res.status(500).send(String(e))
   }

@@ -11,7 +11,7 @@ const AllShowsPage = (props) => {
 
   useEffect(() => {
     axios
-      .get('/shows')
+      .get('/api/shows')
       .then((res) => setShowList(res.data))
       // should ui if fetch fails
       .catch((e) => setError(e.response))
@@ -21,7 +21,7 @@ const AllShowsPage = (props) => {
     <>
       {/* will be mapped to list of shows grouped by genre */}
       {error ? (
-        <ApiError status={error.status} statusMessage={error.statusText} />
+        <ApiError error={error} />
       ) : showList ? (
         <div className="shows-page-container">
           <ShowList showList={showList.slice(0, 12)} />

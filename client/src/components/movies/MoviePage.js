@@ -5,6 +5,16 @@ import axios from 'axios'
 import ApiError from '../errors/ApiError'
 import '../../styles/movies/moviePage.css'
 
+import Youtube from 'react-youtube'
+
+const opts = {
+  height: '390',
+  width: '640',
+  playersVars: {
+    autoplay: 1,
+  },
+}
+
 // error when invalid id typed in route
 
 const MoviePage = (props) => {
@@ -15,7 +25,7 @@ const MoviePage = (props) => {
   // request server with given movie id
   useEffect(() => {
     axios
-      .get(`/movies/${movieId}`)
+      .get(`/api/movies/${movieId}`)
       .then((res) => {
         setMovieData(res.data)
         console.log(res.data)
@@ -26,7 +36,7 @@ const MoviePage = (props) => {
   return (
     <>
       {error ? (
-        <ApiError status={error.status} statusMessage={error.statusText} />
+        <ApiError error={error} />
       ) : movieData ? (
         <div className="movie-page-container">
           <img
@@ -42,6 +52,13 @@ const MoviePage = (props) => {
           <div className="movie-year">{movieData.releaseDate}</div>
           <div className="movie-mpa-rating">{movieData.mpaRating}</div>
           <div className="movie-description">{movieData.description}</div>
+          <div>
+            {movieData.video ? (
+              <Youtube videoId={movieData.video.key} opts={opts} />
+            ) : (
+              <p>No Trailer Available</p>
+            )}
+          </div>
         </div>
       ) : (
         <div>Loading</div>
