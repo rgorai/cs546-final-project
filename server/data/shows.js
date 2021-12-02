@@ -60,7 +60,7 @@ const create = async (
   number_of_episodes,
   genres,
   posterPath,
-  streamingPlatforms
+  providers
 ) => {
   // error check
 
@@ -71,7 +71,7 @@ const create = async (
   if (!genres) throw 'Show should have genres'
   if (!description) throw 'Show should have a description'
   if (!posterPath) throw 'Show should have a posterPath'
-  if (!streamingPlatforms) throw 'Show should have streaming platforms'
+  if (!providers) throw 'Show should have streaming platforms'
 
   checkIsString(name)
   checkIsString(description)
@@ -81,7 +81,7 @@ const create = async (
   checkIsNumber(number_of_seasons)
 
   checkIsArray(genres)
-  checkIsArray(streamingPlatforms)
+  checkIsArray(providers)
   checkIsUrl(posterPath)
 
   name = name.toLowerCase().trim()
@@ -91,9 +91,7 @@ const create = async (
   number_of_episodes = parseInt(number_of_episodes)
   genres = genres.map((genre) => genre.toLowerCase())
   posterPath = posterPath.toLowerCase().trim()
-  streamingPlatforms = streamingPlatforms.map((platform) =>
-    platform.toLowerCase()
-  )
+  providers = providers.map((platform) => platform.toLowerCase())
 
   // add new show to db
   const shows = await showCollection()
@@ -105,7 +103,7 @@ const create = async (
     number_of_episodes: number_of_episodes,
     genres: genres,
     posterPath: posterPath,
-    streamingPlatforms: streamingPlatforms,
+    providers: providers,
     overallRating: 0, //initializing overallRating to be 0 when a show is created
     reviews: [], //initializing review as empty array
   }

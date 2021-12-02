@@ -1,4 +1,4 @@
-.nav-bar-container {
+.navbar-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -8,18 +8,18 @@
   border-bottom: 1px solid black;
 }
 
-.nav-bar-container button {
+.navbar-container button {
   height: 100%;
 }
 
-.nav-bar {
+.navbar {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-.nav-bar li {
+.navbar li {
   float: left;
   height: 100%;
 }

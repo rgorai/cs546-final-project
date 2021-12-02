@@ -7,7 +7,7 @@ const { create: createMovie } = require('../data/movies')
 const { create: createShow } = require('../data/shows')
 const { getMovieData, getShowData } = require('./utils')
 
-const NUM_MEDIA = 5
+const NUM_MEDIA = 50
 
 /*
  * API data requirements:
@@ -21,14 +21,17 @@ const NUM_MEDIA = 5
  *
  * Ex:
  * {
+ *  title: 0,
  *  poster_path: 5
  * }
- * There will be a maximum of 5 movies with no poster_path added
- * This number should be decided in regards to NUM_MEDIA
+ * - Title is required
+ * - There will be a maximum of 5 movies with no poster_path added
+ *
+ * N should be decided in regards to NUM_MEDIA
  *
  */
 const movieReqs = {
-  original_title: 0,
+  title: 0,
   release_date: 0,
   genres: 0,
   runtime: 0,

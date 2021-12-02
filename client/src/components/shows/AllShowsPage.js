@@ -11,7 +11,7 @@ const AllShowsPage = (props) => {
 
   useEffect(() => {
     axios
-      .get('/shows')
+      .get('/api/shows')
       .then((res) => setShowList(res.data))
       // should ui if fetch fails
       .catch((e) => setError(e.response))

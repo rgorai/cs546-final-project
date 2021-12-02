@@ -4,6 +4,7 @@ const {
   get,
   getAll,
   getAllByGenre,
+  getAllByProvider,
   getByName,
   getByGenre,
 } = require('../data/movies')
@@ -53,12 +54,19 @@ router.get('/bygenre', async (req, res) => {
   }
 })
 
+router.get('/byprovider', async (req, res) => {
+  // send all movies by provider
+  try {
+    res.status(200).json(await getAllByProvider())
+  } catch (e) {
+    res.status(500).send(String(e))
+  }
+})
+
 router.get('/:id', async (req, res) => {
   let movieId = req.params.id
-  console.log(movieId)
 
   // error check
-
   if (
     typeof movieId !== 'string' ||
     movieId.length === 0 ||
