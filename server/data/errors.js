@@ -13,7 +13,7 @@ const validateLikeDislike = (like) => {
 }
 
 const validateTotalArguments = (totalFields) => {
-  const TOTAL_MANDATORY_ARGUMENTS = 6
+  const TOTAL_MANDATORY_ARGUMENTS = 5
 
   if (totalFields !== TOTAL_MANDATORY_ARGUMENTS) {
     throwError(
@@ -115,13 +115,6 @@ const isValidString = (str, variableName) => {
     )
   }
 }
-
-// const validateRestaurantId = (restaurantId) => {
-//     isArgumentString(restaurantId, "id");
-//     isStringEmpty(restaurantId, "id");
-
-//     return restaurantId.trim();
-// };
 
 const validateReviewId = (reviewId) => {
   isArgumentString(reviewId, 'id')
