@@ -7,14 +7,14 @@ import ShowsNavBar from './ShowsNavBar'
 import '../../styles/shows/allShowsPage.css'
 
 const AllShowsPage = (props) => {
-  const [shows, setShowList] = useState(null)
+  const [shows, setShows] = useState(null)
   const [error, setError] = useState(null)
 
   // get shows from server
   useEffect(() => {
     axios
       .get('/api/shows')
-      .then((res) => setShowList(res.data))
+      .then((res) => setShows(res.data))
       .catch((e) => setError(e.response))
   }, [])
 

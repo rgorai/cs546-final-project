@@ -152,7 +152,7 @@ const getAllByGenre = async (x) => {
     ),
   }
 
-  // assign movies to each genre they have
+  // assign shows to each genre they have
   const shows = await getAll()
   for (const show of shows)
     for (const genre of show.genres)
@@ -160,6 +160,29 @@ const getAllByGenre = async (x) => {
       else showsByGenre.data[genre.id] = [show]
 
   return showsByGenre
+}
+
+const getAllByProvider = async (x) => {
+  // error check
+  if (typeof x !== 'undefined') throw 'Error: no parameters should be given.'
+
+  // assign shows to each provider they have
+  const showsByProvider = {
+    data: {},
+    _names: {},
+  }
+  const shows = await getAll()
+  for (const show of shows)
+    if (show.providers)
+      for (const p of show.providers)
+        if (showsByProvider.data[p.provider_id])
+        showsByProvider.data[p.provider_id].push(show)
+        else {
+          showsByProvider.data[p.provider_id] = [show]
+          showsByProvider._names[p.provider_id] = p.provider_name
+        }
+
+  return showsByProvider
 }
 
 //func to get tv shows of a particular genre
@@ -187,10 +210,7 @@ const getByName = async (str) => {
     throw e
   }
 
-  str = str.toLowerCase().trim()
-
   const shows = await showCollection()
-
   return await shows.find({ name: { $eq: str } }).toArray()
 }
 
@@ -199,6 +219,7 @@ module.exports = {
   get,
   getAll,
   getAllByGenre,
+  getAllByProvider,
   getByGenre,
   getByName,
 }

@@ -4,7 +4,7 @@ import '../../styles/shows/showList.css'
 const ShowList = (props) => {
   return (
     <>
-      <label>{props.genreName}</label>
+      <label>{props.name}</label>
       <div className="show-list-container">
         {props.showList
           .sort((_, m) => m.posterPath ? 1 : -1)

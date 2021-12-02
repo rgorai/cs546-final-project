@@ -4,6 +4,7 @@ const {
   get, 
   getAll, 
   getAllByGenre,
+  getAllByProvider,
   getByName,
   getByGenre 
 } = require('../data/shows')
@@ -28,6 +29,16 @@ router.get('/bygenre', async (req, res) => {
   // send all shows by genre
   try {
     res.status(200).json(await getAllByGenre())
+  } catch (e) {
+    res.status(500).send(String(e))
+  }
+})
+
+//route to get tv shows of a provider
+router.get('/byprovider', async (req, res) => {
+  // send all shows by provider
+  try {
+    res.status(200).json(await getAllByProvider())
   } catch (e) {
     res.status(500).send(String(e))
   }
