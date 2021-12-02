@@ -70,10 +70,6 @@ const create = async (
 ) => {
   // error check
 
-  if (!name) throw 'Show should have a name'
-  //if (!releaseDate) throw 'Show should have a release date'
-  if (!genres) throw 'Show should have genres'
-
   if (name !== null) {
     try {
       checkIsString(name)
