@@ -37,8 +37,6 @@ function checkIsUrl(url) {
 
 function checkIsObject(obj) {
   if (typeof obj !== 'object') throw 'Given input is not an Object'
-  //if(typeof obj !== "function") throw "Given input is not an object";
-  //if(typeof obj === null) throw "Given Object is null";
   if (obj == null || obj === undefined || Object.keys(obj).length === 0)
     throw 'Given Object is invalid'
 }
@@ -76,12 +74,52 @@ const create = async (
   //if (!releaseDate) throw 'Show should have a release date'
   if (!genres) throw 'Show should have genres'
 
-  try {
-    checkIsString(name)
-    checkIsString(releaseDate)
-    checkIsObject(genres)
-  } catch (e) {
-    throw e
+  if (name !== null) {
+    try {
+      checkIsString(name)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  if (releaseDate !== null) {
+    try {
+      checkIsString(releaseDate)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  if (description !== null) {
+    try {
+      checkIsString(description)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  if (number_of_episodes !== null) {
+    try {
+      checkIsNumber(number_of_episodes)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  if (number_of_seasons !== null) {
+    try {
+      checkIsNumber(number_of_seasons)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  if (genres !== null) {
+    try {
+      checkIsObject(genres)
+    } catch (e) {
+      throw e
+    }
   }
 
   name = name.trim()
