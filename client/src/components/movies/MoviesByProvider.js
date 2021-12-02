@@ -18,16 +18,14 @@ const MoviesByProvider = (props) => {
       .catch((e) => setError(e.response))
   }, [])
 
+  // construct movie list ui
   const getList = () => {
     if (moviesByProvider.length === 0) return <div>Theres nothing here</div>
-
     const { data, _names } = moviesByProvider
     return Object.keys(data)
       .filter((k) => data[k].length > 0)
       .sort((k1, k2) => data[k2].length - data[k1].length)
-      .map((k, i) => (
-        <MovieList key={i} genreName={_names[k]} movieList={data[k]} />
-      ))
+      .map((k, i) => <MovieList key={i} name={_names[k]} movieList={data[k]} />)
   }
 
   return (
@@ -36,7 +34,7 @@ const MoviesByProvider = (props) => {
       {error ? (
         <ApiError error={error} />
       ) : moviesByProvider ? (
-        <div className="movies-bygenre-container">nothing here yet</div>
+        <div className="movies-bygenre-container">{getList()}</div>
       ) : (
         <div>Loading</div>
       )}

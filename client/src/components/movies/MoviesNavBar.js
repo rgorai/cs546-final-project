@@ -1,9 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import '../../styles/movies/moviesNavBar.css'
 
 const MoviesNavBar = (props) => {
-  const navigate = useNavigate()
-
   const navLinks = [
     { name: 'All', link: '/movies' },
     { name: 'Genres', link: '/movies/bygenre' },
@@ -21,6 +19,10 @@ const MoviesNavBar = (props) => {
           </li>
         ))}
       </ul>
+      <div className="movie-ops-container">
+        <button>filter</button>
+        <button>sort</button>
+      </div>
     </div>
   )
 }
