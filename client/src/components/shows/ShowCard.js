@@ -7,8 +7,7 @@ const ShowCard = (props) => {
       <Link to={`/shows/${props.id}`}>
         <img
           className="show-card-img"
-          src={
-            props.posterPath
+          src={props.posterPath
               ? `https://image.tmdb.org/t/p/original${props.posterPath}`
               : process.env.PUBLIC_URL + '/images/not-found.jpg'
           }

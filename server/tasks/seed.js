@@ -41,9 +41,10 @@ const movieReqs = {
   overview: Math.floor(0.1 * NUM_MEDIA),
 }
 const showReqs = {
+  first_air_date: 0,
   name: 0,
-  number_of_episodes: 0,
   number_of_seasons: 0,
+  number_of_episodes: 0,
   genres: 0,
   poster_path: Math.floor(0.1 * NUM_MEDIA),
   overview: Math.floor(0.1 * NUM_MEDIA),

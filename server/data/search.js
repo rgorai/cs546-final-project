@@ -7,6 +7,7 @@ const { ObjectId } = require('mongodb')
 
 //collection.find({name: `/${query}/i`}).toArray();
 
+//func to search movies and tv shows of a specific keyword entered in the search bar
 const searchMedia = async (query) => {
   // error check
   if (
@@ -30,4 +31,21 @@ const searchMedia = async (query) => {
   return searchResult
 }
 
-module.exports = { searchMedia }
+const autoComplete = async (query) => {
+    // error check
+  if (
+    typeof query !== 'string' ||
+    query.length === 0 ||
+    query === ' '.repeat(query.length)
+  )
+    throw 'Error: name must be a non-empty string.'
+    
+    let mList = await movieFunc.getAll()
+    let sList = await showFunc.getAll()
+
+    
+
+    return mList, sList
+}
+
+module.exports = { searchMedia, autoComplete }
