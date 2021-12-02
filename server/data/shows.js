@@ -70,52 +70,18 @@ const create = async (
 ) => {
   // error check
 
-  if (name !== null) {
-    try {
-      checkIsString(name)
-    } catch (e) {
-      throw e
-    }
-  }
+  if (!name) throw 'Show should have a name'
+  if (!number_of_episodes) throw 'Show should have number of episodes'
+  if (!number_of_seasons) throw 'Show should have number of seasons'
+  if (!genres) throw 'Show should have genres'
 
-  if (releaseDate !== null) {
-    try {
-      checkIsString(releaseDate)
-    } catch (e) {
-      throw e
-    }
-  }
-
-  if (description !== null) {
-    try {
-      checkIsString(description)
-    } catch (e) {
-      throw e
-    }
-  }
-
-  if (number_of_episodes !== null) {
-    try {
-      checkIsNumber(number_of_episodes)
-    } catch (e) {
-      throw e
-    }
-  }
-
-  if (number_of_seasons !== null) {
-    try {
-      checkIsNumber(number_of_seasons)
-    } catch (e) {
-      throw e
-    }
-  }
-
-  if (genres !== null) {
-    try {
-      checkIsObject(genres)
-    } catch (e) {
-      throw e
-    }
+  try {
+    checkIsString(name)
+    checkIsNumber(number_of_episodes)
+    checkIsNumber(number_of_seasons)
+    checkIsObject(genres)
+  } catch (e) {
+    throw e
   }
 
   name = name.trim()
