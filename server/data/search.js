@@ -43,6 +43,8 @@ const autoComplete = async (query) => {
     let mList = await movieFunc.getAll()
     let sList = await showFunc.getAll()
 
+    
+
     return mList, sList
 }
 

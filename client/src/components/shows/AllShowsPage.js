@@ -6,7 +6,7 @@ import ApiError from '../errors/ApiError'
 import '../../styles/shows/allShowsPage.css'
 
 const AllShowsPage = (props) => {
-  const [showList, setShowList] = useState(null)
+  const [showsByGenre, setShowList] = useState(null)
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const AllShowsPage = (props) => {
       .filter((k) => data[k].length > 0)
       .sort((k1, k2) => data[k2].length - data[k1].length)
       .map((k, i) => (
-        <showList key={i} genreName={_names[k]} showList={data[k]} />
+        <ShowList key={i} genreName={_names[k]} showList={data[k]} />
       ))
   }
 
