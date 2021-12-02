@@ -10,7 +10,6 @@ import MoviePage from './components/movies/MoviePage'
 import ShowPage from './components/shows/ShowPage'
 import UserProfile from './components/users/UserProfile'
 import NavBar from './components/home/NavBar'
-import SearchBar from './components/home/SearchBar'
 import ApiError from './components/errors/ApiError'
 
 import { getCurrUser } from './services/authService'

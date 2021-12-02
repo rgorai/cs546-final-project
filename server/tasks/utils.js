@@ -1,6 +1,6 @@
 const axios = require('axios')
-const allMovies = require('./movie_ids_11_14_2021.json')
-const allShows = require('./tv_series_ids_11_14_2021.json')
+const allMovies = require('./data/movie_ids_11_14_2021.json')
+const allShows = require('./data/tv_series_ids_11_14_2021.json')
 
 /*
  * DOCUMENTATION: https://developers.themoviedb.org/3/getting-started/introduction

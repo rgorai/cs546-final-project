@@ -36,7 +36,7 @@ const MoviePage = (props) => {
   return (
     <>
       {error ? (
-        <ApiError status={error.status} statusMessage={error.statusText} />
+        <ApiError error={error} />
       ) : movieData ? (
         <div className="movie-page-container">
           <img

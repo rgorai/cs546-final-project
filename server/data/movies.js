@@ -1,6 +1,7 @@
 const mongoCollections = require('../config/mongoCollections')
 const movieCollection = mongoCollections.movies
 const { ObjectId } = require('mongodb')
+const moviesGenreList = require('../tasks/data/movies_genre_list.json')
 
 function checkIsString(s) {
   if (typeof s !== 'string') throw 'Given input is invalid'
@@ -137,7 +138,7 @@ const getAll = async (x) => {
   // error check
   if (typeof x !== 'undefined') throw 'Error: no parameters should be given.'
 
-  // get and return all restaurants
+  // get and return all movies
   const movies = await movieCollection()
   return await movies
     .find({})
@@ -146,6 +147,32 @@ const getAll = async (x) => {
       _id: e._id.toString(),
     }))
     .toArray()
+}
+
+const getAllByGenre = async (x) => {
+  // error check
+  if (typeof x !== 'undefined') throw 'Error: no parameters should be given.'
+
+  // start with map of genre id to genre name
+  const moviesByGenre = {
+    data: {},
+    _names: moviesGenreList.reduce(
+      (prev, curr) => ({
+        ...prev,
+        [curr.id]: curr.name,
+      }),
+      {}
+    ),
+  }
+
+  // assign movies to each genre they have
+  const movies = await getAll()
+  for (const movie of movies)
+    for (const genre of movie.genres)
+      if (moviesByGenre.data[genre.id]) moviesByGenre.data[genre.id].push(movie)
+      else moviesByGenre.data[genre.id] = [movie]
+
+  return moviesByGenre
 }
 
 const getByGenre = async (str) => {
@@ -185,6 +212,7 @@ module.exports = {
   create,
   get,
   getAll,
+  getAllByGenre,
   getByGenre,
   getByName,
 }

@@ -35,8 +35,9 @@ const LoginPage = (props) => {
           <input
             id="input-username"
             className="form-input"
-            placeholder="Username"
+            placeholder="Username or Email"
             type="text"
+            name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -49,6 +50,7 @@ const LoginPage = (props) => {
             className="form-input"
             placeholder="Password"
             type="text"
+            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
