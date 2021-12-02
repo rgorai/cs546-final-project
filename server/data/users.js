@@ -29,7 +29,7 @@ function checkIsUsername(s) {
   if (s.length < 4) throw 'Given username size is less than 4'
 }
 
-const createUser = async (firstName, lastName, email, username, password) => {
+const create = async (firstName, lastName, email, username, password) => {
   // error check
   if (!firstName) throw 'You must provide the first name'
   if (!lastName) throw 'You must provide the last name'
@@ -302,7 +302,7 @@ const updatePassword = async (id, password) => {
 }
 
 module.exports = {
-  createUser,
+  create,
   authenticateUser,
   getUser,
   getByEmail,
