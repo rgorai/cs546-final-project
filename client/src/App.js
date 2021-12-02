@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import HomePage from './components/home/HomePage'
 import NewUserForm from './components/users/NewUserForm'
 import LoginPage from './components/home/LoginPage'
-import NavBar from './components/home/NavBar'
+import NavBar from './components/menus/NavBar'
 import UserProfile from './components/users/UserProfile'
 import ApiError from './components/errors/ApiError'
 import SearchPage from './components/search/SearchPage'
@@ -36,6 +36,7 @@ const App = () => {
 
         <main>
           <Routes>
+            {/* homepage routes */}
             <Route exact path="/" element={<HomePage />} />
             <Route
               exact
@@ -47,7 +48,10 @@ const App = () => {
               path="/login"
               element={<LoginPage loggedIn={user} />}
             />
+            {/* add logout route? */}
             <Route exact path="/profile" element={<UserProfile />} />
+
+            {/* movies routes */}
             <Route exact path="/movies" element={<AllMoviesPage />} />
             <Route exact path="/movies/bygenre" element={<MoviesByGenre />} />
             <Route
@@ -56,13 +60,23 @@ const App = () => {
               element={<MoviesByProvider />}
             />
             <Route exact path="/movies/:id" element={<MoviePage />} />
+
+            {/* shows routes */}
             <Route exact path="/shows" element={<AllShowsPage />} />
             <Route exact path="/shows/:id" element={<ShowPage />} />
+
+            {/* search routes */}
             <Route exact path="/search/:query" element={<SearchPage />} />
+            
+            {/* catch the rest */}
             <Route
               exact
               path="*"
-              element={<ApiError status="404" statusMessage="Not Found" />}
+              element={<ApiError error={{
+                status: 404,
+                statusText: 'Not Found',
+                data: 'invalid react route'
+              }} />}
             />
           </Routes>
         </main>

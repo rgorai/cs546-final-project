@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import SearchBar from '../search/SearchBar'
 import { logout } from '../../services/authService'
-import '../../styles/home/navBar.css'
+import '../../styles/menus/navBar.css'
 
 const NavBar = (props) => {
   const navigate = useNavigate()

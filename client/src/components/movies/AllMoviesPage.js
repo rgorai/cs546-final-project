@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import MovieCard from './MovieCard'
 import ApiError from '../errors/ApiError'
-import MoviesNavBar from './MoviesNavBar'
+import MoviesNavBar from '../menus/MoviesNavBar'
 import '../../styles/movies/allMoviesPage.css'
 
 const AllMoviesPage = (props) => {
