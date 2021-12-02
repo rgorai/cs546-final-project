@@ -22,8 +22,8 @@ const create = async (
   name,
   releaseDate,
   description,
-  number_of_episodes,
   number_of_seasons,
+  number_of_episodes,
   genres,
   posterPath,
   video,
@@ -31,8 +31,8 @@ const create = async (
 ) => {
   // error check
   if (!name) throw 'Show should have a name'
-  if (!number_of_episodes) throw 'Show should have number of episodes'
   if (!number_of_seasons) throw 'Show should have number of seasons'
+  if (!number_of_episodes) throw 'Show should have number of episodes'
   if (!genres) throw 'Show should have genres'
 
   // parse data
