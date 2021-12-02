@@ -25,7 +25,7 @@ const MoviePage = (props) => {
   // request server with given movie id
   useEffect(() => {
     axios
-      .get(`/movies/${movieId}`)
+      .get(`/api/movies/${movieId}`)
       .then((res) => {
         setMovieData(res.data)
         console.log(res.data)

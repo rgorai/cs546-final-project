@@ -89,7 +89,7 @@ const getMovieData = async (numMedia, mediaReqs) => {
     getMovie,
     getMovieProviders,
     [
-      'original_title',
+      'title',
       'release_date',
       'release_dates',
       'runtime',

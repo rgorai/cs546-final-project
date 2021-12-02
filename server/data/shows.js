@@ -66,7 +66,7 @@ const create = async (
   number_of_seasons,
   genres,
   posterPath,
-  streamingPlatforms
+  providers
 ) => {
   // error check
 
@@ -100,7 +100,7 @@ const create = async (
     number_of_episodes: number_of_episodes,
     genres: genres,
     posterPath: posterPath,
-    streamingPlatforms: streamingPlatforms,
+    providers: providers,
     overallRating: 0, //initializing overallRating to be 0 when a show is created
     reviews: [], //initializing review as empty array
   }

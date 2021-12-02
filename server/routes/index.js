@@ -6,12 +6,12 @@ const authRoutes = require('./auth')
 const searchRoutes = require('./search')
 
 const constructorMethod = (app) => {
-  app.use('/movies', movieRoutes)
-  app.use('/shows', showRoutes)
-  app.use('/reviews', reviewRoutes)
-  app.use('/user', userRoutes)
-  app.use('/auth', authRoutes)
-  app.use('/search', searchRoutes)
+  app.use('/api/movies', movieRoutes)
+  app.use('/api/shows', showRoutes)
+  app.use('/api/reviews', reviewRoutes)
+  app.use('/api/user', userRoutes)
+  app.use('/api/auth', authRoutes)
+  app.use('/api/search', searchRoutes)
 
   app.use('*', (req, res) => {
     res.sendStatus(404)
