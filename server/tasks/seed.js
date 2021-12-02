@@ -6,7 +6,7 @@ const userList = require('./users.json')
 
 const { create: createMovie } = require('../data/movies')
 const { create: createShow } = require('../data/shows')
-//const { create: createUser } = require('../data/users')
+const { create: createUser } = require('../data/users')
 const { getMovieData, getShowData } = require('./utils')
 
 const NUM_MEDIA = 50
@@ -45,8 +45,8 @@ const showReqs = {
   number_of_episodes: 0,
   number_of_seasons: 0,
   genres: 0,
-  poster_path: 2,
-  overview: 2,
+  poster_path: Math.floor(0.1 * NUM_MEDIA),
+  overview: Math.floor(0.1 * NUM_MEDIA),
 }
 
 const main = async () => {
@@ -56,20 +56,9 @@ const main = async () => {
   // time seeding
   console.time('Time')
 
-  // create movie entries
-  const movieData = await getMovieData(NUM_MEDIA, movieReqs)
-  for (const data of movieData) await createMovie(...data)
-
-  // create show entries
-
-  const showData = await getShowData(NUM_MEDIA, showReqs)
-  console.log(showData)
-  for (const data of showData) await createShow(...data)
-
-  //user entried
-
+  // create user entries
   for (let user of userList) {
-    await users.create(
+    await createUser(
       user.firstName,
       user.lastName,
       user.email,
@@ -77,6 +66,14 @@ const main = async () => {
       user.password
     )
   }
+
+  // create movie entries
+  const movieData = await getMovieData(NUM_MEDIA, movieReqs)
+  for (const data of movieData) await createMovie(...data)
+
+  // create show entries
+  const showData = await getShowData(NUM_MEDIA, showReqs)
+  for (const data of showData) await createShow(...data)
 
   console.log('\nDone seeding database')
   console.timeEnd('Time')

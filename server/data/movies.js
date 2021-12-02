@@ -193,7 +193,7 @@ const getAllByProvider = async (x) => {
           moviesByProvider.data[p.provider_id] = [movie]
           moviesByProvider._names[p.provider_id] = p.provider_name
         }
-  console.log(moviesByProvider)
+
   return moviesByProvider
 }
 

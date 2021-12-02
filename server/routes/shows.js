@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-  const showId = req.params.id
+  let showId = req.params.id
 
   // error check
   if (
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
     return
   }
 
-  showId = showId.toLowerCase.trim()
+  showId = showId.toLowerCase().trim()
 
   // send requested show
   try {
@@ -45,7 +45,7 @@ router.get('/:id', async (req, res) => {
 
 router.get('/name/:name', async (req, res) => {
   const showName = req.params.name
-  //error checking
+  // error checking
   if (!showName) throw 'Must provide a show name'
 
   try {
