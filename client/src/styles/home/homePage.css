@@ -1,0 +1,9 @@
+.trending-rank{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 0px;
+    padding-right: 90px !important;
+    padding-left: 90px !important;
+}

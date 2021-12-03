@@ -38,7 +38,14 @@ const HomePage = (props) => {
       <h1>Welcome to MediaHub</h1>
       <h2>Your Streaming Guide for Movies and TV Shows</h2>
       <label>
-        <h3>Now Trending</h3>
+        <h3>Now Trending top 5</h3>
+        <div className="trending-rank">
+          <h1>1</h1>
+          <h1>2</h1>
+          <h1>3</h1>
+          <h1>4</h1>
+          <h1>5</h1>
+        </div>
       </label>
       <label>
         <h4>Movies:</h4>
@@ -48,7 +55,6 @@ const HomePage = (props) => {
         <h4>Shows:</h4>
         <ShowList showList={showList}/>
       </label>
-      
     </div>
     
   )
