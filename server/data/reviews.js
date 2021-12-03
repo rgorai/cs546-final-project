@@ -6,6 +6,7 @@ const userCollection = mongoCollections.users
 const { ObjectId } = require('mongodb')
 const { reviews } = require('../config/mongoCollections')
 
+// Create a new review
 const createReview = async (
   reviewerId,
   reviewer,
@@ -23,15 +24,12 @@ const createReview = async (
   _id = new ObjectId()
   shows = await showCollection()
   show = await shows.findOne({ _id: contentId })
-  // console.log(show);
 
   const movies = await movieCollection()
   const movie = await movies.findOne({ _id: contentId })
-  // console.log(movie);
 
   const users = await userCollection()
   const user = await users.findOne({ _id: reviewerId })
-  // console.log(user);
 
   const newReview = {
     _id: _id,
@@ -69,7 +67,7 @@ const createReview = async (
   )
   if (inserted.modifiedCount === 0) throw 'Could not update the shows'
   const createdReview = await users.findOne({ 'reviews.contentId': contentId })
-  // console.log(createdReview);
+
   return createReview
 }
 
@@ -84,7 +82,6 @@ const removeReview = async (contentId, reviewId) => {
   const movie = await movies.findOne({ _id: contentId })
 
   const users = await userCollection()
-  console.log(await users.findOne({ 'reviews._id': reviewId }))
 
   if (!show)
     removedContent = await movies.updateOne(
@@ -109,9 +106,7 @@ const removeReview = async (contentId, reviewId) => {
   if (!removedContent.matchedCount && !removedContent.modifiedCount)
     throw 'Failed to remove review from content'
 
-  const user = await users.findOne({ 'reviews._id': reviewId })
-  // console.log(user);
-  return user
+  return { removedReview: true }
 }
 
 const updateReview = async (
@@ -134,15 +129,11 @@ const updateReview = async (
   const shows = await showCollection()
   const users = await userCollection()
 
-  // const movie = await movies.find({ reviews: { $elemMatch: { _id: ObjectId(reviewId) } } }).toArray();
   const movie = await movies.findOne({ 'reviews._id': reviewId })
-  // console.log(movie);
-  // const show = await shows.find({ reviews: { $elemMatch: { _id: ObjectId(reviewId) } } }).toArray();
+
   const show = await shows.findOne({ 'reviews._id': reviewId })
-  // console.log(show);
-  // const user = await users.find({ reviews: { $elemMatch: { _id: ObjectId(reviewId) } } }).toArray();
+
   const user = await users.findOne({ 'reviews._id': reviewId })
-  // console.log(user);
 
   const newReview = {
     _id: reviewId,
@@ -164,27 +155,6 @@ const updateReview = async (
       { $push: { reviews: newReview } }
     )
   }
-
-  // const query = { _id: ObjectId(contentId), "reviews._id": ObjectId(reviewId) }
-
-  // const updatedReview = {
-  //   $set:
-  //   {
-  //     "reviews.$.reviewerId": reviewerId,
-  //     "reviews.$.reviewer": reviewer,
-  //     "reviews.$.contentId": contentId,
-  //     "reviews.$.dateOfReview": dateOfReview,
-  //     "reviews.$.review": review,
-  //     "reviews.$.like_dislike": like_dislike
-  //   }
-  // }
-
-  // if(!show) {
-  // }
-
-  // if(!movie) {
-  // updated = await shows.updateOne({ _id: ObjectId(contentId) }, { $set: updatedReview });
-  // }
 
   if (!movie) {
     updatedContent = await shows.updateOne(
@@ -211,17 +181,12 @@ const updateReview = async (
     { $push: { reviews: newReview } }
   )
 
-  // updatedUser = await users.updateOne({ _id: ObjectId(reviewerId) }, { $set: updatedReview });
-
   if (updatedUser.modifiedCount === 0) {
     throw 'Could not update review for user'
   }
-  // if (updatedUser.modifiedCount === 0) {
-  //   throw 'Could not update user successfully';
-  // }
 
   const updatedReview = await users.findOne({ 'reviews.contentId': contentId })
-  // console.log(updatedReview);
+
   return updatedReview
 }
 
