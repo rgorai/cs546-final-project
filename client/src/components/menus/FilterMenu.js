@@ -12,10 +12,10 @@ const FilterMenu = (props) => {
     <>
       <button onClick={() => setShowDropdown(!showDropdown)}>Filter</button>
       {showDropdown ? 
-        <div className="filter-dropdown">
+        <div className="movienav-dropdown">
           <form id="filter-form" onSubmit={onSubmit}>
             <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-            <label for="vehicle1">I have a bike</label>
+            <label htmlFor="vehicle1">I have a bike</label>
 
             <div className="filter-button-container">
               <button className="form-reset" type="reset" form="filter-form">

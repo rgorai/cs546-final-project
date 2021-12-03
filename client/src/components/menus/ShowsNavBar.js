@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import '../../styles/shows/showsNavBar.css'
+import '../../styles/menus/showsNavBar.css'
 
 const ShowsNavBar = (props) => {
   const navLinks = [

@@ -15,3 +15,12 @@
   float: left;
   height: 100%;
 }
+
+.movienav-dropdown {
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  right: 50px;
+  display: flex;
+  flex-direction: column;
+}
