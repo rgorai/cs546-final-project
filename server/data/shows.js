@@ -1,98 +1,79 @@
 const mongoCollections = require('../config/mongoCollections')
 const showCollection = mongoCollections.shows
 const { ObjectId } = require('mongodb')
+const showsGenreList = require('../tasks/data/tv_series_genre_list.json')
 
 function checkIsString(s) {
-  if (typeof s != 'string') throw 'Given input is invalid'
+  if (typeof s !== 'string') throw 'Given input is invalid'
   if (s.length < 1) throw 'Given input is empty'
   if (s.trim().length === 0) throw 'Given input is all white spaces'
 }
 
-function checkIsNumber(r) {
-  r = parseInt(r)
-  if (isNaN(r)) throw 'Given runtime is invalid'
-}
-
 function checkIsArray(arr) {
   if (!Array.isArray(arr)) {
-    throw 'Given genres/ services are invalid'
+    throw 'Given genres are invalid'
   } else if (arr.length === 0) {
-    throw 'Given genres/services are empty'
-  }
-
-  for (let x of arr) {
-    checkIsString(x)
-    x = x.trim()
+    throw 'Given genres are empty'
   }
 }
 
-function checkIsUrl(url) {
-  let s
-  try {
-    s = new URL(url)
-  } catch (e) {
-    throw 'Given url is invalid'
-  }
-}
-
-function checkIsObject(obj) {
-  if (typeof obj !== 'object') throw 'Given input is not an Object'
-  if (obj == null || obj === undefined || Object.keys(obj).length === 0)
-    throw 'Given Object is invalid'
-}
-
-function getObject(id) {
-  let { ObjectId } = require('mongodb')
-  let newObjId = ObjectId()
-  let x = newObjId.toString()
-  if (typeof id === 'object') {
-    parsedId = id
-  } else {
-    checkIsString(id)
-    if (!ObjectId.isValid(id)) {
-      throw 'Given id is invalid'
-    }
-    parsedId = ObjectId(id)
-  }
-
-  return parsedId
-}
-
+//func to create a new tv show
 const create = async (
   name,
   releaseDate,
   description,
-  number_of_episodes,
   number_of_seasons,
+  number_of_episodes,
   genres,
   posterPath,
+  video,
   providers
 ) => {
   // error check
-
   if (!name) throw 'Show should have a name'
-  if (!number_of_episodes) throw 'Show should have number of episodes'
   if (!number_of_seasons) throw 'Show should have number of seasons'
+  if (!number_of_episodes) throw 'Show should have number of episodes'
   if (!genres) throw 'Show should have genres'
+
+  // parse data
+  name = name.trim()
+  releaseDate = releaseDate.trim()
+  number_of_seasons = parseInt(number_of_seasons)
+  number_of_episodes = parseInt(number_of_episodes)
+  video = video.results.find((e) => e.type === 'Trailer')
+
+  providers = providers.results.US
+  let streamTemp = []
+  const streamKeys = ['flatrate', 'buy', 'rent', 'ads', 'free']
+  if (providers)
+    for (const k of streamKeys)
+      if (providers[k])
+        streamTemp = streamTemp.concat(providers[k])
+  streamTemp = streamTemp.filter(
+    (e, i) => i === streamTemp.findIndex((f) => e.provider_id === f.provider_id)
+  )
+  providers = streamTemp.length > 0 ? streamTemp : null
 
   try {
     checkIsString(name)
-    checkIsNumber(number_of_episodes)
-    checkIsNumber(number_of_seasons)
-    checkIsObject(genres)
+    checkIsString(releaseDate)
+    checkIsArray(genres)
+    if (isNaN(number_of_seasons)) throw 'Given season number is invalid'
+    if (isNaN(number_of_episodes)) throw 'Given episode number is invalid'
   } catch (e) {
-    throw e
+    throw String(e)
   }
-
-  name = name.trim()
-  releaseDate = parseInt(releaseDate)
-  description = description.trim()
-  number_of_seasons = parseInt(number_of_seasons)
-  number_of_episodes = parseInt(number_of_episodes)
-
+  
   // add new show to db
   const shows = await showCollection()
-  let newShow = {
+
+  // check if the show already in the database
+  let show = await shows.findOne({ name: name, releaseDate: releaseDate })
+  if (show != null) {
+    throw 'Show already in the database'
+  }
+
+  const insertRet = await shows.insertOne({
     name: name,
     releaseDate: releaseDate,
     description: description,
@@ -100,17 +81,19 @@ const create = async (
     number_of_episodes: number_of_episodes,
     genres: genres,
     posterPath: posterPath,
+    video: video,
     providers: providers,
     overallRating: 0, //initializing overallRating to be 0 when a show is created
     reviews: [], //initializing review as empty array
-  }
+  })
+
   // throw if insertion failed
-  const insertRet = await shows.insertOne(newShow)
-  if (insertRet.insertedCount === 0) throw 'Error: failed to add new show.'
+  if (!insertRet.acknowledged) throw 'Error: failed to add new show.'
 
   return await get(insertRet.insertedId.toString())
 }
 
+//func to get tv shows with id
 const get = async (showId) => {
   // error check
   if (
@@ -119,8 +102,6 @@ const get = async (showId) => {
     showId === ' '.repeat(showId.length)
   )
     throw 'Error: showId must be a non-empty string.'
-
-  showId = showId.toLowerCase().trim()
 
   // convert id to object
   try {
@@ -138,6 +119,7 @@ const get = async (showId) => {
   return { ...show, _id: show._id.toString() }
 }
 
+//func to get all tv shows
 const getAll = async (x) => {
   // error check
   if (typeof x !== 'undefined') throw 'Error: no parameters should be given.'
@@ -153,28 +135,72 @@ const getAll = async (x) => {
     .toArray()
 }
 
-const getByGenre = async (str) => {
+//func to get all tv shows of a particular genre
+const getAllByGenre = async (x) => {
   // error check
+  if (typeof x !== 'undefined') throw 'Error: no parameters should be given.'
 
-  if (!str) throw 'Must provide a genre'
-  if (
-    typeof str !== 'string' ||
-    str.length === 0 ||
-    str === ' '.repeat(str.length)
-  )
-    throw 'Error: Genre name must be a non-empty string.'
+  // start with map of genre id to genre name
+  const showsByGenre = {
+    data: {},
+    _names: showsGenreList.reduce(
+      (prev, curr) => ({
+        ...prev,
+        [curr.id]: curr.name,
+      }),
+      {}
+    ),
+  }
 
-  // get all shows of given genre
-  const showsList = await getAll()
-  let showsbyGenre = []
-  showsList.forEach((e) => {
-    if (e.genres.find((i) => i.name === genre)) {
-      showsbyGenre.push(e)
-    }
-  })
-  return showsbyGenre
+  // assign shows to each genre they have
+  const shows = await getAll()
+  for (const show of shows)
+    for (const genre of show.genres)
+      if (showsByGenre.data[genre.id]) showsByGenre.data[genre.id].push(show)
+      else showsByGenre.data[genre.id] = [show]
+
+  return showsByGenre
 }
 
+const getAllByProvider = async (x) => {
+  // error check
+  if (typeof x !== 'undefined') throw 'Error: no parameters should be given.'
+
+  // assign shows to each provider they have
+  const showsByProvider = {
+    data: {},
+    _names: {},
+  }
+  const shows = await getAll()
+  for (const show of shows)
+    if (show.providers)
+      for (const p of show.providers)
+        if (showsByProvider.data[p.provider_id])
+        showsByProvider.data[p.provider_id].push(show)
+        else {
+          showsByProvider.data[p.provider_id] = [show]
+          showsByProvider._names[p.provider_id] = p.provider_name
+        }
+
+  return showsByProvider
+}
+
+//func to get tv shows of a particular genre
+const getByGenre = async (str) => {
+  // error check
+  if (!str) throw 'Must provide a genre'
+
+  try {
+    checkIsString(str)
+  } catch (e) {
+    throw String(e)
+  }
+
+  const shows = await showCollection()
+  return await shows.find({ 'genres.name': { $eq: str } }).toArray()
+}
+
+//func to get tv show of a specific name
 const getByName = async (str) => {
   if (!str) throw 'Must provide a name'
 
@@ -184,10 +210,7 @@ const getByName = async (str) => {
     throw e
   }
 
-  str = str.toLowerCase().trim()
-
   const shows = await showCollection()
-
   return await shows.find({ name: { $eq: str } }).toArray()
 }
 
@@ -195,11 +218,13 @@ module.exports = {
   create,
   get,
   getAll,
+  getAllByGenre,
+  getAllByProvider,
   getByGenre,
   getByName,
 }
 
-//Show object example: https://api.themoviedb.org/3/tv/1668?api_key=eafd486601fa7c42b1dd9d374c56f365&language=en-US
+//Show object example: https://api.themoviedb.org/3/tv/1668?api_key=31cc954c3de9a91aecd102e07e4d4707&append_to_response=videos,release_dates
 //Show Provider Object example: https://api.themoviedb.org/3/tv/1668/watch/providers?api_key=31cc954c3de9a91aecd102e07e4d4707
 //Movie object example: https://api.themoviedb.org/3/movie/18?api_key=31cc954c3de9a91aecd102e07e4d4707&append_to_response=videos,release_dates
-//Show provider object example: https://api.themoviedb.org/3/tv/1668/watch/providers?api_key=31cc954c3de9a91aecd102e07e4d4707
+

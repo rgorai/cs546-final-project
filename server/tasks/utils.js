@@ -117,6 +117,7 @@ const getShowData = async (numMedia, mediaReqs) => {
       'number_of_episodes',
       'genres',
       'poster_path',
+      'videos',
       'providers',
     ]
   )
