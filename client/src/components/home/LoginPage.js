@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../services/authService'
+import '../../styles/home/loginPage.css'
 
 const LoginPage = (props) => {
   const navigate = useNavigate()
@@ -24,15 +25,14 @@ const LoginPage = (props) => {
   }
 
   return (
-    <div className="login-box">
+    <div className="login-container">
       {props.loggedIn ? (
         <div>You are already signed in.</div>
       ) : (
         <form id="login-form" onSubmit={onFormSubmit}>
-          <div className="user-box">
+          <div className="user-input-container">
             <input
               id="input-username"
-              className="form-input"
               placeholder="Username or Email"
               type="text"
               name="username"
@@ -42,10 +42,9 @@ const LoginPage = (props) => {
             <label htmlFor="input-username">Username</label>
           </div>
 
-          <div className="user-box">
+          <div className="user-input-container">
             <input
               id="input-password"
-              className="form-input"
               placeholder="Password"
               type="text"
               name="password"
