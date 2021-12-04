@@ -34,9 +34,9 @@ const tmdbRequest = async (url) => {
     // add continue if seeding fails
     const { data } = e.response
     throw {
-      'TMDB Error': data.status_code,
+      tmdbError: data.status_code,
       message: data.status_message,
-      reqUrl: url
+      reqUrl: url,
     }
   }
 }
@@ -99,7 +99,7 @@ const getMovieData = async (numMedia, mediaReqs) => {
       'poster_path',
       'videos',
       'providers',
-      'revenue'
+      'revenue',
     ]
   )
 }

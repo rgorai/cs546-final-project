@@ -5,11 +5,11 @@ import '../../styles/users/newUserForm.css'
 
 const NewUserForm = (props) => {
   const navigate = useNavigate()
-  const [firstName, setFirstName] = useState(null)
-  const [lastName, setLastName] = useState(null)
-  const [email, setEmail] = useState(null)
-  const [username, setUsername] = useState(null)
-  const [password, setPassword] = useState(null)
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
 
   const onFormSubmit = (e) => {

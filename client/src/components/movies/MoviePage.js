@@ -41,8 +41,8 @@ const MoviePage = (props) => {
           <img
             className="movie-page-img"
             src={
-              movieData.posterPath
-                ? `https://image.tmdb.org/t/p/original${movieData.posterPath}`
+              movieData.poster_path
+                ? `https://image.tmdb.org/t/p/original${movieData.poster_path}`
                 : process.env.PUBLIC_URL + '/images/not-found.jpg'
             }
             alt="Movie Poster"

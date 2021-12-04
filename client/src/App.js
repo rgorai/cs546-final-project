@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom'
 
 import HomePage from './components/home/HomePage'
 import NewUserForm from './components/users/NewUserForm'
@@ -54,7 +59,12 @@ const App = () => {
             <Route exact path="/profile" element={<UserProfile />} />
 
             {/* movies routes */}
-            <Route exact path="/movies" element={<AllMoviesPage />} />
+            <Route
+              exact
+              path="/movies"
+              element={<Navigate to="/movies/all" />}
+            />
+            <Route exact path="/movies/all" element={<AllMoviesPage />} />
             <Route exact path="/movies/bygenre" element={<MoviesByGenre />} />
             <Route
               exact
@@ -75,16 +85,20 @@ const App = () => {
 
             {/* search routes */}
             <Route exact path="/search/:query" element={<SearchPage />} />
-            
+
             {/* catch the rest */}
             <Route
               exact
               path="*"
-              element={<ApiError error={{
-                status: 404,
-                statusText: 'Not Found',
-                data: 'invalid react route'
-              }} />}
+              element={
+                <ApiError
+                  error={{
+                    status: 404,
+                    statusText: 'Not Found',
+                    data: 'invalid react route',
+                  }}
+                />
+              }
             />
           </Routes>
         </main>
