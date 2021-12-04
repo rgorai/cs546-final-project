@@ -1,15 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../../styles/menus/sortMenu.css'
 
 const SortMenu = (props) => {
   const [showDropdown, setShowDropdown] = useState(false)
   const [ascending, setAscending] = useState(true)
   const [currSort, setCurrSort] = useState('title')
-  const {
-    items,
-    movies,
-    setMovies
-  } = props
+  const { items, movies, setMovies } = props
+
+  // useEffect(() => {
+  //   sortMovies({ target: { id: currSort } })
+  // }, [ascending])
 
   const sortMovies = (event) => {
     const k = event.target.id
@@ -19,10 +19,9 @@ const SortMenu = (props) => {
 
     if (movies.length > 0) {
       // console.log('hello', movies)
-      const t = movies.sort((x, y) => (
-        (ascending ? 1 : -1) * 
-          items[k].compare(x[k], y[k])
-      ))
+      const t = movies.sort(
+        (x, y) => (ascending ? 1 : -1) * items[k].compare(x[k], y[k])
+      )
       props.setMovies(t)
       console.log('there', t)
     }
@@ -37,31 +36,32 @@ const SortMenu = (props) => {
   //   console.log(movies)
   // }
 
-  const handleAscend = () => {
-    setAscending(!ascending)
-    sortMovies({ target: { id: currSort } })
-  }
-
   return (
     <>
       <button onClick={() => setShowDropdown(!showDropdown)}>Sort</button>
-      {showDropdown ? 
+      {showDropdown ? (
         <div className="movienav-dropdown">
           {Object.keys(items).map((k, i) => (
             <div key={i}>
-              <input type="radio" id={k} className="moviesort-item" name="moviesort-group" onChange={sortMovies} />
+              <input
+                type="radio"
+                id={k}
+                className="moviesort-item"
+                name="moviesort-group"
+                onChange={sortMovies}
+              />
               <label htmlFor={k}>{items[k].text}</label>
             </div>
-          ))  
-}
-          <button className="ascending-button" onClick={handleAscend}>
-            {ascending
-            ? 'Ascending'
-          : 'Descending'}
+          ))}
+
+          <button
+            className="ascending-button"
+            onClick={() => setAscending(!ascending)}
+          >
+            {ascending ? 'Ascending' : 'Descending'}
           </button>
         </div>
-        : null
-      }
+      ) : null}
     </>
   )
 }
