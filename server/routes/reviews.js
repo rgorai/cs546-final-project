@@ -8,17 +8,17 @@ const { ObjectId } = require('mongodb')
 let username
 
 router.post('/', verifyToken, async (req, res) => {
-  let { reviewerId, contentId, dateOfReview, review, like_dislike } = req.body
+  let { contentId, dateOfReview, review, like_dislike } = req.body
 
-  if (!req.params.id) {
-    throw 'You must specify an ID of the user to post a review'
+  if (!req.userId) {
+    res.status(400).send('You must specify an ID of the user to post a review')
   }
 
   try {
-    const user = await getUser(req.params.id)
+    const user = await getUser(req.userId)
     username = user.username
 
-    reviewerId = errors.validateObjectId(reviewerId)
+    reviewerId = errors.validateObjectId(req.userId)
     reviewer = errors.validateReviewer(username)
     contentId = errors.validateObjectId(contentId)
     dateOfReview = errors.validateDateOfReview(dateOfReview)
@@ -39,38 +39,32 @@ router.post('/', verifyToken, async (req, res) => {
   }
 })
 
-router.put('/', async (req, res) => {
-  let {
-    reviewId,
-    reviewerId,
-    reviewer,
-    contentId,
-    dateOfReview,
-    review,
-    like_dislike,
-  } = req.body
+router.put('/', verifyToken, async (req, res) => {
+  let { reviewId, reviewer, contentId, dateOfReview, review, like_dislike } =
+    req.body
 
-  if (!req.params.id) {
-    throw 'You must specify an ID of the user to update the review'
+  if (!req.userId) {
+    res
+      .status(400)
+      .send('You must specify an ID of the user to update the review')
   }
 
   try {
-    const user = await getUser(req.params.id)
+    const user = await getUser(req.userId)
     username = user.username
   } catch (e) {
     res.status(500).send('User not found')
   }
 
   // Error Checking
-  reviewId = errors.validateObjectId(reviewId)
-  reviewerId = errors.validateObjectId(req.params.id)
-  reviewerId = errors.validateObjectId(reviewerId)
-  reviewer = errors.validateReviewer(username)
-  contentId = errors.validateObjectId(contentId)
-  dateOfReview = errors.validateDateOfReview(dateOfReview)
-  review = errors.validateReview(review)
 
   try {
+    reviewId = errors.validateObjectId(reviewId)
+    reviewerId = errors.validateObjectId(req.userId)
+    reviewer = errors.validateReviewer(username)
+    contentId = errors.validateObjectId(contentId)
+    dateOfReview = errors.validateDateOfReview(dateOfReview)
+    review = errors.validateReview(review)
     const updatedReview = await updateReview(
       reviewId,
       reviewerId,
@@ -86,8 +80,14 @@ router.put('/', async (req, res) => {
   }
 })
 
-router.delete('/', async (req, res) => {
+router.delete('/', verifyToken, async (req, res) => {
   let { contentId, reviewId } = req.body
+
+  if (!req.userId) {
+    res
+      .status(400)
+      .send('You must specify an ID of the user to update the review')
+  }
 
   reviewId = errors.validateObjectId(reviewId)
   contentId = errors.validateObjectId(contentId)
