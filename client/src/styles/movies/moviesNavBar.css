@@ -14,4 +14,10 @@
 .movie-navbar li {
   float: left;
   height: 100%;
+  margin-bottom: 10px;
+}
+
+.movie-nav-item {
+  margin: 10px;
+  color: white;
 }
