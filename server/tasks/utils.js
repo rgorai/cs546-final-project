@@ -32,12 +32,12 @@ const tmdbRequest = async (url) => {
     return data
   } catch (e) {
     // add continue if seeding fails
-    throw (
-      'TMDB Error: ' +
-      e.response.data.status_code +
-      ' ' +
-      e.response.data.status_message
-    )
+    const { data } = e.response
+    throw {
+      'TMDB Error': data.status_code,
+      message: data.status_message,
+      reqUrl: url
+    }
   }
 }
 
@@ -89,6 +89,7 @@ const getMovieData = async (numMedia, mediaReqs) => {
     getMovie,
     getMovieProviders,
     [
+      'id',
       'title',
       'release_date',
       'release_dates',
@@ -98,6 +99,7 @@ const getMovieData = async (numMedia, mediaReqs) => {
       'poster_path',
       'videos',
       'providers',
+      'revenue'
     ]
   )
 }
@@ -110,6 +112,7 @@ const getShowData = async (numMedia, mediaReqs) => {
     getShow,
     getShowProviders,
     [
+      'id',
       'name',
       'first_air_date',
       'overview',
@@ -124,7 +127,9 @@ const getShowData = async (numMedia, mediaReqs) => {
 }
 
 module.exports = {
+  getMovie,
   getMovieData,
+  getShow,
   getShowData,
 }
 

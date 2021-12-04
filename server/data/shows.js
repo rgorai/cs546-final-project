@@ -19,6 +19,7 @@ function checkIsArray(arr) {
 
 //func to create a new tv show
 const create = async (
+  id,
   name,
   releaseDate,
   description,
@@ -30,6 +31,7 @@ const create = async (
   providers
 ) => {
   // error check
+  if (!id) throw 'Show should have an id'
   if (!name) throw 'Show should have a name'
   if (!number_of_seasons) throw 'Show should have number of seasons'
   if (!number_of_episodes) throw 'Show should have number of episodes'
@@ -74,6 +76,7 @@ const create = async (
   }
 
   const insertRet = await shows.insertOne({
+    tmdbId: id,
     name: name,
     releaseDate: releaseDate,
     description: description,
@@ -176,7 +179,7 @@ const getAllByProvider = async (x) => {
     if (show.providers)
       for (const p of show.providers)
         if (showsByProvider.data[p.provider_id])
-        showsByProvider.data[p.provider_id].push(show)
+          showsByProvider.data[p.provider_id].push(show)
         else {
           showsByProvider.data[p.provider_id] = [show]
           showsByProvider._names[p.provider_id] = p.provider_name
