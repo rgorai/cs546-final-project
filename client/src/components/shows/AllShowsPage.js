@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import ShowCard from './ShowCard'
 import ApiError from '../errors/ApiError'
-import ShowsNavBar from './ShowsNavBar'
+import ShowsNavBar from '../menus/ShowsNavBar'
 import '../../styles/shows/allShowsPage.css'
 
 const AllShowsPage = (props) => {
@@ -18,33 +18,33 @@ const AllShowsPage = (props) => {
       .catch((e) => setError(e.response))
   }, [])
 
-    // construct show list ui
-    const getList = () => {
-      if (shows.length === 0) return <div>Theres nothing here</div>
-      return shows
-        .sort((_, m) => (m.posterPath ? 1 : -1))
-        .map((show, i) => (
-          <ShowCard
-            key={i}
-            id={show._id}
-            posterPath={show.posterPath}
-            name={show.name}
-          />
-        ))
-    }
-
-    return (
-      <>
-        <ShowsNavBar />
-        {error ? (
-          <ApiError error={error} />
-        ) : shows ? (
-          <div className="all-shows-container">{getList()}</div>
-        ) : (
-          <div>Loading</div>
-        )}
-      </>
-    )
+  // construct show list ui
+  const getList = () => {
+    if (shows.length === 0) return <div>Theres nothing here</div>
+    return shows
+      .sort((_, m) => (m.posterPath ? 1 : -1))
+      .map((show, i) => (
+        <ShowCard
+          key={i}
+          id={show._id}
+          posterPath={show.posterPath}
+          name={show.name}
+        />
+      ))
   }
+
+  return (
+    <>
+      <ShowsNavBar />
+      {error ? (
+        <ApiError error={error} />
+      ) : shows ? (
+        <div className="all-shows-container">{getList()}</div>
+      ) : (
+        <div>Loading</div>
+      )}
+    </>
+  )
+}
 
 export default AllShowsPage

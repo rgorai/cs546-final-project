@@ -1,32 +1,29 @@
 html {
-  /* background-color: #585858; */
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-body {
-  margin: 0;
-}
-
-main {
   height: 100%;
-  padding: 20px;
-  overflow: hidden auto;
+}
+body {
+  margin:0;
+  padding:0;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background: linear-gradient(#141e30, #243b55);
 }
 
-button {
-  border-radius: 5px;
-  border: 0;
-  cursor: pointer;
-  outline: 1px solid grey;
-  transition: linear 0.15s;
-  /* will-change: outline; */
+.error {
+  font-size: 30px;
+  text-align: center;
+  color: red;
 }
 
-button:hover {
-  filter: brightness(0.8);
-  /* outline: 2px solid grey; */
+.link {
+    text-align: center;
 }
 
-button:active {
-  filter: brightness(0.6);
+.link a {
+  color: white;
+  font-size: 20px;
+}
+
+h1 {
+    color: white;
+    text-align: center;
 }

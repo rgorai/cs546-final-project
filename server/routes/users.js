@@ -17,7 +17,6 @@ router.get('/profile', verifyToken, async (req, res) => {
   try {
     res.status(200).json(await getUser(req.userId))
   } catch (e) {
-    console.log(e)
     res.sendStatus(500)
   }
 })
