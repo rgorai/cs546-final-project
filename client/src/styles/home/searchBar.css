@@ -9,3 +9,8 @@
   padding: 0 0 0 5px;
   outline: 1px solid black;
 }
+
+.search-bar-container label {
+  color: white;
+  margin-right: 10px;
+}
