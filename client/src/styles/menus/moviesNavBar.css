@@ -21,3 +21,12 @@
   margin: 10px;
   color: white;
 }
+
+.movienav-dropdown {
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  right: 50px;
+  display: flex;
+  flex-direction: column;
+}

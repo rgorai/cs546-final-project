@@ -9,11 +9,6 @@ function checkIsString(s) {
   if (s.trim().length === 0) throw 'Given input is all white spaces'
 }
 
-function checkCertification(c) {
-  let certifications = ['PG', 'PG-13', 'R', 'NC-17', null]
-  if (certifications.indexOf(c) < 0) throw 'Given certification is invalid'
-}
-
 function checkIsNumber(r) {
   r = parseInt(r)
   if (isNaN(r)) throw 'Given runtime is invalid'
@@ -28,6 +23,7 @@ function checkIsArray(arr) {
 }
 
 const create = async (
+  id,
   name,
   releaseDate,
   certifications,
@@ -36,9 +32,11 @@ const create = async (
   description,
   posterPath,
   video,
-  providers
+  providers,
+  revenue
 ) => {
   // error check
+  if (!id) throw 'Movie should have an id'
   if (!name) throw 'Movie should have a name'
   if (!releaseDate) throw 'Movie should have a release date'
   if (!runtime) throw 'Movie should have a runtime'
@@ -54,7 +52,7 @@ const create = async (
   certifications =
     certTemp &&
     certTemp.release_dates.length > 0 &&
-    certTemp.release_dates[0].length > 0
+    certTemp.release_dates[0].certification.length > 0
       ? certTemp.release_dates[0].certification
       : null
 
@@ -72,7 +70,6 @@ const create = async (
   try {
     checkIsString(name)
     checkIsString(releaseDate)
-    checkCertification(certifications)
     checkIsNumber(runtime)
     checkIsArray(genres)
   } catch (e) {
@@ -89,6 +86,7 @@ const create = async (
   }
 
   const insertRet = await movies.insertOne({
+    tmdbId: id,
     name: name,
     releaseDate: releaseDate,
     mpaRating: certifications,
@@ -98,6 +96,7 @@ const create = async (
     posterPath: posterPath,
     video: video,
     providers: providers,
+    revenue: revenue,
     overallRating: 0,
     reviews: [],
   })

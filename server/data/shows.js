@@ -19,6 +19,7 @@ function checkIsArray(arr) {
 
 //func to create a new tv show
 const create = async (
+  id,
   name,
   releaseDate,
   description,
@@ -30,6 +31,7 @@ const create = async (
   providers
 ) => {
   // error check
+  if (!id) throw 'Show should have an id'
   if (!name) throw 'Show should have a name'
   if (!number_of_seasons) throw 'Show should have number of seasons'
   if (!number_of_episodes) throw 'Show should have number of episodes'
@@ -47,8 +49,7 @@ const create = async (
   const streamKeys = ['flatrate', 'buy', 'rent', 'ads', 'free']
   if (providers)
     for (const k of streamKeys)
-      if (providers[k])
-        streamTemp = streamTemp.concat(providers[k])
+      if (providers[k]) streamTemp = streamTemp.concat(providers[k])
   streamTemp = streamTemp.filter(
     (e, i) => i === streamTemp.findIndex((f) => e.provider_id === f.provider_id)
   )
@@ -63,7 +64,7 @@ const create = async (
   } catch (e) {
     throw String(e)
   }
-  
+
   // add new show to db
   const shows = await showCollection()
 
@@ -74,6 +75,7 @@ const create = async (
   }
 
   const insertRet = await shows.insertOne({
+    tmdbId: id,
     name: name,
     releaseDate: releaseDate,
     description: description,
@@ -176,7 +178,7 @@ const getAllByProvider = async (x) => {
     if (show.providers)
       for (const p of show.providers)
         if (showsByProvider.data[p.provider_id])
-        showsByProvider.data[p.provider_id].push(show)
+          showsByProvider.data[p.provider_id].push(show)
         else {
           showsByProvider.data[p.provider_id] = [show]
           showsByProvider._names[p.provider_id] = p.provider_name
@@ -227,4 +229,3 @@ module.exports = {
 //Show object example: https://api.themoviedb.org/3/tv/1668?api_key=31cc954c3de9a91aecd102e07e4d4707&append_to_response=videos,release_dates
 //Show Provider Object example: https://api.themoviedb.org/3/tv/1668/watch/providers?api_key=31cc954c3de9a91aecd102e07e4d4707
 //Movie object example: https://api.themoviedb.org/3/movie/18?api_key=31cc954c3de9a91aecd102e07e4d4707&append_to_response=videos,release_dates
-

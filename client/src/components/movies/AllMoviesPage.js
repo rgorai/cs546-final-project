@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import MovieCard from './MovieCard'
 import ApiError from '../errors/ApiError'
-import MoviesNavBar from './MoviesNavBar'
+import MoviesNavBar from '../menus/MoviesNavBar'
 import '../../styles/movies/allMoviesPage.css'
 
 const AllMoviesPage = (props) => {
@@ -35,7 +35,7 @@ const AllMoviesPage = (props) => {
 
   return (
     <>
-      <MoviesNavBar />
+      <MoviesNavBar title="Movies" movies={movies} setMovies={setMovies} />
       {error ? (
         <ApiError error={error} />
       ) : movies ? (

@@ -15,8 +15,6 @@ const opts = {
   },
 }
 
-// error when invalid id typed in route
-
 const MoviePage = (props) => {
   const { id: movieId } = useParams()
   const [movieData, setMovieData] = useState(null)
@@ -28,6 +26,7 @@ const MoviePage = (props) => {
       .get(`/api/movies/${movieId}`)
       .then((res) => {
         setMovieData(res.data)
+        // remove later
         console.log(res.data)
       })
       .catch((e) => setError(e.response))
