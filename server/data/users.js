@@ -77,6 +77,7 @@ const create = async (firstName, lastName, email, username, password) => {
     username,
     password: bcrypt.hashSync(password, saltRounds),
     watchlist: [],
+    reviews: [],
   })
 
   // throw if insertion failed
