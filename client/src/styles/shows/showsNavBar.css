@@ -14,4 +14,10 @@
   .show-navbar li {
     float: left;
     height: 100%;
+    margin-bottom: 10px;
+  }
+
+  .show-nav-item {
+    margin: 10px;
+    color: white;
   }
