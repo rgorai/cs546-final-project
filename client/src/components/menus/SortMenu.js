@@ -5,11 +5,7 @@ const SortMenu = (props) => {
   const [showDropdown, setShowDropdown] = useState(false)
   const [ascending, setAscending] = useState(true)
   const [currSort, setCurrSort] = useState('title')
-  const {
-    items,
-    movies,
-    setMovies
-  } = props
+  const { items, movies, setMovies } = props
 
   // useEffect(() => {
   //   sortMovies({ target: { id: currSort } })
@@ -23,10 +19,9 @@ const SortMenu = (props) => {
 
     if (movies.length > 0) {
       // console.log('hello', movies)
-      const t = movies.sort((x, y) => (
-        (ascending ? 1 : -1) * 
-          items[k].compare(x[k], y[k])
-      ))
+      const t = movies.sort(
+        (x, y) => (ascending ? 1 : -1) * items[k].compare(x[k], y[k])
+      )
       props.setMovies(t)
       console.log('there', t)
     }
@@ -44,21 +39,29 @@ const SortMenu = (props) => {
   return (
     <>
       <button onClick={() => setShowDropdown(!showDropdown)}>Sort</button>
-      {showDropdown ? 
+      {showDropdown ? (
         <div className="movienav-dropdown">
           {Object.keys(items).map((k, i) => (
             <div key={i}>
-              <input type="radio" id={k} className="moviesort-item" name="moviesort-group" onChange={sortMovies} />
+              <input
+                type="radio"
+                id={k}
+                className="moviesort-item"
+                name="moviesort-group"
+                onChange={sortMovies}
+              />
               <label htmlFor={k}>{items[k].text}</label>
             </div>
           ))}
-          
-          <button className="ascending-button" onClick={() => setAscending(!ascending)}>
+
+          <button
+            className="ascending-button"
+            onClick={() => setAscending(!ascending)}
+          >
             {ascending ? 'Ascending' : 'Descending'}
           </button>
         </div>
-        : null
-      }
+      ) : null}
     </>
   )
 }
