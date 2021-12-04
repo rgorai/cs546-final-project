@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../../styles/menus/sortMenu.css'
 
 const SortMenu = (props) => {
@@ -10,6 +10,10 @@ const SortMenu = (props) => {
     movies,
     setMovies
   } = props
+
+  // useEffect(() => {
+  //   sortMovies({ target: { id: currSort } })
+  // }, [ascending])
 
   const sortMovies = (event) => {
     const k = event.target.id
@@ -37,11 +41,6 @@ const SortMenu = (props) => {
   //   console.log(movies)
   // }
 
-  const handleAscend = () => {
-    setAscending(!ascending)
-    sortMovies({ target: { id: currSort } })
-  }
-
   return (
     <>
       <button onClick={() => setShowDropdown(!showDropdown)}>Sort</button>
@@ -52,12 +51,10 @@ const SortMenu = (props) => {
               <input type="radio" id={k} className="moviesort-item" name="moviesort-group" onChange={sortMovies} />
               <label htmlFor={k}>{items[k].text}</label>
             </div>
-          ))  
-}
-          <button className="ascending-button" onClick={handleAscend}>
-            {ascending
-            ? 'Ascending'
-          : 'Descending'}
+          ))}
+          
+          <button className="ascending-button" onClick={() => setAscending(!ascending)}>
+            {ascending ? 'Ascending' : 'Descending'}
           </button>
         </div>
         : null
