@@ -35,7 +35,7 @@ const AllMoviesPage = (props) => {
 
   return (
     <>
-      <MoviesNavBar title="Movies" movies={movies} setMovies={(m) => setMovies(m)} />
+      <MoviesNavBar title="Movies" movies={movies} setMovies={setMovies} />
       {error ? (
         <ApiError error={error} />
       ) : movies ? (

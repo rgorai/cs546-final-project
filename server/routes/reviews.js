@@ -5,7 +5,6 @@ const { createReview, removeReview, updateReview } = require('../data/reviews')
 const { getUser } = require('../data/users')
 const errors = require('../data/errors')
 const { ObjectId } = require('mongodb')
-let username
 
 router.post('/', verifyToken, async (req, res) => {
   let { contentId, dateOfReview, review, like_dislike } = req.body
@@ -14,12 +13,13 @@ router.post('/', verifyToken, async (req, res) => {
     res.status(400).send('You must specify an ID of the user to post a review')
   }
 
+  let username
   try {
     const user = await getUser(req.userId)
     username = user.username
 
-    reviewerId = errors.validateObjectId(req.userId)
-    reviewer = errors.validateReviewer(username)
+    const reviewerId = errors.validateObjectId(req.userId)
+    const reviewer = errors.validateReviewer(username)
     contentId = errors.validateObjectId(contentId)
     dateOfReview = errors.validateDateOfReview(dateOfReview)
     review = errors.validateReview(review)
@@ -49,6 +49,7 @@ router.put('/', verifyToken, async (req, res) => {
       .send('You must specify an ID of the user to update the review')
   }
 
+  let username
   try {
     const user = await getUser(req.userId)
     username = user.username
@@ -57,10 +58,9 @@ router.put('/', verifyToken, async (req, res) => {
   }
 
   // Error Checking
-
   try {
     reviewId = errors.validateObjectId(reviewId)
-    reviewerId = errors.validateObjectId(req.userId)
+    const reviewerId = errors.validateObjectId(req.userId)
     reviewer = errors.validateReviewer(username)
     contentId = errors.validateObjectId(contentId)
     dateOfReview = errors.validateDateOfReview(dateOfReview)
@@ -89,10 +89,9 @@ router.delete('/', verifyToken, async (req, res) => {
       .send('You must specify an ID of the user to update the review')
   }
 
-  reviewId = errors.validateObjectId(reviewId)
-  contentId = errors.validateObjectId(contentId)
-
   try {
+    reviewId = errors.validateObjectId(reviewId)
+    contentId = errors.validateObjectId(contentId)
     const deletedReview = await removeReview(contentId, reviewId)
     res.status(200).json(deletedReview)
   } catch (e) {

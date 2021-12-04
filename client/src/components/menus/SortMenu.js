@@ -4,6 +4,7 @@ import '../../styles/menus/sortMenu.css'
 const SortMenu = (props) => {
   const [showDropdown, setShowDropdown] = useState(false)
   const [ascending, setAscending] = useState(true)
+  const [currSort, setCurrSort] = useState('title')
   const {
     items,
     movies,
@@ -11,12 +12,19 @@ const SortMenu = (props) => {
   } = props
 
   const sortMovies = (event) => {
+    const k = event.target.id
+    setCurrSort(k)
+
+    console.log(ascending)
+
     if (movies.length > 0) {
-      movies.sort((x, y) => (
-        (ascending?-1 : 1) * items.find((e)=> e.name === event.target.id).compare(x, y, event.target.id)
+      // console.log('hello', movies)
+      const t = movies.sort((x, y) => (
+        (ascending ? 1 : -1) * 
+          items[k].compare(x[k], y[k])
       ))
-      setMovies(movies)
-      // console.log(movies)
+      props.setMovies(t)
+      console.log('there', t)
     }
   }
   // const sortMovies = (event) => {
@@ -28,6 +36,11 @@ const SortMenu = (props) => {
   //   movies.sort((x, y) => x.name < y.name ? -1 : 1)
   //   console.log(movies)
   // }
+
+  const handleAscend = () => {
+    setAscending(!ascending)
+    sortMovies({ target: { id: currSort } })
+  }
 
   return (
     <>
@@ -41,7 +54,7 @@ const SortMenu = (props) => {
             </div>
           ))  
 }
-          <button className="ascending-button" onClick={() => setAscending(!ascending)}>
+          <button className="ascending-button" onClick={handleAscend}>
             {ascending
             ? 'Ascending'
           : 'Descending'}
