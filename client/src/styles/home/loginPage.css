@@ -52,7 +52,7 @@
     color: #03e9f4;
     font-size: 20px;
   }
-
+  
   .login-box form button {
     background-color: transparent;
     position: relative;
@@ -64,8 +64,10 @@
     /* text-transform: uppercase; */
     overflow: hidden;
     transition: .5s;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
     letter-spacing: 4px
   }
   

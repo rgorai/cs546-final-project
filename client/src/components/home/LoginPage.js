@@ -24,43 +24,43 @@ const LoginPage = (props) => {
   }
 
   return (
-    <>
+    <div className="login-box">
       {props.loggedIn ? (
         <div>You are already signed in.</div>
       ) : (
         <form id="login-form" onSubmit={onFormSubmit}>
-          <label className="form-label" htmlFor="input-username">
-            Username
-          </label>
-          <input
-            id="input-username"
-            className="form-input"
-            placeholder="Username or Email"
-            type="text"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+          <div className="user-box">
+            <input
+              id="input-username"
+              className="form-input"
+              placeholder="Username or Email"
+              type="text"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <label htmlFor="input-username">Username</label>
+          </div>
 
-          <label className="form-label" htmlFor="input-password">
-            Password
-          </label>
-          <input
-            id="input-password"
-            className="form-input"
-            placeholder="Password"
-            type="text"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="user-box">
+            <input
+              id="input-password"
+              className="form-input"
+              placeholder="Password"
+              type="text"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <label htmlFor="input-password">Password</label>
+          </div>
 
-          <button className="form-submit" type="submit" form="login-form">
+          <button type="submit" form="login-form">
             Login
           </button>
         </form>
       )}
-    </>
+    </div>
   )
 }
 
