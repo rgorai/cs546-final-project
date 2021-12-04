@@ -9,6 +9,7 @@ const SearchBar = (props) => {
 
   return (
     <div className="search-bar-container">
+      <label htmlFor="search-bar">Search:</label>
       <input
         id="search-bar"
         type="text"
