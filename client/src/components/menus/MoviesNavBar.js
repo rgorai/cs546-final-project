@@ -11,15 +11,30 @@ const MoviesNavBar = (props) => {
     { name: 'Providers', link: '/movies/byprovider' },
   ]
   const compareNumbers = (a, b, name) => a[name] - b[name]
-  const compareStrings = (a, b, name) => a[name].toLowerCase() - b[name].toLowerCase()
-  const movieSortItems = [
-    { text: 'Popularity', name:'overallRating', 
-    compare: compareNumbers},
-    { text: 'Title', name:'name', compare: compareStrings},
-    { text: 'Release Date', name:'releaseDate'},
-    { text: 'Runtime', name:'runtime', compare: compareNumbers},
-    { text: 'Revenue', name:'revenue', compare: compareNumbers},
-  ]
+  const compareDates = (a, b, name) => Date.parse(a[name]) - Date.parse(b[name])
+  const compareStrings = (a, b, name) => a[name].toLowerCase() < b[name].toLowerCase() ? -1 : 1
+  const movieSortItems = {
+    overallRating: { 
+      text: 'Popularity', 
+      compare: compareNumbers
+    },
+    name: { 
+      text: 'Title',
+      compare: compareStrings
+    },
+    releaseDate: { 
+      text: 'Release Date', 
+      compare: compareDates
+    },
+    runtime: { 
+      text: 'Runtime', 
+      compare: compareNumbers
+    },
+    revenue: { 
+      text: 'Revenue', 
+      compare: compareNumbers
+    },
+  }
 
   return (
     <div className="movie-navbar-wrapper">
@@ -36,7 +51,7 @@ const MoviesNavBar = (props) => {
         </ul>
         <div className="movie-ops-container">
           <FilterMenu />
-          <SortMenu items={movieSortItems} movies={props.movies} setMovies={props.setMovies} />
+          <SortMenu items={movieSortItems} movies={props.movies} setMovies={(m) => props.setMovies(m)} />
         </div>
       </div>
     </div>
