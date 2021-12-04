@@ -14,6 +14,12 @@
 .movie-navbar li {
   float: left;
   height: 100%;
+  margin-bottom: 10px;
+}
+
+.movie-nav-item {
+  margin: 10px;
+  color: white;
 }
 
 .movienav-dropdown {
@@ -23,4 +29,8 @@
   right: 50px;
   display: flex;
   flex-direction: column;
+}
+
+.movie-navbar-wrapper h2 {
+  color: white;
 }
