@@ -18,11 +18,23 @@ const UserProfile = (props) => {
       .catch((e) => setError(e.response))
   }, [])
 
+  const getWatchlist = () => {
+    if (user.watchlist.length === 0) return <li>N/A</li>
+    return <li>in the get watchlist function</li>
+  }
+
   return (
     <>
       {error ? (
         <ApiError error={error} />
       ) : user ? (
+        // let elements = user.watchlist.map(item =>{
+        //   return (
+        //     <li>
+        //       {item}
+        //     </li>
+        //   )
+        // })
         //<div className="user-page-container">{JSON.stringify(user)}
         <div className="user-page-container">
           <p>First Name: {user.firstName}</p>
@@ -30,7 +42,9 @@ const UserProfile = (props) => {
           <p>Email: {user.email}</p>
           <p>Username: {user.username}</p>
           <p>Watchlist</p>
-          <ul className="watchlist"></ul>
+          <ul className="watchlist">
+            if(user.watchlist.length === 0) return <li>N/A</li>
+          </ul>
         </div>
       ) : (
         <div>Loading</div>
