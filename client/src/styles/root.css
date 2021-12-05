@@ -7,28 +7,8 @@ body {
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   /* background: linear-gradient(#141e30, #243b55); */
   /* background: white; */
-    background-image:    url(../images/wallpaperflare.com_wallpaper.jpg);
+    background-image:    url(./images/wallpaperflare.com_wallpaper.jpg);
     background-size:     cover;                      /* <------ */
     background-repeat:   no-repeat;
     background-position: center center;
-}
-
-.error {
-  font-size: 30px;
-  text-align: center;
-  color: red;
-}
-
-.link {
-    text-align: center;
-}
-
-.link a {
-  color: white;
-  font-size: 20px;
-}
-
-h1 {
-    color: white;
-    text-align: center;
 }

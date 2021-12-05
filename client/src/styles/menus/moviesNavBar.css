@@ -30,3 +30,7 @@
   display: flex;
   flex-direction: column;
 }
+
+.movie-navbar-wrapper h2 {
+  color: white;
+}
