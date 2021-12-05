@@ -34,10 +34,7 @@ const UserProfile = (props) => {
             {user.watchlist.length === 0 ? (
               <li>N/A</li>
             ) : (
-              user.watchlist.map((item) => (
-                //console.log(item)
-                <li>{item}</li>
-              ))
+              user.watchlist.map((item) => <li>{item}</li>)
             )}
           </ul>
         </div>
