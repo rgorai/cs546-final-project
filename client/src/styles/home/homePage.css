@@ -7,12 +7,11 @@
     padding-right: 90px !important;
     padding-left: 90px !important;
 }
-/* .home-page-container p{
-    text-align: center;
+.home-page-container h1{
+    text-align: center !important;
     color: white;
   }
   
-  .home-page-container h1{
-    text-align: center;
+  .home-page-container {
     color: white;
-  } */
+  }
