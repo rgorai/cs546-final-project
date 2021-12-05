@@ -12,11 +12,21 @@
   height: 100%;
 }
 
+.navbar-container ul {
+  justify-content: space-between;
+}
+
+.navbar-container li {
+  justify-content: space-between;
+  margin-left: 10px;
+}
+
 .navbar {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  display: flex
 }
 
 .navbar li {
@@ -26,5 +36,20 @@
 
 .nav-item {
   height: 100%;
-  /* color: red; */
+  /* padding: 5px 10px;
+  background-color: white;
+  border: 4px solid white; */
+  color: white;
+}
+
+#search-bar {
+  margin-right: 10px;
+}
+
+#search-button {
+  margin-left: 10px;
+}
+
+#login-button {
+  margin-right: 10px;
 }

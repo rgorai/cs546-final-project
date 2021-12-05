@@ -4,4 +4,20 @@
 
 .movie-description {
   width: 400px;
+  color: white;
+}
+
+.movie-name {
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+}
+
+.movie-year {
+  font-weight: bold;
+  color: white;
+}
+
+.movie-page-container p{
+  color: white;
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signup } from '../../services/authService'
+import '../../styles/users/newUserForm.css'
 
 const NewUserForm = (props) => {
   const navigate = useNavigate()
@@ -27,75 +28,82 @@ const NewUserForm = (props) => {
   }
 
   return (
-    <div>
+    <div className="login-container">
       {props.loggedIn ? (
         <div>You are already signed in.</div>
       ) : (
         <form id="new-user-form" onSubmit={onFormSubmit}>
-          <label className="form-label" htmlFor="input-firstname">
-            First Name
-          </label>
-          <input
-            id="input-firstname"
-            className="form-input"
-            placeholder="John"
-            type="text"
-            name="firstName"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
+          <div className="user-input-container">
+            <input
+              id="input-firstname"
+              placeholder="John"
+              type="text"
+              name="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <label htmlFor="input-firstname">First Name</label>
+          </div>
 
-          <label className="form-label" htmlFor="input-lastname">
-            Last Name
-          </label>
-          <input
-            id="input-lastname"
-            className="form-input"
-            placeholder="Doe"
-            type="text"
-            name="lastName"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
+          <div className="user-input-container">
+            <input
+              id="input-lastname"
+              className="form-input"
+              placeholder="Doe"
+              type="text"
+              name="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            <label className="form-label" htmlFor="input-lastname">
+              Last Name
+            </label>
+          </div>
 
-          <label className="form-label" htmlFor="input-email">
-            Email
-          </label>
-          <input
-            id="input-email"
-            className="form-input"
-            placeholder="johndoe@example.com"
-            type="text"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <div className="user-input-container">
+            <input
+              id="input-email"
+              className="form-input"
+              placeholder="johndoe@example.com"
+              type="text"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <label className="form-label" htmlFor="input-email">
+              Email
+            </label>
+          </div>
 
-          <label className="form-label" htmlFor="input-username">
-            Username
-          </label>
-          <input
-            id="input-username"
-            className="form-input"
-            placeholder="Username"
-            type="text"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+          <div className="user-input-container">
+            <input
+              id="input-username"
+              className="form-input"
+              placeholder="Username"
+              type="text"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <label className="form-label" htmlFor="input-username">
+              Username
+            </label>
+          </div>
 
-          <label className="form-label" htmlFor="input-password">
-            Password
-          </label>
-          <input
-            id="input-password"
-            className="form-input"
-            placeholder="Password"
-            type="text"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="user-input-container">
+            <input
+              id="input-password"
+              className="form-input"
+              placeholder="Password"
+              type="text"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <label className="form-label" htmlFor="input-password">
+              Password
+            </label>
+          </div>
 
           <button className="form-reset" type="reset" form="new-user-form">
             Reset

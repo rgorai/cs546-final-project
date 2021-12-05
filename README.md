@@ -2,6 +2,15 @@
 
 NOTE: Seeding the database may yield explicit results.
 
+Testing:
+ - run with server off
+ - run with empty collections
+ - run with less/more data in collections
+ - try every combination of routes
+ - try accessing protected content when not authorized / vice versa
+ - invalid inputs on all forms
+ - accessibilty (look at slides)
+
 Code Style:
  - use single-quotes except in html
  - use arrow functions

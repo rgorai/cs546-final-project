@@ -1,13 +1,10 @@
 const connection = require('../config/mongoConnection')
 
-const moviesGenreList = require('./data/movies_genre_list.json')
-const showsGenreList = require('./data/tv_series_genre_list.json')
-const userList = require('./users.json')
-
 const { create: createMovie } = require('../data/movies')
 const { create: createShow } = require('../data/shows')
 const { create: createUser } = require('../data/users')
 const { getMovieData, getShowData } = require('./utils')
+const userList = require('./data/users.json')
 
 const NUM_MEDIA = 50
 
