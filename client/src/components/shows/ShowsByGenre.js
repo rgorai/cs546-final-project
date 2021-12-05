@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import ShowList from './ShowList'
 import ApiError from '../errors/ApiError'
-import ShowsNavBar from './ShowsNavBar'
+import ShowsNavBar from '../menus/ShowsNavBar'
 import '../../styles/shows/showsByGenre.css'
 
 const AllShowsPage = (props) => {
