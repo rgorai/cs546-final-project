@@ -28,12 +28,12 @@ const NewUserForm = (props) => {
   }
 
   return (
-    <div className="login-box">
+    <div className="login-container">
       {props.loggedIn ? (
         <div>You are already signed in.</div>
       ) : (
         <form id="new-user-form" onSubmit={onFormSubmit}>
-          <div className="user-box">
+          <div className="user-input-container">
             <input
               id="input-firstname"
               placeholder="John"
@@ -45,7 +45,7 @@ const NewUserForm = (props) => {
             <label htmlFor="input-firstname">First Name</label>
           </div>
 
-          <div className="user-box">
+          <div className="user-input-container">
             <input
               id="input-lastname"
               className="form-input"
@@ -60,7 +60,7 @@ const NewUserForm = (props) => {
             </label>
           </div>
 
-          <div className="user-box">
+          <div className="user-input-container">
             <input
               id="input-email"
               className="form-input"
@@ -75,7 +75,7 @@ const NewUserForm = (props) => {
             </label>
           </div>
 
-          <div className="user-box">
+          <div className="user-input-container">
             <input
               id="input-username"
               className="form-input"
@@ -90,7 +90,7 @@ const NewUserForm = (props) => {
             </label>
           </div>
 
-          <div className="user-box">
+          <div className="user-input-container">
             <input
               id="input-password"
               className="form-input"

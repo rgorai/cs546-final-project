@@ -1,0 +1,6 @@
+.movies-bygenre-container label {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: white;
+}

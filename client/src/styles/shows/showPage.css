@@ -2,6 +2,37 @@
   max-width: 300px;
 }
 
-.movie-description {
+.show-description {
   width: 400px;
+  color: white;
+}
+
+.show-description {
+  width: 400px;
+  color: white;
+}
+
+.show-name {
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+}
+
+.show-year {
+  font-weight: bold;
+  color: white;
+}
+
+.show-seasons {
+  font-weight: bold;
+  color: white;
+}
+
+.show-episodes {
+  font-weight: bold;
+  color: white;
+}
+
+.show-page-container p {
+  color: white;
 }
