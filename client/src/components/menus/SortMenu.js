@@ -11,6 +11,7 @@ const SortMenu = (props) => {
   const [currSort, setCurrSort] = useState(DEFAULT_SORT)
   const [ascending, setAscending] = useState(false)
   // const ascending = useRef(false)
+  const [permToWrite, setPermToWrite] = useState(false)
 
   // get querystring params
   const sortMethod = useRef(queryString.get('sort'))
@@ -27,36 +28,54 @@ const SortMenu = (props) => {
   //   console.log('in here')
   // }, [queryString, setQueryString])
 
+  // update querystring based on current and set values
   useEffect(() => {
     const sort = queryString.get('sort')
     const asc = queryString.get('asc')
     console.log('sort_menu', sort, asc)
 
-    // if (!sort)
+    // if (!sort) setQueryString({ ...queryString, sort: DEFAULT_SORT })
+    // if (!asc) setQueryString({ ...queryString, asc: DEFAULT_ORDER })
 
-    setQueryString({
-      sort: currSort ? currSort : DEFAULT_SORT,
-      asc: ascending ? ascending : DEFAULT_ORDER,
-    })
-  }, [ascending, currSort, queryString, setQueryString])
-
-  const updateQueryString = useCallback(
-    (k, val) => {
-      console.log('updating_qs')
-      setQueryString({ ...queryString, [k]: val })
-    },
-    [queryString, setQueryString]
-  )
-
+    if (!permToWrite)
+      setQueryString({
+        sort: sort ? sort : DEFAULT_SORT,
+        asc: asc ? asc : DEFAULT_ORDER,
+      })
+    setPermToWrite(true)
+  }, [queryString, setQueryString, permToWrite, setPermToWrite])
   useEffect(() => {
-    console.log('currsort', currSort)
-    updateQueryString('sort', currSort)
-  }, [currSort, updateQueryString])
-
+    console.log('currsort')
+    if (permToWrite) {
+      console.log('currsort changing', queryString)
+      setQueryString({ ...queryString, sort: currSort })
+    }
+  }, [permToWrite, queryString, setQueryString, currSort])
   useEffect(() => {
-    console.log('asc', ascending)
-    updateQueryString('asc', ascending)
-  }, [ascending, updateQueryString])
+    console.log('ascending')
+    if (permToWrite) {
+      console.log('ascending changing', queryString)
+      setQueryString({ ...queryString, asc: ascending })
+    }
+  }, [permToWrite, queryString, setQueryString, ascending])
+
+  // const updateQueryString = useCallback(
+  //   (k, val) => {
+  //     console.log('updating_qs')
+  //     setQueryString({ ...queryString, [k]: val })
+  //   },
+  //   [queryString, setQueryString]
+  // )
+
+  // useEffect(() => {
+  //   console.log('currsort', currSort)
+  //   updateQueryString('sort', currSort)
+  // }, [currSort, updateQueryString])
+
+  // useEffect(() => {
+  //   console.log('asc', ascending)
+  //   updateQueryString('asc', ascending)
+  // }, [ascending, updateQueryString])
 
   // const sortMovies = (event) => {
   //   const k = event.target.id
