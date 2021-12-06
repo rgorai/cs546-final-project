@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signup } from '../../services/authService'
 import '../../styles/users/newUserForm.css'
+let errObj = []
 
 function checkIsString(s) {
   if (typeof s !== 'string') throw 'Given input is invalid'
@@ -36,28 +37,34 @@ const NewUserForm = (props) => {
 
   const onFormSubmit = (e) => {
     e.preventDefault()
-    console.log('in the signa up***********')
 
     // error check
-    if (!firstName) throw 'You must provide the first name'
-    if (!lastName) throw 'You must provide the last name'
-    if (!email) throw 'You must provide an email address'
-    if (!username) throw 'You must provide a username'
-    if (!password) throw 'You must provide a password'
+    try {
+      ;(!firstName)(!lastName)(!email)(!username)(!password)
+    } catch (e) {
+      // errObj["hasError"] = true
+      // errObj["error"] = "Must provide all the items"
+    }
 
-    checkIsString(firstName)
-    checkIsString(lastName)
-    checkIsString(email)
-    checkIsString(username)
-    checkIsString(password)
+    try {
+      checkIsString(firstName)
+      checkIsString(lastName)
+      checkIsString(email)
+      checkIsString(username)
+      checkIsString(password)
 
-    checkIsName(firstName)
-    checkIsName(lastName)
+      checkIsName(firstName)
+      checkIsName(lastName)
 
-    checkIsUsername(username)
+      checkIsUsername(username)
 
-    checkIsPassword(password)
-    checkIsEmail(email)
+      checkIsPassword(password)
+      checkIsEmail(email)
+    } catch (E) {
+      console.log(e)
+      // errObj["hasError"] = true
+      // errObj["error"] = e
+    }
 
     // post data to server
     signup(firstName, lastName, email, username, password)
@@ -72,6 +79,10 @@ const NewUserForm = (props) => {
 
   return (
     <div className="login-container">
+      {/* <div>
+        {errObj.hasError && <p>{errObj.error}</p>}            
+
+      </div> */}
       {props.loggedIn ? (
         <div>You are already signed in.</div>
       ) : (

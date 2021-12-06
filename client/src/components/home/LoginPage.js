@@ -9,39 +9,11 @@ const LoginPage = (props) => {
   const [password, setPassword] = useState(null)
   const [error, setError] = useState(null)
 
-  function checkIsString(s) {
-    if (typeof s !== 'string') throw 'Given input is invalid'
-    if (s.length < 1) throw 'Given input is empty'
-    if (s.trim().length === 0) throw 'Given input is all white spaces'
-  }
-
-  function checkIsUsername(s) {
-    if (s.length < 4) throw 'Given username size is less than 4'
-  }
-
-  function checkIsPassword(s) {
-    if (s.length < 8) throw 'Given password size is less than 8'
-  }
-
   const onFormSubmit = (e) => {
     e.preventDefault()
 
     // error check
     // try using 'validations'
-    if (!username) throw 'You must provide a username'
-    if (!password) throw 'You must provide a password'
-
-    username = username.toLowerCase().trim()
-
-    try {
-      checkIsString(username)
-      checkIsString(password)
-
-      checkIsUsername(username)
-      checkIsPassword(password)
-    } catch (e) {
-      throw String(e)
-    }
 
     // post data to server
     login(username, password)
