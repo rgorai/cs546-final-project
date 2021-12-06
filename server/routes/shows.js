@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const { 
-  get, 
-  getAll, 
+const {
+  get,
+  getAll,
   getAllByGenre,
   getAllByProvider,
   getByName,
-  getByGenre 
+  getByGenre,
+  getByTrending,
 } = require('../data/shows')
 
 function checkIsString(s) {
@@ -39,6 +40,15 @@ router.get('/byprovider', async (req, res) => {
   // send all shows by provider
   try {
     res.status(200).json(await getAllByProvider())
+  } catch (e) {
+    res.status(500).send(String(e))
+  }
+})
+
+router.get('/bytrending', async (req, res) => {
+  // send all movies by genre
+  try {
+    res.status(200).json(await getByTrending())
   } catch (e) {
     res.status(500).send(String(e))
   }
