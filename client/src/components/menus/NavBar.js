@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import SearchBar from '../search/SearchBar'
+import AutoComplete from '../search/AutoComplete'
 import { logout } from '../../services/authService'
 import '../../styles/menus/navBar.css'
 
@@ -36,6 +37,7 @@ const NavBar = (props) => {
       </ul>
 
       <SearchBar />
+      {/* <AutoComplete /> */}
 
       <div className="navbar-button-container">
         {props.loggedIn ? (

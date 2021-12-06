@@ -30,7 +30,7 @@ const AllShowsPage = (props) => {
 
   return (
     <>
-      <ShowsNavBar />
+      <ShowsNavBar title="Shows" />
       {error ? (
         <ApiError error={error} />
       ) : showsByGenre ? (
