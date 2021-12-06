@@ -21,3 +21,12 @@
 .movie-page-container p{
   color: white;
 }
+
+.desc {
+  color: white;
+}
+
+.desc-bold {
+  color:white;
+  font-weight: bold;
+}
