@@ -5,8 +5,6 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 
-
-
 const SearchBar = (props) => {
   const navigate = useNavigate()
   const [query, setQuery] = useState('')

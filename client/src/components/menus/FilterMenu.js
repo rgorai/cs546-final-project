@@ -11,7 +11,7 @@ const FilterMenu = (props) => {
   return (
     <>
       <button onClick={() => setShowDropdown(!showDropdown)}>Filter</button>
-      {showDropdown ? 
+      {showDropdown ? (
         <div className="movienav-dropdown">
           <form id="filter-form" onSubmit={onSubmit}>
             <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
@@ -27,8 +27,7 @@ const FilterMenu = (props) => {
             </div>
           </form>
         </div>
-        : null
-      }
+      ) : null}
     </>
   )
 }
