@@ -42,7 +42,7 @@ router.put('/:id', verifyToken, async (req, res) => {
   }
 
   try {
-    let user = await addToWatchlist(name)
+    let user = await addToWatchlist(req.params.id, name)
     res.status(200).json(user)
   } catch (e) {
     res.status(400).send(String(e))

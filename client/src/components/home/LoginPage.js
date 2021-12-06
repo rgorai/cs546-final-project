@@ -46,7 +46,7 @@ const LoginPage = (props) => {
             <input
               id="input-password"
               placeholder="Password"
-              type="text"
+              type="password"
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

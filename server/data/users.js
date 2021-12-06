@@ -183,7 +183,7 @@ const addToWatchlist = async (id, str) => {
   //error checking
   if (!str) throw 'Must provide a movie name to add to the watchlist'
 
-  str = str.toLowerCase().trim()
+  str = str.trim()
 
   try {
     checkIsString(str)
@@ -219,10 +219,7 @@ const addToWatchlist = async (id, str) => {
   }
   //add the item to the watchlist
 
-  const updatedInfo = await users.updateOne(
-    { _id: parsedId },
-    { $set: updatedUser }
-  )
+  const updatedInfo = await users.updateOne({ _id: id }, { $set: updatedUser })
 
   if (updatedInfo.updatedCount === 0) throw 'Could not update the watchList'
 
