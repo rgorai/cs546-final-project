@@ -31,21 +31,16 @@ const searchMedia = async (query) => {
   return searchResult
 }
 
-const autoComplete = async (query) => {
+const autoComplete = async () => {
     // error check
-  if (
-    typeof query !== 'string' ||
-    query.length === 0 ||
-    query === ' '.repeat(query.length)
-  )
-    throw 'Error: name must be a non-empty string.'
+ 
     
     let mList = await movieFunc.getAll()
     let sList = await showFunc.getAll()
 
     
 
-    return mList, sList
+    return [...mList,...sList]
 }
 
 module.exports = { searchMedia, autoComplete }

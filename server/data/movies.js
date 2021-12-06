@@ -225,6 +225,15 @@ const getByName = async (str) => {
   return await movies.find({ name: { $eq: str } }).toArray()
 }
 
+const getByTrending = async () => {
+  let movies = await getAll()
+  movies = movies.sort((a, b) => 
+    b.overallRating - a.overallRating
+  ).slice(0, 5)
+  
+  return movies
+}
+
 module.exports = {
   create,
   get,
@@ -233,4 +242,5 @@ module.exports = {
   getAllByProvider,
   getByGenre,
   getByName,
+  getByTrending
 }
