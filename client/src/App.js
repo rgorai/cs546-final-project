@@ -14,6 +14,7 @@ import UserProfile from './components/users/UserProfile'
 import ApiError from './components/errors/ApiError'
 import SearchPage from './components/search/SearchPage'
 
+import { ValidateMoviesQuery } from './components/middleware/moviesMiddleware'
 import AllMoviesPage from './components/movies/AllMoviesPage'
 import MoviesByGenre from './components/movies/MoviesByGenre'
 import MoviesByProvider from './components/movies/MoviesByProvider'
@@ -45,6 +46,7 @@ const App = () => {
           <Routes>
             {/* homepage routes */}
             <Route exact path="/" element={<HomePage />} />
+            <Route exact path="/home" element={<Navigate to="/" />} />
             <Route
               exact
               path="/signup"
@@ -69,14 +71,18 @@ const App = () => {
               path="/test"
               element={<Navigate to="/movies/all?sort=name&asc=false" />}
             /> */}
-            <Route exact path="/movies/all" element={<AllMoviesPage />} />
+            <Route
+              exact
+              path="/movies/all"
+              element={/*<ValidateMoviesQuery />*/ <AllMoviesPage />}
+            />
             <Route exact path="/movies/bygenre" element={<MoviesByGenre />} />
             <Route
               exact
               path="/movies/byprovider"
               element={<MoviesByProvider />}
             />
-            <Route exact path="/movies/:id" element={<MoviePage />} />
+            <Route exact path="/movies/single/:id" element={<MoviePage />} />
 
             {/* shows routes */}
             <Route exact path="/shows" element={<AllShowsPage />} />

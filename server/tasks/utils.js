@@ -1,6 +1,7 @@
 const axios = require('axios')
 const allMovies = require('./data/movie_ids_11_14_2021.json')
 const allShows = require('./data/tv_series_ids_11_14_2021.json')
+const prompt = require('prompt-sync')({ sigint: true })
 
 /*
  * DOCUMENTATION: https://developers.themoviedb.org/3/getting-started/introduction
@@ -31,12 +32,25 @@ const tmdbRequest = async (url) => {
     const { data } = await axios.get(url)
     return data
   } catch (e) {
-    // add continue if seeding fails
     const { data } = e.response
-    throw {
+    console.log({
       tmdbError: data.status_code,
       message: data.status_message,
       reqUrl: url,
+    })
+
+    // allow to continue seeding if tmdb errors
+    let res
+    while (true) {
+      res = prompt('Try again and continue? (y/n)')
+      switch (res) {
+        case 'y':
+          return await tmdbRequest(url)
+        case 'n':
+          throw 'Seeding terminated'
+        default:
+          console.log('Invalid input')
+      }
     }
   }
 }

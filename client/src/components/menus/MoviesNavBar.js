@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 
 import FilterMenu from './FilterMenu'
-import SortMenu from './SortMenu'
 import '../../styles/menus/moviesNavBar.css'
 
 const MoviesNavBar = (props) => {

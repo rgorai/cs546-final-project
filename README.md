@@ -10,7 +10,7 @@ Testing:
  - try accessing protected content when not authorized / vice versa
  - invalid inputs on all forms
  - accessibilty (look at slides)
- - messing up querystring for sorting
+ - try incorrect querystrings for sorting
 
 Code Style:
  - use single-quotes except in html

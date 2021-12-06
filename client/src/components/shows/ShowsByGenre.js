@@ -12,6 +12,7 @@ const AllShowsPage = (props) => {
 
   // get shows from server
   useEffect(() => {
+    document.title = 'Show Genres'
     axios
       .get('/api/shows/bygenre')
       .then((res) => setShowsByGenre(res.data))

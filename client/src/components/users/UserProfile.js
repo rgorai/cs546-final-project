@@ -13,6 +13,7 @@ const UserProfile = (props) => {
 
   // request user profile
   useEffect(() => {
+    document.title = 'Profile'
     getUserProfile()
       .then((res) => setUser(res.data))
       .catch((e) => setError(e.response))

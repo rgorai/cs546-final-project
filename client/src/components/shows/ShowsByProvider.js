@@ -12,6 +12,7 @@ const ShowsByProvider = (props) => {
 
   // get shows from server
   useEffect(() => {
+    document.title = 'Show Providers'
     axios
       .get('/api/shows/byprovider')
       .then((res) => setShowsByProvider(res.data))

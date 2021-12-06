@@ -24,7 +24,7 @@
 
 .movienav-dropdown {
   position: absolute;
-  background-color: white;
+  background-color: rgb(87, 100, 117);
   border: 1px solid black;
   right: 50px;
   display: flex;

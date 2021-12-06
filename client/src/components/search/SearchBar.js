@@ -14,7 +14,7 @@ const SearchBar = (props) => {
     axios
       .get(`/api/search/autocomplete/list`)
       .then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
         setFullList(res.data)
       })
       // should ui if fetch fails
@@ -35,9 +35,9 @@ const SearchBar = (props) => {
     }
   }
 
-  useEffect(() => {
-    console.log(filteredData)
-  }, [filteredData])
+  // useEffect(() => {
+  //   console.log(filteredData)
+  // }, [filteredData])
 
   return (
     <div className="search-bar-container">

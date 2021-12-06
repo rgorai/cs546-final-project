@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signup } from '../../services/authService'
 import '../../styles/users/newUserForm.css'
@@ -11,6 +11,10 @@ const NewUserForm = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
+
+  useEffect(() => {
+    document.title = 'Sign Up'
+  }, [])
 
   const onFormSubmit = (e) => {
     e.preventDefault()

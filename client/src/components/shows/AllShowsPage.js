@@ -12,6 +12,7 @@ const AllShowsPage = (props) => {
 
   // get shows from server
   useEffect(() => {
+    document.title = 'All Shows'
     axios
       .get('/api/shows')
       .then((res) => setShows(res.data))
