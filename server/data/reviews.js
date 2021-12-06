@@ -97,7 +97,9 @@ const removeReview = async (contentId, reviewId) => {
 
   if (movie) {
     reviewToRemove = await movies.findOne({ 'reviews._id': reviewId })
-    reviewToRemove = reviewToRemove.reviews.find((e) => String(e._id) === String(reviewId))
+    reviewToRemove = reviewToRemove.reviews.find(
+      (e) => String(e._id) === String(reviewId)
+    )
     const rating = reviewToRemove.like_dislike
     const percent = overallRating(movie, -rating, -1)
     removedContent = await movies.updateOne(
@@ -111,7 +113,9 @@ const removeReview = async (contentId, reviewId) => {
 
   if (show) {
     reviewToRemove = await shows.findOne({ 'reviews._id': reviewId })
-    reviewToRemove = reviewToRemove.reviews.find((e) => String(e._id) === String(reviewId))
+    reviewToRemove = reviewToRemove.reviews.find(
+      (e) => String(e._id) === String(reviewId)
+    )
     const rating = reviewToRemove.like_dislike
     const percent = overallRating(show, -rating, -1)
     removedContent = await shows.updateOne(
@@ -230,10 +234,12 @@ const updateReview = async (
 const overallRating = (content, newRating, lengthOffset, reviewId) => {
   let sum = newRating,
     percent = 0
-  
-  content.reviews.filter((e) => String(e._id) !== String(reviewId)).forEach((key) => {
-    sum += key.like_dislike
-  })
+
+  content.reviews
+    .filter((e) => String(e._id) !== String(reviewId))
+    .forEach((key) => {
+      sum += key.like_dislike
+    })
 
   percent = (sum / (content.reviews.length + lengthOffset)) * 100
 

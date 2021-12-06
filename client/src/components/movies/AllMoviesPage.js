@@ -20,7 +20,7 @@ const AllMoviesPage = (props) => {
 
   // construct movie list ui
   const getList = () => {
-    if (movies.length === 0) return <div>Theres nothing here</div>
+    if (movies.length === 0) return <div>There is nothing here</div>
     return movies
       .sort((_, m) => (m.posterPath ? 1 : -1))
       .map((movie, i) => (

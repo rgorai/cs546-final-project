@@ -75,16 +75,20 @@ const App = () => {
 
             {/* search routes */}
             <Route exact path="/search/:query" element={<SearchPage />} />
-            
+
             {/* catch the rest */}
             <Route
               exact
               path="*"
-              element={<ApiError error={{
-                status: 404,
-                statusText: 'Not Found',
-                data: 'invalid react route'
-              }} />}
+              element={
+                <ApiError
+                  error={{
+                    status: 404,
+                    statusText: 'Not Found',
+                    data: 'invalid react route',
+                  }}
+                />
+              }
             />
           </Routes>
         </main>

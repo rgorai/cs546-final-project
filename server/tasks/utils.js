@@ -36,7 +36,7 @@ const tmdbRequest = async (url) => {
     throw {
       'TMDB Error': data.status_code,
       message: data.status_message,
-      reqUrl: url
+      reqUrl: url,
     }
   }
 }
@@ -99,7 +99,7 @@ const getMovieData = async (numMedia, mediaReqs) => {
       'poster_path',
       'videos',
       'providers',
-      'revenue'
+      'revenue',
     ]
   )
 }

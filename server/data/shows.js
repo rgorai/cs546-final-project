@@ -49,8 +49,7 @@ const create = async (
   const streamKeys = ['flatrate', 'buy', 'rent', 'ads', 'free']
   if (providers)
     for (const k of streamKeys)
-      if (providers[k])
-        streamTemp = streamTemp.concat(providers[k])
+      if (providers[k]) streamTemp = streamTemp.concat(providers[k])
   streamTemp = streamTemp.filter(
     (e, i) => i === streamTemp.findIndex((f) => e.provider_id === f.provider_id)
   )
@@ -65,7 +64,7 @@ const create = async (
   } catch (e) {
     throw String(e)
   }
-  
+
   // add new show to db
   const shows = await showCollection()
 
@@ -230,4 +229,3 @@ module.exports = {
 //Show object example: https://api.themoviedb.org/3/tv/1668?api_key=31cc954c3de9a91aecd102e07e4d4707&append_to_response=videos,release_dates
 //Show Provider Object example: https://api.themoviedb.org/3/tv/1668/watch/providers?api_key=31cc954c3de9a91aecd102e07e4d4707
 //Movie object example: https://api.themoviedb.org/3/movie/18?api_key=31cc954c3de9a91aecd102e07e4d4707&append_to_response=videos,release_dates
-

@@ -12,27 +12,27 @@ const MoviesNavBar = (props) => {
   ]
   const compareNumbers = (a, b) => a - b
   const compareDates = (a, b) => Date.parse(a) - Date.parse(b)
-  const compareStrings = (a, b) => a.toLowerCase() < b.toLowerCase() ? -1 : 1
+  const compareStrings = (a, b) => (a.toLowerCase() < b.toLowerCase() ? -1 : 1)
   const movieSortItems = {
-    name: { 
+    name: {
       text: 'Title',
-      compare: compareStrings
+      compare: compareStrings,
     },
-    overallRating: { 
-      text: 'Popularity', 
-      compare: compareNumbers
+    overallRating: {
+      text: 'Popularity',
+      compare: compareNumbers,
     },
-    releaseDate: { 
-      text: 'Release Date', 
-      compare: compareDates
+    releaseDate: {
+      text: 'Release Date',
+      compare: compareDates,
     },
-    runtime: { 
-      text: 'Runtime', 
-      compare: compareNumbers
+    runtime: {
+      text: 'Runtime',
+      compare: compareNumbers,
     },
-    revenue: { 
-      text: 'Revenue', 
-      compare: compareNumbers
+    revenue: {
+      text: 'Revenue',
+      compare: compareNumbers,
     },
   }
 
@@ -51,7 +51,11 @@ const MoviesNavBar = (props) => {
         </ul>
         <div className="movie-ops-container">
           <FilterMenu />
-          <SortMenu items={movieSortItems} movies={props.movies} setMovies={props.setMovies} />
+          <SortMenu
+            items={movieSortItems}
+            movies={props.movies}
+            setMovies={props.setMovies}
+          />
         </div>
       </div>
     </div>
