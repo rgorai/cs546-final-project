@@ -3,6 +3,28 @@ import { useNavigate } from 'react-router-dom'
 import { signup } from '../../services/authService'
 import '../../styles/users/newUserForm.css'
 
+function checkIsString(s) {
+  if (typeof s !== 'string') throw 'Given input is invalid'
+  if (s.length < 1) throw 'Given input is empty'
+  if (s.trim().length === 0) throw 'Given input is all white spaces'
+}
+
+function checkIsName(s) {
+  if (/[^a-zA-Z]/.test(s)) throw 'Given input is not only letters'
+}
+
+function checkIsPassword(s) {
+  if (s.length < 8) throw 'Given password size is less than 8'
+}
+
+function checkIsEmail(s) {
+  if (!/^\S+@[a-zA-Z]+\.[a-zA-Z]+$/.test(s)) throw 'Given email id is invalid'
+}
+
+function checkIsUsername(s) {
+  if (s.length < 4) throw 'Given username size is less than 4'
+}
+
 const NewUserForm = (props) => {
   const navigate = useNavigate()
   const [firstName, setFirstName] = useState(null)
@@ -14,12 +36,33 @@ const NewUserForm = (props) => {
 
   const onFormSubmit = (e) => {
     e.preventDefault()
+    console.log('in the signa up***********')
 
     // error check
+    if (!firstName) throw 'You must provide the first name'
+    if (!lastName) throw 'You must provide the last name'
+    if (!email) throw 'You must provide an email address'
+    if (!username) throw 'You must provide a username'
+    if (!password) throw 'You must provide a password'
+
+    checkIsString(firstName)
+    checkIsString(lastName)
+    checkIsString(email)
+    checkIsString(username)
+    checkIsString(password)
+
+    checkIsName(firstName)
+    checkIsName(lastName)
+
+    checkIsUsername(username)
+
+    checkIsPassword(password)
+    checkIsEmail(email)
 
     // post data to server
     signup(firstName, lastName, email, username, password)
       .then((_) => {
+        console.log('in the signa up')
         navigate('/')
         window.location.reload()
       })
