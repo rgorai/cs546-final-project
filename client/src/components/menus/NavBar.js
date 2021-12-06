@@ -12,6 +12,12 @@ const NavBar = (props) => {
     { name: 'Shows', link: '/shows' },
   ]
 
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+    window.location.reload()
+  }
+
   return (
     <nav className="navbar-container">
       <div className="website-logo">
@@ -38,7 +44,7 @@ const NavBar = (props) => {
               Profile
             </button>
 
-            <button onClick={logout} type="button">
+            <button onClick={handleLogout} type="button">
               Logout
             </button>
           </>

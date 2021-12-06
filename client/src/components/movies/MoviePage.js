@@ -48,14 +48,16 @@ const MoviePage = (props) => {
             alt="Movie Poster"
           />
           <div className="movie-name">{movieData.name}</div>
-          <div className="movie-year">{movieData.releaseDate}</div>
-          <div className="movie-mpa-rating">{movieData.mpaRating}</div>
+          <div className="movie-year">{movieData.release_date}</div>
+          <div className="movie-mpa-rating">
+            {movieData.mpa_rating ? movieData.mpa_rating : 'NR'}
+          </div>
           <div className="movie-description">{movieData.description}</div>
           <div>
             {movieData.video ? (
               <Youtube videoId={movieData.video.key} opts={opts} />
             ) : (
-              <p>No Trailer Available</p>
+              <div>No Trailer Available</div>
             )}
           </div>
         </div>

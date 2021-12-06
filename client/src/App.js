@@ -64,6 +64,11 @@ const App = () => {
               path="/movies"
               element={<Navigate to="/movies/all" />}
             />
+            {/* <Route
+              exact
+              path="/test"
+              element={<Navigate to="/movies/all?sort=name&asc=false" />}
+            /> */}
             <Route exact path="/movies/all" element={<AllMoviesPage />} />
             <Route exact path="/movies/bygenre" element={<MoviesByGenre />} />
             <Route

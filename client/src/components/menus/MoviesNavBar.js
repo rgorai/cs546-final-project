@@ -5,6 +5,7 @@ import SortMenu from './SortMenu'
 import '../../styles/menus/moviesNavBar.css'
 
 const MoviesNavBar = (props) => {
+  // add query string if exists******
   const navLinks = [
     { name: 'All', link: '/movies/all' },
     { name: 'Genres', link: '/movies/bygenre' },
@@ -26,7 +27,7 @@ const MoviesNavBar = (props) => {
         </ul>
         <div className="movie-ops-container">
           <FilterMenu />
-          <SortMenu movieSortItems={props.movieSortItems} />
+          {props.SortMenu}
         </div>
       </div>
     </div>
