@@ -18,13 +18,39 @@ const UserProfile = (props) => {
       .catch((e) => setError(e.response))
   }, [])
 
+  // const getWatchlist = () => {
+  //   console.log(user)
+  //   if (user.watchlist.length === 0)
+  //     return <li>No Watchlist</li>
+  //   return <li>in the get watchlist function</li>
+  // }
+
+  // const getReviews = () => {
+  //   console.log(user)
+  //   if (user.reviews.length === 0)
+  //     return <li>No Reviews</li>
+  //   user.reviews.forEach(review => {
+  //     <ul>
+  //       <li>review.reviewer</li>
+  //       <li>review.dateOfReview</li>
+  //       <li>review.review</li>
+  //       <li>review.like_dislike</li>
+  //     </ul>
+  //   })
+  // }
+
   return (
     <div className="profile-container">
       {error ? (
         <ApiError error={error} />
       ) : user ? (
         <div className="user-page-container">
-          <div>[User Info Here (watchlist, reviews, liked movies?)]</div>
+          <div>
+            [User Info Here (watchlist, reviews, liked movies?)]
+            {/* <p>Watchlist</p> */}
+            {/* <div className="watchlist">{getWatchlist()}</div> */}
+            {/* <ul className="reviews">{getReviews()}</ul> */}
+          </div>
           <button onClick={() => navigate('/profile/edit')}>
             Edit Profile
           </button>

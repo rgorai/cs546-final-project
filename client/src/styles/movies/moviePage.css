@@ -52,3 +52,16 @@
   margin-right: 0.2em;
   margin-top: 0.2em;
 }
+
+.like-dislike {
+  margin-bottom: 20px;
+}
+
+.previous-reviews {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.previous-reviews label {
+  margin: 20px;
+}
