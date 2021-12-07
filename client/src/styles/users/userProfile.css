@@ -169,3 +169,9 @@
 div{
     color: white;
 }
+
+.heading {
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 6px;
+}
