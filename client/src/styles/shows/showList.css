@@ -1,6 +1,7 @@
 .show-list-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   overflow-x: auto;
   overflow-y: hidden;
   margin-bottom: 50px;

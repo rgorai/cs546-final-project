@@ -216,6 +216,13 @@ const getByName = async (str) => {
   return await shows.find({ name: { $eq: str } }).toArray()
 }
 
+const getByTrending = async () => {
+  let shows = await getAll()
+  shows = shows.sort((a, b) => b.overallRating - a.overallRating).slice(0, 5)
+
+  return shows
+}
+
 module.exports = {
   create,
   get,
@@ -224,6 +231,7 @@ module.exports = {
   getAllByProvider,
   getByGenre,
   getByName,
+  getByTrending,
 }
 
 //Show object example: https://api.themoviedb.org/3/tv/1668?api_key=31cc954c3de9a91aecd102e07e4d4707&append_to_response=videos,release_dates
