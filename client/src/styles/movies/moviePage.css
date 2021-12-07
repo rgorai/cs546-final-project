@@ -30,3 +30,20 @@
   color:white;
   font-weight: bold;
 }
+
+.icon {
+  margin: 20px;
+}
+
+.like-dislike {
+  display: inline-flex;
+  /* justify-content: center; */
+  align-items: center;
+  margin-top: 0.3em;
+  margin-left: 1em;
+}
+
+.like-dislike > label { 
+  margin-right: 0.2em;
+  margin-top: 0.2em;
+}
