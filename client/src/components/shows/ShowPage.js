@@ -42,14 +42,14 @@ const ShowPage = (props) => {
           <img
             className="show-page-img"
             src={
-              showData.posterPath
-                ? `https://image.tmdb.org/t/p/original${showData.posterPath}`
+              showData.poster_path
+                ? `https://image.tmdb.org/t/p/original${showData.poster_path}`
                 : process.env.PUBLIC_URL + '/images/not-found.jpg'
             }
             alt="Show Poster"
           />
           <div className="show-name">{showData.name}</div>
-          <div className="show-year">{showData.releaseDate}</div>
+          <div className="show-year">{showData.release_date}</div>
           <div className="show-description">{showData.description}</div>
           <div className="show-seasons">
             Total number of Seasons: {showData.number_of_seasons}

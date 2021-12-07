@@ -1,3 +1,8 @@
+.movie-page-container {
+  height: 90vh;
+  overflow-y: auto;
+}
+
 .movie-page-img {
   max-width: 300px;
 }
@@ -18,7 +23,7 @@
   color: white;
 }
 
-.movie-page-container p{
+.movie-page-container div {
   color: white;
 }
 

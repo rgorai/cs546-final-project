@@ -12,6 +12,7 @@ const AllShowsPage = (props) => {
 
   // get shows from server
   useEffect(() => {
+    document.title = 'All Shows'
     axios
       .get('/api/shows')
       .then((res) => setShows(res.data))
@@ -22,12 +23,12 @@ const AllShowsPage = (props) => {
   const getList = () => {
     if (shows.length === 0) return <div>Theres nothing here</div>
     return shows
-      .sort((_, m) => (m.posterPath ? 1 : -1))
+      .sort((_, m) => (m.poster_path ? 1 : -1))
       .map((show, i) => (
         <ShowCard
           key={i}
           id={show._id}
-          posterPath={show.posterPath}
+          posterPath={show.poster_path}
           name={show.name}
         />
       ))

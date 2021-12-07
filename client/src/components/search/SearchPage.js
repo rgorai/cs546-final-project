@@ -10,6 +10,7 @@ const SearchPage = (props) => {
   const [searchList, setSearchList] = useState(null)
 
   useEffect(() => {
+    document.title = 'Search Results'
     axios
       .get(`/api/search/${searchName}`)
       .then((res) => {
@@ -59,7 +60,5 @@ const SearchPage = (props) => {
     </>
   )
 }
-
-
 
 export default SearchPage

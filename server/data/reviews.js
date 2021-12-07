@@ -52,7 +52,7 @@ const createReview = async (
     inserted = await shows.updateOne(
       { _id: contentId },
       {
-        $set: { overallRating: Number(percent) },
+        $set: { overall_rating: Number(percent) },
         $push: { reviews: newReview },
       }
     )
@@ -105,7 +105,7 @@ const removeReview = async (contentId, reviewId) => {
     removedContent = await movies.updateOne(
       { _id: contentId },
       {
-        $set: { overallRating: Number(percent) },
+        $set: { overall_rating: Number(percent) },
         $pull: { reviews: { _id: ObjectId(reviewId) } },
       }
     )
@@ -121,7 +121,7 @@ const removeReview = async (contentId, reviewId) => {
     removedContent = await shows.updateOne(
       { _id: contentId },
       {
-        $set: { overallRating: Number(percent) },
+        $set: { overall_rating: Number(percent) },
         $pull: { reviews: { _id: reviewId } },
       }
     )
@@ -186,7 +186,7 @@ const updateReview = async (
     updatedContent = await movies.updateOne(
       { _id: contentId },
       {
-        $set: { overallRating: Number(percent) },
+        $set: { overall_rating: Number(percent) },
         $push: { reviews: newReview },
       }
     )
@@ -202,7 +202,7 @@ const updateReview = async (
     updatedContent = await shows.updateOne(
       { _id: contentId },
       {
-        $set: { overallRating: Number(percent) },
+        $set: { overall_rating: Number(percent) },
         $push: { reviews: newReview },
       }
     )
