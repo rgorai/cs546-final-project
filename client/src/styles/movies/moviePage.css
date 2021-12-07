@@ -26,3 +26,12 @@
 .movie-page-container div {
   color: white;
 }
+
+.desc {
+  color: white;
+}
+
+.desc-bold {
+  color:white;
+  font-weight: bold;
+}
