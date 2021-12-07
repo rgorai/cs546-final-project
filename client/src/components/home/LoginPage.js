@@ -8,6 +8,20 @@ import '../../styles/home/loginPage.css'
  *
  */
 
+function checkIsString(s) {
+  if (typeof s !== 'string') throw 'Given input is invalid'
+  if (s.length < 1) throw 'Given input is empty'
+  if (s.trim().length === 0) throw 'Given input is all white spaces'
+}
+
+function checkIsUsername(s) {
+  if (s.length < 4) throw 'Given username size is less than 4'
+}
+
+function checkIsPassword(s) {
+  if (s.length < 8) throw 'Given password size is less than 8'
+}
+
 const LoginPage = (props) => {
   const navigate = useNavigate()
   const [username, setUsername] = useState('')
@@ -25,8 +39,17 @@ const LoginPage = (props) => {
     try {
       /* error checking functions */
       const X = null // placeholder
+      console.log('here*************')
+      if (!username) throw 'Must provide all the input'
+      if (!password) throw 'Must provide all the input'
+      checkIsString(username)
+      checkIsString(password)
+      checkIsUsername(username)
+      checkIsPassword(password)
     } catch (e) {
+      console.log('in the catch')
       setError('Invalid username or password')
+      return
     }
 
     // post data to server

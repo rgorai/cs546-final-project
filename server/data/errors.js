@@ -95,6 +95,7 @@ const validateReviewId = (reviewId) => {
 const validateObjectId = (id) => {
   //should match 24 length Hex string
   const objectIdRegex = /^[a-fA-F0-9]{24}$/
+  id = ObjectId(id)
 
   if (!ObjectId.isValid(id) || !objectIdRegex.test(id)) {
     throw 'Error: id is not a valid ObjectId.'

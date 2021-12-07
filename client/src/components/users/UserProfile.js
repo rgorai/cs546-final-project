@@ -24,7 +24,20 @@ const UserProfile = (props) => {
         <ApiError error={error} />
       ) : user ? (
         <div className="user-page-container">
-          <div>[User Info Here (watchlist, reviews, liked movies?)]</div>
+          <div>
+            <p>First Name: {user.firstName}</p>
+            <p>Last Name: {user.lastName}</p>
+            <p>Email: {user.email}</p>
+            <p>Username: {user.username}</p>
+            <p>Watchlist</p>
+            <ul className="watchlist">
+              {user.watchlist.length === 0 ? (
+                <li>N/A</li>
+              ) : (
+                user.watchlist.map((item) => <li>{item}</li>)
+              )}
+            </ul>
+          </div>
           <button onClick={() => navigate('/profile/edit')}>
             Edit Profile
           </button>

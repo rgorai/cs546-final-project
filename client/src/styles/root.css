@@ -9,6 +9,8 @@ body {
   /* background: white; */
   background-image:    url(./images/wallpaperflare.com_wallpaper.jpg);
   background-size:     cover;                      /* <------ */
-  background-repeat:   no-repeat;
+  background-repeat:   repeat;
   background-position: center center;
+  height: 100%;
+
 }

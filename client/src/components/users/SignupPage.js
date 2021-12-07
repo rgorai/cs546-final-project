@@ -3,6 +3,38 @@ import { useNavigate } from 'react-router-dom'
 import { signup } from '../../services/authService'
 import '../../styles/users/newUserForm.css'
 
+/*
+ * define error checking functions here
+ *
+ */
+
+function checkIsString(s) {
+  if (!s) throw 'Must provide all the inputs'
+  if (typeof s !== 'string') throw 'Given input is invalid'
+  if (s.length < 1) throw 'Given input is empty'
+  if (s.trim().length === 0) throw 'Given input is all white spaces'
+}
+
+function checkIsName(s) {
+  if (/[^a-zA-Z]/.test(s)) throw 'Given input is not only letters'
+}
+
+function checkIsPassword(s) {
+  if (s.length < 8) throw 'Given password size is less than 8'
+}
+
+function checkIsConfirmPassword(cp, p) {
+  if (p != cp) throw 'Password does not match'
+}
+
+function checkIsEmail(s) {
+  if (!/^\S+@[a-zA-Z]+\.[a-zA-Z]+$/.test(s)) throw 'Given email id is invalid'
+}
+
+function checkIsUsername(s) {
+  if (s.length < 4) throw 'Given username size is less than 4'
+}
+
 const SignupPage = (props) => {
   const navigate = useNavigate()
   const [firstName, setFirstName] = useState('')
@@ -21,10 +53,30 @@ const SignupPage = (props) => {
     e.preventDefault()
 
     // error check
+    try {
+      checkIsString(firstName)
+      checkIsString(lastName)
+      checkIsString(email)
+      checkIsString(username)
+      checkIsString(password)
+      checkIsString(confirmPassword)
+
+      checkIsName(firstName)
+      checkIsName(lastName)
+      checkIsEmail(email)
+      checkIsUsername(username)
+      checkIsPassword(password)
+      checkIsPassword(confirmPassword)
+      checkIsConfirmPassword(confirmPassword, password)
+    } catch (e) {
+      setError(e)
+      return
+    }
 
     // post data to server
     signup(firstName, lastName, email, username, password)
       .then((_) => {
+        console.log('in the sign up')
         navigate('/')
         window.location.reload()
       })
@@ -124,6 +176,9 @@ const SignupPage = (props) => {
               Confirm Password
             </label>
           </div>
+
+          {/* display error here */}
+          {error ? <div className="login-error">{error}</div> : null}
 
           <button className="form-reset" type="reset" form="new-user-form">
             Reset
