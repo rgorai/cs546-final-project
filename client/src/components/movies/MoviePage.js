@@ -41,23 +41,45 @@ const MoviePage = (props) => {
           <img
             className="movie-page-img"
             src={
-              movieData.posterPath
-                ? `https://image.tmdb.org/t/p/original${movieData.posterPath}`
+              movieData.poster_path
+                ? `https://image.tmdb.org/t/p/original${movieData.poster_path}`
                 : process.env.PUBLIC_URL + '/images/not-found.jpg'
             }
             alt="Movie Poster"
           />
           <div className="movie-name">{movieData.name}</div>
-          <div className="movie-year">{movieData.releaseDate}</div>
-          <div className="movie-mpa-rating">{movieData.mpaRating}</div>
+          <div className="movie-year">{movieData.release_date}</div>
+          <div className="movie-mpa-rating">
+            {movieData.mpa_rating ? movieData.mpa_rating : 'NR'}
+          </div>
           <div className="movie-description">{movieData.description}</div>
           <div>
             {movieData.video ? (
               <Youtube videoId={movieData.video.key} opts={opts} />
             ) : (
-              <p>No Trailer Available</p>
+              <div>No Trailer Available</div>
             )}
           </div>
+          <form action="">
+            <label htmlFor="userReview" className="desc-bold">
+              {' '}
+              Review :
+              <textarea
+                name="user-review"
+                id="user-review"
+                cols="100"
+                rows="1"
+                placeholder="Write your review here..."
+              ></textarea>
+            </label>
+            <button>Post Review</button>
+            <div className="previous-reviews">
+              <p className="desc">
+                This would be a repeating paragraph of all user reviews for this
+                movie
+              </p>
+            </div>
+          </form>
         </div>
       ) : (
         <div>Loading</div>

@@ -12,6 +12,7 @@ const AllMoviesPage = (props) => {
 
   // get movies from server
   useEffect(() => {
+    document.title = 'Movie Genres'
     axios
       .get('/api/movies/bygenre')
       .then((res) => setMoviesByGenre(res.data))

@@ -1,10 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signup } from '../../services/authService'
 import '../../styles/users/newUserForm.css'
-let errObj = []
+
+/*
+ * define error checking functions here
+ *
+ */
 
 function checkIsString(s) {
+  if (!s) throw 'Must provide all the inputs'
   if (typeof s !== 'string') throw 'Given input is invalid'
   if (s.length < 1) throw 'Given input is empty'
   if (s.trim().length === 0) throw 'Given input is all white spaces'
@@ -18,6 +23,10 @@ function checkIsPassword(s) {
   if (s.length < 8) throw 'Given password size is less than 8'
 }
 
+function checkIsConfirmPassword(cp, p) {
+  if (p != cp) throw 'Password does not match'
+}
+
 function checkIsEmail(s) {
   if (!/^\S+@[a-zA-Z]+\.[a-zA-Z]+$/.test(s)) throw 'Given email id is invalid'
 }
@@ -26,50 +35,48 @@ function checkIsUsername(s) {
   if (s.length < 4) throw 'Given username size is less than 4'
 }
 
-const NewUserForm = (props) => {
+const SignupPage = (props) => {
   const navigate = useNavigate()
-  const [firstName, setFirstName] = useState(null)
-  const [lastName, setLastName] = useState(null)
-  const [email, setEmail] = useState(null)
-  const [username, setUsername] = useState(null)
-  const [password, setPassword] = useState(null)
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState(null)
+
+  useEffect(() => {
+    document.title = 'Sign Up'
+  }, [])
 
   const onFormSubmit = (e) => {
     e.preventDefault()
 
     // error check
     try {
-      ;(!firstName)(!lastName)(!email)(!username)(!password)
-    } catch (e) {
-      // errObj["hasError"] = true
-      // errObj["error"] = "Must provide all the items"
-    }
-
-    try {
       checkIsString(firstName)
       checkIsString(lastName)
       checkIsString(email)
       checkIsString(username)
       checkIsString(password)
+      checkIsString(confirmPassword)
 
       checkIsName(firstName)
       checkIsName(lastName)
-
-      checkIsUsername(username)
-
-      checkIsPassword(password)
       checkIsEmail(email)
-    } catch (E) {
-      console.log(e)
-      // errObj["hasError"] = true
-      // errObj["error"] = e
+      checkIsUsername(username)
+      checkIsPassword(password)
+      checkIsPassword(confirmPassword)
+      checkIsConfirmPassword(confirmPassword, password)
+    } catch (e) {
+      setError(e)
+      return
     }
 
     // post data to server
     signup(firstName, lastName, email, username, password)
       .then((_) => {
-        console.log('in the signa up')
+        console.log('in the sign up')
         navigate('/')
         window.location.reload()
       })
@@ -79,10 +86,6 @@ const NewUserForm = (props) => {
 
   return (
     <div className="login-container">
-      {/* <div>
-        {errObj.hasError && <p>{errObj.error}</p>}            
-
-      </div> */}
       {props.loggedIn ? (
         <div>You are already signed in.</div>
       ) : (
@@ -159,6 +162,24 @@ const NewUserForm = (props) => {
             </label>
           </div>
 
+          <div className="user-input-container">
+            <input
+              id="input-password-confirm"
+              className="form-input"
+              placeholder="Confirm Password"
+              type="password"
+              name="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <label className="form-label" htmlFor="input-password-confirm">
+              Confirm Password
+            </label>
+          </div>
+
+          {/* display error here */}
+          {error ? <div className="login-error">{error}</div> : null}
+
           <button className="form-reset" type="reset" form="new-user-form">
             Reset
           </button>
@@ -172,4 +193,4 @@ const NewUserForm = (props) => {
   )
 }
 
-export default NewUserForm
+export default SignupPage

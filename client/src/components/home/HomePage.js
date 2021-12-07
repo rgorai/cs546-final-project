@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 // import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
@@ -16,22 +15,22 @@ const HomePage = (props) => {
   const [showList, setShowList] = useState([])
 
   useEffect(() => {
+    document.title = 'Home'
     axios
       .get('/api/movies/bytrending')
       .then((res) => {
         console.log(res.data)
         setMovieList(res.data)
-
-        axios
-          .get('/api/shows/bytrending')
-          .then((res2) => {
-            console.log(res2.data)
-            setShowList(res2.data)
-          })
-          .catch((e) => console.log(e))
       })
       // should ui if fetch fails
       .catch((e) => console.log('search fetch error: ', e))
+    axios
+      .get('/api/shows/bytrending')
+      .then((res) => {
+        console.log(res.data)
+        setShowList(res.data)
+      })
+      .catch((e) => console.log(e))
   }, [])
 
   return (

@@ -4,7 +4,7 @@ import axios from 'axios'
 import ShowList from './ShowList'
 import ApiError from '../errors/ApiError'
 import ShowsNavBar from '../menus/ShowsNavBar'
-import '../../styles/movies/moviesByGenre.css'
+import '../../styles/shows/showsByGenre.css'
 
 const AllShowsPage = (props) => {
   const [showsByGenre, setShowsByGenre] = useState(null)
@@ -12,6 +12,7 @@ const AllShowsPage = (props) => {
 
   // get shows from server
   useEffect(() => {
+    document.title = 'Show Genres'
     axios
       .get('/api/shows/bygenre')
       .then((res) => setShowsByGenre(res.data))

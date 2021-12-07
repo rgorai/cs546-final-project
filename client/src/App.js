@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom'
 
 import HomePage from './components/home/HomePage'
-import NewUserForm from './components/users/NewUserForm'
+import SignupPage from './components/users/SignupPage'
 import LoginPage from './components/home/LoginPage'
 import NavBar from './components/menus/NavBar'
 import UserProfile from './components/users/UserProfile'
+import EditUserInfo from './components/users/EditUserInfo'
 import ApiError from './components/errors/ApiError'
 import SearchPage from './components/search/SearchPage'
 
@@ -40,10 +46,11 @@ const App = () => {
           <Routes>
             {/* homepage routes */}
             <Route exact path="/" element={<HomePage />} />
+            <Route exact path="/home" element={<Navigate to="/" />} />
             <Route
               exact
               path="/signup"
-              element={<NewUserForm loggedIn={user} />}
+              element={<SignupPage loggedIn={user} />}
             />
             <Route
               exact
@@ -52,16 +59,31 @@ const App = () => {
             />
             {/* add logout route? */}
             <Route exact path="/profile" element={<UserProfile />} />
+            <Route exact path="/profile/edit" element={<EditUserInfo />} />
 
             {/* movies routes */}
-            <Route exact path="/movies" element={<AllMoviesPage />} />
+            <Route
+              exact
+              path="/movies"
+              element={<Navigate to="/movies/all" />}
+            />
+            {/* <Route
+              exact
+              path="/test"
+              element={<Navigate to="/movies/all?sort=name&asc=false" />}
+            /> */}
+            <Route
+              exact
+              path="/movies/all"
+              element={/*<ValidateMoviesQuery />*/ <AllMoviesPage />}
+            />
             <Route exact path="/movies/bygenre" element={<MoviesByGenre />} />
             <Route
               exact
               path="/movies/byprovider"
               element={<MoviesByProvider />}
             />
-            <Route exact path="/movies/:id" element={<MoviePage />} />
+            <Route exact path="/movies/single/:id" element={<MoviePage />} />
 
             {/* shows routes */}
             <Route exact path="/shows" element={<AllShowsPage />} />

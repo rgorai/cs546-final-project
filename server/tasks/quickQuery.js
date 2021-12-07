@@ -5,9 +5,12 @@ const NUM_MEDIA = 10
 // think about including backdrop on moviepage
 
 const main = async () => {
-  const movie = await getMovie('22843')
+  // const movie = await getMovie('225760')
+  // console.log(movie.release_dates)
 
-  console.log(movie.revenue)
+  const l = [2, 4, 1, 5, 7, 3, 9]
+  const t = [...l].sort()
+  console.log(l, t)
 }
 
 main().catch((e) => {

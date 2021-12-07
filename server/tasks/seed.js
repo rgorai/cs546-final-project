@@ -3,8 +3,11 @@ const connection = require('../config/mongoConnection')
 const { create: createMovie } = require('../data/movies')
 const { create: createShow } = require('../data/shows')
 const { create: createUser } = require('../data/users')
+const { createReview } = require('../data/reviews')
+const { addToWatchlist } = require('../data/users')
 const { getMovieData, getShowData } = require('./utils')
 const userList = require('./data/users.json')
+const reviewList = require('./data/reviews.json')
 
 const NUM_MEDIA = 50
 
@@ -50,28 +53,78 @@ const showReqs = {
 const main = async () => {
   const db = await connection.connectToDb()
   await db.dropDatabase()
+  let userInfo = []
+  let movieInfo = []
+  let showInfo = []
 
   // time seeding
   console.time('Time')
 
   // create user entries
   for (let user of userList) {
-    await createUser(
+    let id = await createUser(
       user.firstName,
       user.lastName,
       user.email,
       user.username,
       user.password
     )
+    myObj = {}
+    myObj['id'] = id
+    console.log(myObj.id)
+    myObj['name'] = user.firstName.concat(' ', user.lastName)
+    userInfo.push(myObj)
   }
 
   // create movie entries
   const movieData = await getMovieData(NUM_MEDIA, movieReqs)
-  for (const data of movieData) await createMovie(...data)
+  for (const data of movieData) {
+    let movie = await createMovie(...data)
+    let myObj = {}
+    myObj['id'] = movie._id
+    myObj['name'] = movie.name
+    movieInfo.push(myObj)
+  }
 
   // create show entries
   const showData = await getShowData(NUM_MEDIA, showReqs)
-  for (const data of showData) await createShow(...data)
+  for (const data of showData) {
+    let show = await createShow(...data)
+    let myObj = {}
+    myObj['id'] = show._id
+    myObj['name'] = show.name
+    showInfo.push(myObj)
+  }
+
+  //create watchlist for each user
+  for (let user of userInfo) {
+    let movie = movieInfo[Math.floor(Math.random() * movieInfo.length)]
+    let show = showInfo[Math.floor(Math.random() * showInfo.length)]
+    await addToWatchlist(user.id, movie.name)
+    await addToWatchlist(user.id, show.name)
+  }
+
+  //insert reviews
+  for (let user of userInfo) {
+    let movie = movieInfo[Math.floor(Math.random() * movieInfo.length)]
+    let show = showInfo[Math.floor(Math.random() * showInfo.length)]
+    let review = reviewList[Math.floor(Math.random() * reviewList.length)]
+
+    await createReview(
+      user.id,
+      user.name,
+      movie.id,
+      review.review,
+      Math.floor(Math.random() * 1)
+    )
+    await createReview(
+      user.id,
+      user.name,
+      show.id,
+      review.review,
+      Math.floor(Math.random() * 1)
+    )
+  }
 
   console.log('\nDone seeding database')
   console.timeEnd('Time')

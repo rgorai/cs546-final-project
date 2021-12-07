@@ -1,64 +1,48 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import '../../styles/menus/sortMenu.css'
 
 const SortMenu = (props) => {
+  const { movieSortItems, DEFAULT_SORT, DEFAULT_ORDER } = props.props
+  const [queryString, setQueryString] = useSearchParams()
   const [showDropdown, setShowDropdown] = useState(false)
-  const [ascending, setAscending] = useState(true)
-  const [currSort, setCurrSort] = useState('title')
-  const { items, movies, setMovies } = props
+  const [currSort, setCurrSort] = useState(
+    queryString.get('sort') || DEFAULT_SORT
+  )
+  const [currAsc, setCurrAsc] = useState(
+    queryString.get('asc') === 'true' || DEFAULT_ORDER
+  )
 
-  // useEffect(() => {
-  //   sortMovies({ target: { id: currSort } })
-  // }, [ascending])
-
-  const sortMovies = (event) => {
-    const k = event.target.id
-    setCurrSort(k)
-
-    console.log(ascending)
-
-    if (movies.length > 0) {
-      // console.log('hello', movies)
-      const t = movies.sort(
-        (x, y) => (ascending ? 1 : -1) * items[k].compare(x[k], y[k])
-      )
-      props.setMovies(t)
-      console.log('there', t)
-    }
-  }
-  // const sortMovies = (event) => {
-  //   console.log(movies)
-  //   const movies = movies
-  //   movies.forEach((e) => {
-  //     console.log(e.name)
-  //   })
-  //   movies.sort((x, y) => x.name < y.name ? -1 : 1)
-  //   console.log(movies)
-  // }
+  // update query string when sort settings change
+  useEffect(() => {
+    console.log('sort-menu', currSort, currAsc)
+    setQueryString({ sort: currSort, asc: currAsc })
+  }, [currSort, currAsc, setQueryString])
 
   return (
     <>
       <button onClick={() => setShowDropdown(!showDropdown)}>Sort</button>
       {showDropdown ? (
         <div className="movienav-dropdown">
-          {Object.keys(items).map((k, i) => (
+          {Object.keys(movieSortItems).map((k, i) => (
             <div key={i}>
               <input
                 type="radio"
                 id={k}
                 className="moviesort-item"
                 name="moviesort-group"
-                onChange={sortMovies}
+                onChange={() => setCurrSort(k)}
+                checked={currSort === k}
               />
-              <label htmlFor={k}>{items[k].text}</label>
+              <label htmlFor={k}>{movieSortItems[k].text}</label>
             </div>
           ))}
 
           <button
-            className="ascending-button"
-            onClick={() => setAscending(!ascending)}
+            className="currAsc-button"
+            onClick={() => setCurrAsc(!currAsc)}
           >
-            {ascending ? 'Ascending' : 'Descending'}
+            {currAsc ? 'Ascending' : 'Descending'}
           </button>
         </div>
       ) : null}

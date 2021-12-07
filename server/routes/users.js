@@ -21,9 +21,20 @@ router.get('/profile', verifyToken, async (req, res) => {
   }
 })
 
+router.put('/profile', verifyToken, async (req, res) => {
+  // error check
+  // req.userId
+
+  try {
+    res.status(200).json(await getUser(req.userId))
+  } catch (e) {
+    res.sendStatus(500)
+  }
+})
+
 // use verifyToken for things that need authentication:
 // adding to watchlist
-router.put('/:id', verifyToken, async (req, res) => {
+router.put('/watchlist/:id', verifyToken, async (req, res) => {
   //error checking
   if (!req.params.id)
     throw 'You must specify an ID of the user to update the watchlist'
@@ -49,7 +60,7 @@ router.put('/:id', verifyToken, async (req, res) => {
   }
 })
 // removing from watchlist
-router.delete('./:id', verifyToken, async (req, res) => {
+router.delete('/watchlist/:id', verifyToken, async (req, res) => {
   //error checking
   if (!req.params.id)
     throw 'You must specify an ID of the user to update the watchlist'
