@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { login } from '../../services/authService'
 import '../../styles/home/loginPage.css'
 
+/*
+ * define error checking functions here
+ *
+ */
+
 const LoginPage = (props) => {
   const navigate = useNavigate()
   const [username, setUsername] = useState('')
@@ -17,7 +22,12 @@ const LoginPage = (props) => {
     e.preventDefault()
 
     // error check
-    // try using 'validations'
+    try {
+      /* error checking functions */
+      const X = null // placeholder
+    } catch (e) {
+      setError('Invalid username or password')
+    }
 
     // post data to server
     login(username, password)
@@ -25,7 +35,7 @@ const LoginPage = (props) => {
         navigate('/')
         window.location.reload()
       })
-      .catch((e) => setError(e.response))
+      .catch((e) => setError(e.response.data)) // get error from server
   }
 
   return (
@@ -57,6 +67,9 @@ const LoginPage = (props) => {
             />
             <label htmlFor="input-password">Password</label>
           </div>
+
+          {/* display error here */}
+          {error ? <div className="login-error">{error}</div> : null}
 
           <button type="submit" form="login-form">
             Login

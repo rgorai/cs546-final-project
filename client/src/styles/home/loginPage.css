@@ -160,3 +160,7 @@
     bottom: 100%;
   }
 }
+
+.login-error {
+  color: red;
+}
