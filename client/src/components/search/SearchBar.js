@@ -3,6 +3,7 @@ import '../../styles/home/searchBar.css'
 import { Router, useNavigate } from 'react-router'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+// import router from '../../../../server/routes/search'
 
 
 const SearchBar = (props) => {
@@ -56,7 +57,7 @@ const SearchBar = (props) => {
           }
         }}
       />
-      <button type="reset" onClick={() => setQuery('')}>
+      <button type="reset" onClick={() => {setFilteredData([]); setQuery('')}}>
         &times;
       </button>
       <button
@@ -68,6 +69,9 @@ const SearchBar = (props) => {
       >
         Search
       </button>
+      <div className="autocomplete-div">
+        {filteredData.map(i => <p onClick={() => {setFilteredData([]); navigate(`movies/${i._id}`)}}>{i.name}</p>)}
+      </div>
     </div>
   )
 }

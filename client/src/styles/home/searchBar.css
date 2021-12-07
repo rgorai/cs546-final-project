@@ -1,5 +1,6 @@
 .search-bar-container {
   height: 100% !important;
+  position: relative;
   /* padding: 5px 0 5px 0; */
 }
 
@@ -13,4 +14,24 @@
 .search-bar-container label {
   color: white;
   margin-right: 10px;
+}
+
+.autocomplete-div{
+  z-index: 999;
+  position: absolute;
+  top: -1;
+  background: white;
+  max-height: 200px;
+  overflow-y: auto;
+  color: black;
+}
+
+.autocomplete-div p{
+  margin: 0;
+  padding: 10px 5px;
+}
+
+.autocomplete-div p:hover{
+  cursor: pointer;
+  background: #F8F9F9;
 }
