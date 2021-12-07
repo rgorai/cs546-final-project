@@ -7,14 +7,14 @@ import {
 } from 'react-router-dom'
 
 import HomePage from './components/home/HomePage'
-import NewUserForm from './components/users/NewUserForm'
+import SignupPage from './components/users/SignupPage'
 import LoginPage from './components/home/LoginPage'
 import NavBar from './components/menus/NavBar'
 import UserProfile from './components/users/UserProfile'
+import EditUserInfo from './components/users/EditUserInfo'
 import ApiError from './components/errors/ApiError'
 import SearchPage from './components/search/SearchPage'
 
-import { ValidateMoviesQuery } from './components/middleware/moviesMiddleware'
 import AllMoviesPage from './components/movies/AllMoviesPage'
 import MoviesByGenre from './components/movies/MoviesByGenre'
 import MoviesByProvider from './components/movies/MoviesByProvider'
@@ -50,7 +50,7 @@ const App = () => {
             <Route
               exact
               path="/signup"
-              element={<NewUserForm loggedIn={user} />}
+              element={<SignupPage loggedIn={user} />}
             />
             <Route
               exact
@@ -59,6 +59,7 @@ const App = () => {
             />
             {/* add logout route? */}
             <Route exact path="/profile" element={<UserProfile />} />
+            <Route exact path="/profile/edit" element={<EditUserInfo />} />
 
             {/* movies routes */}
             <Route

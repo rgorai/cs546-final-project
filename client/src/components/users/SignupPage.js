@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import { signup } from '../../services/authService'
 import '../../styles/users/newUserForm.css'
 
-const NewUserForm = (props) => {
+const SignupPage = (props) => {
   const navigate = useNavigate()
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -109,6 +110,21 @@ const NewUserForm = (props) => {
             </label>
           </div>
 
+          <div className="user-input-container">
+            <input
+              id="input-password-confirm"
+              className="form-input"
+              placeholder="Confirm Password"
+              type="password"
+              name="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <label className="form-label" htmlFor="input-password-confirm">
+              Confirm Password
+            </label>
+          </div>
+
           <button className="form-reset" type="reset" form="new-user-form">
             Reset
           </button>
@@ -122,4 +138,4 @@ const NewUserForm = (props) => {
   )
 }
 
-export default NewUserForm
+export default SignupPage
