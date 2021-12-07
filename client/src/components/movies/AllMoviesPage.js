@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from 'react'
-import { useSearchParams, Navigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 
 import MovieCard from './MovieCard'
@@ -10,11 +10,11 @@ import '../../styles/movies/allMoviesPage.css'
 
 const DEFAULT_SORT = 'name'
 const DEFAULT_ORDER = false
-const DEFAULT_QUERY = `/movies/all?sort=${DEFAULT_SORT}&asc=${DEFAULT_ORDER}`
 
-const compareNumbers = (a, b) => a - b
-const compareDates = (a, b) => Date.parse(a) - Date.parse(b)
-const compareStrings = (a, b) => (a.toLowerCase() < b.toLowerCase() ? -1 : 1)
+// sort algorithms switch items even if they have same values
+const compareNumbers = (a, b) => (a - b <= 0 ? -1 : 1)
+const compareDates = (a, b) => (Date.parse(a) - Date.parse(b) <= 0 ? -1 : 1)
+const compareStrings = (a, b) => (a.toLowerCase() <= b.toLowerCase() ? -1 : 1)
 const movieSortItems = {
   name: {
     text: 'Title',
@@ -47,23 +47,24 @@ const AllMoviesPage = (props) => {
   useEffect(() => {
     document.title = 'All Movies'
     setError(null)
-    const sort = queryString.get('sort')
-    const asc = queryString.get('asc')
-    if (sort && asc)
-      if (!movieSortItems[sort])
-        setError({
-          status: 404,
-          statusText: 'Not Found',
-          data: 'invalid react querystring',
-        })
-      else
-        axios
-          .get('/api/movies')
-          .then((res) => {
-            setMovieList(sortMovies(res.data, sort, asc))
-          })
-          .catch((e) => setError(e.response))
+    const currSort = queryString.get('sort') || DEFAULT_SORT
+    const currAsc = queryString.get('asc') || DEFAULT_ORDER
+    if (!movieSortItems[currSort])
+      setError({
+        status: 404,
+        statusText: 'Not Found',
+        data: 'invalid react querystring',
+      })
+    else
+      axios
+        .get('/api/movies')
+        .then((res) => setMovieList(sortMovies(res.data, currSort, currAsc)))
+        .catch((e) => setError(e.response))
   }, [queryString])
+
+  useEffect(() => {
+    console.log(movieList)
+  }, [movieList])
 
   const sortMovies = (list, sort, asc) =>
     list

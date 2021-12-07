@@ -50,6 +50,13 @@ const UserProfile = (props) => {
             {/* <p>Watchlist</p> */}
             {/* <div className="watchlist">{getWatchlist()}</div> */}
             {/* <ul className="reviews">{getReviews()}</ul> */}
+            <ul className="watchlist">
+              {user.watchlist.length === 0 ? (
+                <li>N/A</li>
+              ) : (
+                user.watchlist.map((item) => <li>{item}</li>)
+              )}
+            </ul>
           </div>
           <button onClick={() => navigate('/profile/edit')}>
             Edit Profile
