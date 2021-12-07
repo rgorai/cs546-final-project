@@ -39,7 +39,6 @@ const LoginPage = (props) => {
     try {
       /* error checking functions */
       const X = null // placeholder
-      console.log('here*************')
       if (!username) throw 'Must provide all the input'
       if (!password) throw 'Must provide all the input'
       checkIsString(username)
@@ -47,7 +46,6 @@ const LoginPage = (props) => {
       checkIsUsername(username)
       checkIsPassword(password)
     } catch (e) {
-      console.log('in the catch')
       setError('Invalid username or password')
       return
     }
