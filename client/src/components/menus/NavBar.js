@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import SearchBar from '../search/SearchBar'
-import AutoComplete from '../search/AutoComplete'
+// import AutoComplete from '../search/AutoComplete'
 import { logout } from '../../services/authService'
 import '../../styles/menus/navBar.css'
 
@@ -12,6 +12,12 @@ const NavBar = (props) => {
     { name: 'Movies', link: '/movies' },
     { name: 'Shows', link: '/shows' },
   ]
+
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+    window.location.reload()
+  }
 
   return (
     <nav className="navbar-container">
@@ -40,7 +46,7 @@ const NavBar = (props) => {
               Profile
             </button>
 
-            <button onClick={logout} type="button">
+            <button onClick={handleLogout} type="button">
               Logout
             </button>
           </>

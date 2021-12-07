@@ -86,18 +86,18 @@ const create = async (
   }
 
   const insertRet = await movies.insertOne({
-    tmdbId: id,
+    tmdb_id: id,
     name: name,
-    releaseDate: releaseDate,
-    mpaRating: certifications,
+    release_date: releaseDate,
+    mpa_rating: certifications,
     runtime: runtime,
     genres: genres,
     description: description,
-    posterPath: posterPath,
+    poster_path: posterPath,
     video: video,
     providers: providers,
     revenue: revenue,
-    overallRating: 0,
+    overall_rating: 0,
     reviews: [],
   })
 
