@@ -1,23 +1,12 @@
-import { useEffect, useState, useRef } from 'react'
-import { useSearchParams, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useQueryState } from 'react-router-use-location-state'
 import '../../styles/menus/sortMenu.css'
 
 const SortMenu = (props) => {
   const { movieSortItems, DEFAULT_SORT, DEFAULT_ORDER } = props.props
-  const [queryString, setQueryString] = useSearchParams()
   const [showDropdown, setShowDropdown] = useState(false)
-  const [currSort, setCurrSort] = useState(
-    queryString.get('sort') || DEFAULT_SORT
-  )
-  const [currAsc, setCurrAsc] = useState(
-    queryString.get('asc') === 'true' || DEFAULT_ORDER
-  )
-
-  // update query string when sort settings change
-  useEffect(() => {
-    console.log('sort-menu', currSort, currAsc)
-    setQueryString({ sort: currSort, asc: currAsc })
-  }, [currSort, currAsc, setQueryString])
+  const [currSort, setCurrSort] = useQueryState('sort', DEFAULT_SORT)
+  const [currAsc, setCurrAsc] = useQueryState('asc', DEFAULT_ORDER)
 
   return (
     <>

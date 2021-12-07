@@ -9,8 +9,8 @@ const NavBar = (props) => {
 
   const navLinks = [
     { name: 'Home', link: '/' },
-    { name: 'Movies', link: '/movies' },
-    { name: 'Shows', link: '/shows' },
+    { name: 'Movies', link: '/movies/all' },
+    { name: 'Shows', link: '/shows/all' },
   ]
 
   const handleLogout = () => {
