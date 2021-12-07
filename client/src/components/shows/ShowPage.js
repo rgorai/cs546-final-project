@@ -25,13 +25,13 @@ const ShowPage = (props) => {
   // request server with given movie id
   useEffect(() => {
     axios
-    .get(`/api/shows/${showId}`)
-    .then((res) => {
-      setShowData(res.data)
-      console.log(res.data)
-    })
-    .catch((e) => setError(e.response))
-}, [showId])
+      .get(`/api/shows/${showId}`)
+      .then((res) => {
+        setShowData(res.data)
+        console.log(res.data)
+      })
+      .catch((e) => setError(e.response))
+  }, [showId])
 
   return (
     <>
@@ -64,6 +64,26 @@ const ShowPage = (props) => {
               <p>No Trailer Available</p>
             )}
           </div>
+          <form action="">
+            <label htmlFor="userReview" className="desc-bold">
+              {' '}
+              Review :
+              <textarea
+                name="user-review"
+                id="user-review"
+                cols="100"
+                rows="1"
+                placeholder="Write your review here..."
+              ></textarea>
+            </label>
+            <button>Post Review</button>
+            <div className="previous-reviews">
+              <p className="desc">
+                This would be a repeating paragraph of all user reviews for this
+                movie
+              </p>
+            </div>
+          </form>
         </div>
       ) : (
         <div>Loading</div>

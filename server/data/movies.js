@@ -227,10 +227,8 @@ const getByName = async (str) => {
 
 const getByTrending = async () => {
   let movies = await getAll()
-  movies = movies.sort((a, b) => 
-    b.overallRating - a.overallRating
-  ).slice(0, 5)
-  
+  movies = movies.sort((a, b) => b.overallRating - a.overallRating).slice(0, 5)
+
   return movies
 }
 
@@ -242,5 +240,5 @@ module.exports = {
   getAllByProvider,
   getByGenre,
   getByName,
-  getByTrending
+  getByTrending,
 }

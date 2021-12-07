@@ -7,7 +7,7 @@ const {
   getAllByProvider,
   getByName,
   getByGenre,
-  getByTrending
+  getByTrending,
 } = require('../data/movies')
 
 function checkIsString(s) {
@@ -137,7 +137,5 @@ router.get('/genre/:genre', async (req, res) => {
     res.status(404).send(String(e))
   }
 })
-
-
 
 module.exports = router

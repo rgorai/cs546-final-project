@@ -4,7 +4,7 @@ import axios from 'axios'
 import ShowList from './ShowList'
 import ApiError from '../errors/ApiError'
 import ShowsNavBar from '../menus/ShowsNavBar'
-import '../../styles/movies/moviesByGenre.css'
+import '../../styles/shows/showsByGenre.css'
 
 const AllShowsPage = (props) => {
   const [showsByGenre, setShowsByGenre] = useState(null)

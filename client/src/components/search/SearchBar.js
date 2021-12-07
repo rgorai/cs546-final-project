@@ -4,12 +4,11 @@ import { Router, useNavigate } from 'react-router'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-
 const SearchBar = (props) => {
   const navigate = useNavigate()
   const [query, setQuery] = useState('')
-  const [fullList,setFullList] = useState(null);
-  const [filteredData, setFilteredData] = useState([]);
+  const [fullList, setFullList] = useState(null)
+  const [filteredData, setFilteredData] = useState([])
 
   useEffect(() => {
     axios
@@ -20,25 +19,25 @@ const SearchBar = (props) => {
       })
       // should ui if fetch fails
       .catch((e) => console.log('search fetch error: ', e))
-  },[])
+  }, [])
 
   const handleFilter = (event) => {
-    const searchWord = event.target.value;
-    setQuery(searchWord);
+    const searchWord = event.target.value
+    setQuery(searchWord)
     const newFilter = fullList.filter((value) => {
-      return value.name.toLowerCase().includes(query.toLowerCase());
-    });
+      return value.name.toLowerCase().includes(query.toLowerCase())
+    })
 
-    if (searchWord === "") {
-      setFilteredData([]);
+    if (searchWord === '') {
+      setFilteredData([])
     } else {
-      setFilteredData(newFilter);
+      setFilteredData(newFilter)
     }
-  };
+  }
 
-  useEffect(()=> {
-    console.log(filteredData);
-  },[filteredData])
+  useEffect(() => {
+    console.log(filteredData)
+  }, [filteredData])
 
   return (
     <div className="search-bar-container">
