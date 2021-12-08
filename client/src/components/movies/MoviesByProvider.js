@@ -12,6 +12,7 @@ const MoviesByProvider = (props) => {
 
   // get movies from server
   useEffect(() => {
+    document.title = 'Movie Providers'
     axios
       .get('/api/movies/byprovider')
       .then((res) => setMoviesByProvider(res.data))

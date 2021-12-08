@@ -32,15 +32,12 @@ const searchMedia = async (query) => {
 }
 
 const autoComplete = async () => {
-    // error check
- 
-    
-    let mList = await movieFunc.getAll()
-    let sList = await showFunc.getAll()
+  // error check
 
-    
+  let mList = await movieFunc.getAll()
+  let sList = await showFunc.getAll()
 
-    return [...mList,...sList]
+  return [...mList, ...sList]
 }
 
 module.exports = { searchMedia, autoComplete }

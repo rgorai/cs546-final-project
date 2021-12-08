@@ -75,17 +75,17 @@ const create = async (
   }
 
   const insertRet = await shows.insertOne({
-    tmdbId: id,
+    tmdb_id: id,
     name: name,
-    releaseDate: releaseDate,
+    release_date: releaseDate,
     description: description,
     number_of_seasons: number_of_seasons,
     number_of_episodes: number_of_episodes,
     genres: genres,
-    posterPath: posterPath,
+    poster_path: posterPath,
     video: video,
     providers: providers,
-    overallRating: 0, //initializing overallRating to be 0 when a show is created
+    overall_rating: 0, //initializing overallRating to be 0 when a show is created
     reviews: [], //initializing review as empty array
   })
 
@@ -218,10 +218,8 @@ const getByName = async (str) => {
 
 const getByTrending = async () => {
   let shows = await getAll()
-  shows = shows.sort((a, b) => 
-    b.overallRating - a.overallRating
-  ).slice(0, 5)
-  
+  shows = shows.sort((a, b) => b.overallRating - a.overallRating).slice(0, 5)
+
   return shows
 }
 
@@ -233,7 +231,7 @@ module.exports = {
   getAllByProvider,
   getByGenre,
   getByName,
-  getByTrending
+  getByTrending,
 }
 
 //Show object example: https://api.themoviedb.org/3/tv/1668?api_key=31cc954c3de9a91aecd102e07e4d4707&append_to_response=videos,release_dates

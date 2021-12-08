@@ -1,64 +1,37 @@
 import { useEffect, useState } from 'react'
+import { useQueryState } from 'react-router-use-location-state'
 import '../../styles/menus/sortMenu.css'
 
 const SortMenu = (props) => {
+  const { movieSortItems, DEFAULT_SORT, DEFAULT_ORDER } = props.props
   const [showDropdown, setShowDropdown] = useState(false)
-  const [ascending, setAscending] = useState(true)
-  const [currSort, setCurrSort] = useState('title')
-  const { items, movies, setMovies } = props
-
-  // useEffect(() => {
-  //   sortMovies({ target: { id: currSort } })
-  // }, [ascending])
-
-  const sortMovies = (event) => {
-    const k = event.target.id
-    setCurrSort(k)
-
-    console.log(ascending)
-
-    if (movies.length > 0) {
-      // console.log('hello', movies)
-      const t = movies.sort(
-        (x, y) => (ascending ? 1 : -1) * items[k].compare(x[k], y[k])
-      )
-      props.setMovies(t)
-      console.log('there', t)
-    }
-  }
-  // const sortMovies = (event) => {
-  //   console.log(movies)
-  //   const movies = movies
-  //   movies.forEach((e) => {
-  //     console.log(e.name)
-  //   })
-  //   movies.sort((x, y) => x.name < y.name ? -1 : 1)
-  //   console.log(movies)
-  // }
+  const [currSort, setCurrSort] = useQueryState('sort', DEFAULT_SORT)
+  const [currAsc, setCurrAsc] = useQueryState('asc', DEFAULT_ORDER)
 
   return (
     <>
       <button onClick={() => setShowDropdown(!showDropdown)}>Sort</button>
       {showDropdown ? (
         <div className="movienav-dropdown">
-          {Object.keys(items).map((k, i) => (
+          {Object.keys(movieSortItems).map((k, i) => (
             <div key={i}>
               <input
                 type="radio"
                 id={k}
                 className="moviesort-item"
                 name="moviesort-group"
-                onChange={sortMovies}
+                onChange={() => setCurrSort(k)}
+                checked={currSort === k}
               />
-              <label htmlFor={k}>{items[k].text}</label>
+              <label htmlFor={k}>{movieSortItems[k].text}</label>
             </div>
           ))}
 
           <button
-            className="ascending-button"
-            onClick={() => setAscending(!ascending)}
+            className="currAsc-button"
+            onClick={() => setCurrAsc(!currAsc)}
           >
-            {ascending ? 'Ascending' : 'Descending'}
+            {currAsc ? 'Ascending' : 'Descending'}
           </button>
         </div>
       ) : null}

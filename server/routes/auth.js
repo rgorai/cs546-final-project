@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { createUser, authenticateUser } = require('../data/users')
+const { create, authenticateUser } = require('../data/users')
 const { isLoggedIn } = require('../middleware/auth')
 
 function checkIsString(s) {
@@ -59,9 +59,10 @@ router.post('/signup', isLoggedIn, async (req, res) => {
   try {
     res
       .status(200)
-      .json(await createUser(firstName, lastName, email, username, password))
+      .json(await create(firstName, lastName, email, username, password))
   } catch (e) {
-    res.status(500).send(String(e))
+    console.log(String(e))
+    res.sendStatus(500)
   }
 })
 

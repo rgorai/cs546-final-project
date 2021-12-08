@@ -1,38 +1,39 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { signup } from '../../services/authService'
-import '../../styles/users/newUserForm.css'
+import { useEffect, useState } from 'react'
+import { getUserProfile, updateUserProfile } from '../../services/userService'
+import ApiError from '../errors/ApiError'
+import '../../styles/users/userProfile.css'
 
-const NewUserForm = (props) => {
-  const navigate = useNavigate()
+const UserProfile = (props) => {
+  const [user, setUser] = useState(null)
+  const [error, setError] = useState(null)
   const [firstName, setFirstName] = useState(null)
   const [lastName, setLastName] = useState(null)
   const [email, setEmail] = useState(null)
   const [username, setUsername] = useState(null)
   const [password, setPassword] = useState(null)
-  const [error, setError] = useState(null)
+  // const currUser = getCurrUser()
 
-  const onFormSubmit = (e) => {
-    e.preventDefault()
+  // request user profile
+  useEffect(() => {
+    document.title = 'Edit Profile'
+    getUserProfile()
+      .then((res) => setUser(res.data))
+      .catch((e) => setError(e.response))
+  }, [])
 
-    // error check
-
-    // post data to server
-    signup(firstName, lastName, email, username, password)
-      .then((_) => {
-        navigate('/')
-        window.location.reload()
-      })
-      // change to respond with ui
+  // post new data
+  const onFormSubmit = () => {
+    updateUserProfile()
+      .then((res) => setUser(res.data))
       .catch((e) => setError(e.response))
   }
 
   return (
-    <div className="login-container">
-      {props.loggedIn ? (
-        <div>You are already signed in.</div>
-      ) : (
-        <form id="new-user-form" onSubmit={onFormSubmit}>
+    <div className="profile-container">
+      {error ? (
+        <ApiError error={error} />
+      ) : user ? (
+        <form id="user-profile-form" onSubmit={onFormSubmit}>
           <div className="user-input-container">
             <input
               id="input-firstname"
@@ -105,17 +106,44 @@ const NewUserForm = (props) => {
             </label>
           </div>
 
-          <button className="form-reset" type="reset" form="new-user-form">
-            Reset
-          </button>
-
-          <button className="form-submit" type="submit" form="new-user-form">
-            Submit
-          </button>
+          <div className="user-input-container">
+            <input
+              id="input-confirm-password"
+              className="form-input"
+              placeholder="Confirm Password"
+              type="password"
+              name="confirmpassword"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <label className="form-label" htmlFor="input-confirm-password">
+              Confirm Password
+            </label>
+            <button className="form-submit" type="submit" form="new-user-form">
+              Submit
+            </button>
+          </div>
         </form>
+      ) : (
+        //<div className="user-page-container">{JSON.stringify(user)}
+        // <div className="user-page-container">
+        //   <p>First Name: {user.firstName}</p>
+        //   <p>Last Name: {user.lastName}</p>
+        //   <p>Email: {user.email}</p>
+        //   <p>Username: {user.username}</p>
+        //   <p>Watchlist</p>
+        //   <ul className="watchlist">
+        //     {user.watchlist.length === 0 ? (
+        //       <li>N/A</li>
+        //     ) : (
+        //       user.watchlist.map((item) => <li>{item}</li>)
+        //     )}
+        //   </ul>
+        // </div>
+        <div>Loading</div>
       )}
     </div>
   )
 }
 
-export default NewUserForm
+export default UserProfile

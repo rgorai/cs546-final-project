@@ -1,13 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const { 
-  get, 
-  getAll, 
+const {
+  get,
+  getAll,
   getAllByGenre,
   getAllByProvider,
   getByName,
   getByGenre,
-  getByTrending 
+  getByTrending,
 } = require('../data/shows')
 
 function checkIsString(s) {

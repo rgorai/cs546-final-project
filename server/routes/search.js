@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { searchMedia,autoComplete } = require('../data/search')
+const { searchMedia, autoComplete } = require('../data/search')
 
 //route to get the list of search results
 router.get('/:query', async (req, res) => {
@@ -25,7 +25,6 @@ router.get('/:query', async (req, res) => {
 })
 
 router.get('/autocomplete/list', async (req, res) => {
-
   //search
   try {
     let result = await autoComplete()

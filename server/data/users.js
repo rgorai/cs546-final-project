@@ -83,7 +83,9 @@ const create = async (firstName, lastName, email, username, password) => {
   // throw if insertion failed
   if (!insertRet.acknowledged) throw 'Failed to add new user.'
 
-  return { userInserted: true }
+  //return { userInserted: true }
+  return insertRet.insertedId.toString()
+  //return await get(insertRet.insertedId.toString())
 }
 
 const authenticateUser = async (username, password) => {
@@ -181,7 +183,7 @@ const getByEmail = async (email) => {
 
 const addToWatchlist = async (id, str) => {
   //error checking
-  if (!str) throw 'Must provide a movie name to add to the watchlist'
+  if (!str) throw 'Must provide a movie/show name to add to the watchlist'
 
   str = str.trim()
 
@@ -193,7 +195,6 @@ const addToWatchlist = async (id, str) => {
 
   const users = await userCollection()
   let user = await getUser(id)
-
   watchlist = user.watchlist
 
   try {
@@ -201,10 +202,6 @@ const addToWatchlist = async (id, str) => {
   } catch (e) {
     throw String(e)
   }
-
-  // if(watchlist.included(str)){
-  //   throw "item already in the watchlist"
-  // }
 
   for (let x of watchlist) {
     if (x === str) {
