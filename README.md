@@ -11,6 +11,8 @@ Testing:
  - invalid inputs on all forms
  - accessibilty (look at slides)
  - try incorrect querystrings for sorting
+ - test adding/removing to/from watchlist
+ - test creating, editing, deleting review -> check trending updates
 
 Code Style:
  - use single-quotes except in html

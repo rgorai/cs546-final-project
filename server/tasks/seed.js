@@ -10,6 +10,8 @@ const userList = require('./data/users.json')
 const reviewList = require('./data/reviews.json')
 
 const NUM_MEDIA = 50
+const NUM_MEDIA_TO_REVIEW = 10
+const NUM_REVIEWS = 10
 
 /*
  * API data requirements:
@@ -71,8 +73,7 @@ const main = async () => {
     )
     let myObj = {}
     myObj['id'] = id
-    console.log(myObj.id)
-    myObj['name'] = user.firstName.concat(' ', user.lastName)
+    myObj['username'] = user.username
     userInfo.push(myObj)
   }
 
@@ -96,7 +97,7 @@ const main = async () => {
     showInfo.push(myObj)
   }
 
-  //create watchlist for each user
+  // create watchlist for each user
   for (let user of userInfo) {
     let movie = movieInfo[Math.floor(Math.random() * movieInfo.length)]
     let show = showInfo[Math.floor(Math.random() * showInfo.length)]
@@ -104,26 +105,29 @@ const main = async () => {
     await addToWatchlist(user.id, show.name)
   }
 
-  //insert reviews
-  for (let user of userInfo) {
+  // insert reviews
+  for (let i = 0; i < NUM_MEDIA_TO_REVIEW; i++) {
     let movie = movieInfo[Math.floor(Math.random() * movieInfo.length)]
     let show = showInfo[Math.floor(Math.random() * showInfo.length)]
-    let review = reviewList[Math.floor(Math.random() * reviewList.length)]
 
-    await createReview(
-      user.id,
-      user.name,
-      movie.id,
-      review.review,
-      Math.floor(Math.random() * 2)
-    )
-    await createReview(
-      user.id,
-      user.name,
-      show.id,
-      review.review,
-      Math.floor(Math.random() * 2)
-    )
+    for (let i = 0; i < NUM_REVIEWS; i++) {
+      let user = userInfo[Math.floor(Math.random() * userInfo.length)]
+      let review = reviewList[Math.floor(Math.random() * reviewList.length)]
+      await createReview(
+        user.id,
+        user.username,
+        movie.id,
+        review.review,
+        Math.floor(Math.random() * 2)
+      )
+      await createReview(
+        user.id,
+        user.username,
+        show.id,
+        review.review,
+        Math.floor(Math.random() * 2)
+      )
+    }
   }
 
   console.log('\nDone seeding database')

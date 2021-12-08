@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 import ApiError from '../errors/ApiError'
+import ReviewForm from '../users/ReviewForm'
 import '../../styles/movies/moviePage.css'
 
 import Youtube from 'react-youtube'
@@ -22,6 +23,7 @@ const MoviePage = (props) => {
 
   // request server with given movie id
   useEffect(() => {
+    if (movieData) document.title = movieData.name
     axios
       .get(`/api/movies/${movieId}`)
       .then((res) => {
@@ -30,7 +32,7 @@ const MoviePage = (props) => {
         console.log(res.data)
       })
       .catch((e) => setError(e.response))
-  }, [movieId])
+  }, [movieId, movieData])
 
   return (
     <>
@@ -64,6 +66,8 @@ const MoviePage = (props) => {
               'No trailer available'
             )}
           </div>
+
+          <ReviewForm contentId={movieId} />
         </div>
       ) : (
         <div>Loading</div>

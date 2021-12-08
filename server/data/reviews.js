@@ -18,11 +18,9 @@ const createReview = async (
   reviewerId,
   reviewer,
   contentId,
-  //dateOfReview,
   review,
   like_dislike
 ) => {
-  console.log('in the create review')
   let inserted
   reviewerId = errors.validateObjectId(reviewerId)
   reviewer = errors.validateReviewer(reviewer)
@@ -79,7 +77,7 @@ const createReview = async (
     inserted = await movies.updateOne(
       { _id: contentId },
       {
-        $set: { overallRating: Number(percent) },
+        $set: { overall_rating: Number(percent) },
         $push: { reviews: newReview },
       }
     )
@@ -93,7 +91,7 @@ const createReview = async (
   if (inserted.modifiedCount === 0) throw 'Could not update the user'
   const createdReview = await users.findOne({ _id: reviewerId })
 
-  return createdReview.reviews
+  return newReview
 }
 
 // Remove a review

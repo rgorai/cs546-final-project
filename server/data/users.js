@@ -118,6 +118,7 @@ const authenticateUser = async (username, password) => {
   return {
     authenticated: true,
     userId: user._id,
+    username: username,
     access_token: jwt.sign({ id: user._id.toString() }, config.secret, {
       /* expiresIn: 86400 */
     }),

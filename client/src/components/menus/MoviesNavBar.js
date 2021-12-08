@@ -25,7 +25,7 @@ const MoviesNavBar = (props) => {
           ))}
         </ul>
         <div className="movie-ops-container">
-          <FilterMenu />
+          {/* <FilterMenu /> */}
           {props.SortMenu}
         </div>
       </div>

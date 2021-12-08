@@ -7,7 +7,7 @@ const errors = require('../data/errors')
 const { ObjectId } = require('mongodb')
 
 router.post('/', verifyToken, async (req, res) => {
-  let { contentId, dateOfReview, review, like_dislike } = req.body
+  let { contentId, review, like_dislike } = req.body
 
   if (!req.userId) {
     res.status(400).send('You must specify an ID of the user to post a review')
@@ -21,14 +21,12 @@ router.post('/', verifyToken, async (req, res) => {
     const reviewerId = errors.validateObjectId(req.userId)
     const reviewer = errors.validateReviewer(username)
     contentId = errors.validateObjectId(contentId)
-    dateOfReview = errors.validateDateOfReview(dateOfReview)
     review = errors.validateReview(review)
 
     const createdReview = await createReview(
       reviewerId,
       reviewer,
       contentId,
-      dateOfReview,
       review,
       like_dislike
     )

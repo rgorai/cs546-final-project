@@ -42,7 +42,7 @@ const tmdbRequest = async (url) => {
     // allow to continue seeding if tmdb errors
     let res
     while (true) {
-      res = prompt('Try again and continue? (y/n)')
+      res = prompt('Try again and continue? (y/n) ')
       switch (res) {
         case 'y':
           return await tmdbRequest(url)

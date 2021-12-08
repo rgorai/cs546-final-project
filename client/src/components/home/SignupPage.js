@@ -90,6 +90,7 @@ const SignupPage = (props) => {
               name="firstName"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
+              autoFocus
             />
             <label htmlFor="input-firstname">First Name</label>
           </div>
@@ -169,8 +170,7 @@ const SignupPage = (props) => {
             </label>
           </div>
 
-          {/* display error here */}
-          {error ? <div className="login-error">{error}</div> : null}
+          {error && <div className="login-error">{error}</div>}
 
           <button className="form-reset" type="reset" form="new-user-form">
             Reset
