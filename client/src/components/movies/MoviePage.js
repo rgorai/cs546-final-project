@@ -1,7 +1,3 @@
-import ReactDOM from 'react-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
-
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
@@ -56,64 +52,18 @@ const MoviePage = (props) => {
           <div className="movie-mpa-rating">
             {movieData.mpa_rating ? movieData.mpa_rating : 'NR'}
           </div>
-          <div className="movie-description">{movieData.description}</div>
-          <div>
+          <div className="movie-description">
+            {movieData.description
+              ? movieData.description
+              : 'No description available'}
+          </div>
+          <div className="movie-trailer">
             {movieData.video ? (
               <Youtube videoId={movieData.video.key} opts={opts} />
             ) : (
-              <div>No Trailer Available</div>
+              'No trailer available'
             )}
           </div>
-          <form action="">
-            <div className="like-dislike">
-              <label htmlFor="thumbs-up">
-                Like:
-                <FontAwesomeIcon
-                  icon={faThumbsUp}
-                  className="icon"
-                  id="thumbs-up"
-                  size="2x"
-                />
-              </label>
-              <label htmlFor="thumbs-down">
-                {' '}
-                Dislike:
-                <FontAwesomeIcon
-                  icon={faThumbsDown}
-                  className="icon"
-                  id="thumbs-down"
-                  size="2x"
-                />
-              </label>
-            </div>
-            <div className="reviews-container">
-              <label htmlFor="userReview" className="desc-bold">
-                {' '}
-                My Review :
-                <textarea
-                  name="user-review"
-                  id="user-review"
-                  cols="100"
-                  rows="1"
-                  placeholder="Write your review here..."
-                ></textarea>
-              </label>
-              <button>Post Review</button>
-              <div className="previous-reviews desc">
-                <h3>Previous Reviews</h3>
-                <label htmlFor="" className="desc-bold">
-                  User
-                </label>
-                <label htmlFor="" className="desc-bold">
-                  Date Of Review
-                </label>
-                <label htmlFor="" className="desc-bold">
-                  Liked / Disliked
-                </label>
-                <p className="desc">Review</p>
-              </div>
-            </div>
-          </form>
         </div>
       ) : (
         <div>Loading</div>

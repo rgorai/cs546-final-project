@@ -4,11 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { login } from '../../services/authService'
 import '../../styles/home/loginPage.css'
 
-/*
- * define error checking functions here
- *
- */
-
 function checkIsString(s) {
   if (typeof s !== 'string') throw 'Given input is invalid'
   if (s.length < 1) throw 'Given input is empty'

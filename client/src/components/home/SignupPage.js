@@ -4,11 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { signup } from '../../services/authService'
 import '../../styles/users/newUserForm.css'
 
-/*
- * define error checking functions here
- *
- */
-
 function checkIsString(s) {
   if (!s) throw 'Must provide all the inputs'
   if (typeof s !== 'string') throw 'Given input is invalid'
