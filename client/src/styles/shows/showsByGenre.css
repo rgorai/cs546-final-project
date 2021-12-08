@@ -1,5 +1,6 @@
 .shows-bygenre-container label {
     font-weight: bold;
     font-size: 20px;
+    margin: 10px;
     color: white;
 }

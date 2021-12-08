@@ -71,21 +71,6 @@ const AllShowsPage = (props) => {
           showSortItems[sort].compare(x[sort], y[sort])
       )
 
-  // construct show list ui
-  // const getList = () => {
-  //   if (shows.length === 0) return <div>Theres nothing here</div>
-  //   return shows
-  //     .sort((_, m) => (m.poster_path ? 1 : -1))
-  //     .map((show, i) => (
-  //       <ShowCard
-  //         key={i}
-  //         id={show._id}
-  //         posterPath={show.poster_path}
-  //         name={show.name}
-  //       />
-  //     ))
-  // }
-
   return (
     <>
       <ShowsNavBar 
