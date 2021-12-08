@@ -76,7 +76,6 @@ const SignupPage = (props) => {
     // post data to server
     signup(firstName, lastName, email, username, password)
       .then((_) => {
-        console.log('in the sign up')
         navigate('/')
         window.location.reload()
       })
