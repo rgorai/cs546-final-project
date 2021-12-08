@@ -218,7 +218,7 @@ const getByName = async (str) => {
 
 const getByTrending = async () => {
   let shows = await getAll()
-  shows = shows.sort((a, b) => b.overallRating - a.overallRating).slice(0, 5)
+  shows = shows.sort((a, b) => b.overall_rating - a.overall_rating).slice(0, 5)
 
   return shows
 }
