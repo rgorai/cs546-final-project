@@ -85,15 +85,18 @@ const App = () => {
             />
             <Route exact path="/movies/single/:id" element={<MoviePage />} />
 
-            {/* shows routes */}
-            <Route exact path="/shows" element={<AllShowsPage />} />
+            <Route
+              exact
+              path="/shows/all"
+              element={/*<ValidateShowsQuery />*/ <AllShowsPage />}
+              />  
             <Route exact path="/shows/bygenre" element={<ShowsByGenre />} />
             <Route
               exact
               path="/shows/byprovider"
               element={<ShowsByProvider />}
             />
-            <Route exact path="/shows/:id" element={<ShowPage />} />
+            <Route exact path="/shows/single/:id" element={<ShowPage />} />
 
             {/* search routes */}
             <Route exact path="/search/:query" element={<SearchPage />} />

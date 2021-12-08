@@ -91,7 +91,7 @@ const AllShowsPage = (props) => {
       <ShowsNavBar 
       title="Shows" 
       SortMenu={
-          <SortMenu props={{ movieSortItems, DEFAULT_SORT, DEFAULT_ORDER }} />
+          <SortMenu props={{ showSortItems, DEFAULT_SORT, DEFAULT_ORDER }} />
         }
       /> 
       {error ? (
