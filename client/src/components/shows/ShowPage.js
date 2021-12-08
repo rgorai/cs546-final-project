@@ -16,7 +16,6 @@ const opts = {
 }
 
 // error when invalid id typed in route
-
 const ShowPage = (props) => {
   const { id: showId } = useParams()
   const [showData, setShowData] = useState(null)
