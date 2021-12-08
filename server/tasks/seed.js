@@ -69,7 +69,7 @@ const main = async () => {
       user.username,
       user.password
     )
-    myObj = {}
+    let myObj = {}
     myObj['id'] = id
     console.log(myObj.id)
     myObj['name'] = user.firstName.concat(' ', user.lastName)
@@ -115,14 +115,14 @@ const main = async () => {
       user.name,
       movie.id,
       review.review,
-      Math.floor(Math.random() * 1)
+      Math.floor(Math.random() * 2)
     )
     await createReview(
       user.id,
       user.name,
       show.id,
       review.review,
-      Math.floor(Math.random() * 1)
+      Math.floor(Math.random() * 2)
     )
   }
 
