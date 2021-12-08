@@ -2,12 +2,19 @@ const reviews = require('./data/reviews')
 const connection = require('./config/mongoConnection')
 
 async function main() {
-  // try {
-  //   console.log("Calling CreateReview -- Movie")
-  //   const createReview = await reviews.createReview("61a85af1e1b2c3a87dd8806f", "Brad", "61a85afce1b2c3a87dd88072", "12/03/2021", "My review", 0);
-  // } catch (e) {
-  //   console.log(e);
-  // }
+  try {
+    console.log('Calling CreateReview -- Movie')
+    const createReview = await reviews.createReview(
+      '61aef805f7f062ce1b214705',
+      'Tom',
+      '61aef80ef7f062ce1b21470b',
+      '12/07/2021',
+      'Another random review of som random movie',
+      0
+    )
+  } catch (e) {
+    console.log(e)
+  }
 
   // try {
   //   console.log("Calling CreateReview -- Show")
@@ -16,15 +23,15 @@ async function main() {
   //   console.log(e);
   // }
 
-  try {
-    console.log('Calling removeReview -- Movie')
-    const removeReview = await reviews.removeReview(
-      '61a85afce1b2c3a87dd88072',
-      '61a9bf513082c8e6fca95f39'
-    )
-  } catch (e) {
-    console.log(e)
-  }
+  // try {
+  //   console.log('Calling removeReview -- Movie')
+  //   const removeReview = await reviews.removeReview(
+  //     '61a85afce1b2c3a87dd88072',
+  //     '61a9bf513082c8e6fca95f39'
+  //   )
+  // } catch (e) {
+  //   console.log(e)
+  // }
 
   // try {
   //   console.log("Calling removeReview -- Show")

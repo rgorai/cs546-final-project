@@ -1,3 +1,4 @@
+/* eslint-disable no-throw-literal */
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../services/authService'
@@ -37,17 +38,12 @@ const LoginPage = (props) => {
 
     // error check
     try {
-      /* error checking functions */
-      const X = null // placeholder
-      if (!username) throw 'Must provide all the input'
-      if (!password) throw 'Must provide all the input'
       checkIsString(username)
       checkIsString(password)
       checkIsUsername(username)
       checkIsPassword(password)
     } catch (e) {
-      setError('Invalid username or password')
-      return
+      return setError('Invalid username or password')
     }
 
     // post data to server
@@ -89,7 +85,6 @@ const LoginPage = (props) => {
             <label htmlFor="input-password">Password</label>
           </div>
 
-          {/* display error here */}
           {error ? <div className="login-error">{error}</div> : null}
 
           <button type="submit" form="login-form">

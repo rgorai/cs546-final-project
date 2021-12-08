@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 
 import HomePage from './components/home/HomePage'
-import SignupPage from './components/users/SignupPage'
+import SignupPage from './components/home/SignupPage'
 import LoginPage from './components/home/LoginPage'
 import NavBar from './components/menus/NavBar'
 import UserProfile from './components/users/UserProfile'

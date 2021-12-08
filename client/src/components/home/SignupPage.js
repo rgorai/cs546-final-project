@@ -1,3 +1,4 @@
+/* eslint-disable no-throw-literal */
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signup } from '../../services/authService'
@@ -24,7 +25,7 @@ function checkIsPassword(s) {
 }
 
 function checkIsConfirmPassword(cp, p) {
-  if (p != cp) throw 'Password does not match'
+  if (p !== cp) throw 'Password does not match'
 }
 
 function checkIsEmail(s) {
@@ -66,11 +67,9 @@ const SignupPage = (props) => {
       checkIsEmail(email)
       checkIsUsername(username)
       checkIsPassword(password)
-      checkIsPassword(confirmPassword)
       checkIsConfirmPassword(confirmPassword, password)
     } catch (e) {
-      setError(e)
-      return
+      return setError(e)
     }
 
     // post data to server
@@ -79,7 +78,6 @@ const SignupPage = (props) => {
         navigate('/')
         window.location.reload()
       })
-      // change to respond with ui
       .catch((e) => setError(e.response))
   }
 
