@@ -29,6 +29,7 @@
 .autocomplete-div p{
   margin: 0;
   padding: 10px 5px;
+  width: 250px;
 }
 
 .autocomplete-div p:hover{

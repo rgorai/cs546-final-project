@@ -9,7 +9,7 @@ const SearchBar = (props) => {
   const navigate = useNavigate()
   const [query, setQuery] = useState('')
   const [fullList, setFullList] = useState(null)
-  const [filteredData, setFilteredData] = useState([])
+  const [filteredData, setFilteredData] = useState(null)
 
   useEffect(() => {
     axios
@@ -25,12 +25,16 @@ const SearchBar = (props) => {
   const handleFilter = (event) => {
     const searchWord = event.target.value
     setQuery(searchWord)
-    const newFilter = fullList.filter((value) => {
+    let newFilter = {}
+    newFilter['movies'] = fullList.movieResult.filter((value) => {
+      return value.name.toLowerCase().includes(query.toLowerCase())
+    })
+    newFilter['shows'] = fullList.showResult.filter((value) => {
       return value.name.toLowerCase().includes(query.toLowerCase())
     })
 
     if (searchWord === '') {
-      setFilteredData([])
+      setFilteredData(null)
     } else {
       setFilteredData(newFilter)
     }
@@ -55,7 +59,7 @@ const SearchBar = (props) => {
           }
         }}
       />
-      <button type="reset" onClick={() => {setFilteredData([]); setQuery('')}}>
+      <button type="reset" onClick={() => {setFilteredData(null); setQuery('')}}>
         &times;
       </button>
       <button
@@ -67,9 +71,14 @@ const SearchBar = (props) => {
       >
         Search
       </button>
-      <div className="autocomplete-div">
-        {filteredData.map(i => <p onClick={() => {setFilteredData([]); navigate(`movies/${i._id}`)}}>{i.name}</p>)}
-      </div>
+      {filteredData && <div className="autocomplete-div">
+        <strong>Movies</strong>
+        {filteredData.movies.length === 0 && <p>No Results found!</p>}
+        {filteredData.movies.map(i => <p onClick={() => {setFilteredData(null); navigate(`movies/single/${i._id}`)}}>{i.name}</p>)}
+        <strong>Shows</strong>
+        {filteredData.shows.length === 0 && <p>No Results found!</p>}
+        {filteredData.shows.map(i => <p onClick={() => {setFilteredData(null); navigate(`shows/single/${i._id}`)}}>{i.name}</p>)}
+      </div>}
     </div>
   )
 }
