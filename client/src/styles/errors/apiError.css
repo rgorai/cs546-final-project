@@ -1,5 +1,7 @@
 .error-container {
   width: 500px !important;
+  margin: auto;
+  padding: 40px 40px 60px 40px;
 }
 
 .error-status {

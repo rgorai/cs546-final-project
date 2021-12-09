@@ -96,7 +96,7 @@ const AllShowsPage = (props) => {
           ))}
         </div>
       ) : (
-        <div className="loading">Loading</div>
+        <div className="loading">Loading...</div>
       )}
     </>
   )

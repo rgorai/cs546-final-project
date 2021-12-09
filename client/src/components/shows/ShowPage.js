@@ -123,7 +123,7 @@ const ShowPage = (props) => {
           </form>
         </div>
       ) : (
-        <div className="loading">Loading</div>
+        <div className="loading">Loading...</div>
       )}
     </>
   )

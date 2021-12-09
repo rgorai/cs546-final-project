@@ -1,12 +1,9 @@
 .movie-list-container {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  overflow-x: auto;
-  overflow-y: hidden;
+  flex-wrap: wrap;
   margin-bottom: 50px;
-}
-
-.movie-list-container .movie-card-container {
-  margin: 15px;
+  padding: 40px !important;
 }

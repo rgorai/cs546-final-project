@@ -45,8 +45,8 @@ const App = () => {
         <main>
           <Routes>
             {/* homepage routes */}
-            <Route exact path="/" element={<HomePage />} />
-            <Route exact path="/home" element={<Navigate to="/" />} />
+            <Route exact path="/" element={<Navigate to="/home" />} />
+            <Route exact path="/home" element={<HomePage />} />
             <Route
               exact
               path="/signup"

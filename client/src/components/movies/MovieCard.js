@@ -3,7 +3,7 @@ import '../../styles/movies/movieCard.css'
 
 const MovieCard = (props) => {
   return (
-    <div className="movie-card-container">
+    <div className="movie-card-container" title={props.name}>
       <Link to={`/movies/single/${props.id}`}>
         <img
           className="movie-card-img"

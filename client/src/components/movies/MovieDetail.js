@@ -1,8 +1,8 @@
 const MovieDetail = (props) => {
   return (
     <tr className="media-detail-container">
-      <td className="media-detail-label">{props.label}</td>
-      <td className="media-detail-label">{props.data}</td>
+      <td>{props.label}</td>
+      <td>{props.data}</td>
     </tr>
   )
 }

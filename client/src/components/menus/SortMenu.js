@@ -28,7 +28,7 @@ const SortMenu = (props) => {
   return (
     <>
       <button onClick={() => setShowDropdown(!showDropdown)}>Sort</button>
-      {showDropdown ? (
+      {showDropdown && (
         <div className="movienav-dropdown" ref={dropdownRef}>
           {Object.keys(movieSortItems).map((k, i) => (
             <div key={i} onClick={() => setCurrSort(k)}>
@@ -50,7 +50,7 @@ const SortMenu = (props) => {
             {currAsc ? 'Ascending' : 'Descending'}
           </button>
         </div>
-      ) : null}
+      )}
     </>
   )
 }

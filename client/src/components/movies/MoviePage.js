@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import moment from 'moment'
 
@@ -13,7 +15,7 @@ import Youtube from 'react-youtube'
 
 const opts = {
   height: '390',
-  width: '640',
+  width: '100%',
   playersVars: {
     autoplay: 1,
   },
@@ -59,9 +61,7 @@ const MoviePage = (props) => {
             <div className="media-top-right-container">
               <h1 className="movie-name">{movieData.name}</h1>
               <div className="movie-year">
-                {moment(movieData.release_date, 'YYYY-MM-DD').format(
-                  'MM/DD/YYYY'
-                )}
+                {moment(movieData.release_date, 'YYYY-MM-DD').format('YYYY')}
               </div>
               <table className="movie-info-container">
                 <tbody>
@@ -82,8 +82,21 @@ const MoviePage = (props) => {
                     data={movieData.genres.map((e) => e.name).join(', ')}
                   />
                   <MovieDetail
-                    label="USER RATING"
-                    data={Math.floor(movieData.overall_rating) + '%'}
+                    label="PROVIDERS"
+                    data={
+                      movieData.providers ? (
+                        movieData.providers.map((e) => (
+                          <img
+                            className="media-provider-img"
+                            src={`https://image.tmdb.org/t/p/original${e.logo_path}`}
+                            alt={`${e.provider_name} icon`}
+                            title={e.provider_name}
+                          />
+                        ))
+                      ) : (
+                        <div className="none-message">None</div>
+                      )
+                    }
                   />
                 </tbody>
               </table>
@@ -104,12 +117,23 @@ const MoviePage = (props) => {
             <div className="none-message">No trailer available</div>
           )}
 
-          <h2>User Reviews</h2>
+          <div className="flex-horizontal media-review-heading">
+            <h2>User Reviews</h2>
+            <h2 className="flex-horizontal">
+              <FontAwesomeIcon
+                icon={faThumbsUp}
+                className="icon"
+                id="thumbs-up"
+                size="2x"
+              />
+              <p>{`${Math.floor(movieData.overall_rating)}%`}</p>
+            </h2>
+          </div>
           <ReviewForm contentId={movieId} />
           <ReviewList reviews={movieData.reviews} />
         </div>
       ) : (
-        <div className="loading">Loading</div>
+        <div className="loading">Loading...</div>
       )}
     </>
   )

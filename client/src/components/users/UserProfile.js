@@ -70,7 +70,7 @@ const UserProfile = (props) => {
           </button>
         </div>
       ) : (
-        <div className="loading">Loading</div>
+        <div className="loading">Loading...</div>
       )}
     </div>
   )

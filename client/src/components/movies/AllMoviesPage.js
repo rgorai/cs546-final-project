@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 
 import MovieCard from './MovieCard'
+import MovieList from './MovieList'
 import ApiError from '../errors/ApiError'
 import MoviesNavBar from '../menus/MoviesNavBar'
 import SortMenu from '../menus/SortMenu'
@@ -78,7 +79,6 @@ const AllMoviesPage = (props) => {
   return (
     <>
       <MoviesNavBar
-        title="Movies"
         SortMenu={
           <SortMenu props={{ movieSortItems, DEFAULT_SORT, DEFAULT_ORDER }} />
         }
@@ -86,18 +86,11 @@ const AllMoviesPage = (props) => {
       {error ? (
         <ApiError error={error} />
       ) : movieList ? (
-        <div className="card-background all-movies-container">
-          {movieList.map((movie, i) => (
-            <MovieCard
-              key={i}
-              id={movie._id}
-              posterPath={movie.poster_path}
-              name={movie.name}
-            />
-          ))}
+        <div className="all-movies-container">
+          <MovieList movieList={movieList} />
         </div>
       ) : (
-        <div className="loading">Loading</div>
+        <div className="loading">Loading...</div>
       )}
     </>
   )

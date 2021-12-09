@@ -1,16 +1,16 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import SearchBar from '../search/SearchBar'
-// import AutoComplete from '../search/AutoComplete'
 import { logout } from '../../services/authService'
 import '../../styles/menus/navBar.css'
 
 const NavBar = (props) => {
   const navigate = useNavigate()
+  const location = useLocation()
 
   const navLinks = [
-    { name: 'Home', link: '/' },
-    { name: 'Movies', link: '/movies/all' },
-    { name: 'Shows', link: '/shows/all' },
+    { name: 'HOME', link: '/home' },
+    { name: 'MOVIES', link: '/movies/all' },
+    { name: 'SHOWS', link: '/shows/all' },
   ]
 
   const handleLogout = () => {
@@ -21,20 +21,32 @@ const NavBar = (props) => {
 
   return (
     <nav className="navbar-container">
-      <div className="website-logo">
-        <Link className="nav-item" to="/">
-          MediaHub
+      <div className="flex-horizontal">
+        <Link className="flex-horizontal website-logo" to="/">
+          <img
+            className="website-logo-img"
+            src={process.env.PUBLIC_URL + '/images/website-logo.png'}
+            alt="MediaHub Logo"
+          />
+          <div>MediaHub</div>
         </Link>
+        <ul className="flex-horizontal navbar">
+          {navLinks.map((e, i) => (
+            <li key={i}>
+              <Link
+                className={`nav-item ${
+                  location.pathname.includes(e.name.toLowerCase())
+                    ? 'active-nav'
+                    : 'no'
+                }`}
+                to={e.link}
+              >
+                {e.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul className="navbar">
-        {navLinks.map((e, i) => (
-          <li key={i}>
-            <Link className="nav-item" to={e.link}>
-              {e.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
 
       <SearchBar />
       {/* <AutoComplete /> */}

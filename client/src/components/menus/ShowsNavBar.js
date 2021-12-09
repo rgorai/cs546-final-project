@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom'
-
-import FilterMenu from './FilterMenu'
 import '../../styles/menus/showsNavBar.css'
 
 const ShowsNavBar = (props) => {
@@ -24,10 +22,7 @@ const ShowsNavBar = (props) => {
             </li>
           ))}
         </ul>
-        <div className="show-ops-container">
-          <FilterMenu />
-          {props.SortMenu}
-        </div>
+        <div className="show-ops-container">{props.SortMenu}</div>
       </div>
     </div>
   )

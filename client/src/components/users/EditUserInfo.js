@@ -125,9 +125,7 @@ const UserProfile = (props) => {
       </form>
     </div>
   ) : (
-    <div className="loading card-background" className="loading">
-      Loading...
-    </div>
+    <div className="loading">Loading...</div>
   )
 }
 

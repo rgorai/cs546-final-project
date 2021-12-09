@@ -37,7 +37,7 @@ const ShowsByProvider = (props) => {
       ) : showsByProvider ? (
         <div className="shows-bygenre-container">{getList()}</div>
       ) : (
-        <div className="loading">Loading</div>
+        <div className="loading">Loading...</div>
       )}
     </>
   )

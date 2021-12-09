@@ -31,13 +31,13 @@ const MoviesByProvider = (props) => {
 
   return (
     <>
-      <MoviesNavBar title="Movies" />
+      <MoviesNavBar />
       {error ? (
         <ApiError error={error} />
       ) : moviesByProvider ? (
         <div className="movies-bygenre-container">{getList()}</div>
       ) : (
-        <div className="loading">Loading</div>
+        <div className="loading">Loading...</div>
       )}
     </>
   )
