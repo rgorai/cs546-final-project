@@ -13,5 +13,10 @@
   }
   
   .home-page-container {
+    padding-top: 50px;
     color: white;
+  }
+
+  .red{
+    color:red
   }

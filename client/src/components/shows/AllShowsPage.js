@@ -28,7 +28,7 @@ const showSortItems = {
     text: 'Release Date',
     compare: compareDates,
   },
-  seasons: {
+  number_of_seasons: {
     text: 'Seasons',
     compare: compareNumbers,
   },

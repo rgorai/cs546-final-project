@@ -1,3 +1,9 @@
+.show-page-container {
+  /* height: 90vh; */
+  overflow-y: auto;
+  padding-top: 80px;
+}
+
 .show-page-img {
   max-width: 300px;
 }
