@@ -1,3 +1,9 @@
+.show-page-container {
+  /* height: 90vh; */
+  overflow-y: auto;
+  padding-top: 80px;
+}
+
 .show-page-img {
   max-width: 300px;
 }
@@ -35,4 +41,43 @@
 
 .show-page-container p {
   color: white;
+}
+
+.desc {
+  color: white;
+}
+
+.desc-bold {
+  color:white;
+  font-weight: bold;
+}
+
+.icon {
+  margin: 20px;
+}
+
+.like-dislike {
+  display: inline-flex;
+  /* justify-content: center; */
+  align-items: center;
+  margin-top: 0.3em;
+  margin-left: 1em;
+}
+
+.like-dislike > label { 
+  margin-right: 0.2em;
+  margin-top: 0.2em;
+}
+
+.like-dislike {
+  margin-bottom: 20px;
+}
+
+.previous-reviews {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.previous-reviews label {
+  margin: 20px;
 }

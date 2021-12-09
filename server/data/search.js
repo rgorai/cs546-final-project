@@ -37,7 +37,11 @@ const autoComplete = async () => {
   let mList = await movieFunc.getAll()
   let sList = await showFunc.getAll()
 
-  return [...mList, ...sList]
+  let searchAutoResult = {}
+  searchAutoResult['movieResult'] = mList
+  searchAutoResult['showResult'] = sList
+
+  return searchAutoResult
 }
 
 module.exports = { searchMedia, autoComplete }

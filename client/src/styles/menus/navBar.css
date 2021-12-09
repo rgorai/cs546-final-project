@@ -12,6 +12,15 @@
   height: 70px;
   box-shadow: 0 2px 7px rgb(24, 24, 24);
   z-index: 100;
+
+  /* background-color: cadetblue; */
+  /* padding: 10px;
+  height: 40px;
+  border-bottom: 1px solid black;
+  position: fixed;
+  width: 100%;
+  z-index:999;
+  background: #080F3C; */
 }
 
 .navbar-container button {

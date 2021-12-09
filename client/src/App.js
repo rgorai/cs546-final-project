@@ -88,7 +88,7 @@ const App = () => {
               path="/shows/byprovider"
               element={<ShowsByProvider />}
             />
-            <Route exact path="/shows/:id" element={<ShowPage />} />
+            <Route exact path="/shows/single/:id" element={<ShowPage />} />
 
             {/* search routes */}
             <Route exact path="/search/:query" element={<SearchPage />} />

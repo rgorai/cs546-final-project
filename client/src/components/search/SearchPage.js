@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
+import '../../styles/home/searchPage.css'
 import MovieList from '../movies/MovieList'
 import ShowList from '../shows/ShowList'
 
@@ -25,6 +26,7 @@ const SearchPage = (props) => {
     <>
       {searchList && (
         <div className="search-page-container">
+          <h2>Search Results:</h2>
           {/* will be mapped to search result */}
           {searchList.movieResult.length === 0 &&
           searchList.showResult.length === 0 ? (
