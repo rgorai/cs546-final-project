@@ -21,7 +21,7 @@
   position: absolute;
   top: -1;
   background: white;
-  max-height: 200px;
+  max-height: 300px;
   overflow-y: auto;
   color: black;
 }
@@ -35,4 +35,9 @@
 .autocomplete-div p:hover{
   cursor: pointer;
   background: #F8F9F9;
+}
+
+.result-title{
+  -webkit-text-stroke: 0.5px red;
+  color: Black;
 }

@@ -5,7 +5,7 @@ import axios from 'axios'
 import ShowCard from './ShowCard'
 import ApiError from '../errors/ApiError'
 import ShowsNavBar from '../menus/ShowsNavBar'
-import SortMenu from '../menus/SortMenu'
+import ShowSortMenu from '../menus/ShowSortMenu'
 import '../../styles/shows/allShowsPage.css'
 
 const DEFAULT_SORT = 'name'
@@ -54,7 +54,7 @@ const AllShowsPage = (props) => {
     else
       axios
         .get('/api/shows')
-        .then((res) => setShowList(sortshows(res.data, currSort, currAsc)))
+        .then((res) => setShowList(sortShows(res.data, currSort, currAsc)))
         .catch((e) => setError(e.response))
   }, [queryString])
 
@@ -62,7 +62,7 @@ const AllShowsPage = (props) => {
     console.log(showList)
   }, [showList])
 
-  const sortshows = (list, sort, asc) =>
+  const sortShows = (list, sort, asc) =>
     list
       .slice()
       .sort(
@@ -76,7 +76,7 @@ const AllShowsPage = (props) => {
       <ShowsNavBar 
       title="Shows" 
       SortMenu={
-          <SortMenu props={{ showSortItems, DEFAULT_SORT, DEFAULT_ORDER }} />
+          <ShowSortMenu props={{ showSortItems, DEFAULT_SORT, DEFAULT_ORDER }} />
         }
       /> 
       {error ? (

@@ -72,10 +72,10 @@ const SearchBar = (props) => {
         Search
       </button>
       {filteredData && <div className="autocomplete-div">
-        <strong>Movies</strong>
+        <strong class="result-title">Movies</strong>
         {filteredData.movies.length === 0 && <p>No Results found!</p>}
         {filteredData.movies.map(i => <p onClick={() => {setFilteredData(null); navigate(`movies/single/${i._id}`)}}>{i.name}</p>)}
-        <strong>Shows</strong>
+        <strong class="result-title">Shows</strong>
         {filteredData.shows.length === 0 && <p>No Results found!</p>}
         {filteredData.shows.map(i => <p onClick={() => {setFilteredData(null); navigate(`shows/single/${i._id}`)}}>{i.name}</p>)}
       </div>}
