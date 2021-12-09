@@ -1,6 +1,7 @@
 .movie-page-container {
-  height: 90vh;
+  /* height: 90vh; */
   overflow-y: auto;
+  padding-top: 80px;
 }
 
 .movie-page-img {

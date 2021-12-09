@@ -79,7 +79,7 @@ const createReview = async (
     inserted = await movies.updateOne(
       { _id: contentId },
       {
-        $set: { overallRating: Number(percent) },
+        $set: { overall_rating: Number(percent) },
         $push: { reviews: newReview },
       }
     )
