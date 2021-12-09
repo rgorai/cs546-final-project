@@ -6,6 +6,10 @@
   padding: 10px;
   height: 40px;
   border-bottom: 1px solid black;
+  position: fixed;
+  width: 100%;
+  z-index:999;
+  background: #080F3C;
 }
 
 .navbar-container button {

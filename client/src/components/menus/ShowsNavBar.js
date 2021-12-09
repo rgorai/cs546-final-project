@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom'
+
+import FilterMenu from './FilterMenu'
 import '../../styles/menus/showsNavBar.css'
 
 const ShowsNavBar = (props) => {
+  // add query string if exists******
   const navLinks = [
-    { name: 'All', link: '/shows' },
+    { name: 'All', link: '/shows/all' },
     { name: 'Genres', link: '/shows/bygenre' },
     { name: 'Providers', link: '/shows/byprovider' },
   ]
@@ -11,7 +14,7 @@ const ShowsNavBar = (props) => {
   return (
     <div className="show-navbar-wrapper">
       <h2>{props.title}</h2>
-      <div className="movie-navbar-container">
+      <div className="show-navbar-container">
         <ul className="show-navbar">
           {navLinks.map((e, i) => (
             <li key={i}>
@@ -22,8 +25,8 @@ const ShowsNavBar = (props) => {
           ))}
         </ul>
         <div className="show-ops-container">
-          <button>filter</button>
-          <button>sort</button>
+          <FilterMenu />
+          {props.SortMenu}
         </div>
       </div>
     </div>

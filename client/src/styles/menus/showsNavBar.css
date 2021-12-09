@@ -22,6 +22,22 @@
   color: white;
 }
 
+.shownav-dropdown {
+  position: absolute;
+  background-color: rgb(87, 100, 117);
+  border: 1px solid black;
+  right: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
 .show-navbar-wrapper h2{
   color: white;
+}
+
+.show-navbar-wrapper{
+  position: fixed;
+  width: 100%;
+  margin-top: 50px;
+  background: #080F3C;
 }
