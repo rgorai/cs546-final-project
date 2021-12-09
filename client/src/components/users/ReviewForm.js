@@ -19,8 +19,6 @@ const ReviewForm = (props) => {
   const [review, setReview] = useState('')
   const [error, setError] = useState(null)
 
-  console.log('user', getCurrUser())
-
   const onWriteClick = (e) => {
     e.preventDefault()
     if (!currUser) navigate('/login', { state: { from: location.pathname } })
@@ -56,7 +54,7 @@ const ReviewForm = (props) => {
       review: review,
       like_dislike: liked ? 1 : 0,
     })
-      .then((res) => console.log(res))
+      .then((res) => window.location.reload())
       .catch((e) => console.log(e.response))
   }
 
@@ -70,7 +68,7 @@ const ReviewForm = (props) => {
               {currUser.username}
             </label>
             <button
-              className={`like-button ${liked ? 'liked' : ''}`}
+              className={`form-like-button ${liked ? 'liked' : ''}`}
               onClick={onLike}
               form="review-form"
             >
@@ -82,7 +80,7 @@ const ReviewForm = (props) => {
               />
             </button>
             <button
-              className={`dislike-button ${disliked ? 'disliked' : ''}`}
+              className={`form-dislike-button ${disliked ? 'disliked' : ''}`}
               onClick={onDislike}
               form="review-form"
             >

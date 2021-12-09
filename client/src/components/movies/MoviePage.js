@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import ApiError from '../errors/ApiError'
 import ReviewForm from '../users/ReviewForm'
+import ReviewList from '../users/ReviewList'
 import '../../styles/movies/moviePage.css'
 
 import Youtube from 'react-youtube'
@@ -23,7 +24,6 @@ const MoviePage = (props) => {
 
   // request server with given movie id
   useEffect(() => {
-    if (movieData) document.title = movieData.name
     axios
       .get(`/api/movies/${movieId}`)
       .then((res) => {
@@ -32,14 +32,18 @@ const MoviePage = (props) => {
         console.log(res.data)
       })
       .catch((e) => setError(e.response))
-  }, [movieId, movieData])
+  }, [movieId])
+
+  useEffect(() => {
+    if (movieData) document.title = movieData.name
+  }, [movieData])
 
   return (
     <>
       {error ? (
         <ApiError error={error} />
       ) : movieData ? (
-        <div className="movie-page-container">
+        <div className="card-background">
           <img
             className="movie-page-img"
             src={
@@ -54,11 +58,11 @@ const MoviePage = (props) => {
           <div className="movie-mpa-rating">
             {movieData.mpa_rating ? movieData.mpa_rating : 'NR'}
           </div>
-          <div className="movie-description">
-            {movieData.description
-              ? movieData.description
-              : 'No description available'}
-          </div>
+          {movieData.description ? (
+            <div className="movie-description">movieData.description</div>
+          ) : (
+            <div className="none-message">No description available</div>
+          )}
           <div className="movie-trailer">
             {movieData.video ? (
               <Youtube videoId={movieData.video.key} opts={opts} />
@@ -66,8 +70,18 @@ const MoviePage = (props) => {
               'No trailer available'
             )}
           </div>
+          {movieData.video ? (
+            <div className="movie-trailer">
+              <Youtube videoId={movieData.video.key} opts={opts} />
+            </div>
+          ) : (
+            <div className="none-message">No trailer available</div>
+          )}
 
           <ReviewForm contentId={movieId} />
+
+          <h3>User Reviews</h3>
+          <ReviewList reviews={movieData.reviews} />
         </div>
       ) : (
         <div>Loading</div>

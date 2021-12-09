@@ -1,0 +1,17 @@
+.review-info-container, .reviewer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.liked {
+  color: greenyellow !important;
+}
+
+.disliked {
+  color: red !important;
+}
+
+.desc-bold {
+  font-weight: bold;
+}

@@ -1,11 +1,16 @@
 .navbar-container {
+  position: fixed;
+  width: 100%;
   display: flex;
   flex-direction: row;
+  top: 0;
   justify-content: space-between;
-  /* background-color: cadetblue; */
-  padding: 10px;
-  height: 40px;
-  border-bottom: 1px solid black;
+  box-sizing: border-box;
+  /* background-color: rgba(5, 19, 34, 0.883); */
+  background-color: red;
+  padding: 15px;
+  height: 70px;
+  box-shadow: 0 2px 7px rgb(63, 63, 63);
 }
 
 .navbar-container button {

@@ -15,6 +15,25 @@ body {
 
 }
 
+main {
+  margin-top: 70px;
+  padding-top: 20px;
+}
+
 button {
   cursor: pointer;
+}
+
+.none-message {
+  font-style: italic;
+}
+
+.card-background {
+  width: 700px;
+  margin: 40px auto 100px auto;
+  padding: 30px;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

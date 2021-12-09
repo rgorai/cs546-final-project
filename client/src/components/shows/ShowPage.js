@@ -24,7 +24,6 @@ const ShowPage = (props) => {
 
   // request server with given movie id
   useEffect(() => {
-    if (showData) document.title = showData.name
     axios
       .get(`/api/shows/${showId}`)
       .then((res) => {
@@ -32,7 +31,11 @@ const ShowPage = (props) => {
         console.log(res.data)
       })
       .catch((e) => setError(e.response))
-  }, [showId, showData])
+  }, [showId])
+
+  useEffect(() => {
+    if (showData) document.title = showData.name
+  }, [showData])
 
   return (
     <>
