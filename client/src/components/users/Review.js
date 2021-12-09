@@ -6,8 +6,8 @@ import '../../styles/users/review.css'
 const Review = (props) => {
   return (
     <div className="review-container">
-      <div className="review-info-container">
-        <div className="reviewer-container">
+      <div className="flex-horizontal">
+        <div className="flex-horizontal">
           <span htmlFor="" className="desc-bold">
             {props.reviewer}
           </span>
@@ -39,7 +39,7 @@ const Review = (props) => {
           </span>
         </div>
         <div htmlFor="" className="desc-bold">
-          {moment().format('MM/DD/YYYY', props.dateOfReview)}
+          {moment(props.dateOfReview, 'YYYY-MM-DD').format('MM/DD/YYYY')}
         </div>
       </div>
 

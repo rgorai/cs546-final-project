@@ -1,10 +1,22 @@
-.movie-page-container {
-  /* height: 90vh; */
-}
-
 .movie-page-img {
   max-width: 300px;
 }
+
+.movie-info-container {
+  margin-top: 20px;
+}
+
+.movie-year {
+  font-weight: 200;
+  font-size: 24px;
+  margin-top: 5px !important;
+}
+
+/* .movie-page-container {
+  height: 90vh;
+}
+
+
 
 .movie-description {
   width: 400px;
@@ -20,11 +32,9 @@
 .movie-year {
   font-weight: bold;
   color: white;
-}
+} */
 
-.movie-page-container div {
-  color: white;
-}
+
 /*
 .desc {
   color: white;

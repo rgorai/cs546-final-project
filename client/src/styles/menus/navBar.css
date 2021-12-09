@@ -6,11 +6,11 @@
   top: 0;
   justify-content: space-between;
   box-sizing: border-box;
-  /* background-color: rgba(5, 19, 34, 0.883); */
-  background-color: red;
+  background-color: rgb(5, 19, 34);
+  /* background-color: red; */
   padding: 15px;
   height: 70px;
-  box-shadow: 0 2px 7px rgb(63, 63, 63);
+  box-shadow: 0 2px 7px rgb(24, 24, 24);
 }
 
 .navbar-container button {
