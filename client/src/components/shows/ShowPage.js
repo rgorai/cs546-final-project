@@ -36,6 +36,10 @@ const ShowPage = (props) => {
       .catch((e) => setError(e.response))
   }, [showId])
 
+  useEffect(() => {
+    if (showData) document.title = showData.name
+  }, [showData])
+
   return (
     <>
       {error ? (
@@ -119,7 +123,7 @@ const ShowPage = (props) => {
           </form>
         </div>
       ) : (
-        <div>Loading</div>
+        <div className="loading">Loading...</div>
       )}
     </>
   )

@@ -37,7 +37,7 @@ const AllShowsPage = (props) => {
       ) : showsByGenre ? (
         <div className="shows-bygenre-container">{getList()}</div>
       ) : (
-        <div>Loading</div>
+        <div className="loading">Loading...</div>
       )}
     </>
   )

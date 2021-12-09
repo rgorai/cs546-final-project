@@ -26,7 +26,7 @@ const SearchPage = (props) => {
     <>
       {searchList && (
         <div className="search-page-container">
-        <h2>Search Results:</h2>
+          <h2>Search Results:</h2>
           {/* will be mapped to search result */}
           {searchList.movieResult.length === 0 &&
           searchList.showResult.length === 0 ? (

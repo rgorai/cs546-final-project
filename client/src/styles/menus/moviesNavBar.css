@@ -14,12 +14,19 @@
 .movie-navbar li {
   float: left;
   height: 100%;
-  margin-bottom: 10px;
 }
 
 .movie-nav-item {
   margin: 10px;
   color: white;
+  text-decoration: none;
+  font-size: 19px;
+  line-height: 30px;
+  text-underline-position: under;
+}
+
+.movie-nav-item:hover {
+  color: #ff8c02;
 }
 
 .movienav-dropdown {
@@ -33,11 +40,19 @@
 
 .movie-navbar-wrapper h2 {
   color: white;
+  margin-top: 0;
+  margin-left: 10px;
 }
 
-.movie-navbar-wrapper{
+.movie-navbar-wrapper {
+  height: auto;
   position: fixed;
   width: 100%;
-  margin-top: 50px;
-  background: #080F3C;
+  top: 70px;
+  /* background: #080F3C; */
+  background-color: #0B1C26;
+  box-shadow: 0 2px 7px rgb(24, 24, 24);
+  padding: 10px 50px 15px 50px;
+  box-sizing: border-box;
+  border-bottom: 1.5px solid rgba(66, 66, 66, 0.233);
 }
