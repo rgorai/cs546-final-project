@@ -10,7 +10,8 @@ function checkIsString(s) {
 }
 
 function checkIsNumber(r) {
-  r = parseInt(r)
+  //r = parseInt(r)
+  console.log(typeof r)
   if (isNaN(r)) throw 'Given runtime is invalid'
 }
 
@@ -35,6 +36,7 @@ const create = async (
   providers,
   revenue
 ) => {
+  console.log('in the create db')
   // error check
   if (!id) throw 'Movie should have an id'
   if (!name) throw 'Movie should have a name'
