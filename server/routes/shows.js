@@ -58,6 +58,7 @@ router.get('/bytrending', async (req, res) => {
 //route to get tv shows of a specific id
 router.get('/:id', async (req, res) => {
   let showId = req.params.id
+  console.log('here')
 
   // error check
   if (
@@ -75,7 +76,7 @@ router.get('/:id', async (req, res) => {
   try {
     res.status(200).json(await get(showId))
   } catch (e) {
-    res.status(500).send(String(e))
+    res.status(404).send(String(e))
   }
 })
 

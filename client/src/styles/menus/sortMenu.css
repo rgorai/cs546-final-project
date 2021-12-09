@@ -1,0 +1,17 @@
+.movienav-dropdown {
+  padding: 10px;
+  right: 30px;
+}
+
+.movienav-dropdown div {
+  margin-bottom: 3px;
+}
+
+.movienav-dropdown label {
+  margin-left: 5px;
+}
+
+.curr-asc-button {
+  margin-top: 10px;
+  height: 30px;
+}

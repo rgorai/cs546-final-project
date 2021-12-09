@@ -85,8 +85,8 @@ const create = async (
     poster_path: posterPath,
     video: video,
     providers: providers,
-    overall_rating: 0, //initializing overallRating to be 0 when a show is created
-    reviews: [], //initializing review as empty array
+    overall_rating: null,
+    reviews: [],
   })
 
   // throw if insertion failed

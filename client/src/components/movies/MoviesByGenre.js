@@ -37,7 +37,7 @@ const AllMoviesPage = (props) => {
       ) : moviesByGenre ? (
         <div className="movies-bygenre-container">{getList()}</div>
       ) : (
-        <div>Loading</div>
+        <div className="loading">Loading</div>
       )}
     </>
   )

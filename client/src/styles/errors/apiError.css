@@ -1,0 +1,12 @@
+.error-container {
+  width: 500px !important;
+}
+
+.error-status {
+  font-size: 200px;
+  font-weight: 600;
+}
+
+.error-text {
+  font-size: 60px;
+}

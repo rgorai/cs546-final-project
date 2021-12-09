@@ -67,11 +67,6 @@ const App = () => {
               path="/movies"
               element={<Navigate to="/movies/all" />}
             />
-            {/* <Route
-              exact
-              path="/test"
-              element={<Navigate to="/movies/all?sort=name&asc=false" />}
-            /> */}
             <Route
               exact
               path="/movies/all"
@@ -86,7 +81,7 @@ const App = () => {
             <Route exact path="/movies/single/:id" element={<MoviePage />} />
 
             {/* shows routes */}
-            <Route exact path="/shows" element={<AllShowsPage />} />
+            <Route exact path="/shows/all" element={<AllShowsPage />} />
             <Route exact path="/shows/bygenre" element={<ShowsByGenre />} />
             <Route
               exact

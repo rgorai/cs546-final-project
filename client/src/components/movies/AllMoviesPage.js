@@ -86,7 +86,7 @@ const AllMoviesPage = (props) => {
       {error ? (
         <ApiError error={error} />
       ) : movieList ? (
-        <div className="all-movies-container">
+        <div className="card-background all-movies-container">
           {movieList.map((movie, i) => (
             <MovieCard
               key={i}
@@ -97,7 +97,7 @@ const AllMoviesPage = (props) => {
           ))}
         </div>
       ) : (
-        <div>Loading</div>
+        <div className="loading">Loading</div>
       )}
     </>
   )

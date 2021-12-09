@@ -15,7 +15,7 @@ const HomePage = (props) => {
   const [showList, setShowList] = useState([])
 
   useEffect(() => {
-    document.title = 'Home'
+    document.title = 'MediaHub'
     axios
       .get('/api/movies/bytrending')
       .then((res) => {

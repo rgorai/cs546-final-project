@@ -45,7 +45,7 @@ const MoviePage = (props) => {
       {error ? (
         <ApiError error={error} />
       ) : movieData ? (
-        <div className="media-background">
+        <div className="card-background movie-page-container">
           <div className="flex-horizontal media-top-container">
             <img
               className="movie-page-img"
@@ -109,7 +109,7 @@ const MoviePage = (props) => {
           <ReviewList reviews={movieData.reviews} />
         </div>
       ) : (
-        <div>Loading</div>
+        <div className="loading">Loading</div>
       )}
     </>
   )
