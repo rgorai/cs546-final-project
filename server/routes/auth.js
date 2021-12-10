@@ -26,6 +26,7 @@ function checkIsUsername(s) {
 }
 
 router.post('/signup', isLoggedIn, async (req, res) => {
+  console.log('int he signup routes')
   let { firstName, lastName, email, username, password } = req.body
 
   // error check
@@ -61,8 +62,9 @@ router.post('/signup', isLoggedIn, async (req, res) => {
       .status(200)
       .json(await create(firstName, lastName, email, username, password))
   } catch (e) {
-    console.log(String(e))
-    res.sendStatus(500)
+    console.log(String(e + '*************'))
+    return res.status(500).send(String(e))
+    //res.sendStatus(500)
   }
 })
 

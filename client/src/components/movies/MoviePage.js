@@ -108,6 +108,7 @@ const MoviePage = (props) => {
               )}
             </div>
           </div>
+
           <h2>Trailer</h2>
           {movieData.video ? (
             <div className="movie-trailer">

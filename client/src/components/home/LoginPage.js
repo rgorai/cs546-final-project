@@ -49,7 +49,10 @@ const LoginPage = (props) => {
         navigate(state.from ? state.from : '/')
         window.location.reload()
       })
-      .catch((e) => setError(e.response.data)) // get error from server
+      .catch((e) => {
+        console.log(e)
+        setError(e.response.data)
+      }) // get error from server
   }
 
   return (
@@ -83,6 +86,7 @@ const LoginPage = (props) => {
             <label htmlFor="input-password">Password</label>
           </div>
 
+          {/* display error here */}
           {error && <div className="login-error">{error}</div>}
 
           <button type="submit" form="login-form">

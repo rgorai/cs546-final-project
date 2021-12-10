@@ -30,6 +30,7 @@ function checkIsUsername(s) {
 }
 
 const create = async (firstName, lastName, email, username, password) => {
+  console.log('in the user create')
   // error check
   if (!firstName) throw 'You must provide the first name'
   if (!lastName) throw 'You must provide the last name'
@@ -62,12 +63,18 @@ const create = async (firstName, lastName, email, username, password) => {
 
   // check if email exists
   const users = await userCollection()
-  if (await users.findOne({ email: email }))
-    return { error: 'Email address is taken.' }
+  if (await users.findOne({ email: email })) {
+    console.log('taken email')
+    throw 'Email address is taken.'
+    //throw { error: 'Email address is taken.' }
+  }
 
   // check if username exists
-  if (await users.findOne({ username: username }))
-    return { error: 'Username is taken.' }
+  if (await users.findOne({ username: username })) {
+    console.log('taken username')
+    throw 'Username is taken.'
+    //throw { error: 'Username is taken.' }
+  }
 
   // add new user to db
   const insertRet = await users.insertOne({
