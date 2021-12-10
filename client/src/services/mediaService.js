@@ -23,11 +23,7 @@ const create = async (
   let headers = authHeader()
   let data = null
 
-  try {
-    data = await axios.post('/api/movies', request, { headers })
-  } catch (e) {
-    throw e
-  }
+  return await axios.post('/api/movies', request, { headers })
 }
 
 export { create }
