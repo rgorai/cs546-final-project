@@ -28,10 +28,10 @@ const createByUser = async (
   runtime,
   genres,
   description,
-  posterPath,
-  video,
-  providers,
-  revenue
+  // posterPath,
+  // video,
+  providers
+  // revenue
 ) => {
   if (!name) throw 'movie should have a name'
   if (!releaseDate) throw 'movie should have a release date'
@@ -76,10 +76,10 @@ const createByUser = async (
     runtime: runtime,
     genres: genres,
     description: description,
-    poster_path: posterPath,
-    video: video,
+    // poster_path: posterPath,
+    // video: video,
     providers: providers,
-    revenue: revenue,
+    // revenue: revenue,
     overall_rating: 0,
     reviews: [],
   })

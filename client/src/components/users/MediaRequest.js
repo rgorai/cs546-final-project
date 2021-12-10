@@ -91,20 +91,14 @@ const MediaRequest = (props) => {
       arrGenres,
       arrProviders
     )
-      .then((_) => {
-        navigate('/')
-        window.location.reload()
-      })
-      .catch((e) => setError(e.response))
+      .then((_) => navigate(-1))
+      .catch((e) => setError(e.response.data))
   }
 
   return (
     <div className="media-request">
       <h2>Like to add a movie?</h2>
       <form id="user-media-request" onSubmit={onFormSubmit}>
-        {/* display error here */}
-
-        {error ? <div className="login-error">{error}</div> : null}
         <div className="user-input-container">
           <input
             id="input-name"
@@ -205,11 +199,13 @@ const MediaRequest = (props) => {
           <label className="form-label" htmlFor="input-description">
             Description
           </label>
-
-          <button className="form-submit" type="submit">
-            Submit
-          </button>
         </div>
+
+        {error ? <div className="login-error">{error}</div> : null}
+
+        <button className="form-submit" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   )
