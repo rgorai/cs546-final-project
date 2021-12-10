@@ -175,3 +175,7 @@ div{
   border-radius: 4px;
   padding: 6px;
 }
+
+.user-reviews label {
+  margin-right: 5px;
+}

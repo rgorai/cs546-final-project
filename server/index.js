@@ -5,11 +5,12 @@ async function main() {
   try {
     console.log('Calling CreateReview -- Movie')
     const createReview = await reviews.createReview(
-      '61aef805f7f062ce1b214705',
-      'Tom',
+      '61aef805f7f062ce1b214706',
+      'Matt',
       '61aef80ef7f062ce1b21470b',
+      'Alexander Zwo',
       '12/07/2021',
-      'Another random review of som random movie',
+      'This show is great...',
       0
     )
   } catch (e) {
