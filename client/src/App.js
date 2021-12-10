@@ -12,6 +12,7 @@ import LoginPage from './components/home/LoginPage'
 import NavBar from './components/menus/NavBar'
 import UserProfile from './components/users/UserProfile'
 import EditUserInfo from './components/users/EditUserInfo'
+import MediaRequest from './components/users/MediaRequest'
 import ApiError from './components/errors/ApiError'
 import SearchPage from './components/search/SearchPage'
 
@@ -60,6 +61,11 @@ const App = () => {
             {/* add logout route? */}
             <Route exact path="/profile" element={<UserProfile />} />
             <Route exact path="/profile/edit" element={<EditUserInfo />} />
+            <Route
+              exact
+              path="/profile/mediaRequest"
+              element={<MediaRequest />}
+            />
 
             {/* movies routes */}
             <Route
