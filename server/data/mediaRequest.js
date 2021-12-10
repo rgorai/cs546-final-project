@@ -10,8 +10,6 @@ function checkIsString(s) {
 }
 
 function checkIsNumber(r) {
-  //r = parseInt(r)
-  console.log(typeof r)
   if (isNaN(r)) throw 'Given runtime is invalid'
 }
 
@@ -35,18 +33,6 @@ const createByUser = async (
   providers,
   revenue
 ) => {
-  console.log('in the user create db')
-  console.log(
-    name +
-      ' ' +
-      releaseDate +
-      ' ' +
-      certifications +
-      ' ' +
-      runtime +
-      ' ' +
-      genres
-  )
   if (!name) throw 'movie should have a name'
   if (!releaseDate) throw 'movie should have a release date'
   if (!certifications) throw 'movie should have certifications'
@@ -57,8 +43,6 @@ const createByUser = async (
   //if(!video) throw "movie should have video"
   if (!providers) throw 'movie should have video'
   //if(!revenue) throw "movie should have video"
-
-  console.log('before try catch')
 
   try {
     checkIsString(name)
@@ -72,11 +56,9 @@ const createByUser = async (
 
     checkIsArray(providers)
   } catch (e) {
-    console.log(e)
     throw String(e)
   }
 
-  console.log(' after try catch block')
   // add new movie to db
   const media = await mediaCollection()
   const movies = await movieCollection()

@@ -26,9 +26,9 @@ function checkIsNumber(r) {
 
 function checkIsArray(arr) {
   if (!Array.isArray(arr)) {
-    throw 'Given genres are invalid'
+    throw 'Given input is not an array'
   } else if (arr.length === 0) {
-    throw 'Given genres array is empty'
+    throw 'Given array is empty'
   }
 
   for (let x of arr) {
@@ -138,9 +138,7 @@ router.get('/genre/:genre', async (req, res) => {
 })
 
 router.post('/', verifyToken, async (req, res) => {
-  console.log('in the movie post')
   let movieInfo = req.body
-
   if (!movieInfo) {
     res.status(400).json({ error: 'You must provide data to create a movie' })
     return
