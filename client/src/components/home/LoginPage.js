@@ -46,11 +46,11 @@ const LoginPage = (props) => {
     // post data to server
     login(username, password)
       .then((_) => {
-        navigate(state.from ? state.from : '/')
+        navigate(state && state.from ? state.from : '/')
         window.location.reload()
       })
       .catch((e) => {
-        console.log(e)
+        // console.log(e)
         setError(e.response.data)
       }) // get error from server
   }

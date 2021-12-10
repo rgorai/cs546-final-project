@@ -1,5 +1,7 @@
 const mongoCollections = require('../config/mongoCollections')
 const userCollection = mongoCollections.users
+const movieCollection = mongoCollections.movies
+const showCollection = mongoCollections.shows
 const { ObjectId } = require('mongodb')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -30,7 +32,6 @@ function checkIsUsername(s) {
 }
 
 const create = async (firstName, lastName, email, username, password) => {
-  console.log('in the user create')
   // error check
   if (!firstName) throw 'You must provide the first name'
   if (!lastName) throw 'You must provide the last name'
@@ -189,42 +190,60 @@ const getByEmail = async (email) => {
   return user
 }
 
-const addToWatchlist = async (id, str) => {
+const addToWatchlist = async (userId, itemId) => {
   //error checking
-  if (!str) throw 'Must provide a movie/show name to add to the watchlist'
+  console.log('in the db watchlist')
 
-  str = str.trim()
+  if (!userId) throw 'Must provide the user id'
+  if (!itemId) throw 'Must provide id of the item to be added'
 
   try {
-    checkIsString(str)
+    userId = ObjectId(userId)
+    itemId = ObjectId(itemId)
   } catch (e) {
     throw String(e)
   }
 
   const users = await userCollection()
-  let user = await getUser(id)
-  watchlist = user.watchlist
+  const movies = await movieCollection()
+  const shows = await showCollection()
 
-  try {
-    id = ObjectId(id)
-  } catch (e) {
-    throw String(e)
+  let user = await users.findOne({ _id: userId })
+  let item = await movies.findOne({ _id: itemId })
+
+  if (item === null) {
+    item = await shows.findOne({ _id: itemId })
   }
 
+  console.log(user)
+
+  //console.log(item)
+  console.log(item._id)
+  watchlist = user.watchlist
+  console.log('****************')
+  console.log(watchlist)
+
   for (let x of watchlist) {
-    if (x === str) {
+    console.log(x.name)
+    if (x._id === item._id) {
       throw 'item already in the watchlist'
     }
   }
 
-  watchlist.push(str)
+  console.log('updated watchlist')
+  watchlist.push(item)
+
+  console.log(watchlist)
 
   let updatedUser = {
     watchlist: watchlist,
   }
-  //add the item to the watchlist
 
-  const updatedInfo = await users.updateOne({ _id: id }, { $set: updatedUser })
+  //add the item to the watchlist
+  const updatedInfo = await users.updateOne(
+    { _id: userId },
+    { $set: updatedUser }
+  )
 
   if (updatedInfo.updatedCount === 0) throw 'Could not update the watchList'
 

@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
+import { getCurrUser } from '../../services/authService'
+
+import { postItem } from '../../services/userService'
+
 import axios from 'axios'
 import moment from 'moment'
 
@@ -25,6 +30,9 @@ const MoviePage = (props) => {
   const { id: movieId } = useParams()
   const [movieData, setMovieData] = useState(null)
   const [error, setError] = useState(null)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const currUser = getCurrUser()
 
   // request server with given movie id
   useEffect(() => {
@@ -41,6 +49,19 @@ const MoviePage = (props) => {
   useEffect(() => {
     if (movieData) document.title = movieData.name
   }, [movieData])
+
+  const addToWatchlist = (e) => {
+    e.preventDefault()
+    console.log(currUser)
+    if (!currUser) navigate('/login', { state: { from: location.pathname } })
+
+    postItem(movieData._id)
+      .then((_) => {
+        navigate('/')
+        window.location.reload()
+      })
+      .catch((e) => setError(e.response))
+  }
 
   return (
     <>
@@ -107,6 +128,10 @@ const MoviePage = (props) => {
                 <div className="none-message">No description available</div>
               )}
             </div>
+          </div>
+
+          <div className="add-to-watchlist">
+            <button onClick={addToWatchlist}>Add To Watchlist</button>
           </div>
 
           <h2>Trailer</h2>

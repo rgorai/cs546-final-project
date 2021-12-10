@@ -1,6 +1,10 @@
 import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
+import { getCurrUser } from '../../services/authService'
+import { useNavigate, useLocation } from 'react-router-dom'
+
+import { postItem } from '../../services/userService'
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -24,6 +28,9 @@ const ShowPage = (props) => {
   const { id: showId } = useParams()
   const [showData, setShowData] = useState(null)
   const [error, setError] = useState(null)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const currUser = getCurrUser()
 
   // request server with given movie id
   useEffect(() => {
@@ -39,6 +46,19 @@ const ShowPage = (props) => {
   useEffect(() => {
     if (showData) document.title = showData.name
   }, [showData])
+
+  const addToWatchlist = (e) => {
+    e.preventDefault()
+
+    if (!currUser) navigate('/login', { state: { from: location.pathname } })
+
+    postItem(showData._id)
+      .then((_) => {
+        navigate('/')
+        window.location.reload()
+      })
+      .catch((e) => setError(e.response.data))
+  }
 
   return (
     <>
@@ -64,6 +84,11 @@ const ShowPage = (props) => {
           <div className="show-episodes">
             Total number of episodes: {showData.number_of_episodes}
           </div>
+
+          <div className="add-to-watchlist">
+            <button onClick={addToWatchlist}>Add To Watchlist</button>
+          </div>
+
           <div>
             {showData.video ? (
               <Youtube videoId={showData.video.key} opts={opts} />

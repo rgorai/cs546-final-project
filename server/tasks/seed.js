@@ -82,9 +82,7 @@ const main = async () => {
   for (const data of movieData) {
     let movie = await createMovie(...data)
     let myObj = {}
-    myObj['id'] = movie._id
-    myObj['name'] = movie.name
-    movieInfo.push(myObj)
+    movieInfo.push(movie)
   }
 
   // create show entries
@@ -94,36 +92,39 @@ const main = async () => {
     let myObj = {}
     myObj['id'] = show._id
     myObj['name'] = show.name
-    showInfo.push(myObj)
+    showInfo.push(show)
   }
 
   // create watchlist for each user
   for (let user of userInfo) {
     let movie = movieInfo[Math.floor(Math.random() * movieInfo.length)]
     let show = showInfo[Math.floor(Math.random() * showInfo.length)]
-    await addToWatchlist(user.id, movie.name)
-    await addToWatchlist(user.id, show.name)
+
+    await addToWatchlist(user.id, movie._id)
+    await addToWatchlist(user.id, show._id)
   }
 
   // insert reviews
+
   for (let i = 0; i < NUM_MEDIA_TO_REVIEW; i++) {
     let movie = movieInfo[Math.floor(Math.random() * movieInfo.length)]
     let show = showInfo[Math.floor(Math.random() * showInfo.length)]
 
-    for (let i = 0; i < NUM_REVIEWS; i++) {
+    for (let j = 0; j < NUM_REVIEWS; j++) {
       let user = userInfo[Math.floor(Math.random() * userInfo.length)]
       let review = reviewList[Math.floor(Math.random() * reviewList.length)]
+
       await createReview(
         user.id,
         user.username,
-        movie.id,
+        movie._id,
         review.review,
         Math.floor(Math.random() * 2)
       )
       await createReview(
         user.id,
         user.username,
-        show.id,
+        show._id,
         review.review,
         Math.floor(Math.random() * 2)
       )

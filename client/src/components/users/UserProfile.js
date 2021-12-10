@@ -56,46 +56,6 @@ const UserProfile = (props) => {
       .catch((e) => setError(e.response))
   }, [])
 
-  // const onFormSubmit = (e) => {
-  //   e.preventDefault()
-  // console.log("in form submit")
-
-  // console.log(name + " " + releaseDate + " " + mpa_rating + " " + runtime + " " + genres + " " + description + " " + providers)
-
-  // //conver genres and providers to array
-  // let arrGenres = genres.split(",")
-  // let arrProviders = providers.split(",")
-
-  // console.log(arrGenres)
-  // console.log(arrProviders)
-
-  // // error check
-  // try {
-  //   checkIsString(name)
-  //   checkIsString(releaseDate)
-  //   checkIsString(mpa_rating)
-  //   checkIsString(description)
-
-  //   checkIsString(runtime)
-
-  //   checkIsArray(arrGenres)
-  //   checkIsArray(arrProviders)
-
-  // } catch (e) {
-
-  //   return setError(e)
-  // }
-
-  // // post data to server
-  // create(name, releaseDate, mpa_rating, runtime, genres, providers)
-  //    .then((_) => {
-  //      navigate('/')
-  //      window.location.reload()
-  //    })
-  //   .catch((e) => setError(e.response))
-
-  //}
-
   return (
     <div className="profile-container">
       {error ? (
@@ -109,7 +69,7 @@ const UserProfile = (props) => {
             {user.watchlist.length === 0 ? (
               <li>You haven't created any watchlist yet.</li>
             ) : (
-              user.watchlist.map((item) => <li>{item}</li>)
+              user.watchlist.map((item) => <li>{item.name}</li>)
             )}
           </ul>
           <div className="user-reviews">
