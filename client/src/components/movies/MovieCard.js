@@ -9,7 +9,7 @@ const MovieCard = (props) => {
           className="movie-card-img"
           src={
             props.posterPath
-              ? `https://image.tmdb.org/t/p/original${props.posterPath}`
+              ? `https://image.tmdb.org/t/p/w342${props.posterPath}`
               : process.env.PUBLIC_URL + '/images/not-found.jpg'
           }
           alt={`'${props.name}' Movie Poster`}

@@ -140,40 +140,36 @@ router.get('/genre/:genre', async (req, res) => {
 router.post('/', verifyToken, async (req, res) => {
   let movieInfo = req.body
   if (!movieInfo) {
-    res.status(400).json({ error: 'You must provide data to create a movie' })
+    res.status(400).send('You must provide data to create a movie')
     return
   }
 
   if (!movieInfo.name) {
-    res.status(400).json({ error: 'You must provide the name of the movie' })
+    res.status(400).send('You must provide the name of the movie')
     return
   }
   if (!movieInfo.releaseDate) {
-    res
-      .status(400)
-      .json({ error: 'You must provide the release date of the movie' })
+    res.status(400).send('You must provide the release date of the movie')
     return
   }
   if (!movieInfo.mpa_rating) {
-    res.status(400).json({ error: 'You must provide genres of the movie' })
+    res.status(400).send('You must provide genres of the movie')
     return
   }
   if (!movieInfo.runtime) {
-    res.status(400).json({ error: 'You must provide the runtime of the movie' })
+    res.status(400).send('You must provide the runtime of the movie')
     return
   }
   if (!movieInfo.genres) {
-    res.status(400).json({ error: 'You must provide genres of the movie' })
+    res.status(400).send('You must provide genres of the movie')
     return
   }
   if (!movieInfo.description) {
-    res.status(400).json({ error: 'You must provide description of the movie' })
+    res.status(400).send('You must provide description of the movie')
     return
   }
   if (!movieInfo.providers) {
-    res
-      .status(400)
-      .json({ error: 'You must provide the providers of the movie' })
+    res.status(400).send('You must provide the providers of the movie')
     return
   }
 
@@ -181,21 +177,18 @@ router.post('/', verifyToken, async (req, res) => {
     checkIsString(movieInfo.name)
     checkIsString(movieInfo.releaseDate)
     checkIsString(movieInfo.mpa_rating)
-
     checkIsNumber(movieInfo.runtime)
-
     checkIsArray(movieInfo.genres)
     checkIsString(movieInfo.description)
-
     checkIsArray(movieInfo.providers)
   } catch (e) {
-    res.status(404).send(String(e))
+    return res.status(404).send(String(e))
   }
 
-  let tmdb_id = null
-  let poster_path = null
-  let video = null
-  let revenue = null
+  // let tmdb_id = null
+  // let poster_path = null
+  // let video = null
+  // let revenue = null
 
   try {
     const newMovie = await createByUser(
@@ -205,12 +198,12 @@ router.post('/', verifyToken, async (req, res) => {
       movieInfo.runtime,
       movieInfo.genres,
       movieInfo.description,
-      poster_path,
-      video,
-      movieInfo.providers,
-      revenue
+      // poster_path,
+      // video,
+      movieInfo.providers
+      // revenue
     )
-    res.json(newMovie)
+    res.status(200).json(newMovie)
   } catch (e) {
     res.sendStatus(500)
   }

@@ -88,11 +88,8 @@ const MediaRequest = (props) => {
       arrGenres,
       arrProviders
     )
-      .then((_) => {
-        navigate('/')
-        window.location.reload()
-      })
-      .catch((e) => setError(e.response))
+      .then((_) => navigate(-1))
+      .catch((e) => setError(e.response.data))
   }
 
   return (
@@ -203,11 +200,13 @@ const MediaRequest = (props) => {
           <label className="form-label" htmlFor="input-description">
             Description
           </label>
-
-          <button className="form-submit" type="submit">
-            Submit
-          </button>
         </div>
+
+        {error ? <div className="login-error">{error}</div> : null}
+
+        <button className="form-submit" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   )
