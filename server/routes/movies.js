@@ -1,4 +1,5 @@
 const express = require('express')
+const { verifyToken } = require('../middleware/auth')
 const router = express.Router()
 const {
   get,
@@ -10,17 +11,12 @@ const {
   getByTrending,
 } = require('../data/movies')
 
+const { createByUser } = require('../data/mediaRequest')
+
 function checkIsString(s) {
   if (typeof s !== 'string') throw 'Given input is invalid'
   if (s.length < 1) throw 'Given input is empty'
   if (s.trim().length === 0) throw 'Given input is all white spaces'
-}
-
-/*
-
-function checkCertification(c) {
-  let certifications = ['PG', 'PG-13', 'R', 'NC-17', null]
-  if (certifications.indexOf(c) < 0) throw 'Given certification is invalid'
 }
 
 function checkIsNumber(r) {
@@ -30,12 +26,15 @@ function checkIsNumber(r) {
 
 function checkIsArray(arr) {
   if (!Array.isArray(arr)) {
-    throw 'Given genres are invalid'
+    throw 'Given input is not an array'
   } else if (arr.length === 0) {
-    throw 'Given genres are empty'
+    throw 'Given array is empty'
+  }
+
+  for (let x of arr) {
+    checkIsString(x)
   }
 }
-*/
 
 router.get('/', async (req, res) => {
   // send all movies
@@ -135,6 +134,85 @@ router.get('/genre/:genre', async (req, res) => {
     res.status(200).json(movie)
   } catch (e) {
     res.status(404).send(String(e))
+  }
+})
+
+router.post('/', verifyToken, async (req, res) => {
+  let movieInfo = req.body
+  if (!movieInfo) {
+    res.status(400).json({ error: 'You must provide data to create a movie' })
+    return
+  }
+
+  if (!movieInfo.name) {
+    res.status(400).json({ error: 'You must provide the name of the movie' })
+    return
+  }
+  if (!movieInfo.releaseDate) {
+    res
+      .status(400)
+      .json({ error: 'You must provide the release date of the movie' })
+    return
+  }
+  if (!movieInfo.mpa_rating) {
+    res.status(400).json({ error: 'You must provide genres of the movie' })
+    return
+  }
+  if (!movieInfo.runtime) {
+    res.status(400).json({ error: 'You must provide the runtime of the movie' })
+    return
+  }
+  if (!movieInfo.genres) {
+    res.status(400).json({ error: 'You must provide genres of the movie' })
+    return
+  }
+  if (!movieInfo.description) {
+    res.status(400).json({ error: 'You must provide description of the movie' })
+    return
+  }
+  if (!movieInfo.providers) {
+    res
+      .status(400)
+      .json({ error: 'You must provide the providers of the movie' })
+    return
+  }
+
+  try {
+    checkIsString(movieInfo.name)
+    checkIsString(movieInfo.releaseDate)
+    checkIsString(movieInfo.mpa_rating)
+
+    checkIsNumber(movieInfo.runtime)
+
+    checkIsArray(movieInfo.genres)
+    checkIsString(movieInfo.description)
+
+    checkIsArray(movieInfo.providers)
+  } catch (e) {
+    res.status(404).send(String(e))
+  }
+
+  let tmdb_id = null
+  let poster_path = null
+  let video = null
+  let revenue = null
+
+  try {
+    const newMovie = await createByUser(
+      movieInfo.name,
+      movieInfo.releaseDate,
+      movieInfo.mpa_rating,
+      movieInfo.runtime,
+      movieInfo.genres,
+      movieInfo.description,
+      poster_path,
+      video,
+      movieInfo.providers,
+      revenue
+    )
+    res.json(newMovie)
+  } catch (e) {
+    res.sendStatus(500)
   }
 })
 

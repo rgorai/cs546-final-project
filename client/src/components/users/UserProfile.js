@@ -1,12 +1,50 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { create } from '../../services/mediaService'
+
 import { getUserProfile } from '../../services/userService'
 import ApiError from '../errors/ApiError'
 import '../../styles/users/userProfile.css'
 
+/*
+ * define error checking functions here
+ *
+ */
+
+function checkIsString(s) {
+  if (!s) throw 'Must provide all the inputs'
+  if (typeof s !== 'string') throw 'Given input is invalid'
+  if (s.length < 1) throw 'Given input is empty'
+  if (s.trim().length === 0) throw 'Given input is all white spaces'
+}
+
+function checkIsNumber(r) {
+  r = parseInt(r)
+  if (isNaN(r)) throw 'Given runtime is invalid'
+}
+
+function checkIsArray(arr) {
+  if (!Array.isArray(arr)) {
+    throw 'Given genres are invalid'
+  } else if (arr.length === 0) {
+    throw 'Given genres array is empty'
+  }
+
+  for (let x of arr) {
+    checkIsString(x)
+  }
+}
+
 const UserProfile = (props) => {
   const [user, setUser] = useState(null)
+  // const [name, setName] = useState('')
+  // const [releaseDate, setReleaseDate] = useState('')
+  // const [mpa_rating, setMpaRating] = useState('')
+  // const [runtime, setRuntime] = useState('')
+  // const [genres, setGenres] = useState('')
+  // const [description, setDescription] = useState('')
+  // const [providers, setProviders] = useState('')
   const [error, setError] = useState(null)
   const navigate = useNavigate()
 
@@ -17,6 +55,46 @@ const UserProfile = (props) => {
       .then((res) => setUser(res.data))
       .catch((e) => setError(e.response))
   }, [])
+
+  // const onFormSubmit = (e) => {
+  //   e.preventDefault()
+  // console.log("in form submit")
+
+  // console.log(name + " " + releaseDate + " " + mpa_rating + " " + runtime + " " + genres + " " + description + " " + providers)
+
+  // //conver genres and providers to array
+  // let arrGenres = genres.split(",")
+  // let arrProviders = providers.split(",")
+
+  // console.log(arrGenres)
+  // console.log(arrProviders)
+
+  // // error check
+  // try {
+  //   checkIsString(name)
+  //   checkIsString(releaseDate)
+  //   checkIsString(mpa_rating)
+  //   checkIsString(description)
+
+  //   checkIsString(runtime)
+
+  //   checkIsArray(arrGenres)
+  //   checkIsArray(arrProviders)
+
+  // } catch (e) {
+
+  //   return setError(e)
+  // }
+
+  // // post data to server
+  // create(name, releaseDate, mpa_rating, runtime, genres, providers)
+  //    .then((_) => {
+  //      navigate('/')
+  //      window.location.reload()
+  //    })
+  //   .catch((e) => setError(e.response))
+
+  //}
 
   return (
     <div className="profile-container">
@@ -65,6 +143,9 @@ const UserProfile = (props) => {
               ))
             )}
           </div>
+          <button onClick={() => navigate('/profile/mediaRequest')}>
+            Like To add an Item?
+          </button>
           <button onClick={() => navigate('/profile/edit')}>
             Edit Profile
           </button>

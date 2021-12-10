@@ -20,5 +20,6 @@ module.exports = {
   movies: getCollectionFn('movies'),
   shows: getCollectionFn('shows'),
   users: getCollectionFn('users'),
-  reviews: getCollectionFn('reviews')
+  reviews: getCollectionFn('reviews'),
+  mediaRequest: getCollectionFn('mediaRequest'),
 }
