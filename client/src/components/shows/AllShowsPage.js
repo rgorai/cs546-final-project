@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 
 import ShowCard from './ShowCard'
+import ShowList from './ShowList'
 import ApiError from '../errors/ApiError'
 import ShowsNavBar from '../menus/ShowsNavBar'
 import ShowSortMenu from '../menus/ShowSortMenu'
@@ -75,7 +76,6 @@ const AllShowsPage = (props) => {
   return (
     <>
       <ShowsNavBar
-        title="Shows"
         SortMenu={
           <ShowSortMenu
             props={{ showSortItems, DEFAULT_SORT, DEFAULT_ORDER }}
@@ -86,14 +86,7 @@ const AllShowsPage = (props) => {
         <ApiError error={error} />
       ) : showList ? (
         <div className="all-shows-container">
-          {showList.map((show, i) => (
-            <ShowCard
-              key={i}
-              id={show._id}
-              posterPath={show.poster_path}
-              name={show.name}
-            />
-          ))}
+          <ShowList showList={showList} />
         </div>
       ) : (
         <div className="loading">Loading...</div>
