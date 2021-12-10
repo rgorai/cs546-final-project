@@ -10,7 +10,6 @@ function checkIsString(s) {
 }
 
 function checkIsNumber(r) {
-  r = parseInt(r)
   if (isNaN(r)) throw 'Given runtime is invalid'
 }
 
