@@ -15,7 +15,7 @@ const HomePage = (props) => {
   const [showList, setShowList] = useState([])
 
   useEffect(() => {
-    document.title = 'Home'
+    document.title = 'MediaHub'
     axios
       .get('/api/movies/bytrending')
       .then((res) => {
@@ -38,7 +38,9 @@ const HomePage = (props) => {
       <h1>Welcome to MediaHub</h1>
       <h2>Your Streaming Guide for Movies and TV Shows</h2>
       <label>
-        <h3>Now Trending <span class="red">top 5</span></h3>
+        <h3>
+          Now Trending <span class="red">top 5</span>
+        </h3>
         <div className="trending-rank">
           <h1>1</h1>
           <h1>2</h1>

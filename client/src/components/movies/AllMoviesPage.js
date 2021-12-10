@@ -3,26 +3,27 @@ import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 
 import MovieCard from './MovieCard'
+import MovieList from './MovieList'
 import ApiError from '../errors/ApiError'
 import MoviesNavBar from '../menus/MoviesNavBar'
 import SortMenu from '../menus/SortMenu'
 import '../../styles/movies/allMoviesPage.css'
 
-const DEFAULT_SORT = 'name'
+const DEFAULT_SORT = 'overall_rating'
 const DEFAULT_ORDER = false
 
 // sort algorithms switch items even if they have same values
-const compareNumbers = (a, b) => (a - b <= 0 ? -1 : 1)
-const compareDates = (a, b) => (Date.parse(a) - Date.parse(b) <= 0 ? -1 : 1)
+const compareNumbers = (a, b) => (a <= b ? -1 : 1)
+const compareDates = (a, b) => (Date.parse(a) <= Date.parse(b) ? -1 : 1)
 const compareStrings = (a, b) => (a.toLowerCase() <= b.toLowerCase() ? -1 : 1)
 const movieSortItems = {
-  name: {
-    text: 'Title',
-    compare: compareStrings,
-  },
   overall_rating: {
     text: 'Popularity',
     compare: compareNumbers,
+  },
+  name: {
+    text: 'Title',
+    compare: compareStrings,
   },
   release_date: {
     text: 'Release Date',
@@ -78,7 +79,6 @@ const AllMoviesPage = (props) => {
   return (
     <>
       <MoviesNavBar
-        title="Movies"
         SortMenu={
           <SortMenu props={{ movieSortItems, DEFAULT_SORT, DEFAULT_ORDER }} />
         }
@@ -87,17 +87,10 @@ const AllMoviesPage = (props) => {
         <ApiError error={error} />
       ) : movieList ? (
         <div className="all-movies-container">
-          {movieList.map((movie, i) => (
-            <MovieCard
-              key={i}
-              id={movie._id}
-              posterPath={movie.poster_path}
-              name={movie.name}
-            />
-          ))}
+          <MovieList movieList={movieList} />
         </div>
       ) : (
-        <div>Loading</div>
+        <div className="loading">Loading...</div>
       )}
     </>
   )

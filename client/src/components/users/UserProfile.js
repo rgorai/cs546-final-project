@@ -151,7 +151,7 @@ const UserProfile = (props) => {
           </button>
         </div>
       ) : (
-        <div>Loading</div>
+        <div className="loading">Loading...</div>
       )}
     </div>
   )

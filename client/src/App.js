@@ -46,8 +46,8 @@ const App = () => {
         <main>
           <Routes>
             {/* homepage routes */}
-            <Route exact path="/" element={<HomePage />} />
-            <Route exact path="/home" element={<Navigate to="/" />} />
+            <Route exact path="/" element={<Navigate to="/home" />} />
+            <Route exact path="/home" element={<HomePage />} />
             <Route
               exact
               path="/signup"
@@ -73,11 +73,6 @@ const App = () => {
               path="/movies"
               element={<Navigate to="/movies/all" />}
             />
-            {/* <Route
-              exact
-              path="/test"
-              element={<Navigate to="/movies/all?sort=name&asc=false" />}
-            /> */}
             <Route
               exact
               path="/movies/all"
@@ -91,11 +86,8 @@ const App = () => {
             />
             <Route exact path="/movies/single/:id" element={<MoviePage />} />
 
-            <Route
-              exact
-              path="/shows/all"
-              element={/*<ValidateShowsQuery />*/ <AllShowsPage />}
-            />
+            {/* shows routes */}
+            <Route exact path="/shows/all" element={<AllShowsPage />} />
             <Route exact path="/shows/bygenre" element={<ShowsByGenre />} />
             <Route
               exact

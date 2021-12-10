@@ -1,11 +1,14 @@
 .search-bar-container {
   height: 100% !important;
   position: relative;
-  /* padding: 5px 0 5px 0; */
+  width: 40%;
+  flex-wrap: nowrap;
+  margin: 0 20px;
 }
 
 #search-bar {
   height: 100%;
+  width: 100%;
   border: 0;
   padding: 0 0 0 5px;
   outline: 1px solid black;
@@ -16,17 +19,17 @@
   margin-right: 10px;
 }
 
-.autocomplete-div{
+.autocomplete-div {
   z-index: 999;
   position: absolute;
-  top: -1;
+  top: 40px;
   background: white;
   max-height: 300px;
   overflow-y: auto;
   color: black;
 }
 
-.autocomplete-div p{
+.autocomplete-div p {
   margin: 0;
   padding: 10px 5px;
   width: 250px;

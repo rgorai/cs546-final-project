@@ -1,8 +1,9 @@
 .movie-list-container {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  overflow-x: auto;
-  overflow-y: hidden;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   margin-bottom: 50px;
+  padding: 40px !important;
 }

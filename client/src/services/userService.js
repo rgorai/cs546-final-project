@@ -9,6 +9,10 @@ const updateUserProfile = (userData) => {
   return axios.post('/api/user/profile', userData, { headers: authHeader() })
 }
 
+const postReview = (reviewData) => {
+  return axios.post('/api/reviews', reviewData, { headers: authHeader() })
+}
+
 // add protect items link adding to watchlist, adding review, etc.
 
-export { getUserProfile, updateUserProfile }
+export { getUserProfile, updateUserProfile, postReview }

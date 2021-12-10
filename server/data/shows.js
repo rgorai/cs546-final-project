@@ -85,8 +85,8 @@ const create = async (
     poster_path: posterPath,
     video: video,
     providers: providers,
-    overall_rating: 0, //initializing overallRating to be 0 when a show is created
-    reviews: [], //initializing review as empty array
+    overall_rating: null,
+    reviews: [],
   })
 
   // throw if insertion failed
@@ -218,9 +218,7 @@ const getByName = async (str) => {
 
 const getByTrending = async () => {
   let shows = await getAll()
-  shows = shows.sort((a, b) => b.overall_rating - a.overall_rating).slice(0, 5)
-
-  return shows
+  return shows.sort((a, b) => b.overall_rating - a.overall_rating).slice(0, 5)
 }
 
 module.exports = {

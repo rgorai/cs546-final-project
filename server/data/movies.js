@@ -96,7 +96,7 @@ const create = async (
     video: video,
     providers: providers,
     revenue: revenue,
-    overall_rating: 0,
+    overall_rating: null,
     reviews: [],
   })
 
@@ -226,11 +226,7 @@ const getByName = async (str) => {
 
 const getByTrending = async () => {
   let movies = await getAll()
-  movies = movies
-    .sort((a, b) => b.overall_rating - a.overall_rating)
-    .slice(0, 5)
-
-  return movies
+  return movies.sort((a, b) => b.overall_rating - a.overall_rating).slice(0, 5)
 }
 
 module.exports = {

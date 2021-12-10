@@ -1,0 +1,14 @@
+.error-container {
+  width: 500px !important;
+  margin: auto;
+  padding: 40px 40px 60px 40px;
+}
+
+.error-status {
+  font-size: 200px;
+  font-weight: 600;
+}
+
+.error-text {
+  font-size: 60px;
+}

@@ -41,6 +41,7 @@ const AllShowsPage = (props) => {
 
   // get shows from server and sory by querystring params
   useEffect(() => {
+    console.log('here')
     document.title = 'All Shows'
     setError(null)
     const currSort = queryString.get('sort') || DEFAULT_SORT
@@ -73,12 +74,14 @@ const AllShowsPage = (props) => {
 
   return (
     <>
-      <ShowsNavBar 
-      title="Shows" 
-      SortMenu={
-          <ShowSortMenu props={{ showSortItems, DEFAULT_SORT, DEFAULT_ORDER }} />
+      <ShowsNavBar
+        title="Shows"
+        SortMenu={
+          <ShowSortMenu
+            props={{ showSortItems, DEFAULT_SORT, DEFAULT_ORDER }}
+          />
         }
-      /> 
+      />
       {error ? (
         <ApiError error={error} />
       ) : showList ? (
@@ -93,7 +96,7 @@ const AllShowsPage = (props) => {
           ))}
         </div>
       ) : (
-        <div>Loading</div>
+        <div className="loading">Loading...</div>
       )}
     </>
   )

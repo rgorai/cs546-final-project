@@ -40,7 +40,7 @@ const autoComplete = async () => {
   let searchAutoResult = {}
   searchAutoResult['movieResult'] = mList
   searchAutoResult['showResult'] = sList
-  
+
   return searchAutoResult
 }
 

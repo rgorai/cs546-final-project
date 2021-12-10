@@ -1,10 +1,8 @@
-import { Link } from 'react-router-dom'
-
-import FilterMenu from './FilterMenu'
+import { Link, useLocation } from 'react-router-dom'
 import '../../styles/menus/moviesNavBar.css'
 
 const MoviesNavBar = (props) => {
-  // add query string if exists******
+  const location = useLocation()
   const navLinks = [
     { name: 'All', link: '/movies/all' },
     { name: 'Genres', link: '/movies/bygenre' },
@@ -13,21 +11,22 @@ const MoviesNavBar = (props) => {
 
   return (
     <div className="movie-navbar-wrapper">
-      <h2>{props.title}</h2>
       <div className="movie-navbar-container">
         <ul className="movie-navbar">
           {navLinks.map((e, i) => (
             <li key={i}>
-              <Link className="movie-nav-item" to={e.link}>
+              <Link
+                className={`movie-nav-item ${
+                  location.pathname === e.link ? 'media-active-nav' : 'no'
+                }`}
+                to={e.link}
+              >
                 {e.name}
               </Link>
             </li>
           ))}
         </ul>
-        <div className="movie-ops-container">
-          <FilterMenu />
-          {props.SortMenu}
-        </div>
+        {props.SortMenu}
       </div>
     </div>
   )

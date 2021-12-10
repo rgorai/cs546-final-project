@@ -1,13 +1,8 @@
 /* eslint-disable no-throw-literal */
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { login } from '../../services/authService'
 import '../../styles/home/loginPage.css'
-
-/*
- * define error checking functions here
- *
- */
 
 function checkIsString(s) {
   if (typeof s !== 'string') throw 'Given input is invalid'
@@ -25,6 +20,8 @@ function checkIsPassword(s) {
 
 const LoginPage = (props) => {
   const navigate = useNavigate()
+  const { state } = useLocation()
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
@@ -49,7 +46,7 @@ const LoginPage = (props) => {
     // post data to server
     login(username, password)
       .then((_) => {
-        navigate('/')
+        navigate(state.from ? state.from : '/')
         window.location.reload()
       })
       .catch((e) => setError(e.response.data)) // get error from server
@@ -69,6 +66,7 @@ const LoginPage = (props) => {
               name="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              autoFocus
             />
             <label htmlFor="input-username">Username</label>
           </div>
@@ -85,7 +83,7 @@ const LoginPage = (props) => {
             <label htmlFor="input-password">Password</label>
           </div>
 
-          {error ? <div className="login-error">{error}</div> : null}
+          {error && <div className="login-error">{error}</div>}
 
           <button type="submit" form="login-form">
             Login
