@@ -126,7 +126,11 @@ const MoviePage = (props) => {
                 id="thumbs-up"
                 size="2x"
               />
-              <p>{`${Math.floor(movieData.overall_rating)}%`}</p>
+              <p>
+                {movieData.overall_rating
+                  ? `${Math.floor(movieData.overall_rating)}%`
+                  : 'No Rating'}
+              </p>
             </h2>
           </div>
           <ReviewForm contentId={movieId} />

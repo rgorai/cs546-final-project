@@ -1,83 +1,31 @@
 .show-page-container {
-  /* height: 90vh; */
-  overflow-y: auto;
-  padding-top: 80px;
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px 60px 60px;
+  margin-bottom: 50px;
+}
+
+.show-page-container h2 {
+  margin-top: 50px;
+  width: 100%;
 }
 
 .show-page-img {
-  max-width: 300px;
+  height: 450px;
+  width: 300px;
 }
 
-.show-description {
-  width: 400px;
-  color: white;
-}
-
-.show-description {
-  width: 400px;
-  color: white;
-}
-
-.show-name {
-  font-weight: bold;
-  font-size: 20px;
-  color: white;
+.show-info-container {
+  margin-top: 20px;
 }
 
 .show-year {
-  font-weight: bold;
-  color: white;
+  font-weight: 200;
+  font-size: 24px;
+  margin-top: 5px !important;
 }
 
-.show-seasons {
-  font-weight: bold;
-  color: white;
-}
-
-.show-episodes {
-  font-weight: bold;
-  color: white;
-}
-
-.show-page-container p {
-  color: white;
-}
-
-.desc {
-  color: white;
-}
-
-.desc-bold {
-  color:white;
-  font-weight: bold;
-}
-
-.icon {
-  margin: 20px;
-}
-
-.like-dislike {
-  display: inline-flex;
-  /* justify-content: center; */
-  align-items: center;
-  margin-top: 0.3em;
-  margin-left: 1em;
-}
-
-.like-dislike > label { 
-  margin-right: 0.2em;
-  margin-top: 0.2em;
-}
-
-.like-dislike {
-  margin-bottom: 20px;
-}
-
-.previous-reviews {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.previous-reviews label {
-  margin: 20px;
+.show-trailer {
+  width: 100%;
 }
