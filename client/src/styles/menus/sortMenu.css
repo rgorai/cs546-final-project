@@ -1,14 +1,14 @@
-.movienav-dropdown {
+.nav-dropdown {
   padding: 10px;
   right: 50px;
   margin-top: 30px;
 }
 
-.movienav-dropdown div {
+.nav-dropdown div {
   margin-bottom: 3px;
 }
 
-.movienav-dropdown label {
+.nav-dropdown label {
   margin-left: 5px;
 }
 

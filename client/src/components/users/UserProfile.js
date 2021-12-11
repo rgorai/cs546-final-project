@@ -126,11 +126,11 @@ const UserProfile = (props) => {
                     {item.contentName}
                   </p>
                   <p>
-                    <label htmlFor="">Date of Review: </label>{' '}
+                    <label htmlFor="">Date of Review: </label>
                     {item.dateOfReview}
                   </p>
                   <p>
-                    <label htmlFor="">Liked / Disliked: </label>{' '}
+                    <label htmlFor="">Liked / Disliked: </label>
                     {item.like_dislike === 1 ? 'Liked' : 'Disliked'}
                   </p>
                   <p>
