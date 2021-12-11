@@ -118,6 +118,7 @@ const main = async () => {
         user.id,
         user.username,
         movie._id,
+        movie.name,
         review.review,
         Math.floor(Math.random() * 2)
       )
@@ -125,6 +126,7 @@ const main = async () => {
         user.id,
         user.username,
         show._id,
+        show.name,
         review.review,
         Math.floor(Math.random() * 2)
       )
