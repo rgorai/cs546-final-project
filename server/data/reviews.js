@@ -18,6 +18,7 @@ const createReview = async (
   reviewerId,
   reviewer,
   contentId,
+  contentName,
   review,
   like_dislike
 ) => {
@@ -25,6 +26,7 @@ const createReview = async (
   reviewerId = errors.validateObjectId(reviewerId)
   reviewer = errors.validateReviewer(reviewer)
   contentId = errors.validateObjectId(contentId)
+  contentName = errors.validateTitle(contentName)
   //dateOfReview = errors.validateDateOfReview(dateOfReview)
   review = errors.validateReview(review)
   like_dislike = errors.validateLikeDislike(like_dislike)
@@ -52,6 +54,7 @@ const createReview = async (
     reviewer: reviewer,
     dateOfReview: getDate(),
     contentId: contentId,
+    contentName: contentName,
     review: review,
     like_dislike: like_dislike,
   }
@@ -160,6 +163,7 @@ const updateReview = async (
   reviewerId,
   reviewer,
   contentId,
+  contentName,
   dateOfReview,
   review,
   like_dislike
@@ -169,6 +173,7 @@ const updateReview = async (
   reviewerId = errors.validateObjectId(reviewerId)
   reviewer = errors.validateReviewer(reviewer)
   contentId = errors.validateObjectId(contentId)
+  contentName = errors.validateTitle(contentName)
   dateOfReview = errors.validateDateOfReview(dateOfReview)
   like_dislike = errors.validateLikeDislike(like_dislike)
   review = errors.validateReview(review)
@@ -185,6 +190,7 @@ const updateReview = async (
     reviewerId: reviewerId,
     reviewer: reviewer,
     contentId: contentId,
+    contentName: contentName,
     dateOfReview: dateOfReview,
     review: review,
     like_dislike: like_dislike,

@@ -7,7 +7,7 @@ const errors = require('../data/errors')
 const { ObjectId } = require('mongodb')
 
 router.post('/', verifyToken, async (req, res) => {
-  let { contentId, review, like_dislike } = req.body
+  let { contentId, contentName, review, like_dislike } = req.body
 
   if (!req.userId) {
     res.status(400).send('You must specify an ID of the user to post a review')
@@ -21,12 +21,14 @@ router.post('/', verifyToken, async (req, res) => {
     const reviewerId = errors.validateObjectId(req.userId)
     const reviewer = errors.validateReviewer(username)
     contentId = errors.validateObjectId(contentId)
+    contentName = errors.validateTitle(contentName)
     review = errors.validateReview(review)
 
     const createdReview = await createReview(
       reviewerId,
       reviewer,
       contentId,
+      contentName,
       review,
       like_dislike
     )
@@ -38,8 +40,15 @@ router.post('/', verifyToken, async (req, res) => {
 })
 
 router.put('/', verifyToken, async (req, res) => {
-  let { reviewId, reviewer, contentId, dateOfReview, review, like_dislike } =
-    req.body
+  let {
+    reviewId,
+    reviewer,
+    contentId,
+    contentName,
+    dateOfReview,
+    review,
+    like_dislike,
+  } = req.body
 
   if (!req.userId) {
     res
@@ -61,6 +70,7 @@ router.put('/', verifyToken, async (req, res) => {
     const reviewerId = errors.validateObjectId(req.userId)
     reviewer = errors.validateReviewer(username)
     contentId = errors.validateObjectId(contentId)
+    contentName = errors.validateTitle(contentName)
     dateOfReview = errors.validateDateOfReview(dateOfReview)
     review = errors.validateReview(review)
     const updatedReview = await updateReview(
@@ -68,6 +78,7 @@ router.put('/', verifyToken, async (req, res) => {
       reviewerId,
       reviewer,
       contentId,
+      contentName,
       dateOfReview,
       review,
       like_dislike

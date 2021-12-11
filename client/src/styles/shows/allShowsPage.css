@@ -1,8 +1,4 @@
 .all-shows-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding-top: 180px;
+  margin: 4% !important;
+  margin-top: 50px !important;
 }

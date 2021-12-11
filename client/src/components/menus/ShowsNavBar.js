@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import '../../styles/menus/showsNavBar.css'
 
 const ShowsNavBar = (props) => {
-  // add query string if exists******
+  const location = useLocation()
   const navLinks = [
     { name: 'All', link: '/shows/all' },
     { name: 'Genres', link: '/shows/bygenre' },
@@ -11,18 +11,22 @@ const ShowsNavBar = (props) => {
 
   return (
     <div className="show-navbar-wrapper">
-      <h2>{props.title}</h2>
       <div className="show-navbar-container">
         <ul className="show-navbar">
           {navLinks.map((e, i) => (
             <li key={i}>
-              <Link className="show-nav-item" to={e.link}>
+              <Link
+                className={`show-nav-item ${
+                  location.pathname === e.link ? 'media-active-nav' : 'no'
+                }`}
+                to={e.link}
+              >
                 {e.name}
               </Link>
             </li>
           ))}
         </ul>
-        <div className="show-ops-container">{props.SortMenu}</div>
+        {props.SortMenu}
       </div>
     </div>
   )
