@@ -3,21 +3,19 @@ import '../../styles/shows/showList.css'
 
 const ShowList = (props) => {
   return (
-    <>
-      <label>{props.name}</label>
-      <div className="show-list-container">
-        {props.showList
-          .sort((_, m) => (m.poster_path ? 1 : -1))
-          .map((show, i) => (
-            <ShowCard
-              key={i}
-              id={show._id}
-              posterPath={show.poster_path}
-              name={show.name}
-            />
-          ))}
+    <div className="card-background media-list-wrapper">
+      {props.name && <h2>{props.name}</h2>}
+      <div className="media-list-container">
+        {props.showList.map((show, i) => (
+          <ShowCard
+            key={i}
+            id={show._id}
+            posterPath={show.poster_path}
+            name={show.name}
+          />
+        ))}
       </div>
-    </>
+    </div>
   )
 }
 
