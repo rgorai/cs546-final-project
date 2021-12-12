@@ -96,10 +96,6 @@ const MediaRequest = (props) => {
     <div className="media-request-container">
       <h2>Like to add a movie?</h2>
       <form id="user-media-request" onSubmit={onFormSubmit}>
-        {/* display error here */}
-
-        {error ? <div className="login-error">{error}</div> : null}
-
         <div className="user-input-container">
           <input
             id="input-name"
