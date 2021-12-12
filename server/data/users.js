@@ -331,12 +331,20 @@ const updateUser = async (
     throw String(e)
   }
 
+  const users = await userCollection()
+
   const hash = await bcrypt.hash(password, saltRounds)
 
   firstName = firstName.toLowerCase().trim()
   lastName = lastName.toLowerCase().trim()
   email = email.toLowerCase().trim()
   password = password.toLowerCase().trim()
+
+  // check if email exists
+  if (await users.findOne({ email: email })) throw 'Email address is taken.'
+
+  // check if username exists
+  if (await users.findOne({ username: username })) throw 'Username is taken.'
 
   let updatedUser = {
     firstName: firstName,
@@ -346,7 +354,6 @@ const updateUser = async (
     password: hash,
   }
 
-  const users = await userCollection()
   const updatedInfo = await users.updateOne({ _id: id }, { $set: updatedUser })
 
   if (updatedInfo.modifiedCount === 0) {
