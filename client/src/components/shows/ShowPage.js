@@ -52,15 +52,14 @@ const ShowPage = (props) => {
 
   const addToWatchlist = (e) => {
     e.preventDefault()
-
     if (!currUser) navigate('/login', { state: { from: location.pathname } })
-
-    postItem(showData._id)
-      .then((_) => {
-        navigate('/')
-        window.location.reload()
-      })
-      .catch((e) => setError(e.response.data))
+    else
+      postItem(showData._id)
+        .then((_) => {
+          navigate('/')
+          window.location.reload()
+        })
+        .catch((e) => setError(e.response.data))
   }
 
   return (

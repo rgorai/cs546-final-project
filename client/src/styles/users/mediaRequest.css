@@ -1,4 +1,4 @@
-.media-container {
+.media-request-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -12,18 +12,18 @@
   margin-top: 2%;
 }
 
-.media-container h2 {
+.media-request-container h2 {
   margin: 0 0 30px;
   padding: 0;
   color: #fff;
   text-align: center;
 }
 
-.media-container .user-input-container {
+.media-request-container .user-input-container {
   position: relative;
 }
 
-.media-container .user-input-container input {
+.media-request-container .user-input-container input {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
@@ -35,7 +35,7 @@
   outline: none;
   background: transparent;
 }
-.media-container .user-input-container label {
+.media-request-container .user-input-container label {
   position: absolute;
   top:0;
   left: 0;
@@ -46,15 +46,15 @@
   transition: .5s;
 }
 
-.media-container .user-input-container input:focus ~ label,
-.media-container .user-input-container input:valid ~ label {
+.media-request-container .user-input-container input:focus ~ label,
+.media-request-container .user-input-container input:valid ~ label {
   top: -20px;
   left: 0;
   color: white;
   font-size: 20px;
 }
 
-.media-container form button {
+.media-request-container form button {
   background-color: transparent;
   position: relative;
   display: inline-block;
@@ -72,7 +72,7 @@
   letter-spacing: 4px
 }
 
-.media-container button:hover {
+.media-request-container button:hover {
   background: #03e9f4;
   color: #fff;
   border-radius: 5px;
@@ -82,12 +82,12 @@
               0 0 100px #03e9f4;
 }
 
-.media-container button span {
+.media-request-container button span {
   position: absolute;
   display: block;
 }
 
-.media-container button span:nth-child(1) {
+.media-request-container button span:nth-child(1) {
   top: 0;
   left: -100%;
   width: 100%;
@@ -105,7 +105,7 @@
   }
 }
 
-.media-container button span:nth-child(2) {
+.media-request-container button span:nth-child(2) {
   top: -100%;
   right: 0;
   width: 2px;
@@ -124,7 +124,7 @@
   }
 }
 
-.media-container button span:nth-child(3) {
+.media-request-container button span:nth-child(3) {
   bottom: 0;
   right: -100%;
   width: 100%;
@@ -143,7 +143,7 @@
   }
 }
 
-.media-container button span:nth-child(4) {
+.media-request-container button span:nth-child(4) {
   bottom: -100%;
   left: 0;
   width: 2px;
