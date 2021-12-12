@@ -70,6 +70,7 @@ const SearchBar = (props) => {
         type="text"
         value={query}
         placeholder="Search movies and shows"
+        className="searchInput"
         onChange={handleFilter}
         onKeyPress={(event) => {
           if (event.code === 'Enter') {

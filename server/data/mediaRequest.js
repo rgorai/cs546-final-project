@@ -44,6 +44,7 @@ const createByUser = async (
   if (!providers) throw 'movie should have video'
   //if(!revenue) throw "movie should have video"
 
+
   try {
     checkIsString(name)
     checkIsString(releaseDate)
@@ -58,6 +59,10 @@ const createByUser = async (
   } catch (e) {
     throw String(e)
   }
+
+  let currentDate = new Date();
+  if(new Date(releaseDate) > currentDate) throw "Release data cannot be a future date"
+
 
   // add new movie to db
   const media = await mediaCollection()

@@ -90,6 +90,10 @@ const ShowPage = (props) => {
                     data={showData.mpa_rating ? showData.mpa_rating : 'NR'}
                   />
                   <ShowDetail
+                    label="NO. SEASONS"
+                    data={showData.number_of_seasons}
+                  />
+                  <ShowDetail
                     label="NO. EPISODES"
                     data={showData.number_of_episodes}
                   />
