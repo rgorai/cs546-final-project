@@ -181,6 +181,9 @@ router.post('/', verifyToken, async (req, res) => {
     checkIsArray(movieInfo.genres)
     checkIsString(movieInfo.description)
     checkIsArray(movieInfo.providers)
+
+    let currentDate = new Date();
+    if(new Date(movieInfo.releaseDate) > currentDate) throw "Release data cannot be a future date"
   } catch (e) {
     return res.status(404).send(String(e))
   }

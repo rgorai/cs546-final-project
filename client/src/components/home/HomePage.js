@@ -49,6 +49,7 @@ const HomePage = (props) => {
           <h1>5</h1>
         </div>
       </label>
+      <div >
       <label>
         <h4>Movies:</h4>
         <MovieList movieList={movieList} />
@@ -57,6 +58,7 @@ const HomePage = (props) => {
         <h4>Shows:</h4>
         <ShowList showList={showList} />
       </label>
+      </div>
     </div>
   )
 }

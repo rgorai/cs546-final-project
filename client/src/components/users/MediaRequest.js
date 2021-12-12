@@ -117,7 +117,7 @@ const MediaRequest = (props) => {
             id="input-releaseDate"
             className="form-input"
             placeholder="Release Date"
-            type="text"
+            type="date"
             name="releaseDate"
             value={releaseDate}
             onChange={(e) => setReleaseDate(e.target.value)}
