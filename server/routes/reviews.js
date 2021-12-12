@@ -13,6 +13,7 @@ router.post('/', verifyToken, async (req, res) => {
   }
 
   let username
+  // Error Checking
   try {
     const user = await getUser(req.userId)
     username = user.username
