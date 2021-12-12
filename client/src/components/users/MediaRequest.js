@@ -86,8 +86,8 @@ const MediaRequest = (props) => {
       mpa_rating,
       description,
       runtime,
-      arrGenres,
-      arrProviders
+      arrGenres.map((e) => e.trim()),
+      arrProviders.map((e) => e.trim())
     )
       .then((_) => navigate(-1))
       .catch((e) => setError(e.response.data))
@@ -95,7 +95,7 @@ const MediaRequest = (props) => {
 
   return (
     <div className="media-request-container">
-      <h2>Like to add a movie?</h2>
+      <h2>Request Media to be Added</h2>
       <form id="user-media-request" onSubmit={onFormSubmit}>
         <div className="user-input-container">
           <input

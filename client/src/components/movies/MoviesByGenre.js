@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-import MovieList from './MovieList'
+import MediaList from './MediaList'
 import ApiError from '../errors/ApiError'
 import MoviesNavBar from '../menus/MoviesNavBar'
 import '../../styles/movies/moviesByGenre.css'
@@ -26,7 +26,7 @@ const AllMoviesPage = (props) => {
     return Object.keys(data)
       .filter((k) => data[k].length > 0)
       .sort((k1, k2) => data[k2].length - data[k1].length)
-      .map((k, i) => <MovieList key={i} name={_names[k]} movieList={data[k]} />)
+      .map((k, i) => <MediaList key={i} name={_names[k]} mediaList={data[k]} />)
   }
 
   return (
