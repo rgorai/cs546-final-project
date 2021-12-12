@@ -65,14 +65,12 @@ const create = async (firstName, lastName, email, username, password) => {
   // check if email exists
   const users = await userCollection()
   if (await users.findOne({ email: email })) {
-    console.log('taken email')
     throw 'Email address is taken.'
     //throw { error: 'Email address is taken.' }
   }
 
   // check if username exists
   if (await users.findOne({ username: username })) {
-    console.log('taken username')
     throw 'Username is taken.'
     //throw { error: 'Username is taken.' }
   }
@@ -192,7 +190,6 @@ const getByEmail = async (email) => {
 
 const addToWatchlist = async (userId, itemId) => {
   //error checking
-  console.log('in the db watchlist')
 
   if (!userId) throw 'Must provide the user id'
   if (!itemId) throw 'Must provide id of the item to be added'
@@ -215,25 +212,14 @@ const addToWatchlist = async (userId, itemId) => {
     item = await shows.findOne({ _id: itemId })
   }
 
-  console.log(user)
-
-  //console.log(item)
-  console.log(item._id)
   watchlist = user.watchlist
-  console.log('****************')
-  console.log(watchlist)
 
   for (let x of watchlist) {
-    console.log(x.name)
     if (x._id === item._id) {
       throw 'item already in the watchlist'
     }
   }
-
-  console.log('updated watchlist')
   watchlist.push(item)
-
-  console.log(watchlist)
 
   let updatedUser = {
     watchlist: watchlist,
@@ -278,8 +264,6 @@ const deleteFromWatchlist = async (id, str) => {
   const updatedWatchlist = watchlist.filter(function (item) {
     return item !== str
   })
-
-  console.log(updatedWatchlist)
 
   let updatedUser = {
     watchlist: updatedWatchlist,

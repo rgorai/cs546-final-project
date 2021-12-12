@@ -17,6 +17,7 @@ import ShowDetail from './ShowDetail'
 import '../../styles/shows/showPage.css'
 
 import Youtube from 'react-youtube'
+import { cosmiconfig } from 'prettier/third-party'
 
 const opts = {
   height: '390',
@@ -125,6 +126,11 @@ const ShowPage = (props) => {
               )}
             </div>
           </div>
+
+          <div className="add-to-watchlist">
+            <button onClick={addToWatchlist}>Add To Watchlist</button>
+          </div>
+
           <h2>Trailer</h2>
           {showData.video ? (
             <Youtube videoId={showData.video.key} opts={opts} />

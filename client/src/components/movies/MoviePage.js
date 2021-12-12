@@ -52,7 +52,6 @@ const MoviePage = (props) => {
 
   const addToWatchlist = (e) => {
     e.preventDefault()
-    console.log(currUser)
     if (!currUser) navigate('/login', { state: { from: location.pathname } })
 
     postItem(movieData._id)
