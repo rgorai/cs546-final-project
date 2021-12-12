@@ -3,7 +3,11 @@ import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import { getCurrUser } from '../../services/authService'
 import { useNavigate, useLocation } from 'react-router-dom'
 
-import { postItem } from '../../services/userService'
+import {
+  postItem,
+  deleteItem,
+  getUserProfile,
+} from '../../services/userService'
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -32,6 +36,7 @@ const ShowPage = (props) => {
   const { id: showId } = useParams()
   const [showData, setShowData] = useState(null)
   const [error, setError] = useState(null)
+  const [addedToWatchlist, setAddedToWatchlist] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
   const currUser = getCurrUser()
@@ -51,16 +56,28 @@ const ShowPage = (props) => {
     if (showData) document.title = showData.name
   }, [showData])
 
-  const addToWatchlist = (e) => {
+  const handleWatchlist = (e) => {
     e.preventDefault()
     if (!currUser) navigate('/login', { state: { from: location.pathname } })
-    else
+    else if (addedToWatchlist) {
+      console.log('trying to remove')
+      deleteItem(showData._id)
+        .then((_) => {
+          // navigate('/')
+          // window.location.reload()
+          setAddedToWatchlist(false)
+        })
+        .catch((e) => setError(e.response))
+    } else {
+      console.log('trying to add')
       postItem(showData._id)
         .then((_) => {
-          navigate('/')
-          window.location.reload()
+          // navigate('/')
+          // window.location.reload()
+          setAddedToWatchlist(true)
         })
-        .catch((e) => setError(e.response.data))
+        .catch((e) => setError(e.response))
+    }
   }
 
   return (
@@ -130,9 +147,11 @@ const ShowPage = (props) => {
             </div>
           </div>
 
-          <div className="add-to-watchlist">
-            <button onClick={addToWatchlist}>Add To Watchlist</button>
-          </div>
+          {/* <div className="add-to-watchlist"> */}
+          <button onClick={handleWatchlist}>
+            {addedToWatchlist ? 'Remove from Watchlist' : 'Add To Watchlist'}
+          </button>
+          {/* </div> */}
 
           <h2>Trailer</h2>
           {showData.video ? (
