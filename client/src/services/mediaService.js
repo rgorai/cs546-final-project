@@ -1,7 +1,7 @@
 import axios from 'axios'
 import authHeader from './authHeader'
 
-const create = async (
+const postMediaRequest = async (
   name,
   releaseDate,
   mpa_rating,
@@ -21,9 +21,8 @@ const create = async (
   }
 
   let headers = authHeader()
-  let data = null
 
   return await axios.post('/api/movies', request, { headers })
 }
 
-export { create }
+export { postMediaRequest }

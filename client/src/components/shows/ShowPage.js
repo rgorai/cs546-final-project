@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import { getCurrUser } from '../../services/authService'
 import { useNavigate, useLocation } from 'react-router-dom'
 
