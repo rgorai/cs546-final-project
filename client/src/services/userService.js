@@ -13,6 +13,12 @@ const postReview = (reviewData) => {
   return axios.post('/api/reviews', reviewData, { headers: authHeader() })
 }
 
+const postItem = (id) => {
+  let addItem = {
+    itemId: id,
+  }
+  return axios.put('/api/user/watchlist', addItem, { headers: authHeader() })
+}
 // add protect items link adding to watchlist, adding review, etc.
 
-export { getUserProfile, updateUserProfile, postReview }
+export { getUserProfile, updateUserProfile, postReview, postItem }
