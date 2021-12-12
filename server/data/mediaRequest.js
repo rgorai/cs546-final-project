@@ -1,6 +1,7 @@
 const mongoCollections = require('../config/mongoCollections')
 const mediaCollection = mongoCollections.mediaRequest
 const movieCollection = mongoCollections.movies
+const showCollection = mongoCollections.shows
 const { ObjectId } = require('mongodb')
 
 function checkIsString(s) {
@@ -25,25 +26,16 @@ const createByUser = async (
   name,
   releaseDate,
   certifications,
-  runtime,
   genres,
   description,
-  // posterPath,
-  // video,
   providers
-  // revenue
 ) => {
-  if (!name) throw 'movie should have a name'
-  if (!releaseDate) throw 'movie should have a release date'
-  if (!certifications) throw 'movie should have certifications'
-  if (!runtime) throw 'movie should have runtime'
-  if (!genres) throw 'movie should have genres'
-  if (!description) throw 'movie should have description'
-  //if(!posterPath) throw "movie should have posterPath"
-  //if(!video) throw "movie should have video"
-  if (!providers) throw 'movie should have video'
-  //if(!revenue) throw "movie should have video"
-
+  if (!name) throw 'media should have a name'
+  if (!releaseDate) throw 'media should have a release date'
+  if (!certifications) throw 'media should have certifications'
+  if (!genres) throw 'media should have genres'
+  if (!description) throw 'media should have description'
+  if (!providers) throw 'media should have video'
 
   try {
     checkIsString(name)
@@ -60,37 +52,39 @@ const createByUser = async (
     throw String(e)
   }
 
-  let currentDate = new Date();
-  if(new Date(releaseDate) > currentDate) throw "Release data cannot be a future date"
-
+  let currentDate = new Date()
+  if (new Date(releaseDate) > currentDate)
+    throw 'Release data cannot be a future date'
 
   // add new movie to db
-  const media = await mediaCollection()
+  const requests = await mediaCollection()
   const movies = await movieCollection()
+  const shows = await showCollection()
 
   // check if the movie already in the database
-  let movie = await movies.findOne({ name: name, releaseDate: releaseDate })
-  if (movie != null) {
-    throw 'Movie already in the database'
+  let movie = await movies.findOne({ name: name, release_date: releaseDate })
+  let show = await shows.findOne({ name: name, release_date: releaseDate })
+  if (movie != null || show != null) {
+    throw 'Media already in the database'
   }
 
-  const insertRet = await media.insertOne({
+  let request = await medias.findOne({ name: name, release_date: releaseDate })
+
+  if (request != null) {
+    throw 'Media already in the request list'
+  }
+
+  const insertRet = await requests.insertOne({
     name: name,
     release_date: releaseDate,
     mpa_rating: certifications,
-    runtime: runtime,
     genres: genres,
     description: description,
-    // poster_path: posterPath,
-    // video: video,
     providers: providers,
-    // revenue: revenue,
-    overall_rating: 0,
-    reviews: [],
   })
 
   // throw if insertion failed
-  if (!insertRet.acknowledged) throw 'Error: failed to add new movie.'
+  if (!insertRet.acknowledged) throw 'Error: failed to add new media.'
 
   return await get(insertRet.insertedId.toString())
 }

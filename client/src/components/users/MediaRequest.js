@@ -3,26 +3,13 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { postMediaRequest } from '../../services/mediaService'
-
-import { getUserProfile } from '../../services/userService'
-import ApiError from '../errors/ApiError'
-//import '../../styles/users/userProfile.css'
 import '../../styles/users/mediaRequest.css'
-/*
- * define error checking functions here
- *
- */
 
 function checkIsString(s) {
   if (!s) throw 'Must provide all the inputs'
   if (typeof s !== 'string') throw 'Given input is invalid'
   if (s.length < 1) throw 'Given input is empty'
   if (s.trim().length === 0) throw 'Given input is all white spaces'
-}
-
-function checkIsNumber(r) {
-  r = parseInt(r)
-  if (isNaN(r)) throw 'Given runtime is invalid'
 }
 
 function checkIsArray(arr) {
@@ -38,11 +25,9 @@ function checkIsArray(arr) {
 }
 
 const MediaRequest = (props) => {
-  const [user, setUser] = useState(null)
   const [name, setName] = useState('')
   const [releaseDate, setReleaseDate] = useState('')
   const [mpa_rating, setMpaRating] = useState('')
-  const [runtime, setRuntime] = useState('')
   const [genres, setGenres] = useState('')
   const [description, setDescription] = useState('')
   const [providers, setProviders] = useState('')
@@ -52,9 +37,6 @@ const MediaRequest = (props) => {
   // request user profile
   useEffect(() => {
     document.title = 'Profile'
-    // getUserProfile()
-    //   .then((res) => setUser(res.data))
-    //   .catch((e) => setError(e.response))
   }, [])
 
   const onFormSubmit = (e) => {
@@ -70,9 +52,6 @@ const MediaRequest = (props) => {
       checkIsString(releaseDate)
       checkIsString(mpa_rating)
       checkIsString(description)
-
-      checkIsString(runtime)
-
       checkIsArray(arrGenres)
       checkIsArray(arrProviders)
     } catch (e) {
@@ -85,7 +64,6 @@ const MediaRequest = (props) => {
       releaseDate,
       mpa_rating,
       description,
-      runtime,
       arrGenres.map((e) => e.trim()),
       arrProviders.map((e) => e.trim())
     )
@@ -128,29 +106,14 @@ const MediaRequest = (props) => {
           <input
             id="input-rating"
             className="form-input"
-            placeholder="Rating"
+            placeholder="R, PG-13, ..."
             type="text"
             name="mpa_rating"
             value={mpa_rating}
             onChange={(e) => setMpaRating(e.target.value)}
           />
           <label className="form-label" htmlFor="input-rating">
-            Rating
-          </label>
-        </div>
-
-        <div className="user-input-container">
-          <input
-            id="input-runtime"
-            className="form-input"
-            placeholder="Runtime (min)"
-            type="text"
-            name="runtime"
-            value={runtime}
-            onChange={(e) => setRuntime(e.target.value)}
-          />
-          <label className="form-label" htmlFor="input-runtime">
-            Runtime
+            MPA Rating
           </label>
         </div>
 
@@ -158,7 +121,7 @@ const MediaRequest = (props) => {
           <input
             id="input-genres"
             className="form-input"
-            placeholder="Enter ',' between inputs"
+            placeholder="Drama, Action, Horror, ..."
             type="text"
             name="genres"
             value={genres}
@@ -173,7 +136,7 @@ const MediaRequest = (props) => {
           <input
             id="input-providers"
             className="form-input"
-            placeholder="Enter ',' between inputs"
+            placeholder="Netflix, Prime Video, Hulu, ..."
             type="text"
             name="providers"
             value={providers}

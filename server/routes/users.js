@@ -3,7 +3,7 @@ const router = express.Router()
 const { ObjectId } = require('mongodb')
 const { addToWatchlist, deleteFromWatchlist } = require('../data/users')
 const { verifyToken } = require('../middleware/auth')
-const { getUser } = require('../data/users')
+const { getUser, updateUser } = require('../data/users')
 
 function checkIsString(s) {
   if (typeof s != 'string') throw 'Given input is invalid'
@@ -22,10 +22,52 @@ router.get('/profile', verifyToken, async (req, res) => {
 
 router.put('/profile', verifyToken, async (req, res) => {
   // error check
-  // req.userId
+  let { firstName } = req.body
+  let { lastName } = req.body
+  let { email } = req.body
+  let { username } = req.body
+  let { password } = req.body
 
   try {
-    res.status(200).json(await getUser(req.userId))
+    if (!firstName) throw 'Must provide the first name'
+    if (!lastName) throw 'Must provide the last name'
+    if (!email) throw 'Must provide the email'
+    if (!username) throw 'Must provide the username'
+    if (!password) throw 'Must provide the password'
+
+    checkIsString(firstName)
+    checkIsString(lastName)
+    checkIsString(email)
+    checkIsString(username)
+    checkIsString(password)
+
+    checkIsName(firstName)
+    checkIsName(lastName)
+    checkIsEmail(email)
+    checkIsUsername(username)
+    checkIsPassword(password)
+  } catch (e) {
+    return res.status(400).send(String(e))
+  }
+  let userId = req.userId
+
+  try {
+    if (!userId) throw 'must provide user Id'
+    userId = ObjectId(userId)
+  } catch (e) {
+    return res.status(400).send(String(e))
+  }
+
+  try {
+    let user = await updateUser(
+      userId,
+      firstName,
+      lastName,
+      email,
+      username,
+      password
+    )
+    res.status(200).json(user)
   } catch (e) {
     res.sendStatus(500)
   }
