@@ -34,15 +34,22 @@ const MoviePage = (props) => {
   const [movieData, setMovieData] = useState(null)
   const [userData, setUserData] = useState(null)
   const [error, setError] = useState(null)
+  const [addedToWatchlist, setAddedToWatchlist] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
   const currUser = getCurrUser()
-  const addedToWatchlist = useCallback(
-    () => userData && userData.watchlist.find((e) => String(e._id) === movieId),
-    [userData, movieId]
-  )
 
   useEffect(() => {
+    if (movieData) document.title = movieData.name
+  }, [movieData])
+
+  useEffect(() => {
+    // get user info
+    getUserProfile().then((res) => setUserData(res.data))
+    // .catch((e) => {
+    //   console.log(e)
+    //   setError(e.response)
+    // })
     // request server with given movie id
     axios
       .get(`/api/movies/${movieId}`)
@@ -52,37 +59,55 @@ const MoviePage = (props) => {
         console.log(res.data)
       })
       .catch((e) => setError(e.response))
-    // get user info
-    getUserProfile().then((res) => setUserData(res.data))
-    // .catch((e) => {
-    //   console.log(e)
-    //   setError(e.response)
-    // })
   }, [movieId])
 
   useEffect(() => {
-    if (movieData) document.title = movieData.name
-  }, [movieData])
+    setAddedToWatchlist(
+      userData && userData.watchlist.find((e) => String(e._id) === movieId)
+    )
+  }, [userData, movieId])
+
+  // useEffect(() => {
+  //   if (addedToWatchlist) {
+  //     console.log('trying to remove')
+  //     deleteItem(movieData._id)
+  //       .then((_) => {
+  //         // navigate('/')
+  //         window.location.reload()
+  //       })
+  //       .catch((e) => setError(e.response))
+  //   }
+  //   else
+  //     postItem(movieData._id)
+  //       .then((_) => {
+  //         // navigate('/')
+  //         window.location.reload()
+  //       })
+  //       .catch((e) => setError(e.response))
+  // }, [addedToWatchlist, movieData])
 
   const handleWatchlist = (e) => {
-    // e.preventDefault()
-    // console.log(currUser)
+    e.preventDefault()
     if (!currUser) navigate('/login', { state: { from: location.pathname } })
-    // else if (currUser)
-    else if (addedToWatchlist())
+    else if (addedToWatchlist) {
+      console.log('trying to remove')
       deleteItem(movieData._id)
         .then((_) => {
           // navigate('/')
-          window.location.reload()
+          // window.location.reload()
+          setAddedToWatchlist(false)
         })
         .catch((e) => setError(e.response))
-    else
+    } else {
+      console.log('trying to add')
       postItem(movieData._id)
         .then((_) => {
           // navigate('/')
-          window.location.reload()
+          // window.location.reload()
+          setAddedToWatchlist(true)
         })
         .catch((e) => setError(e.response))
+    }
   }
 
   return (
@@ -155,7 +180,7 @@ const MoviePage = (props) => {
 
           {/* <div className="add-to-watchlist"> */}
           <button onClick={handleWatchlist}>
-            {addedToWatchlist() ? 'Remove from Watchlist' : 'Add To Watchlist'}
+            {addedToWatchlist ? 'Remove from Watchlist' : 'Add To Watchlist'}
           </button>
           {/* </div> */}
 
@@ -184,7 +209,7 @@ const MoviePage = (props) => {
               </p>
             </h2>
           </div>
-          <ReviewForm contentId={movieId} />
+          <ReviewForm contentId={movieId} contentName={movieData.name} />
           <ReviewList reviews={movieData.reviews} />
         </div>
       ) : (

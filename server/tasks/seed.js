@@ -81,7 +81,6 @@ const main = async () => {
   const movieData = await getMovieData(NUM_MEDIA, movieReqs)
   for (const data of movieData) {
     let movie = await createMovie(...data)
-    let myObj = {}
     movieInfo.push(movie)
   }
 
@@ -89,9 +88,6 @@ const main = async () => {
   const showData = await getShowData(NUM_MEDIA, showReqs)
   for (const data of showData) {
     let show = await createShow(...data)
-    let myObj = {}
-    myObj['id'] = show._id
-    myObj['name'] = show.name
     showInfo.push(show)
   }
 

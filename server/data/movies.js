@@ -96,6 +96,7 @@ const create = async (
     video: video,
     providers: providers,
     revenue: revenue,
+    isMovie: true,
     overall_rating: null,
     reviews: [],
   })
