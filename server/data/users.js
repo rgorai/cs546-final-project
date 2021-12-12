@@ -225,7 +225,7 @@ const addToWatchlist = async (userId, itemId) => {
 
 const deleteFromWatchlist = async (userId, itemId) => {
   //error checking
-  console.log('in the delete watchlist')
+
   if (!userId) throw 'Must provide the user id'
   if (!itemId) throw 'Must provide id of the item to be deleted'
 
@@ -246,8 +246,6 @@ const deleteFromWatchlist = async (userId, itemId) => {
   if (item === null) {
     item = await shows.findOne({ _id: itemId })
   }
-
-  console.log(item)
 
   if (!item) throw 'Content not found'
 
