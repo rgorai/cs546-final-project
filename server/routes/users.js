@@ -38,10 +38,11 @@ router.put('/watchlist', verifyToken, async (req, res) => {
   let userId = req.userId
 
   try {
+    if (!itemId) throw 'must provide itemId'
     userId = ObjectId(userId)
     itemId = ObjectId(itemId)
   } catch (e) {
-    return res.status(400).send('invalid object id')
+    return res.status(400).send(String(e))
   }
 
   try {
@@ -53,19 +54,20 @@ router.put('/watchlist', verifyToken, async (req, res) => {
 })
 
 // removing from watchlist
-router.delete('/watchlist/:id', verifyToken, async (req, res) => {
+router.delete('/watchlist', verifyToken, async (req, res) => {
   let { itemId } = req.body
   let userId = req.userId
 
   try {
+    if (!itemId) throw 'must provide itemId'
     userId = ObjectId(userId)
     itemId = ObjectId(itemId)
   } catch (e) {
-    return res.status(400).send('invalid object id')
+    return res.status(400).send(String(e))
   }
 
   try {
-    let user = await addToWatchlist(userId, itemId)
+    let user = await deleteFromWatchlist(userId, itemId)
     res.status(200).json(user)
   } catch (e) {
     res.status(400).send(String(e))

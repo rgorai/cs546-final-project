@@ -20,7 +20,6 @@ const getMovieProviders = async (movieId) => {
 }
 const getShow = async (showId) => {
   const url = tmbdUrl + 'tv/' + showId + tmdbApiKey + append
-
   return await tmdbRequest(url)
 }
 const getShowProviders = async (showId) => {
@@ -45,7 +44,7 @@ const tmdbRequest = async (url) => {
       res = prompt('Try again and continue? (y/n) ')
       switch (res) {
         case 'y':
-          return await tmdbRequest(url)
+          return { again: true }
         case 'n':
           throw 'Seeding terminated'
         default:
@@ -69,6 +68,10 @@ const getMediaData = async (
     const mediaId = allMedia[Math.floor(Math.random() * allMedia.length)].id
     const mediaRes = await getMedia(mediaId)
     process.stdout.write('|')
+    if (mediaRes.again) {
+      i--
+      continue
+    }
 
     // check reqs
     let skip = false
@@ -88,7 +91,12 @@ const getMediaData = async (
     if (skip) continue
 
     // update retval
-    mediaRes.providers = await getMediaProviders(mediaId)
+    const provRes = await getMediaProviders(mediaId)
+    if (provRes.again) {
+      i--
+      continue
+    }
+    mediaRes.providers = provRes
     media.push(propsToAdd.map((k) => mediaRes[k]))
   }
 
