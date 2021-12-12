@@ -6,7 +6,7 @@ const getUserProfile = () => {
 }
 
 const updateUserProfile = (userData) => {
-  return axios.post('/api/user/profile', userData, { headers: authHeader() })
+  return axios.put('/api/user/profile', userData, { headers: authHeader() })
 }
 
 const postReview = (reviewData) => {

@@ -8,9 +8,7 @@ const Review = (props) => {
     <div className="review-container">
       <div className="flex-horizontal">
         <div className="flex-horizontal">
-          <span htmlFor="" className="desc-bold">
-            {props.reviewer}
-          </span>
+          <span className="desc-bold">{props.reviewer}</span>
           <span className="like-dislike-container">
             <div
               className={`like-button ${
@@ -38,7 +36,7 @@ const Review = (props) => {
             </div>
           </span>
         </div>
-        <div htmlFor="" className="desc-bold">
+        <div className="desc-bold">
           {moment(props.dateOfReview, 'YYYY-MM-DD').format('MM/DD/YYYY')}
         </div>
       </div>

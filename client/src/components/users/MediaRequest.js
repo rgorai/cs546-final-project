@@ -72,19 +72,19 @@ const MediaRequest = (props) => {
   }
 
   return (
-    <div className="media-request-container">
-      <h2>Request Media to be Added</h2>
-      <form id="user-media-request" onSubmit={onFormSubmit}>
+    <div className="card-background media-request-container">
+      <h2>Media Request</h2>
+      <form id="media-request-form" onSubmit={onFormSubmit}>
         <div className="user-input-container">
           <input
             id="input-name"
-            placeholder="Movie Name"
+            placeholder="Movie/Show Name"
             type="text"
             name="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <label htmlFor="input-name">Movie Name</label>
+          <label htmlFor="input-name">Media Name</label>
         </div>
 
         <div className="user-input-container">
@@ -162,9 +162,9 @@ const MediaRequest = (props) => {
           </label>
         </div>
 
-        {error ? <div className="login-error">{error}</div> : null}
+        {error ? <div className="form-error">{error}</div> : null}
 
-        <button className="form-submit" type="submit" form="user-media-request">
+        <button className="form-submit" type="submit" form="media-request-form">
           Submit
         </button>
       </form>

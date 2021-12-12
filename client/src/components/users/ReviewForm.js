@@ -55,7 +55,7 @@ const ReviewForm = (props) => {
       review: review,
       like_dislike: liked ? 1 : 0,
     })
-      .then((res) => window.location.reload())
+      .then((_) => window.location.reload())
       .catch((e) => console.log(e.response))
   }
 

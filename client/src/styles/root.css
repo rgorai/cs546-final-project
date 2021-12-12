@@ -12,10 +12,6 @@ body {
   height: 100%;
 }
 
-body * {
-  transition: color 0.2s ease-in-out;
-}
-
 main {
   margin-top: 70px;
   padding-top: 40px;
@@ -26,15 +22,40 @@ button {
   background-color: #ff8c02;
   font-weight: bold;
   color: rgba(8, 10, 12, 0.616); 
-  border-radius: 8px;
+  border-radius: 9px;
   font-size: 13px;
   border: none;
   outline: none;
   padding: 0 10px;
+  filter: 0;
+  transition: 0.15s ease-in-out;
 }
 
 button:hover {
-  filter: brightness(0.8);
+  filter: brightness(0.85);
+}
+
+button:active {
+  filter: brightness(0.7);
+}
+
+input, textarea {
+  outline: 0;
+  border: 0;
+  border-radius: 10px;
+  transition: outline 0.2s ease-in-out;
+}
+
+input:hover, input:focus, textarea:hover, textarea:focus {
+  outline: 4px solid rgba(149, 183, 202, 0.733);
+}
+
+.form-error {
+  margin-top: 30px;
+  background-color: #eec0c0;
+  color: #c22626;
+  padding: 8px 12px;
+  border-radius: 8px;
 }
 
 .loading {
@@ -46,6 +67,7 @@ button:hover {
   text-align: center;
   border-radius: 20px;
   padding: 50px;
+  color: white;
 }
 
 .flex-horizontal {
@@ -105,7 +127,7 @@ h1, h2, h3 {
   margin-top: 50px;
   width: 100%;
   vertical-align: middle;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   align-items: center;
 }
 
@@ -134,7 +156,6 @@ h1, h2, h3 {
   height: min-content;
   vertical-align: middle;
 }
-
 
 .media-detail-container {
   height: 25px;
@@ -169,4 +190,8 @@ h1, h2, h3 {
 .media-active-nav {
   color: #ff8c02;
   text-decoration: underline;
+}
+
+.watchlist-remove {
+  background-color: #e95c5c !important;
 }

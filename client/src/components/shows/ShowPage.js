@@ -154,8 +154,9 @@ const ShowPage = (props) => {
           {showData.video ? (
             <Youtube videoId={showData.video.key} opts={opts} />
           ) : (
-            <p>No Trailer Available</p>
+            <div className="none-message">No trailer available</div>
           )}
+
           <div className="flex-horizontal media-review-heading">
             <h2>User Reviews</h2>
             <h2 className="flex-horizontal">

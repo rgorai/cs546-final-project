@@ -39,28 +39,26 @@ const UserProfile = (props) => {
       <MediaList name="My Watchlist" mediaList={user.watchlist} />
 
       <div className="user-reviews">
-        <label htmlFor="" className="desc-bold heading">
-          My Reviews :
-        </label>
+        <label className="desc-bold heading">My Reviews :</label>
         {user.reviews.length === 0 ? (
-          <p>You haven't reviewed any entertainment programmes yet.</p>
+          <div className="none-message">No Reviews</div>
         ) : (
-          user.reviews.map((item) => (
-            <div>
+          user.reviews.map((item, i) => (
+            <div key={i}>
               <p>
-                <label htmlFor="">Content Name:</label>
+                <label>Content Name:</label>
                 {item.contentName}
               </p>
               <p>
-                <label htmlFor="">Date of Review: </label>
+                <label>Date of Review: </label>
                 {item.dateOfReview}
               </p>
               <p>
-                <label htmlFor="">Liked / Disliked: </label>
+                <label>Liked / Disliked: </label>
                 {item.like_dislike === 1 ? 'Liked' : 'Disliked'}
               </p>
               <p>
-                <label htmlFor="">Review: </label> {item.review}
+                <label>Review: </label> {item.review}
               </p>
             </div>
           ))

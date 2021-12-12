@@ -73,11 +73,7 @@ const App = () => {
               path="/movies"
               element={<Navigate to="/movies/all" />}
             />
-            <Route
-              exact
-              path="/movies/all"
-              element={/*<ValidateMoviesQuery />*/ <AllMoviesPage />}
-            />
+            <Route exact path="/movies/all" element={<AllMoviesPage />} />
             <Route exact path="/movies/bygenre" element={<MoviesByGenre />} />
             <Route
               exact
@@ -115,8 +111,6 @@ const App = () => {
             />
           </Routes>
         </main>
-
-        <footer>{/* This is the footer */}</footer>
       </Router>
     </div>
   )

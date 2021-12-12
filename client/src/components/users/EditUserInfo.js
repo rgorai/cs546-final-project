@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react'
 import { getUserProfile, updateUserProfile } from '../../services/userService'
 import ApiError from '../errors/ApiError'
-import '../../styles/users/userProfile.css'
+import '../../styles/users/editUserInfo.css'
+import { useNavigate } from 'react-router-dom'
 
-const UserProfile = (props) => {
+const EditUserProfile = (props) => {
+  const navigate = useNavigate()
   const [user, setUser] = useState(null)
   const [error, setError] = useState(null)
-  const [firstName, setFirstName] = useState(null)
-  const [lastName, setLastName] = useState(null)
-  const [email, setEmail] = useState(null)
-  const [username, setUsername] = useState(null)
-  const [password, setPassword] = useState(null)
-  // const currUser = getCurrUser()
+  const [formError, setFormError] = useState(null)
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   // request user profile
   useEffect(() => {
@@ -22,17 +25,24 @@ const UserProfile = (props) => {
   }, [])
 
   // post new data
-  const onFormSubmit = () => {
-    updateUserProfile()
-      .then((res) => setUser(res.data))
-      .catch((e) => setError(e.response))
+  const onFormSubmit = (e) => {
+    e.preventDefault()
+    updateUserProfile({
+      firstName,
+      lastName,
+      email,
+      username,
+      password,
+    })
+      .then((res) => navigate(-1))
+      .catch((e) => setFormError(e.response.data))
   }
 
   return error ? (
     <ApiError error={error} />
   ) : user ? (
-    <div className="profile-container">
-      <form id="user-profile-form" onSubmit={onFormSubmit}>
+    <div className="card-background edit-user-container">
+      <form id="edit-user-form" onSubmit={onFormSubmit}>
         <div className="user-input-container">
           <input
             id="input-firstname"
@@ -41,6 +51,7 @@ const UserProfile = (props) => {
             name="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            autoFocus
           />
           <label htmlFor="input-firstname">First Name</label>
         </div>
@@ -107,21 +118,24 @@ const UserProfile = (props) => {
 
         <div className="user-input-container">
           <input
-            id="input-confirm-password"
+            id="input-password-confirm"
             className="form-input"
             placeholder="Confirm Password"
             type="password"
-            name="confirmpassword"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <label className="form-label" htmlFor="input-confirm-password">
+          <label className="form-label" htmlFor="input-password-confirm">
             Confirm Password
           </label>
-          <button className="form-submit" type="submit" form="new-user-form">
-            Submit
-          </button>
         </div>
+
+        <button className="form-submit" type="submit" form="edit-user-form">
+          Submit
+        </button>
+
+        {error && <div className="form-error">{error}</div>}
       </form>
     </div>
   ) : (
@@ -129,4 +143,4 @@ const UserProfile = (props) => {
   )
 }
 
-export default UserProfile
+export default EditUserProfile

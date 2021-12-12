@@ -145,7 +145,12 @@ const MoviePage = (props) => {
             </div>
           </div>
 
-          <button onClick={handleWatchlist}>
+          <button
+            onClick={handleWatchlist}
+            className={`watchlist-button ${
+              addedToWatchlist ? 'watchlist-remove' : ''
+            }`}
+          >
             {addedToWatchlist ? 'Remove from Watchlist' : 'Add To Watchlist'}
           </button>
 
@@ -158,23 +163,26 @@ const MoviePage = (props) => {
             <div className="none-message">No trailer available</div>
           )}
 
-          <div className="flex-horizontal media-review-heading">
-            <h2>User Reviews</h2>
-            <h2 className="flex-horizontal">
-              <FontAwesomeIcon
-                icon={faThumbsUp}
-                className="icon"
-                id="thumbs-up"
-                size="2x"
-              />
-              <p>
-                {movieData.overall_rating
-                  ? `${Math.floor(movieData.overall_rating)}%`
-                  : 'No Rating'}
-              </p>
-            </h2>
+          <div>
+            <div className="flex-horizontal media-review-heading">
+              <h2>User Reviews</h2>
+              <h2 className="flex-horizontal">
+                <FontAwesomeIcon
+                  icon={faThumbsUp}
+                  className="icon"
+                  id="thumbs-up"
+                  size="2x"
+                />
+                <p>
+                  {movieData.overall_rating
+                    ? `${Math.floor(movieData.overall_rating)}%`
+                    : 'No Rating'}
+                </p>
+              </h2>
+            </div>
+            <ReviewForm contentId={movieId} contentName={movieData.name} />
           </div>
-          <ReviewForm contentId={movieId} contentName={movieData.name} />
+          <br />
           <ReviewList reviews={movieData.reviews} />
         </div>
       ) : (

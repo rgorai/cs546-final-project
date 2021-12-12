@@ -11,6 +11,22 @@ function checkIsString(s) {
   if (s.trim().length === 0) throw 'Given input is all white spaces'
 }
 
+function checkIsName(s) {
+  if (/[^a-zA-Z]/.test(s)) throw 'Given input is not only letters'
+}
+
+function checkIsPassword(s) {
+  if (s.length < 8) throw 'Given password size is less than 8'
+}
+
+function checkIsEmail(s) {
+  if (!/^\S+@[a-zA-Z]+\.[a-zA-Z]+$/.test(s)) throw 'Given email id is invalid'
+}
+
+function checkIsUsername(s) {
+  if (s.length < 4) throw 'Given username size is less than 4'
+}
+
 router.get('/profile', verifyToken, async (req, res) => {
   // error check
   try {

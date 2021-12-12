@@ -53,7 +53,7 @@ const LoginPage = (props) => {
   }
 
   return (
-    <div className="login-container">
+    <div className="card-background login-container">
       {props.loggedIn ? (
         <div>You are already signed in.</div>
       ) : (
@@ -83,12 +83,11 @@ const LoginPage = (props) => {
             <label htmlFor="input-password">Password</label>
           </div>
 
-          {/* display error here */}
-          {error && <div className="login-error">{error}</div>}
-
           <button type="submit" form="login-form">
             Login
           </button>
+
+          {error && <div className="form-error">{error}</div>}
         </form>
       )}
     </div>
