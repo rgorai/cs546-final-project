@@ -202,11 +202,10 @@ const addToWatchlist = async (userId, itemId) => {
 
   watchlist = user.watchlist
   for (let x of watchlist) {
-    if (String(x._id) === String(item._id)) {
+    if (ObjectId(x._id).toString() === ObjectId(item._id).toString()) {
       throw 'item already in the watchlist'
     }
   }
-
   watchlist.push(item)
 
   let updatedUser = {
@@ -226,6 +225,7 @@ const addToWatchlist = async (userId, itemId) => {
 
 const deleteFromWatchlist = async (userId, itemId) => {
   //error checking
+
   if (!userId) throw 'Must provide the user id'
   if (!itemId) throw 'Must provide id of the item to be deleted'
 
