@@ -29,9 +29,13 @@ const showSortItems = {
     compare: compareDates,
   },
   number_of_seasons: {
-    text: 'No. Episodes',
+    text: 'No. Seasons',
     compare: compareNumbers,
   },
+  number_of_episodes: {
+    text: 'No. Episodes',
+    compare: compareNumbers,
+  }
 }
 
 const AllShowsPage = (props) => {

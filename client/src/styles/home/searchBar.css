@@ -29,6 +29,10 @@
   color: black;
 }
 
+.searchInput{
+  border-radius:0.5em !important;
+}
+
 .autocomplete-div p {
   margin: 0;
   padding: 10px 5px;
