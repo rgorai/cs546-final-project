@@ -1,11 +1,14 @@
 # cs546-final-project
 
-NOTE: Seeding the database may yield explicit results.
+NOTES:
+- Please run client on Chrome
+- Seeding the database may yield explicit results
 
 Testing:
  - run with server off
  - run with empty collections
  - run with less/more data in collections
+ - can sign in with email or username
  - try every combination of routes
  - try accessing protected content when not authorized / vice versa
  - invalid inputs on all forms
@@ -14,6 +17,7 @@ Testing:
  - redirect to login redirects back to review
  - test adding/removing to/from watchlist
  - test creating, editing, deleting review -> check trending updates
+ - tool tips on cards/images
 
 Code Style:
  - use single-quotes except in html

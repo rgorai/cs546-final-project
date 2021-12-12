@@ -73,10 +73,7 @@ const SignupPage = (props) => {
         navigate('/')
         window.location.reload()
       })
-      .catch((e) => {
-        console.log(e)
-        setError(e.response.data)
-      })
+      .catch((e) => setError(e.response.data))
   }
 
   return (
