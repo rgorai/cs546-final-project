@@ -6,7 +6,7 @@ import { create } from '../../services/mediaService'
 import { getUserProfile } from '../../services/userService'
 import ApiError from '../errors/ApiError'
 //import '../../styles/users/userProfile.css'
-import '../../styles/users/newUserForm.css'
+import '../../styles/users/mediaRequest.css'
 /*
  * define error checking functions here
  *
@@ -63,9 +63,6 @@ const MediaRequest = (props) => {
     let arrGenres = genres.split(',')
     let arrProviders = providers.split(',')
 
-    console.log(arrGenres)
-    console.log(arrProviders)
-
     // error check
     try {
       checkIsString(name)
@@ -96,9 +93,13 @@ const MediaRequest = (props) => {
   }
 
   return (
-    <div className="media-request">
+    <div className="media-container">
       <h2>Like to add a movie?</h2>
       <form id="user-media-request" onSubmit={onFormSubmit}>
+        {/* display error here */}
+
+        {error ? <div className="login-error">{error}</div> : null}
+
         <div className="user-input-container">
           <input
             id="input-name"
