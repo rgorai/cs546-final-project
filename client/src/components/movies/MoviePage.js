@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -46,10 +46,6 @@ const MoviePage = (props) => {
   useEffect(() => {
     // get user info
     getUserProfile().then((res) => setUserData(res.data))
-    // .catch((e) => {
-    //   console.log(e)
-    //   setError(e.response)
-    // })
     // request server with given movie id
     axios
       .get(`/api/movies/${movieId}`)
@@ -67,45 +63,18 @@ const MoviePage = (props) => {
     )
   }, [userData, movieId])
 
-  // useEffect(() => {
-  //   if (addedToWatchlist) {
-  //     console.log('trying to remove')
-  //     deleteItem(movieData._id)
-  //       .then((_) => {
-  //         // navigate('/')
-  //         window.location.reload()
-  //       })
-  //       .catch((e) => setError(e.response))
-  //   }
-  //   else
-  //     postItem(movieData._id)
-  //       .then((_) => {
-  //         // navigate('/')
-  //         window.location.reload()
-  //       })
-  //       .catch((e) => setError(e.response))
-  // }, [addedToWatchlist, movieData])
-
   const handleWatchlist = (e) => {
     e.preventDefault()
     if (!currUser) navigate('/login', { state: { from: location.pathname } })
     else if (addedToWatchlist) {
       console.log('trying to remove')
       deleteItem(movieData._id)
-        .then((_) => {
-          // navigate('/')
-          // window.location.reload()
-          setAddedToWatchlist(false)
-        })
+        .then((_) => setAddedToWatchlist(false))
         .catch((e) => setError(e.response))
     } else {
       console.log('trying to add')
       postItem(movieData._id)
-        .then((_) => {
-          // navigate('/')
-          // window.location.reload()
-          setAddedToWatchlist(true)
-        })
+        .then((_) => setAddedToWatchlist(true))
         .catch((e) => setError(e.response))
     }
   }
