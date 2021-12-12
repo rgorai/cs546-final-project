@@ -49,10 +49,7 @@ const LoginPage = (props) => {
         navigate(state && state.from ? state.from : '/')
         window.location.reload()
       })
-      .catch((e) => {
-        // console.log(e)
-        setError(e.response.data)
-      }) // get error from server
+      .catch((e) => setError(e.response.data))
   }
 
   return (

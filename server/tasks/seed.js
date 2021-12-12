@@ -105,7 +105,6 @@ const main = async () => {
   }
 
   // insert reviews
-
   for (let i = 0; i < NUM_MEDIA_TO_REVIEW; i++) {
     let movie = movieInfo[Math.floor(Math.random() * movieInfo.length)]
     let show = showInfo[Math.floor(Math.random() * showInfo.length)]
