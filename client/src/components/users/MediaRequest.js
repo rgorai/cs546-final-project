@@ -103,7 +103,7 @@ const MediaRequest = (props) => {
         <div className="user-input-container">
           <input
             id="input-name"
-            placeholder="Movie/TV Show Name"
+            placeholder="Movie Name"
             type="text"
             name="name"
             value={name}

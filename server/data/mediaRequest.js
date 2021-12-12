@@ -61,7 +61,7 @@ const createByUser = async (
   }
 
   let currentDate = new Date();
-  if(releaseDate > currentDate) throw "Release data cannot be a future date"
+  if(new Date(releaseDate) > currentDate) throw "Release data cannot be a future date"
 
 
   // add new movie to db
