@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 
-import ShowCard from './ShowCard'
 import ShowList from './ShowList'
 import ApiError from '../errors/ApiError'
 import ShowsNavBar from '../menus/ShowsNavBar'
-import ShowSortMenu from '../menus/ShowSortMenu'
+import SortMenu from '../menus/SortMenu'
 import '../../styles/shows/allShowsPage.css'
 
-const DEFAULT_SORT = 'name'
+const DEFAULT_SORT = 'overall_rating'
 const DEFAULT_ORDER = false
 
 // sort algorithms switch items even if they have same values
@@ -17,20 +16,20 @@ const compareNumbers = (a, b) => (a - b <= 0 ? -1 : 1)
 const compareDates = (a, b) => (Date.parse(a) - Date.parse(b) <= 0 ? -1 : 1)
 const compareStrings = (a, b) => (a.toLowerCase() <= b.toLowerCase() ? -1 : 1)
 const showSortItems = {
-  name: {
-    text: 'Title',
-    compare: compareStrings,
-  },
   overall_rating: {
     text: 'Popularity',
     compare: compareNumbers,
+  },
+  name: {
+    text: 'Title',
+    compare: compareStrings,
   },
   release_date: {
     text: 'Release Date',
     compare: compareDates,
   },
   number_of_seasons: {
-    text: 'Seasons',
+    text: 'No. Episodes',
     compare: compareNumbers,
   },
 }
@@ -77,8 +76,8 @@ const AllShowsPage = (props) => {
     <>
       <ShowsNavBar
         SortMenu={
-          <ShowSortMenu
-            props={{ showSortItems, DEFAULT_SORT, DEFAULT_ORDER }}
+          <SortMenu
+            props={{ sortItems: showSortItems, DEFAULT_SORT, DEFAULT_ORDER }}
           />
         }
       />

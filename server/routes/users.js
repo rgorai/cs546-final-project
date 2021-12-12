@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { ObjectId } = require('mongodb')
 const { addToWatchlist, deleteFromWatchlist } = require('../data/users')
 const { verifyToken } = require('../middleware/auth')
 const { getUser } = require('../data/users')
@@ -12,8 +13,6 @@ function checkIsString(s) {
 
 router.get('/profile', verifyToken, async (req, res) => {
   // error check
-  // req.userId
-
   try {
     res.status(200).json(await getUser(req.userId))
   } catch (e) {
@@ -32,63 +31,45 @@ router.put('/profile', verifyToken, async (req, res) => {
   }
 })
 
-// use verifyToken for things that need authentication:
 // adding to watchlist
-router.put('/watchlist/:id', verifyToken, async (req, res) => {
+router.put('/watchlist', verifyToken, async (req, res) => {
   //error checking
-  if (!req.params.id)
-    throw 'You must specify an ID of the user to update the watchlist'
-  let { name } = req.body
-
-  if (!name) {
-    res
-      .status(400)
-      .send('You must provide a movie/ TV show name to add to the watchlist')
-  }
+  let { itemId } = req.body
+  let userId = req.userId
 
   try {
-    checkIsString(name)
+    userId = ObjectId(userId)
+    itemId = ObjectId(itemId)
   } catch (e) {
-    return res.status(400).send(String(e))
+    return res.status(400).send('invalid object id')
   }
 
   try {
-    let user = await addToWatchlist(req.params.id, name)
+    let user = await addToWatchlist(userId, itemId)
     res.status(200).json(user)
   } catch (e) {
     res.status(400).send(String(e))
   }
 })
+
 // removing from watchlist
 router.delete('/watchlist/:id', verifyToken, async (req, res) => {
-  //error checking
-  if (!req.params.id)
-    throw 'You must specify an ID of the user to update the watchlist'
-  let { name } = req.body
-
-  if (!name) {
-    res
-      .status(400)
-      .send(
-        'You must provide a movie/ TV show name to delete from the watchlist'
-      )
-  }
+  let { itemId } = req.body
+  let userId = req.userId
 
   try {
-    checkIsString(name)
+    userId = ObjectId(userId)
+    itemId = ObjectId(itemId)
   } catch (e) {
-    return res.status(400).send(String(e))
+    return res.status(400).send('invalid object id')
   }
 
   try {
-    let user = await deleteFromWatchlist(name)
+    let user = await addToWatchlist(userId, itemId)
     res.status(200).json(user)
   } catch (e) {
     res.status(400).send(String(e))
   }
 })
-// creating a review
-// deleting a review
-// liking/disliking a movie
 
 module.exports = router

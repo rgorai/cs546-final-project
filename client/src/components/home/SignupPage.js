@@ -73,7 +73,7 @@ const SignupPage = (props) => {
         navigate('/')
         window.location.reload()
       })
-      .catch((e) => setError(e.response))
+      .catch((e) => setError(e.response.data))
   }
 
   return (
@@ -170,6 +170,7 @@ const SignupPage = (props) => {
             </label>
           </div>
 
+          {/* display error here */}
           {error && <div className="login-error">{error}</div>}
 
           <button className="form-reset" type="reset" form="new-user-form">

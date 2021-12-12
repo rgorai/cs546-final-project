@@ -18,7 +18,6 @@ function checkIsString(s) {
 
 router.get('/', async (req, res) => {
   // send all shows
-  console.log('here')
   try {
     res.status(200).json(await getAll())
   } catch (e) {
@@ -58,7 +57,6 @@ router.get('/bytrending', async (req, res) => {
 //route to get tv shows of a specific id
 router.get('/:id', async (req, res) => {
   let showId = req.params.id
-  console.log('here')
 
   // error check
   if (

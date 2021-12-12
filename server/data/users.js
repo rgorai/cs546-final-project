@@ -1,5 +1,7 @@
 const mongoCollections = require('../config/mongoCollections')
 const userCollection = mongoCollections.users
+const movieCollection = mongoCollections.movies
+const showCollection = mongoCollections.shows
 const { ObjectId } = require('mongodb')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -62,12 +64,10 @@ const create = async (firstName, lastName, email, username, password) => {
 
   // check if email exists
   const users = await userCollection()
-  if (await users.findOne({ email: email }))
-    return { error: 'Email address is taken.' }
+  if (await users.findOne({ email: email })) throw 'Email address is taken.'
 
   // check if username exists
-  if (await users.findOne({ username: username }))
-    return { error: 'Username is taken.' }
+  if (await users.findOne({ username: username })) throw 'Username is taken.'
 
   // add new user to db
   const insertRet = await users.insertOne({
@@ -99,7 +99,6 @@ const authenticateUser = async (username, password) => {
   try {
     checkIsString(username)
     checkIsString(password)
-
     checkIsUsername(username)
     checkIsPassword(password)
   } catch (e) {
@@ -147,13 +146,7 @@ const getUser = async (userId) => {
 
   if (!user) throw 'Error: failed to find user.'
 
-  return {
-    ...user,
-    _id: user._id.toString(),
-    // reviews: restaurant.reviews.map((e) => (
-    //   { ...e, _id: e._id.toString() }
-    // ))
-  }
+  return { ...user, _id: user._id.toString() }
 }
 
 const getByEmail = async (email) => {
@@ -182,91 +175,95 @@ const getByEmail = async (email) => {
   return user
 }
 
-const addToWatchlist = async (id, str) => {
+const addToWatchlist = async (userId, itemId) => {
   //error checking
-  if (!str) throw 'Must provide a movie/show name to add to the watchlist'
-
-  str = str.trim()
+  if (!userId) throw 'Must provide the user id'
+  if (!itemId) throw 'Must provide id of the item to be added'
 
   try {
-    checkIsString(str)
+    userId = ObjectId(userId)
+    itemId = ObjectId(itemId)
   } catch (e) {
     throw String(e)
   }
 
   const users = await userCollection()
-  let user = await getUser(id)
-  watchlist = user.watchlist
+  const movies = await movieCollection()
+  const shows = await showCollection()
 
-  try {
-    id = ObjectId(id)
-  } catch (e) {
-    throw String(e)
+  let user = await users.findOne({ _id: userId })
+  let item = await movies.findOne({ _id: itemId })
+
+  if (item === null) {
+    item = await shows.findOne({ _id: itemId })
   }
 
+  if (!item) throw 'Content not found'
+
+  watchlist = user.watchlist
   for (let x of watchlist) {
-    if (x === str) {
+    if (x._id === item._id) {
       throw 'item already in the watchlist'
     }
   }
 
-  watchlist.push(str)
+  watchlist.push(item)
 
   let updatedUser = {
     watchlist: watchlist,
   }
+
   //add the item to the watchlist
-
-  const updatedInfo = await users.updateOne({ _id: id }, { $set: updatedUser })
-
-  if (updatedInfo.updatedCount === 0) throw 'Could not update the watchList'
-
-  return user
-}
-
-const deleteFromWatchlist = async (id, str) => {
-  //error checking
-  if (!str) throw 'Must provide a movie name to add to the watchlist'
-
-  str = str.toLowerCase().trim()
-
-  try {
-    checkIsString(str)
-  } catch (e) {
-    throw String(e)
-  }
-
-  const users = await userCollection()
-  let user = await getUser(id)
-
-  try {
-    id = ObjectId(id)
-  } catch (e) {
-    throw String(e)
-  }
-
-  const watchlist = user.watchlist
-
-  //delete the item from the watchlist
-
-  const updatedWatchlist = watchlist.filter(function (item) {
-    return item !== str
-  })
-
-  console.log(updatedWatchlist)
-
-  let updatedUser = {
-    watchlist: updatedWatchlist,
-  }
-
   const updatedInfo = await users.updateOne(
-    { _id: parsedId },
+    { _id: userId },
     { $set: updatedUser }
   )
 
   if (updatedInfo.updatedCount === 0) throw 'Could not update the watchList'
 
-  return user
+  return { addedToWatchlist: true }
+}
+
+const deleteFromWatchlist = async (userId, itemId) => {
+  //error checking
+  if (!userId) throw 'Must provide the user id'
+  if (!itemId) throw 'Must provide id of the item to be deleted'
+
+  try {
+    userId = ObjectId(userId)
+    itemId = ObjectId(itemId)
+  } catch (e) {
+    throw String(e)
+  }
+
+  const users = await userCollection()
+  const movies = await movieCollection()
+  const shows = await showCollection()
+
+  let user = await users.findOne({ _id: userId })
+  let item = await movies.findOne({ _id: itemId })
+
+  if (item === null) {
+    item = await shows.findOne({ _id: itemId })
+  }
+
+  if (!item) throw 'Content not found'
+
+  watchlist.filter((e) => String(e._id) !== itemId)
+
+  let updatedUser = {
+    watchlist: watchlist,
+  }
+
+  //add the item to the watchlist
+  const updatedInfo = await users.updateOne(
+    { _id: userId },
+    { $set: updatedUser }
+  )
+
+  if (updatedInfo.updatedCount === 0) throw 'Could not update the watchList'
+
+  return { removedFromWatchlist: true }
 }
 
 const updatePassword = async (id, password) => {
@@ -294,7 +291,7 @@ const updatePassword = async (id, password) => {
     throw 'Could not update user successfully'
   }
 
-  return true //await this.getById(id)
+  return true
 }
 
 module.exports = {

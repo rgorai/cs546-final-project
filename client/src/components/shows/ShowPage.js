@@ -1,6 +1,9 @@
-import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
+import { getCurrUser } from '../../services/authService'
+import { useNavigate, useLocation } from 'react-router-dom'
+
+import { postItem } from '../../services/userService'
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -28,8 +31,11 @@ const ShowPage = (props) => {
   const { id: showId } = useParams()
   const [showData, setShowData] = useState(null)
   const [error, setError] = useState(null)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const currUser = getCurrUser()
 
-  // request server with given movie id
+  // request server with given show id
   useEffect(() => {
     axios
       .get(`/api/shows/${showId}`)
@@ -44,12 +50,24 @@ const ShowPage = (props) => {
     if (showData) document.title = showData.name
   }, [showData])
 
+  const addToWatchlist = (e) => {
+    e.preventDefault()
+    if (!currUser) navigate('/login', { state: { from: location.pathname } })
+    else
+      postItem(showData._id)
+        .then((_) => {
+          navigate('/')
+          window.location.reload()
+        })
+        .catch((e) => setError(e.response.data))
+  }
+
   return (
     <>
       {error ? (
         <ApiError error={error} />
       ) : showData ? (
-        <div className="card-background movie-page-container">
+        <div className="card-background show-page-container">
           <div className="flex-horizontal media-top-container">
             <img
               className="show-page-img"
@@ -65,19 +83,15 @@ const ShowPage = (props) => {
               <div className="show-year">
                 {moment(showData.release_date, 'YYYY-MM-DD').format('YYYY')}
               </div>
-              <table className="movie-info-container">
+              <table className="show-info-container">
                 <tbody>
                   <ShowDetail
                     label="MPA RATING"
                     data={showData.mpa_rating ? showData.mpa_rating : 'NR'}
                   />
                   <ShowDetail
-                    label="RUNTIME"
-                    data={`${
-                      Math.floor(showData.runtime / 60) > 0
-                        ? Math.floor(showData.runtime / 60) + 'h '
-                        : ''
-                    }${showData.runtime % 60}min`}
+                    label="NO. EPISODES"
+                    data={showData.number_of_episodes}
                   />
                   <ShowDetail
                     label="GENRES"
@@ -125,7 +139,11 @@ const ShowPage = (props) => {
                 id="thumbs-up"
                 size="2x"
               />
-              <p>{`${Math.floor(showData.overall_rating)}%`}</p>
+              <p>
+                {showData.overall_rating
+                  ? `${Math.floor(showData.overall_rating)}%`
+                  : 'No Rating'}
+              </p>
             </h2>
           </div>
           <ReviewForm contentId={showId} />

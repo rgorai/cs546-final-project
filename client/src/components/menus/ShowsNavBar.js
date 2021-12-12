@@ -17,7 +17,7 @@ const ShowsNavBar = (props) => {
             <li key={i}>
               <Link
                 className={`show-nav-item ${
-                  location.pathname === e.link ? 'media-active-nav' : 'no'
+                  location.pathname === e.link ? 'media-active-nav' : ''
                 }`}
                 to={e.link}
               >

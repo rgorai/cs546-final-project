@@ -8,6 +8,7 @@ Testing:
  - run with server off
  - run with empty collections
  - run with less/more data in collections
+ - can sign in with email or username
  - try every combination of routes
  - try accessing protected content when not authorized / vice versa
  - invalid inputs on all forms
