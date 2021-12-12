@@ -64,18 +64,10 @@ const create = async (firstName, lastName, email, username, password) => {
 
   // check if email exists
   const users = await userCollection()
-  if (await users.findOne({ email: email })) {
-    console.log('taken email')
-    throw 'Email address is taken.'
-    //throw { error: 'Email address is taken.' }
-  }
+  if (await users.findOne({ email: email })) throw 'Email address is taken.'
 
   // check if username exists
-  if (await users.findOne({ username: username })) {
-    console.log('taken username')
-    throw 'Username is taken.'
-    //throw { error: 'Username is taken.' }
-  }
+  if (await users.findOne({ username: username })) throw 'Username is taken.'
 
   // add new user to db
   const insertRet = await users.insertOne({
@@ -107,7 +99,6 @@ const authenticateUser = async (username, password) => {
   try {
     checkIsString(username)
     checkIsString(password)
-
     checkIsUsername(username)
     checkIsPassword(password)
   } catch (e) {
@@ -155,13 +146,7 @@ const getUser = async (userId) => {
 
   if (!user) throw 'Error: failed to find user.'
 
-  return {
-    ...user,
-    _id: user._id.toString(),
-    // reviews: restaurant.reviews.map((e) => (
-    //   { ...e, _id: e._id.toString() }
-    // ))
-  }
+  return { ...user, _id: user._id.toString() }
 }
 
 const getByEmail = async (email) => {
@@ -192,8 +177,6 @@ const getByEmail = async (email) => {
 
 const addToWatchlist = async (userId, itemId) => {
   //error checking
-  console.log('in the db watchlist')
-
   if (!userId) throw 'Must provide the user id'
   if (!itemId) throw 'Must provide id of the item to be added'
 
@@ -215,25 +198,16 @@ const addToWatchlist = async (userId, itemId) => {
     item = await shows.findOne({ _id: itemId })
   }
 
-  console.log(user)
+  if (!item) throw 'Content not found'
 
-  //console.log(item)
-  console.log(item._id)
   watchlist = user.watchlist
-  console.log('****************')
-  console.log(watchlist)
-
   for (let x of watchlist) {
-    console.log(x.name)
     if (x._id === item._id) {
       throw 'item already in the watchlist'
     }
   }
 
-  console.log('updated watchlist')
   watchlist.push(item)
-
-  console.log(watchlist)
 
   let updatedUser = {
     watchlist: watchlist,
@@ -247,52 +221,49 @@ const addToWatchlist = async (userId, itemId) => {
 
   if (updatedInfo.updatedCount === 0) throw 'Could not update the watchList'
 
-  return user
+  return { addedToWatchlist: true }
 }
 
-const deleteFromWatchlist = async (id, str) => {
+const deleteFromWatchlist = async (userId, itemId) => {
   //error checking
-  if (!str) throw 'Must provide a movie name to add to the watchlist'
-
-  str = str.toLowerCase().trim()
+  if (!userId) throw 'Must provide the user id'
+  if (!itemId) throw 'Must provide id of the item to be deleted'
 
   try {
-    checkIsString(str)
+    userId = ObjectId(userId)
+    itemId = ObjectId(itemId)
   } catch (e) {
     throw String(e)
   }
 
   const users = await userCollection()
-  let user = await getUser(id)
+  const movies = await movieCollection()
+  const shows = await showCollection()
 
-  try {
-    id = ObjectId(id)
-  } catch (e) {
-    throw String(e)
+  let user = await users.findOne({ _id: userId })
+  let item = await movies.findOne({ _id: itemId })
+
+  if (item === null) {
+    item = await shows.findOne({ _id: itemId })
   }
 
-  const watchlist = user.watchlist
+  if (!item) throw 'Content not found'
 
-  //delete the item from the watchlist
-
-  const updatedWatchlist = watchlist.filter(function (item) {
-    return item !== str
-  })
-
-  console.log(updatedWatchlist)
+  watchlist.filter((e) => String(e._id) !== itemId)
 
   let updatedUser = {
-    watchlist: updatedWatchlist,
+    watchlist: watchlist,
   }
 
+  //add the item to the watchlist
   const updatedInfo = await users.updateOne(
-    { _id: parsedId },
+    { _id: userId },
     { $set: updatedUser }
   )
 
   if (updatedInfo.updatedCount === 0) throw 'Could not update the watchList'
 
-  return user
+  return { removedFromWatchlist: true }
 }
 
 const updatePassword = async (id, password) => {
@@ -320,7 +291,7 @@ const updatePassword = async (id, password) => {
     throw 'Could not update user successfully'
   }
 
-  return true //await this.getById(id)
+  return true
 }
 
 module.exports = {

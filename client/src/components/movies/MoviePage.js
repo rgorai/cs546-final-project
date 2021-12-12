@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import { getCurrUser } from '../../services/authService'
-
-import { postItem } from '../../services/userService'
+import {
+  postItem,
+  deleteItem,
+  getUserProfile,
+} from '../../services/userService'
 
 import axios from 'axios'
 import moment from 'moment'
@@ -29,13 +32,18 @@ const opts = {
 const MoviePage = (props) => {
   const { id: movieId } = useParams()
   const [movieData, setMovieData] = useState(null)
+  const [userData, setUserData] = useState(null)
   const [error, setError] = useState(null)
   const navigate = useNavigate()
   const location = useLocation()
   const currUser = getCurrUser()
+  const addedToWatchlist = useCallback(
+    () => userData && userData.watchlist.find((e) => String(e._id) === movieId),
+    [userData, movieId]
+  )
 
-  // request server with given movie id
   useEffect(() => {
+    // request server with given movie id
     axios
       .get(`/api/movies/${movieId}`)
       .then((res) => {
@@ -44,23 +52,37 @@ const MoviePage = (props) => {
         console.log(res.data)
       })
       .catch((e) => setError(e.response))
+    // get user info
+    getUserProfile().then((res) => setUserData(res.data))
+    // .catch((e) => {
+    //   console.log(e)
+    //   setError(e.response)
+    // })
   }, [movieId])
 
   useEffect(() => {
     if (movieData) document.title = movieData.name
   }, [movieData])
 
-  const addToWatchlist = (e) => {
-    e.preventDefault()
-    console.log(currUser)
+  const handleWatchlist = (e) => {
+    // e.preventDefault()
+    // console.log(currUser)
     if (!currUser) navigate('/login', { state: { from: location.pathname } })
-
-    postItem(movieData._id)
-      .then((_) => {
-        navigate('/')
-        window.location.reload()
-      })
-      .catch((e) => setError(e.response))
+    // else if (currUser)
+    else if (addedToWatchlist())
+      deleteItem(movieData._id)
+        .then((_) => {
+          // navigate('/')
+          window.location.reload()
+        })
+        .catch((e) => setError(e.response))
+    else
+      postItem(movieData._id)
+        .then((_) => {
+          // navigate('/')
+          window.location.reload()
+        })
+        .catch((e) => setError(e.response))
   }
 
   return (
@@ -106,8 +128,9 @@ const MoviePage = (props) => {
                     label="PROVIDERS"
                     data={
                       movieData.providers ? (
-                        movieData.providers.map((e) => (
+                        movieData.providers.map((e, i) => (
                           <img
+                            key={i}
                             className="media-provider-img"
                             src={`https://image.tmdb.org/t/p/original${e.logo_path}`}
                             alt={`${e.provider_name} icon`}
@@ -130,9 +153,11 @@ const MoviePage = (props) => {
             </div>
           </div>
 
-          <div className="add-to-watchlist">
-            <button onClick={addToWatchlist}>Add To Watchlist</button>
-          </div>
+          {/* <div className="add-to-watchlist"> */}
+          <button onClick={handleWatchlist}>
+            {addedToWatchlist() ? 'Remove from Watchlist' : 'Add To Watchlist'}
+          </button>
+          {/* </div> */}
 
           <h2>Trailer</h2>
           {movieData.video ? (
