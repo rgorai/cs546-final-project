@@ -44,7 +44,6 @@ const createByUser = async (
   if (!providers) throw 'movie should have video'
   //if(!revenue) throw "movie should have video"
 
-
   try {
     checkIsString(name)
     checkIsString(releaseDate)
@@ -60,21 +59,27 @@ const createByUser = async (
     throw String(e)
   }
 
-  let currentDate = new Date();
-  if(new Date(releaseDate) > currentDate) throw "Release data cannot be a future date"
-
+  let currentDate = new Date()
+  if (new Date(releaseDate) > currentDate)
+    throw 'Release data cannot be a future date'
 
   // add new movie to db
-  const media = await mediaCollection()
+  const medias = await mediaCollection()
   const movies = await movieCollection()
 
   // check if the movie already in the database
-  let movie = await movies.findOne({ name: name, releaseDate: releaseDate })
+  let movie = await movies.findOne({ name: name, release_date: releaseDate })
   if (movie != null) {
     throw 'Movie already in the database'
   }
 
-  const insertRet = await media.insertOne({
+  let media = await medias.findOne({ name: name, release_date: releaseDate })
+
+  if (media != null) {
+    throw 'Movie already in the request list'
+  }
+
+  const insertRet = await medias.insertOne({
     name: name,
     release_date: releaseDate,
     mpa_rating: certifications,

@@ -6,6 +6,7 @@ const { ObjectId } = require('mongodb')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const config = require('../config/authConfig')
+const e = require('express')
 
 const saltRounds = 8
 
@@ -39,10 +40,10 @@ const create = async (firstName, lastName, email, username, password) => {
   if (!username) throw 'You must provide a username'
   if (!password) throw 'You must provide a password'
 
-  firstName = firstName.trim()
-  lastName = lastName.trim()
+  firstName = firstName.toLowerCase().trim()
+  lastName = lastName.toLowerCase().trim()
   email = email.toLowerCase().trim()
-  username = username.toLowerCase().trim()
+  password = password.toLowerCase().trim()
 
   try {
     checkIsString(firstName)
@@ -298,6 +299,63 @@ const updatePassword = async (id, password) => {
   return true
 }
 
+const updateUser = async (
+  id,
+  firstName,
+  lastName,
+  email,
+  username,
+  password
+) => {
+  if (!firstName) throw 'Must provide the first name'
+  if (!lastName) throw 'Must provide the last name'
+  if (!email) throw 'Must provide the email'
+  if (!username) throw 'Must provide the username'
+  if (!password) throw 'Must provide the password'
+
+  try {
+    checkIsString(firstName)
+    checkIsString(lastName)
+    checkIsString(email)
+    checkIsString(username)
+    checkIsString(password)
+
+    checkIsName(firstName)
+    checkIsName(lastName)
+    checkIsEmail(email)
+    checkIsUsername(username)
+    checkIsPassword(password)
+
+    id = ObjectId(id)
+  } catch (e) {
+    throw String(e)
+  }
+
+  const hash = await bcrypt.hash(password, saltRounds)
+
+  firstName = firstName.toLowerCase().trim()
+  lastName = lastName.toLowerCase().trim()
+  email = email.toLowerCase().trim()
+  password = password.toLowerCase().trim()
+
+  let updatedUser = {
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    username: username,
+    password: hash,
+  }
+
+  const users = await userCollection()
+  const updatedInfo = await users.updateOne({ _id: id }, { $set: updatedUser })
+
+  if (updatedInfo.modifiedCount === 0) {
+    throw 'Could not update user successfully'
+  }
+
+  return updatedInfo
+}
+
 module.exports = {
   create,
   authenticateUser,
@@ -306,4 +364,5 @@ module.exports = {
   updatePassword,
   addToWatchlist,
   deleteFromWatchlist,
+  updateUser,
 }
