@@ -62,16 +62,18 @@ const UserProfile = (props) => {
         <ApiError error={error} />
       ) : user ? (
         <div className="user-page-container">
-          <label htmlFor="" className="desc-bold heading">
-            My Watchlist :
-          </label>
-          <ul className="watchlist">
-            {user.watchlist.length === 0 ? (
-              <li>You haven't created any watchlist yet.</li>
-            ) : (
-              user.watchlist.map((item) => <li>{item.name}</li>)
-            )}
-          </ul>
+          <div className="user-watchlist">
+            <label htmlFor="" className="desc-bold heading">
+              My Watchlist :
+            </label>
+            <ul className="watchlist">
+              {user.watchlist.length === 0 ? (
+                <li>You haven't created any watchlist yet.</li>
+              ) : (
+                user.watchlist.map((item) => <li>{item.name}</li>)
+              )}
+            </ul>
+          </div>
           <div className="user-reviews">
             <label htmlFor="" className="desc-bold heading">
               My Reviews :
