@@ -4,7 +4,6 @@ const { verifyToken } = require('../middleware/auth')
 const { createReview, removeReview, updateReview } = require('../data/reviews')
 const { getUser } = require('../data/users')
 const errors = require('../data/errors')
-const { ObjectId } = require('mongodb')
 
 router.post('/', verifyToken, async (req, res) => {
   let { contentId, contentName, review, like_dislike } = req.body

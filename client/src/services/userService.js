@@ -20,14 +20,11 @@ const postItem = (id) => {
   return axios.put('/api/user/watchlist', addItem, { headers: authHeader() })
 }
 
-const deleteItem = (id) => {
-  console.log('in the services')
-  console.log(id)
-  return axios.delete(
-    '/api/user/watchlist',
-    { itemId: id },
-    { headers: authHeader() }
-  )
+const deleteItem = (itemId) => {
+  return axios.delete('/api/user/watchlist', {
+    data: { itemId },
+    headers: authHeader(),
+  })
 }
 
 export { getUserProfile, updateUserProfile, postReview, postItem, deleteItem }

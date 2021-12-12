@@ -202,7 +202,6 @@ const addToWatchlist = async (userId, itemId) => {
 
   watchlist = user.watchlist
   for (let x of watchlist) {
-    console.log(ObjectId(x._id).valueOf())
     if (ObjectId(x._id).toString() === ObjectId(item._id).toString()) {
       throw 'item already in the watchlist'
     }
@@ -252,10 +251,14 @@ const deleteFromWatchlist = async (userId, itemId) => {
 
   if (!item) throw 'Content not found'
 
-  watchlist.filter((e) => String(e._id) !== itemId)
+  watchlist = user.watchlist
+  const newList = watchlist.filter((e) => String(e._id) !== String(itemId))
+
+  if (watchlist.length === newList.length)
+    throw 'Could not remove from watchlist'
 
   let updatedUser = {
-    watchlist: watchlist,
+    watchlist: newList,
   }
 
   //add the item to the watchlist

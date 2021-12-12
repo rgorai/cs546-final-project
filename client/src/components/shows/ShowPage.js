@@ -152,7 +152,7 @@ const ShowPage = (props) => {
               </p>
             </h2>
           </div>
-          <ReviewForm contentId={showId} />
+          <ReviewForm contentId={showId} contentName={showData.name} />
           <ReviewList reviews={showData.reviews} />
         </div>
       ) : (

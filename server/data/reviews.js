@@ -27,7 +27,6 @@ const createReview = async (
   reviewer = errors.validateReviewer(reviewer)
   contentId = errors.validateObjectId(contentId)
   contentName = errors.validateTitle(contentName)
-  //dateOfReview = errors.validateDateOfReview(dateOfReview)
   review = errors.validateReview(review)
   like_dislike = errors.validateLikeDislike(like_dislike)
   const _id = new ObjectId()
