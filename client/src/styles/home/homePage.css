@@ -1,25 +1,28 @@
 
 
 .trending-rank{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-top: 0px;
-    padding-right: 90px !important;
-    padding-left: 90px !important;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 0px;
+  padding-right: 90px !important;
+  padding-left: 90px !important;
 }
-.home-page-container h1{
-    text-align: center !important;
-    color: white;
-    
-  }
   
-  .home-page-container {
-    padding-top: 0px;
-    color: white;
-  }
+.home-page-container {
+  padding-top: 0px;
+  color: white;
+}
 
-  .red{
-    color:rgb(255, 46, 46)
-  }
+.home-page-container h1{
+  text-align: center !important;
+}
+
+.home-media-list-container {
+  padding: 50px;
+}
+
+.red{
+  color:rgb(255, 46, 46)
+}

@@ -12,6 +12,10 @@
   margin-top: 2%;
 }
 
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
 .media-request-container h2 {
   margin: 0 0 30px;
   padding: 0;

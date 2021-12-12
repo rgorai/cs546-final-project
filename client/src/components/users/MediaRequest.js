@@ -1,7 +1,8 @@
+/* eslint-disable no-throw-literal */
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { create } from '../../services/mediaService'
+import { postMediaRequest } from '../../services/mediaService'
 
 import { getUserProfile } from '../../services/userService'
 import ApiError from '../errors/ApiError'
@@ -51,9 +52,9 @@ const MediaRequest = (props) => {
   // request user profile
   useEffect(() => {
     document.title = 'Profile'
-    getUserProfile()
-      .then((res) => setUser(res.data))
-      .catch((e) => setError(e.response))
+    // getUserProfile()
+    //   .then((res) => setUser(res.data))
+    //   .catch((e) => setError(e.response))
   }, [])
 
   const onFormSubmit = (e) => {
@@ -79,7 +80,7 @@ const MediaRequest = (props) => {
     }
 
     // post data to server
-    create(
+    postMediaRequest(
       name,
       releaseDate,
       mpa_rating,
@@ -142,7 +143,7 @@ const MediaRequest = (props) => {
           <input
             id="input-runtime"
             className="form-input"
-            placeholder="Runtime"
+            placeholder="Runtime (min)"
             type="text"
             name="runtime"
             value={runtime}
