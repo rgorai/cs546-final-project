@@ -51,6 +51,7 @@ const ReviewForm = (props) => {
     // post data to server
     postReview({
       contentId: props.contentId,
+      contentName: props.contentName,
       review: review,
       like_dislike: liked ? 1 : 0,
     })
