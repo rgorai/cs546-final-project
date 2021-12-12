@@ -1,6 +1,8 @@
 # cs546-final-project
 
-NOTE: Seeding the database may yield explicit results.
+NOTES:
+- Please run client on Chrome
+- Seeding the database may yield explicit results
 
 Testing:
  - run with server off
@@ -15,6 +17,7 @@ Testing:
  - redirect to login redirects back to review
  - test adding/removing to/from watchlist
  - test creating, editing, deleting review -> check trending updates
+ - tool tips on cards/images
 
 Code Style:
  - use single-quotes except in html

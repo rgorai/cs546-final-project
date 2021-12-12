@@ -204,7 +204,7 @@ const MediaRequest = (props) => {
 
         {error ? <div className="login-error">{error}</div> : null}
 
-        <button className="form-submit" type="submit">
+        <button className="form-submit" type="submit" form="user-media-request">
           Submit
         </button>
       </form>
