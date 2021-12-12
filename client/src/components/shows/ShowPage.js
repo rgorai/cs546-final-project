@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import { getCurrUser } from '../../services/authService'
@@ -9,8 +8,12 @@ import { postItem } from '../../services/userService'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import moment from 'moment'
 
 import ApiError from '../errors/ApiError'
+import ReviewForm from '../users/ReviewForm'
+import ReviewList from '../users/ReviewList'
+import ShowDetail from './ShowDetail'
 import '../../styles/shows/showPage.css'
 
 import Youtube from 'react-youtube'
@@ -32,7 +35,7 @@ const ShowPage = (props) => {
   const location = useLocation()
   const currUser = getCurrUser()
 
-  // request server with given movie id
+  // request server with given show id
   useEffect(() => {
     axios
       .get(`/api/shows/${showId}`)
@@ -65,87 +68,87 @@ const ShowPage = (props) => {
       {error ? (
         <ApiError error={error} />
       ) : showData ? (
-        <div className="show-page-container">
-          <img
-            className="show-page-img"
-            src={
-              showData.poster_path
-                ? `https://image.tmdb.org/t/p/original${showData.poster_path}`
-                : process.env.PUBLIC_URL + '/images/not-found.jpg'
-            }
-            alt="Show Poster"
-          />
-          <div className="show-name">{showData.name}</div>
-          <div className="show-year">{showData.release_date}</div>
-          <div className="show-description">{showData.description}</div>
-          <div className="show-seasons">
-            Total number of Seasons: {showData.number_of_seasons}
-          </div>
-          <div className="show-episodes">
-            Total number of episodes: {showData.number_of_episodes}
-          </div>
-
-          <div className="add-to-watchlist">
-            <button onClick={addToWatchlist}>Add To Watchlist</button>
-          </div>
-
-          <div>
-            {showData.video ? (
-              <Youtube videoId={showData.video.key} opts={opts} />
-            ) : (
-              <p>No Trailer Available</p>
-            )}
-          </div>
-          <form action="">
-            <div className="like-dislike">
-              <label htmlFor="thumbs-up">
-                Like:
-                <FontAwesomeIcon
-                  icon={faThumbsUp}
-                  className="icon"
-                  id="thumbs-up"
-                  size="2x"
-                />
-              </label>
-              <label htmlFor="thumbs-down">
-                {' '}
-                Dislike:
-                <FontAwesomeIcon
-                  icon={faThumbsDown}
-                  className="icon"
-                  id="thumbs-down"
-                  size="2x"
-                />
-              </label>
-            </div>
-            <div className="reviews-container">
-              <label htmlFor="userReview" className="desc-bold">
-                {' '}
-                My Review :
-                <textarea
-                  name="user-review"
-                  id="user-review"
-                  cols="100"
-                  rows="1"
-                  placeholder="Write your review here..."
-                ></textarea>
-              </label>
-              <button>Post Review</button>
-              <div className="previous-reviews desc">
-                <h3>Previous Reviews</h3>
-                <label htmlFor="" className="desc-bold">
-                  User
-                </label>
-                <label htmlFor="" className="desc-bold">
-                  Date Of Review
-                </label>
-                <label htmlFor="" className="desc-bold">
-                  Liked / Disliked
-                </label>
-                <p className="desc">Review</p>
+        <div className="card-background show-page-container">
+          <div className="flex-horizontal media-top-container">
+            <img
+              className="show-page-img"
+              src={
+                showData.poster_path
+                  ? `https://image.tmdb.org/t/p/original${showData.poster_path}`
+                  : process.env.PUBLIC_URL + '/images/not-found.jpg'
+              }
+              alt="Show Poster"
+            />
+            <div className="media-top-right-container">
+              <h1 className="show-name">{showData.name}</h1>
+              <div className="show-year">
+                {moment(showData.release_date, 'YYYY-MM-DD').format('YYYY')}
               </div>
+              <table className="show-info-container">
+                <tbody>
+                  <ShowDetail
+                    label="MPA RATING"
+                    data={showData.mpa_rating ? showData.mpa_rating : 'NR'}
+                  />
+                  <ShowDetail
+                    label="NO. EPISODES"
+                    data={showData.number_of_episodes}
+                  />
+                  <ShowDetail
+                    label="GENRES"
+                    data={showData.genres.map((e) => e.name).join(', ')}
+                  />
+                  <ShowDetail
+                    label="PROVIDERS"
+                    data={
+                      showData.providers ? (
+                        showData.providers.map((e) => (
+                          <img
+                            className="media-provider-img"
+                            src={`https://image.tmdb.org/t/p/original${e.logo_path}`}
+                            alt={`${e.provider_name} icon`}
+                            title={e.provider_name}
+                          />
+                        ))
+                      ) : (
+                        <div className="none-message">None</div>
+                      )
+                    }
+                  />
+                </tbody>
+              </table>
+              <h3>Description</h3>
+              {showData.description ? (
+                <div className="show-description">{showData.description}</div>
+              ) : (
+                <div className="none-message">No description available</div>
+              )}
             </div>
-          </form>
+          </div>
+          <h2>Trailer</h2>
+          {showData.video ? (
+            <Youtube videoId={showData.video.key} opts={opts} />
+          ) : (
+            <p>No Trailer Available</p>
+          )}
+          <div className="flex-horizontal media-review-heading">
+            <h2>User Reviews</h2>
+            <h2 className="flex-horizontal">
+              <FontAwesomeIcon
+                icon={faThumbsUp}
+                className="icon"
+                id="thumbs-up"
+                size="2x"
+              />
+              <p>
+                {showData.overall_rating
+                  ? `${Math.floor(showData.overall_rating)}%`
+                  : 'No Rating'}
+              </p>
+            </h2>
+          </div>
+          <ReviewForm contentId={showId} />
+          <ReviewList reviews={showData.reviews} />
         </div>
       ) : (
         <div className="loading">Loading...</div>

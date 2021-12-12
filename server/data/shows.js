@@ -28,7 +28,8 @@ const create = async (
   genres,
   posterPath,
   video,
-  providers
+  providers,
+  revenue
 ) => {
   // error check
   if (!id) throw 'Show should have an id'
@@ -85,6 +86,7 @@ const create = async (
     poster_path: posterPath,
     video: video,
     providers: providers,
+    revenue: revenue,
     overall_rating: null,
     reviews: [],
   })

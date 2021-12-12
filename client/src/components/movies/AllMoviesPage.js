@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 
-import MovieCard from './MovieCard'
 import MovieList from './MovieList'
 import ApiError from '../errors/ApiError'
 import MoviesNavBar from '../menus/MoviesNavBar'
@@ -80,7 +79,9 @@ const AllMoviesPage = (props) => {
     <>
       <MoviesNavBar
         SortMenu={
-          <SortMenu props={{ movieSortItems, DEFAULT_SORT, DEFAULT_ORDER }} />
+          <SortMenu
+            props={{ sortItems: movieSortItems, DEFAULT_SORT, DEFAULT_ORDER }}
+          />
         }
       />
       {error ? (

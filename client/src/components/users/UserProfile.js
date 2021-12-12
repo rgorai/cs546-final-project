@@ -82,22 +82,19 @@ const UserProfile = (props) => {
               user.reviews.map((item) => (
                 <div>
                   <p>
-                    <label htmlFor="" className="desc-bold">
-                      Movie / Show Name
-                    </label>
+                    <label htmlFor="">Content Name:</label>
+                    {item.contentName}
                   </p>
                   <p>
-                    <label htmlFor="">Date of Review: </label>{' '}
+                    <label htmlFor="">Date of Review: </label>
                     {item.dateOfReview}
                   </p>
                   <p>
-                    <label htmlFor="">Liked / Disliked : </label>{' '}
+                    <label htmlFor="">Liked / Disliked: </label>
                     {item.like_dislike === 1 ? 'Liked' : 'Disliked'}
                   </p>
                   <p>
-                    {' '}
-                    Review:
-                    {item.review}
+                    <label htmlFor="">Review: </label> {item.review}
                   </p>
                 </div>
               ))
