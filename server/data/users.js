@@ -6,6 +6,7 @@ const { ObjectId } = require('mongodb')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const config = require('../config/authConfig')
+const e = require('express')
 
 const saltRounds = 8
 
@@ -39,8 +40,8 @@ const create = async (firstName, lastName, email, username, password) => {
   if (!username) throw 'You must provide a username'
   if (!password) throw 'You must provide a password'
 
-  firstName = firstName.trim()
-  lastName = lastName.trim()
+  firstName = firstName.toLowerCase().trim()
+  lastName = lastName.toLowerCase().trim()
   email = email.toLowerCase().trim()
   username = username.toLowerCase().trim()
   password = password.trim()
@@ -333,6 +334,12 @@ const updateUser = async (
   } catch (e) {
     throw String(e)
   }
+
+  // check if email exists
+  if (await users.findOne({ email: email })) throw 'Email address is taken.'
+
+  // check if username exists
+  if (await users.findOne({ username: username })) throw 'Username is taken.'
 
   const hash = await bcrypt.hash(password, saltRounds)
 

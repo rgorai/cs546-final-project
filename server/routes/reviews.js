@@ -13,6 +13,7 @@ router.post('/', verifyToken, async (req, res) => {
   }
 
   let username
+  // Error Checking
   try {
     const user = await getUser(req.userId)
     username = user.username
@@ -34,7 +35,7 @@ router.post('/', verifyToken, async (req, res) => {
 
     res.status(200).json(createdReview)
   } catch (e) {
-    return res.status(400).send(String(e))
+    return res.status(500).send(String(e))
   }
 })
 
@@ -84,7 +85,7 @@ router.put('/', verifyToken, async (req, res) => {
     )
     res.status(200).json(updatedReview)
   } catch (e) {
-    return res.status(400).send(String(e))
+    return res.status(500).send(String(e))
   }
 })
 
@@ -103,7 +104,7 @@ router.delete('/', verifyToken, async (req, res) => {
     const deletedReview = await removeReview(contentId, reviewId)
     res.status(200).json(deletedReview)
   } catch (e) {
-    return res.status(400).send(String(e))
+    return res.status(500).send(String(e))
   }
 })
 

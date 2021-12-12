@@ -91,7 +91,7 @@ router.get('/:id', async (req, res) => {
   try {
     res.status(200).json(await get(movieId))
   } catch (e) {
-    res.status(404).send(String(e))
+    res.status(500).send(String(e))
   }
 })
 
@@ -112,7 +112,7 @@ router.get('/name/:name', async (req, res) => {
     let movie = await getByName(movieName)
     res.status(200).json(movie)
   } catch (e) {
-    res.status(404).send(String(e))
+    res.status(500).send(String(e))
   }
 })
 
@@ -133,7 +133,7 @@ router.get('/genre/:genre', async (req, res) => {
     let movie = await getByGenre(genre)
     res.status(200).json(movie)
   } catch (e) {
-    res.status(404).send(String(e))
+    res.status(500).send(String(e))
   }
 })
 
@@ -194,7 +194,8 @@ router.post('/', verifyToken, async (req, res) => {
     )
     res.status(200).json(newMovie)
   } catch (e) {
-    res.sendStatus(500)
+    console.log(e)
+    res.status(500).send(String(e))
   }
 })
 

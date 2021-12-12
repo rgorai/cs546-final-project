@@ -61,7 +61,7 @@ router.post('/signup', isLoggedIn, async (req, res) => {
       .status(200)
       .json(await create(firstName, lastName, email, username, password))
   } catch (e) {
-    return res.status(400).send(String(e))
+    return res.status(500).send(String(e))
   }
 })
 

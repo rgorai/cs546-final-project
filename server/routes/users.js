@@ -1,7 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const { ObjectId } = require('mongodb')
-const { addToWatchlist, deleteFromWatchlist } = require('../data/users')
+const {
+  addToWatchlist,
+  deleteFromWatchlist,
+  updateUser,
+} = require('../data/users')
 const { verifyToken } = require('../middleware/auth')
 const { getUser, updateUser } = require('../data/users')
 
@@ -30,9 +34,15 @@ function checkIsUsername(s) {
 router.get('/profile', verifyToken, async (req, res) => {
   // error check
   try {
+    if (!req.userId) throw 'must provide user Id'
+    ObjectId(req.userId)
+  } catch (e) {
+    return res.status(400).send(String(e))
+  }
+  try {
     res.status(200).json(await getUser(req.userId))
   } catch (e) {
-    res.sendStatus(500)
+    res.status(500).send(String(e))
   }
 })
 
@@ -65,8 +75,8 @@ router.put('/profile', verifyToken, async (req, res) => {
   } catch (e) {
     return res.status(400).send(String(e))
   }
-  let userId = req.userId
 
+  let userId = req.userId
   try {
     if (!userId) throw 'must provide user Id'
     userId = ObjectId(userId)
@@ -85,7 +95,7 @@ router.put('/profile', verifyToken, async (req, res) => {
     )
     res.status(200).json(user)
   } catch (e) {
-    res.sendStatus(500)
+    res.status(500).send(String(e))
   }
 })
 
@@ -107,7 +117,7 @@ router.put('/watchlist', verifyToken, async (req, res) => {
     let user = await addToWatchlist(userId, itemId)
     res.status(200).json(user)
   } catch (e) {
-    res.status(400).send(String(e))
+    res.status(500).send(String(e))
   }
 })
 
@@ -128,7 +138,7 @@ router.delete('/watchlist', verifyToken, async (req, res) => {
     let user = await deleteFromWatchlist(userId, itemId)
     res.status(200).json(user)
   } catch (e) {
-    res.status(400).send(String(e))
+    res.status(500).send(String(e))
   }
 })
 

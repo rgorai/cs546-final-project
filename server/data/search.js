@@ -31,8 +31,9 @@ const searchMedia = async (query) => {
   return searchResult
 }
 
-const autoComplete = async () => {
+const autoComplete = async (x) => {
   // error check
+  if (typeof x !== 'undefined') throw 'Error: no parameters should be given.'
 
   let mList = await movieFunc.getAll()
   let sList = await showFunc.getAll()

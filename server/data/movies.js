@@ -225,7 +225,10 @@ const getByName = async (str) => {
   return await movies.find({ name: { $eq: str } }).toArray()
 }
 
-const getByTrending = async () => {
+const getByTrending = async (x) => {
+  // error check
+  if (typeof x !== 'undefined') throw 'Error: no parameters should be given.'
+
   let movies = await getAll()
   return movies.sort((a, b) => b.overall_rating - a.overall_rating).slice(0, 5)
 }

@@ -74,7 +74,7 @@ router.get('/:id', async (req, res) => {
   try {
     res.status(200).json(await get(showId))
   } catch (e) {
-    res.status(404).send(String(e))
+    res.status(500).send(String(e))
   }
 })
 
@@ -96,7 +96,7 @@ router.get('/name/:name', async (req, res) => {
     let show = await getByName(showName)
     res.status(200).json(show)
   } catch (e) {
-    res.status(404).send(String(e))
+    res.status(500).send(String(e))
   }
 })
 
@@ -118,7 +118,7 @@ router.get('/genre/:genre', async (req, res) => {
     let show = await getByGenre(genre)
     res.status(200).json(show)
   } catch (e) {
-    res.status(404).send(String(e))
+    res.status(500).send(String(e))
   }
 })
 

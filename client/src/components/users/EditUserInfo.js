@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { getUserProfile, updateUserProfile } from '../../services/userService'
 import ApiError from '../errors/ApiError'
 import '../../styles/users/editUserInfo.css'
-import { useNavigate } from 'react-router-dom'
 
 const EditUserProfile = (props) => {
   const navigate = useNavigate()
@@ -34,7 +34,7 @@ const EditUserProfile = (props) => {
       username,
       password,
     })
-      .then((res) => navigate(-1))
+      .then((_) => navigate(-1))
       .catch((e) => setFormError(e.response.data))
   }
 
