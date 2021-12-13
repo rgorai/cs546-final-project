@@ -14,12 +14,14 @@ Built using HTML, CSS, Javascript, React.js, Node.js, Express and MongoDB.
 - Run 'npm install' to install the required dependencies for our project
 - Then run 'npm run seed' to run the task of seeding the database
 - Run 'npm start'
+- Run 'npm run seed' to seed the database
+- If seeding fails (due to TMDB error), please follow prompts or re-execute seed script
 
 /client
 - Run 'yarn install' to install the required dependencies for our project
 - Run 'yarn start'
 
-### Note:
+### Notes:
 - Please run client on Chrome
 - Seeding the database may yield explicit results
 

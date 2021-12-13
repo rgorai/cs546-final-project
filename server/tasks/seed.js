@@ -9,8 +9,8 @@ const { getMovieData, getShowData } = require('./utils')
 const userList = require('./data/users.json')
 const reviewList = require('./data/reviews.json')
 
-const NUM_MEDIA = 50
-const NUM_MEDIA_TO_REVIEW = 10
+const NUM_MEDIA = 100
+const NUM_MEDIA_TO_REVIEW = 20
 const NUM_REVIEWS = 10
 
 /*
@@ -115,7 +115,7 @@ const main = async () => {
         movie._id,
         movie.name,
         review.review,
-        Math.floor(Math.random() * 2)
+        review.rating
       )
       await createReview(
         user.id,
@@ -123,7 +123,7 @@ const main = async () => {
         show._id,
         show.name,
         review.review,
-        Math.floor(Math.random() * 2)
+        review.rating
       )
     }
   }
