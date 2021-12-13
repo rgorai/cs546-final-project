@@ -59,10 +59,6 @@ const SearchBar = (props) => {
     }
   }, [showDropdown])
 
-  // useEffect(() => {
-  //   console.log(filteredData)
-  // }, [filteredData])
-
   return (
     <div className="flex-horizontal search-bar-container">
       <label htmlFor="search-bar"></label>
