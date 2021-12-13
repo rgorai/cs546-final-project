@@ -4,7 +4,7 @@
   padding-top: 20px;
 }
 
-.home-page-container h1, h2 {
+.home-page-container h1, .home-page-container h2 {
   text-align: center;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .home-page-container .media-list-wrapper h2 {
-  color: #ff8c02 !important;
+  color: #ffba02 !important;
   font-weight: 600 !important;
 }
 
