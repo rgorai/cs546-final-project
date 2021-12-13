@@ -41,9 +41,6 @@ const createByUser = async (
     checkIsString(name)
     checkIsString(releaseDate)
     checkIsString(certifications)
-
-    checkIsNumber(runtime)
-
     checkIsArray(genres)
     checkIsString(description)
 
@@ -68,14 +65,17 @@ const createByUser = async (
     throw 'Media already in the database'
   }
 
-  let request = await medias.findOne({ name: name, release_date: releaseDate })
+  let request = await requests.findOne({
+    name: name.toLowerCase(),
+    release_date: releaseDate,
+  })
 
   if (request != null) {
     throw 'Media already in the request list'
   }
 
   const insertRet = await requests.insertOne({
-    name: name,
+    name: name.toLowerCase().trim(),
     release_date: releaseDate,
     mpa_rating: certifications,
     genres: genres,

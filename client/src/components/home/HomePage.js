@@ -30,24 +30,12 @@ const HomePage = (props) => {
   }, [])
 
   return (
-    <div className="home-page-container">
+    <div className=" card-background home-page-container">
       <h1>Welcome to MediaHub</h1>
       <h2>Your Streaming Guide for Movies and TV Shows</h2>
-      <div>
-        <h3>
-          Now Trending <span>top 5</span>
-        </h3>
-        <div className="trending-rank">
-          <h1>1</h1>
-          <h1>2</h1>
-          <h1>3</h1>
-          <h1>4</h1>
-          <h1>5</h1>
-        </div>
-      </div>
       <div className="home-media-list-container">
-        <MediaList title="Movies" mediaList={movieList} />
-        <MediaList title="Shows" mediaList={showList} />
+        <MediaList title="Top Movies" mediaList={movieList} />
+        <MediaList title="Top Shows" mediaList={showList} />
       </div>
     </div>
   )

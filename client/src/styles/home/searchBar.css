@@ -10,7 +10,8 @@
   height: 100%;
   width: 100%;
   border: 0;
-  padding: 0 0 0 5px;
+  padding: 0;
+  padding-left: 10px;
   outline: 1px solid black;
 }
 
@@ -47,4 +48,22 @@
 .result-title{
   -webkit-text-stroke: 0.5px red;
   color: Black;
+}
+
+.search-reset-button {
+  width: 40px;
+  border-radius: 0 10px 10px 0;
+  box-sizing: border-box;
+  /* background-color: rgba(67, 78, 85, 0.37); */
+  background-color: transparent;
+  color: white;
+  margin-left: -33px;
+  padding: 0;
+  color: rgb(109, 109, 109);
+  font-size: 22px;
+  font-weight: 100;
+}
+
+.search-reset-button:hover {
+  background-color: rgba(95, 95, 95, 0.219);
 }

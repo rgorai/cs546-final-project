@@ -1,8 +1,36 @@
+/* eslint-disable no-throw-literal */
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getUserProfile, updateUserProfile } from '../../services/userService'
 import ApiError from '../errors/ApiError'
 import '../../styles/users/editUserInfo.css'
+
+function checkIsString(s) {
+  if (!s) throw 'Must provide all the inputs'
+  if (typeof s !== 'string') throw 'Given input is invalid'
+  if (s.length < 1) throw 'Given input is empty'
+  if (s.trim().length === 0) throw 'Given input is all white spaces'
+}
+
+function checkIsName(s) {
+  if (/[^a-zA-Z]/.test(s)) throw 'Given input is not only letters'
+}
+
+function checkIsPassword(s) {
+  if (s.length < 8) throw 'Given password size is less than 8'
+}
+
+function checkIsConfirmPassword(cp, p) {
+  if (p !== cp) throw 'Password does not match'
+}
+
+function checkIsEmail(s) {
+  if (!/^\S+@[a-zA-Z]+\.[a-zA-Z]+$/.test(s)) throw 'Given email id is invalid'
+}
+
+function checkIsUsername(s) {
+  if (s.length < 4) throw 'Given username size is less than 4'
+}
 
 const EditUserProfile = (props) => {
   const navigate = useNavigate()
@@ -27,6 +55,25 @@ const EditUserProfile = (props) => {
   // post new data
   const onFormSubmit = (e) => {
     e.preventDefault()
+
+    try {
+      checkIsString(firstName)
+      checkIsString(lastName)
+      checkIsString(email)
+      checkIsString(username)
+      checkIsString(password)
+      checkIsString(confirmPassword)
+
+      checkIsName(firstName)
+      checkIsName(lastName)
+      checkIsEmail(email)
+      checkIsUsername(username)
+      checkIsPassword(password)
+      checkIsConfirmPassword(confirmPassword, password)
+    } catch (e) {
+      return setFormError(e)
+    }
+
     updateUserProfile({
       firstName,
       lastName,
@@ -42,6 +89,7 @@ const EditUserProfile = (props) => {
     <ApiError error={error} />
   ) : user ? (
     <div className="card-background edit-user-container">
+      <h1>Edit Profile</h1>
       <form id="edit-user-form" onSubmit={onFormSubmit}>
         <div className="user-input-container">
           <input

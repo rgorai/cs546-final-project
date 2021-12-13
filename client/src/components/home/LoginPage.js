@@ -54,6 +54,7 @@ const LoginPage = (props) => {
 
   return (
     <div className="card-background login-container">
+      <h1>Login</h1>
       {props.loggedIn ? (
         <div>You are already signed in.</div>
       ) : (

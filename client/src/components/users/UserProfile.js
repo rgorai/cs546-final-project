@@ -40,7 +40,7 @@ const UserProfile = (props) => {
           </button>
         </div>
       </div>
-
+      <div>Welcome {user.username}</div>
       <MediaList title="My Watchlist" mediaList={user.watchlist} />
 
       <h2>My Reviews</h2>

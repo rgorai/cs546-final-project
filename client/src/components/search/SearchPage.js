@@ -24,35 +24,15 @@ const SearchPage = (props) => {
   return (
     <>
       {searchList && (
-        <div className="search-page-container">
-          <h2>Search Results:</h2>
+        <div className="card-background search-page-container">
+          <h1>Search Results</h1>
           {searchList.movieResult.length === 0 &&
           searchList.showResult.length === 0 ? (
-            <div>No Result found!</div>
+            <div className="none-message">Nothing found</div>
           ) : (
             <div>
-              {searchList.movieResult.length > 0 ? (
-                <MediaList
-                  title="Movie Search Result"
-                  mediaList={searchList.movieResult}
-                />
-              ) : (
-                <MediaList
-                  title="No search result for movies!"
-                  mediaList={searchList.movieResult}
-                />
-              )}
-              {searchList.showResult.length > 0 ? (
-                <MediaList
-                  title="Show Search Result"
-                  mediaList={searchList.showResult}
-                />
-              ) : (
-                <MediaList
-                  title="No search result for shows!"
-                  mediaList={searchList.showResult}
-                />
-              )}
+              <MediaList title="Movies" mediaList={searchList.movieResult} />
+              <MediaList title="Shows" mediaList={searchList.showResult} />
             </div>
           )}
         </div>

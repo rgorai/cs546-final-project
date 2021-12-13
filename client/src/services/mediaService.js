@@ -6,7 +6,6 @@ const postMediaRequest = async (
   releaseDate,
   mpa_rating,
   description,
-  runtime,
   genres,
   providers
 ) => {
@@ -15,7 +14,6 @@ const postMediaRequest = async (
     releaseDate: releaseDate,
     mpa_rating: mpa_rating,
     description: description,
-    runtime: runtime,
     genres: genres,
     providers: providers,
   }
