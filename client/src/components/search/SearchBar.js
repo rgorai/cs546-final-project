@@ -65,6 +65,7 @@ const SearchBar = (props) => {
 
   return (
     <div className="flex-horizontal search-bar-container">
+      <label htmlFor="search-bar"></label>
       <input
         id="search-bar"
         type="text"

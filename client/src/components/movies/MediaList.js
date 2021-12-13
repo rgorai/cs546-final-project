@@ -5,6 +5,7 @@ import '../../styles/movies/mediaList.css'
 const MediaList = (props) => {
   return (
     <div className="card-background media-list-wrapper">
+      <h1></h1>
       {props.title && <h2>{props.title}</h2>}
       {props.mediaList.length === 0 ? (
         <div className="none-message">Nothing here</div>

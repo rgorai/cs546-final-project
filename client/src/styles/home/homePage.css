@@ -11,8 +11,9 @@
 }
   
 .home-page-container {
-  padding-top: 0px;
+  /* padding-top: 0px; */
   color: white;
+  padding: 2%
 }
 
 .home-page-container h1{

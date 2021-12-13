@@ -71,6 +71,8 @@ const MediaRequest = (props) => {
       releaseDate,
       mpa_rating,
       description,
+      // arrGenres,
+      // arrProviders
       arrGenres.map((e) => e.trim()),
       arrProviders.map((e) => e.trim())
     )
@@ -82,7 +84,7 @@ const MediaRequest = (props) => {
     <ApiError error={error} />
   ) : user ? (
     <div className="card-background media-request-container">
-      <h2>Media Request</h2>
+      <h1>Media Request</h1>
       <form id="media-request-form" onSubmit={onFormSubmit}>
         <div className="user-input-container">
           <input
