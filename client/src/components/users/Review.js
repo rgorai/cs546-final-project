@@ -6,42 +6,31 @@ import '../../styles/users/review.css'
 const Review = (props) => {
   return (
     <div className="review-container">
+      {props.displayContentName && <h3>{props.contentName}</h3>}
       <div className="flex-horizontal">
-        <div className="flex-horizontal">
-          <span className="desc-bold">{props.reviewer}</span>
-          <span className="like-dislike-container">
-            <div
-              className={`like-button ${
-                props.like_dislike === 1 ? 'liked' : ''
-              }`}
-            >
-              <FontAwesomeIcon
-                icon={faThumbsUp}
-                className="icon"
-                id="thumbs-up"
-                size="2x"
-              />
-            </div>
-            <div
-              className={`dislike-button ${
-                props.like_dislike === 0 ? 'disliked' : ''
-              }`}
-            >
-              <FontAwesomeIcon
-                icon={faThumbsDown}
-                className="icon"
-                id="thumbs-down"
-                size="2x"
-              />
-            </div>
-          </span>
+        <div className="flex-horizontal like-dislike-container">
+          <label htmlFor="user-review" className="desc-bold">
+            {props.reviewer}
+          </label>
+          <div
+            className={`like-button ${props.like_dislike === 1 ? 'liked' : ''}`}
+          >
+            <FontAwesomeIcon icon={faThumbsUp} className="icon" size="2x" />
+          </div>
+          <div
+            className={`like-button ${
+              props.like_dislike === 0 ? 'disliked' : ''
+            }`}
+          >
+            <FontAwesomeIcon icon={faThumbsDown} className="icon" size="2x" />
+          </div>
         </div>
         <div className="desc-bold">
           {moment(props.dateOfReview, 'YYYY-MM-DD').format('MM/DD/YYYY')}
         </div>
       </div>
 
-      <div className="desc">{props.review}</div>
+      <div className="review-content">{props.review}</div>
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { getUserProfile } from '../../services/userService'
 import ApiError from '../errors/ApiError'
+import ReviewList from './ReviewList'
 import MediaList from '../movies/MediaList'
 import '../../styles/users/userProfile.css'
 
@@ -19,6 +20,10 @@ const UserProfile = (props) => {
       .then((res) => setUser(res.data))
       .catch((e) => setError(e.response))
   }, [])
+
+  useEffect(() => {
+    if (user) console.log('profile', user.watchlist)
+  }, [user])
 
   return error ? (
     <ApiError error={error} />
@@ -36,34 +41,10 @@ const UserProfile = (props) => {
         </div>
       </div>
 
-      <MediaList name="My Watchlist" mediaList={user.watchlist} />
+      <MediaList title="My Watchlist" mediaList={user.watchlist} />
 
-      <div className="user-reviews">
-        <label className="desc-bold heading">My Reviews :</label>
-        {user.reviews.length === 0 ? (
-          <div className="none-message">No Reviews</div>
-        ) : (
-          user.reviews.map((item, i) => (
-            <div key={i}>
-              <p>
-                <label>Content Name:</label>
-                {item.contentName}
-              </p>
-              <p>
-                <label>Date of Review: </label>
-                {item.dateOfReview}
-              </p>
-              <p>
-                <label>Liked / Disliked: </label>
-                {item.like_dislike === 1 ? 'Liked' : 'Disliked'}
-              </p>
-              <p>
-                <label>Review: </label> {item.review}
-              </p>
-            </div>
-          ))
-        )}
-      </div>
+      <h2>My Reviews</h2>
+      <ReviewList reviews={user.reviews} displayContentName />
     </div>
   ) : (
     <div className="loading">Loading...</div>

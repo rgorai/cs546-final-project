@@ -1,11 +1,36 @@
 #review-form {
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
+  padding: 20px 40px 30px 40px;
+  background-color: rgba(70, 89, 100, 0.644);
+  border-radius: 20px;
 }
 
-.like-dislike-container {
+#review-form .like-dislike-container button {
+  padding: 0;
+}
+
+.form-like-button {
+  margin-right: 15px !important;
+}
+
+#user-review {
+  resize: vertical;
+  min-height: 50px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.review-form-buttons {
+  width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+}
+
+.review-form-buttons .form-error {
+  margin: 0 !important;
 }
 
 .form-like-button, .form-dislike-button {
@@ -25,10 +50,10 @@
 }
 
 .liked {
-  color: greenyellow !important;
+  color: #63d138 !important;
 }
 
 .disliked, .review-error {
-  color: red !important;
+  color: #f14848 !important;
 }
 

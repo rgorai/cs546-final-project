@@ -46,8 +46,8 @@ const HomePage = (props) => {
         </div>
       </div>
       <div className="home-media-list-container">
-        <MediaList name="Movies" mediaList={movieList} />
-        <MediaList name="Shows" mediaList={showList} />
+        <MediaList title="Movies" mediaList={movieList} />
+        <MediaList title="Shows" mediaList={showList} />
       </div>
     </div>
   )

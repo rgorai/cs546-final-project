@@ -5,9 +5,9 @@ const {
   addToWatchlist,
   deleteFromWatchlist,
   updateUser,
+  getUser,
 } = require('../data/users')
 const { verifyToken } = require('../middleware/auth')
-const { getUser, updateUser } = require('../data/users')
 
 function checkIsString(s) {
   if (typeof s != 'string') throw 'Given input is invalid'

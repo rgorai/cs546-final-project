@@ -145,34 +145,34 @@ const MoviePage = (props) => {
             </div>
           </div>
 
-          <button
-            onClick={handleWatchlist}
-            className={`watchlist-button ${
-              addedToWatchlist ? 'watchlist-remove' : ''
-            }`}
-          >
-            {addedToWatchlist ? 'Remove from Watchlist' : 'Add To Watchlist'}
-          </button>
-
-          <h2>Trailer</h2>
-          {movieData.video ? (
-            <div className="movie-trailer">
-              <Youtube videoId={movieData.video.key} opts={opts} />
+          <div className="media-bottom-container">
+            <div className="media-taskbar">
+              <button
+                onClick={handleWatchlist}
+                className={`watchlist-button ${
+                  addedToWatchlist ? 'watchlist-remove' : 'watchlist-add'
+                }`}
+              >
+                {addedToWatchlist
+                  ? 'Remove from Watchlist'
+                  : 'Add To Watchlist'}
+              </button>
+              <ReviewForm contentId={movieId} contentName={movieData.name} />
             </div>
-          ) : (
-            <div className="none-message">No trailer available</div>
-          )}
 
-          <div>
+            <h2>Trailer</h2>
+            {movieData.video ? (
+              <div className="movie-trailer">
+                <Youtube videoId={movieData.video.key} opts={opts} />
+              </div>
+            ) : (
+              <div className="none-message">No trailer available</div>
+            )}
+
             <div className="flex-horizontal media-review-heading">
               <h2>User Reviews</h2>
               <h2 className="flex-horizontal">
-                <FontAwesomeIcon
-                  icon={faThumbsUp}
-                  className="icon"
-                  id="thumbs-up"
-                  size="2x"
-                />
+                <FontAwesomeIcon icon={faThumbsUp} className="icon" size="2x" />
                 <p>
                   {movieData.overall_rating
                     ? `${Math.floor(movieData.overall_rating)}%`
@@ -180,10 +180,8 @@ const MoviePage = (props) => {
                 </p>
               </h2>
             </div>
-            <ReviewForm contentId={movieId} contentName={movieData.name} />
+            <ReviewList reviews={movieData.reviews} />
           </div>
-          <br />
-          <ReviewList reviews={movieData.reviews} />
         </div>
       ) : (
         <div className="loading">Loading...</div>

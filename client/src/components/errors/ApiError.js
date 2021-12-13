@@ -8,7 +8,7 @@ const ApiError = (props) => {
       <div className="error-text">{error.statusText}</div>
 
       {/* for dev use only */}
-      <div>{error.data}</div>
+      {/* <div>{error.data}</div> */}
     </div>
   )
 }

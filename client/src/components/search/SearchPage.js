@@ -33,23 +33,23 @@ const SearchPage = (props) => {
             <div>
               {searchList.movieResult.length > 0 ? (
                 <MediaList
-                  genre="Movie Search Result"
+                  title="Movie Search Result"
                   mediaList={searchList.movieResult}
                 />
               ) : (
                 <MediaList
-                  genre="No search result for movies!"
+                  title="No search result for movies!"
                   mediaList={searchList.movieResult}
                 />
               )}
               {searchList.showResult.length > 0 ? (
                 <MediaList
-                  genre="Show Search Result"
+                  title="Show Search Result"
                   mediaList={searchList.showResult}
                 />
               ) : (
                 <MediaList
-                  genre="No search result for shows!"
+                  title="No search result for shows!"
                   mediaList={searchList.showResult}
                 />
               )}

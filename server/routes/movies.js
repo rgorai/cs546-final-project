@@ -91,7 +91,7 @@ router.get('/:id', async (req, res) => {
   try {
     res.status(200).json(await get(movieId))
   } catch (e) {
-    res.status(500).send(String(e))
+    res.status(404).send(String(e))
   }
 })
 
@@ -105,8 +105,6 @@ router.get('/name/:name', async (req, res) => {
   } catch (e) {
     res.status(400).send(String(e))
   }
-
-  //movieName = movsssssieName.toLowerCase().trim()
 
   try {
     let movie = await getByName(movieName)
@@ -126,8 +124,6 @@ router.get('/genre/:genre', async (req, res) => {
   } catch (e) {
     res.status(404).send(String(e))
   }
-
-  //genre = genre.toLowerCase().trim()
 
   try {
     let movie = await getByGenre(genre)

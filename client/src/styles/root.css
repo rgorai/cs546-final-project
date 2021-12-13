@@ -46,6 +46,10 @@ input, textarea {
   transition: outline 0.2s ease-in-out;
 }
 
+textarea {
+  padding: 10px;
+}
+
 input:hover, input:focus, textarea:hover, textarea:focus {
   outline: 4px solid rgba(149, 183, 202, 0.733);
 }
@@ -74,12 +78,14 @@ input:hover, input:focus, textarea:hover, textarea:focus {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 .flex-vertical {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 }
 
 .none-message {
@@ -123,6 +129,10 @@ h1, h2, h3 {
   margin: 30px 0 10px 0;
 }
 
+.media-bottom-container {
+  width: 100%;
+}
+
 .media-review-heading {
   margin-top: 50px;
   width: 100%;
@@ -147,7 +157,11 @@ h1, h2, h3 {
 .media-review-heading h2:last-child .icon {
   margin: 0;
   margin-bottom: 5px;
-  width: 28px;
+}
+
+.icon {
+  width: 26px !important;
+  height: 26px !important;
 }
 
 .media-review-heading h2:last-child p {
@@ -192,6 +206,30 @@ h1, h2, h3 {
   text-decoration: underline;
 }
 
+.watchlist-button {
+  width: max-content;
+  margin-top: 20px;
+  margin-left: 5px;
+}
+
+.watchlist-add {
+  background-color: #7dc960 !important;
+}
+
 .watchlist-remove {
   background-color: #e95c5c !important;
+}
+
+.media-taskbar button:first-child {
+  margin-right: 20px;
+}
+
+.like-dislike-container {
+  justify-content: flex-start !important;
+  margin-bottom: 20px;
+}
+
+.like-dislike-container label {
+  font-size: 18px;
+  margin-right: 30px;
 }

@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { postMediaRequest } from '../../services/mediaService'
+import { getUserProfile } from '../../services/userService'
+import ApiError from '../errors/ApiError'
 import '../../styles/users/mediaRequest.css'
 
 function checkIsString(s) {
@@ -32,11 +34,16 @@ const MediaRequest = (props) => {
   const [description, setDescription] = useState('')
   const [providers, setProviders] = useState('')
   const [error, setError] = useState(null)
+  const [formError, setFormError] = useState(null)
+  const [user, setUser] = useState(null)
   const navigate = useNavigate()
 
   // request user profile
   useEffect(() => {
-    document.title = 'Profile'
+    document.title = 'Media Request'
+    getUserProfile()
+      .then((res) => setUser(res.data))
+      .catch((e) => setError(e.response))
   }, [])
 
   const onFormSubmit = (e) => {
@@ -55,7 +62,7 @@ const MediaRequest = (props) => {
       checkIsArray(arrGenres)
       checkIsArray(arrProviders)
     } catch (e) {
-      return setError(e)
+      return setFormError(e)
     }
 
     // post data to server
@@ -68,10 +75,12 @@ const MediaRequest = (props) => {
       arrProviders.map((e) => e.trim())
     )
       .then((_) => navigate(-1))
-      .catch((e) => setError(e.response.data))
+      .catch((e) => setFormError(e.response.data))
   }
 
-  return (
+  return error ? (
+    <ApiError error={error} />
+  ) : user ? (
     <div className="card-background media-request-container">
       <h2>Media Request</h2>
       <form id="media-request-form" onSubmit={onFormSubmit}>
@@ -162,13 +171,15 @@ const MediaRequest = (props) => {
           </label>
         </div>
 
-        {error ? <div className="form-error">{error}</div> : null}
-
         <button className="form-submit" type="submit" form="media-request-form">
           Submit
         </button>
+
+        {formError ? <div className="form-error">{formError}</div> : null}
       </form>
     </div>
+  ) : (
+    <div className="loading">Loading...</div>
   )
 }
 

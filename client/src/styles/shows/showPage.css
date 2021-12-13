@@ -7,6 +7,10 @@
   color: white;
 }
 
+.show-page-container button {
+  height: 35px;
+}
+
 .show-page-container h2 {
   margin-top: 50px;
   width: 100%;

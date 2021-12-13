@@ -135,7 +135,7 @@ const EditUserProfile = (props) => {
           Submit
         </button>
 
-        {error && <div className="form-error">{error}</div>}
+        {formError && <div className="form-error">{formError}</div>}
       </form>
     </div>
   ) : (
