@@ -335,6 +335,8 @@ const updateUser = async (
     throw String(e)
   }
 
+  const users = await userCollection()
+
   // check if email exists
   if (await users.findOne({ email: email })) throw 'Email address is taken.'
 
@@ -351,7 +353,6 @@ const updateUser = async (
     password: hash,
   }
 
-  const users = await userCollection()
   const updatedInfo = await users.updateOne({ _id: id }, { $set: updatedUser })
 
   if (updatedInfo.modifiedCount === 0) {
