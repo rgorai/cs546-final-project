@@ -1,3 +1,18 @@
 .search-page-container{
-    padding-top: 80px;
+  width: 80%;
+  padding: 40px;
+  color: white;
+  margin: auto;
+}
+
+.search-page-container .media-list-wrapper {
+  background-color: initial;
+}
+
+.search-page-container h2 {
+  margin-top: 0;
+}
+
+.search-page-container .media-list-wrapper {
+  margin-top: 0;
 }

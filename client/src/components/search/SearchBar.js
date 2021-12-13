@@ -81,6 +81,7 @@ const SearchBar = (props) => {
         onClick={() => (filteredData ? setShowDropdown(true) : null)}
       />
       <button
+        className="search-reset-button"
         type="reset"
         onClick={() => {
           setFilteredData(null)
