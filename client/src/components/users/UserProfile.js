@@ -30,7 +30,7 @@ const UserProfile = (props) => {
   ) : user ? (
     <div className="card-background user-page-container">
       <div className="flex-horizontal profile-heading-container">
-        <h1>Profile</h1>
+        <h1>Welcome, {user.username}</h1>
         <div>
           <button onClick={() => navigate('/profile/edit')}>
             Edit Profile
@@ -40,7 +40,6 @@ const UserProfile = (props) => {
           </button>
         </div>
       </div>
-      <div>Welcome {user.username}</div>
       <MediaList title="My Watchlist" mediaList={user.watchlist} />
 
       <h2>My Reviews</h2>
