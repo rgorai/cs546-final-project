@@ -68,3 +68,7 @@ Built using HTML, CSS, Javascript, React.js, Node.js, Express and MongoDB.
 ### Extra Features:
 - User can give requests to add a movie/ TV show
 - Autocomplete/ smart search
+
+
+### GitHub Link:
+https://github.com/rgorai/cs546-final-project
