@@ -1,17 +1,39 @@
-.review-info-container, .reviewer-container {
+.review-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  margin-top: 30px;
+  padding: 30px 40px 40px 40px;
+  background-color: rgba(70, 89, 100, 0.644);
+  border-radius: 20px;
+}
+
+.review-container h3 {
+  margin: 0;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.review-container .like-dislike-container {
+  margin: 0;
+  /* margin-top: 10px; */
+}
+
+.like-button {
+  margin-right: 15px;
 }
 
 .liked {
-  color: greenyellow !important;
+  color: #63d138 !important;
 }
 
 .disliked {
-  color: red !important;
+  color: #f14848 !important;
 }
 
 .desc-bold {
   font-weight: bold;
+}
+
+.review-content {
+  margin-top: 20px;
 }

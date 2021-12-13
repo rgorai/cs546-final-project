@@ -5,18 +5,8 @@ const getUserProfile = () => {
   return axios.get('/api/user/profile', { headers: authHeader() })
 }
 
-const updateUserProfile = (firstName, lastName, email, username, password) => {
-  return axios.put(
-    '/api/user/profile',
-    {
-      firstName,
-      lastName,
-      email,
-      username,
-      password,
-    },
-    { headers: authHeader() }
-  )
+const updateUserProfile = (userData) => {
+  return axios.put('/api/user/profile', userData, { headers: authHeader() })
 }
 
 const postReview = (reviewData) => {

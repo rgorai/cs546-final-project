@@ -3,7 +3,7 @@ import '../../styles/shows/showCard.css'
 
 const ShowCard = (props) => {
   return (
-    <div className="show-card-container">
+    <div className="show-card-container" title={props.name}>
       <Link to={`/shows/single/${props.id}`}>
         <img
           className="show-card-img"

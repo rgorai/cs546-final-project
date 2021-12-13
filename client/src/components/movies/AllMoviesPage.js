@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 
-import MovieList from './MovieList'
+import MediaList from './MediaList'
 import ApiError from '../errors/ApiError'
 import MoviesNavBar from '../menus/MoviesNavBar'
 import SortMenu from '../menus/SortMenu'
@@ -88,7 +88,7 @@ const AllMoviesPage = (props) => {
         <ApiError error={error} />
       ) : movieList ? (
         <div className="all-movies-container">
-          <MovieList movieList={movieList} />
+          <MediaList mediaList={movieList} />
         </div>
       ) : (
         <div className="loading">Loading...</div>

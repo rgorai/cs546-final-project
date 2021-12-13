@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-import ShowList from './ShowList'
+import MediaList from '../movies/MediaList'
 import ApiError from '../errors/ApiError'
 import ShowsNavBar from '../menus/ShowsNavBar'
 import '../../styles/shows/showsByProvider.css'
@@ -26,7 +26,9 @@ const ShowsByProvider = (props) => {
     return Object.keys(data)
       .filter((k) => data[k].length > 0)
       .sort((k1, k2) => data[k2].length - data[k1].length)
-      .map((k, i) => <ShowList key={i} name={_names[k]} showList={data[k]} />)
+      .map((k, i) => (
+        <MediaList key={i} title={_names[k]} mediaList={data[k]} />
+      ))
   }
 
   return (

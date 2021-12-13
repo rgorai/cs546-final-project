@@ -3,26 +3,15 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { postMediaRequest } from '../../services/mediaService'
-
 import { getUserProfile } from '../../services/userService'
 import ApiError from '../errors/ApiError'
-//import '../../styles/users/userProfile.css'
 import '../../styles/users/mediaRequest.css'
-/*
- * define error checking functions here
- *
- */
 
 function checkIsString(s) {
   if (!s) throw 'Must provide all the inputs'
   if (typeof s !== 'string') throw 'Given input is invalid'
   if (s.length < 1) throw 'Given input is empty'
   if (s.trim().length === 0) throw 'Given input is all white spaces'
-}
-
-function checkIsNumber(r) {
-  r = parseInt(r)
-  if (isNaN(r)) throw 'Given runtime is invalid'
 }
 
 function checkIsArray(arr) {
@@ -38,23 +27,23 @@ function checkIsArray(arr) {
 }
 
 const MediaRequest = (props) => {
-  const [user, setUser] = useState(null)
   const [name, setName] = useState('')
   const [releaseDate, setReleaseDate] = useState('')
   const [mpa_rating, setMpaRating] = useState('')
-  const [runtime, setRuntime] = useState('')
   const [genres, setGenres] = useState('')
   const [description, setDescription] = useState('')
   const [providers, setProviders] = useState('')
   const [error, setError] = useState(null)
+  const [formError, setFormError] = useState(null)
+  const [user, setUser] = useState(null)
   const navigate = useNavigate()
 
   // request user profile
   useEffect(() => {
-    document.title = 'Profile'
-    // getUserProfile()
-    //   .then((res) => setUser(res.data))
-    //   .catch((e) => setError(e.response))
+    document.title = 'Media Request'
+    getUserProfile()
+      .then((res) => setUser(res.data))
+      .catch((e) => setError(e.response))
   }, [])
 
   const onFormSubmit = (e) => {
@@ -70,13 +59,10 @@ const MediaRequest = (props) => {
       checkIsString(releaseDate)
       checkIsString(mpa_rating)
       checkIsString(description)
-
-      checkIsString(runtime)
-
       checkIsArray(arrGenres)
       checkIsArray(arrProviders)
     } catch (e) {
-      return setError(e)
+      return setFormError(e)
     }
 
     // post data to server
@@ -85,28 +71,29 @@ const MediaRequest = (props) => {
       releaseDate,
       mpa_rating,
       description,
-      runtime,
-      arrGenres,
-      arrProviders
+      arrGenres.map((e) => e.trim()),
+      arrProviders.map((e) => e.trim())
     )
       .then((_) => navigate(-1))
-      .catch((e) => setError(e.response.data))
+      .catch((e) => setFormError(e.response.data))
   }
 
-  return (
-    <div className="media-request-container">
-      <h2>Like to add a movie?</h2>
-      <form id="user-media-request" onSubmit={onFormSubmit}>
+  return error ? (
+    <ApiError error={error} />
+  ) : user ? (
+    <div className="card-background media-request-container">
+      <h2>Media Request</h2>
+      <form id="media-request-form" onSubmit={onFormSubmit}>
         <div className="user-input-container">
           <input
             id="input-name"
-            placeholder="Movie Name"
+            placeholder="Movie/Show Name"
             type="text"
             name="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <label htmlFor="input-name">Movie Name</label>
+          <label htmlFor="input-name">Media Name</label>
         </div>
 
         <div className="user-input-container">
@@ -128,29 +115,14 @@ const MediaRequest = (props) => {
           <input
             id="input-rating"
             className="form-input"
-            placeholder="Rating"
+            placeholder="R, PG-13, ..."
             type="text"
             name="mpa_rating"
             value={mpa_rating}
             onChange={(e) => setMpaRating(e.target.value)}
           />
           <label className="form-label" htmlFor="input-rating">
-            Rating
-          </label>
-        </div>
-
-        <div className="user-input-container">
-          <input
-            id="input-runtime"
-            className="form-input"
-            placeholder="Runtime (min)"
-            type="text"
-            name="runtime"
-            value={runtime}
-            onChange={(e) => setRuntime(e.target.value)}
-          />
-          <label className="form-label" htmlFor="input-runtime">
-            Runtime
+            MPA Rating
           </label>
         </div>
 
@@ -158,7 +130,7 @@ const MediaRequest = (props) => {
           <input
             id="input-genres"
             className="form-input"
-            placeholder="Enter ',' between inputs"
+            placeholder="Drama, Action, Horror, ..."
             type="text"
             name="genres"
             value={genres}
@@ -173,7 +145,7 @@ const MediaRequest = (props) => {
           <input
             id="input-providers"
             className="form-input"
-            placeholder="Enter ',' between inputs"
+            placeholder="Netflix, Prime Video, Hulu, ..."
             type="text"
             name="providers"
             value={providers}
@@ -199,13 +171,15 @@ const MediaRequest = (props) => {
           </label>
         </div>
 
-        {error ? <div className="login-error">{error}</div> : null}
-
-        <button className="form-submit" type="submit" form="user-media-request">
+        <button className="form-submit" type="submit" form="media-request-form">
           Submit
         </button>
+
+        {formError ? <div className="form-error">{formError}</div> : null}
       </form>
     </div>
+  ) : (
+    <div className="loading">Loading...</div>
   )
 }
 

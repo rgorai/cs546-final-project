@@ -146,34 +146,41 @@ const ShowPage = (props) => {
             </div>
           </div>
 
-          <button onClick={handleWatchlist}>
-            {addedToWatchlist ? 'Remove from Watchlist' : 'Add To Watchlist'}
-          </button>
+          <div className="media-bottom-container">
+            <div className="media-taskbar">
+              <button
+                onClick={handleWatchlist}
+                className={`watchlist-button ${
+                  addedToWatchlist ? 'watchlist-remove' : 'watchlist-add'
+                }`}
+              >
+                {addedToWatchlist
+                  ? 'Remove from Watchlist'
+                  : 'Add To Watchlist'}
+              </button>
+              <ReviewForm contentId={showId} contentName={showData.name} />
+            </div>
 
-          <h2>Trailer</h2>
-          {showData.video ? (
-            <Youtube videoId={showData.video.key} opts={opts} />
-          ) : (
-            <p>No Trailer Available</p>
-          )}
-          <div className="flex-horizontal media-review-heading">
-            <h2>User Reviews</h2>
-            <h2 className="flex-horizontal">
-              <FontAwesomeIcon
-                icon={faThumbsUp}
-                className="icon"
-                id="thumbs-up"
-                size="2x"
-              />
-              <p>
-                {showData.overall_rating
-                  ? `${Math.floor(showData.overall_rating)}%`
-                  : 'No Rating'}
-              </p>
-            </h2>
+            <h2>Trailer</h2>
+            {showData.video ? (
+              <Youtube videoId={showData.video.key} opts={opts} />
+            ) : (
+              <div className="none-message">No trailer available</div>
+            )}
+
+            <div className="flex-horizontal media-review-heading">
+              <h2>User Reviews</h2>
+              <h2 className="flex-horizontal">
+                <FontAwesomeIcon icon={faThumbsUp} className="icon" size="2x" />
+                <p>
+                  {showData.overall_rating
+                    ? `${Math.floor(showData.overall_rating)}%`
+                    : 'No Rating'}
+                </p>
+              </h2>
+            </div>
+            <ReviewList reviews={showData.reviews} />
           </div>
-          <ReviewForm contentId={showId} contentName={showData.name} />
-          <ReviewList reviews={showData.reviews} />
         </div>
       ) : (
         <div className="loading">Loading...</div>

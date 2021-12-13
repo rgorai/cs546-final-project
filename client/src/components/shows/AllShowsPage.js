@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 
-import ShowList from './ShowList'
+import MediaList from '../movies/MediaList'
 import ApiError from '../errors/ApiError'
 import ShowsNavBar from '../menus/ShowsNavBar'
 import SortMenu from '../menus/SortMenu'
@@ -35,7 +35,7 @@ const showSortItems = {
   number_of_episodes: {
     text: 'No. Episodes',
     compare: compareNumbers,
-  }
+  },
 }
 
 const AllShowsPage = (props) => {
@@ -89,7 +89,7 @@ const AllShowsPage = (props) => {
         <ApiError error={error} />
       ) : showList ? (
         <div className="all-shows-container">
-          <ShowList showList={showList} />
+          <MediaList mediaList={showList} />
         </div>
       ) : (
         <div className="loading">Loading...</div>
