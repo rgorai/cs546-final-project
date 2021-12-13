@@ -136,6 +136,7 @@ const MoviePage = (props) => {
                   />
                 </tbody>
               </table>
+              <h2></h2>
               <h3>Description</h3>
               {movieData.description ? (
                 <div className="movie-description">{movieData.description}</div>
