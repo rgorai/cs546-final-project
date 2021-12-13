@@ -71,6 +71,8 @@ const MediaRequest = (props) => {
       releaseDate,
       mpa_rating,
       description,
+      // arrGenres,
+      // arrProviders
       arrGenres.map((e) => e.trim()),
       arrProviders.map((e) => e.trim())
     )
