@@ -137,6 +137,7 @@ const ShowPage = (props) => {
                   />
                 </tbody>
               </table>
+              <h2></h2>
               <h3>Description</h3>
               {showData.description ? (
                 <div className="show-description">{showData.description}</div>

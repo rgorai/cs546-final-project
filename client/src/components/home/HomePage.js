@@ -35,7 +35,7 @@ const HomePage = (props) => {
       <h2>Your Streaming Guide for Movies and TV Shows</h2>
       <div>
         <h3>
-          Now Trending <span class="red">top 5</span>
+          Now Trending <span>top 5</span>
         </h3>
         <div className="trending-rank">
           <h1>1</h1>
