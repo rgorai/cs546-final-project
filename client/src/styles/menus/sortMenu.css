@@ -4,6 +4,10 @@
   margin-top: 30px;
 }
 
+.nav-dropdown {
+  color: #5e3500;
+}
+
 .nav-dropdown div {
   margin-bottom: 3px;
 }
@@ -13,6 +17,11 @@
 }
 
 .curr-asc-button {
+  color: #5e3500;
   margin-top: 10px;
   height: 30px;
+}
+
+.sort-button {
+  color: #5e3500 !important;
 }

@@ -45,6 +45,7 @@
 }
 
 .edit-user-container button { 
+  color: #5e3500 !important;
   width: 40%;
   height: 40px;
   font-size: 16px;

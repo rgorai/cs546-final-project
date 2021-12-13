@@ -78,6 +78,11 @@
   min-width: max-content;
 }
 
+.navbar-button-container button {
+  color: #5e3500;
+  min-width: max-content;
+}
+
 .navbar-button-container button:first-child {
   margin-right: 10px;
 }

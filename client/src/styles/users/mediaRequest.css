@@ -42,7 +42,7 @@
 }
 
 .user-input-container label {
-  color: #ff8c02;
+  color: #ff943b !important;
   font-size: 18px;
   margin-bottom: 8px;
   margin-left: 3px;
@@ -50,6 +50,7 @@
 }
 
 .media-request-container button { 
+  color: #5e3500 !important;
   width: 40%;
   height: 40px;
   font-size: 16px;

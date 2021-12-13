@@ -82,6 +82,7 @@ const SearchBar = (props) => {
         onClick={() => (filteredData ? setShowDropdown(true) : null)}
       />
       <button
+        className="searchbar-button"
         type="reset"
         onClick={() => {
           setFilteredData(null)
@@ -91,6 +92,7 @@ const SearchBar = (props) => {
         &times;
       </button>
       <button
+        className="searchbar-button"
         id="search-button"
         type="submit"
         onClick={() => {

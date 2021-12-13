@@ -19,6 +19,10 @@
   margin-right: 10px;
 }
 
+.searchbar-button {
+  color : #5e3500
+}
+
 .autocomplete-div {
   z-index: 999;
   position: absolute;
@@ -27,10 +31,6 @@
   max-height: 300px;
   overflow-y: auto;
   color: black;
-}
-
-.searchInput{
-  /* border-radius:0.5em !important; */
 }
 
 .autocomplete-div p {

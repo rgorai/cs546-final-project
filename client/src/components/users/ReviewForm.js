@@ -111,7 +111,9 @@ const ReviewForm = (props) => {
           </div>
         </form>
       ) : (
-        <button onClick={onWriteClick}>Write a review</button>
+        <button className="review-button" onClick={onWriteClick}>
+          Write a review
+        </button>
       )}
     </>
   )

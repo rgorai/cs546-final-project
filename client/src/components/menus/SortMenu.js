@@ -27,7 +27,12 @@ const SortMenu = (props) => {
 
   return (
     <>
-      <button onClick={() => setShowDropdown(!showDropdown)}>Sort</button>
+      <button
+        className="sort-button"
+        onClick={() => setShowDropdown(!showDropdown)}
+      >
+        Sort
+      </button>
       {showDropdown && (
         <div className="nav-dropdown" ref={dropdownRef}>
           {Object.keys(sortItems).map((k, i) => (
