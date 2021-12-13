@@ -49,7 +49,6 @@ const NavBar = (props) => {
       </div>
 
       <SearchBar />
-      {/* <AutoComplete /> */}
 
       <div className="navbar-button-container">
         {props.loggedIn ? (

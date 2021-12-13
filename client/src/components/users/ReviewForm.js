@@ -22,7 +22,7 @@ const ReviewForm = (props) => {
   const onWriteClick = (e) => {
     e.preventDefault()
     if (!currUser) navigate('/login', { state: { from: location.pathname } })
-    else setShowForm(true)
+    else setShowForm(!showForm)
   }
 
   const onLike = (e) => {
@@ -55,7 +55,7 @@ const ReviewForm = (props) => {
       review: review,
       like_dislike: liked ? 1 : 0,
     })
-      .then((res) => window.location.reload())
+      .then((_) => window.location.reload())
       .catch((e) => console.log(e.response))
   }
 
@@ -64,7 +64,7 @@ const ReviewForm = (props) => {
     <>
       {showForm ? (
         <form id="review-form" onSubmit={onFormSubmit}>
-          <div className="like-dislike-container">
+          <div className="flex-horizontal like-dislike-container">
             <label htmlFor="user-review" className="desc-bold">
               {currUser.username}
             </label>
@@ -73,24 +73,14 @@ const ReviewForm = (props) => {
               onClick={onLike}
               form="review-form"
             >
-              <FontAwesomeIcon
-                icon={faThumbsUp}
-                className="icon"
-                id="thumbs-up"
-                size="2x"
-              />
+              <FontAwesomeIcon icon={faThumbsUp} className="icon" size="2x" />
             </button>
             <button
               className={`form-dislike-button ${disliked ? 'disliked' : ''}`}
               onClick={onDislike}
               form="review-form"
             >
-              <FontAwesomeIcon
-                icon={faThumbsDown}
-                className="icon"
-                id="thumbs-down"
-                size="2x"
-              />
+              <FontAwesomeIcon icon={faThumbsDown} className="icon" size="2x" />
             </button>
           </div>
           <textarea
@@ -104,14 +94,24 @@ const ReviewForm = (props) => {
             onChange={(e) => setReview(e.target.value)}
             autoFocus
           />
-          <button className="form-submit" type="submit" form="review-form">
-            Post Review
-          </button>
 
-          {error && <div className="review-error">{error}</div>}
+          <div className="review-form-buttons">
+            <div>
+              <button className="form-submit" type="submit" form="review-form">
+                Post Review
+              </button>
+              <button
+                onClick={() => setShowForm(false)}
+                className="watchlist-remove"
+              >
+                Cancel
+              </button>
+            </div>
+            {error && <div className="form-error">{error}</div>}
+          </div>
         </form>
       ) : (
-        <button onClick={onWriteClick}>Write a Review</button>
+        <button onClick={onWriteClick}>Write a review</button>
       )}
     </>
   )

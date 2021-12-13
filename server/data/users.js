@@ -43,7 +43,8 @@ const create = async (firstName, lastName, email, username, password) => {
   firstName = firstName.toLowerCase().trim()
   lastName = lastName.toLowerCase().trim()
   email = email.toLowerCase().trim()
-  password = password.toLowerCase().trim()
+  username = username.toLowerCase().trim()
+  password = password.trim()
 
   try {
     checkIsString(firstName)
@@ -84,14 +85,11 @@ const create = async (firstName, lastName, email, username, password) => {
   // throw if insertion failed
   if (!insertRet.acknowledged) throw 'Failed to add new user.'
 
-  //return { userInserted: true }
   return insertRet.insertedId.toString()
-  //return await get(insertRet.insertedId.toString())
 }
 
 const authenticateUser = async (username, password) => {
   // error check
-
   if (!username) throw 'You must provide a username'
   if (!password) throw 'You must provide a password'
 
@@ -313,6 +311,12 @@ const updateUser = async (
   if (!username) throw 'Must provide the username'
   if (!password) throw 'Must provide the password'
 
+  firstName = firstName.trim()
+  lastName = lastName.trim()
+  email = email.toLowerCase().trim()
+  username = username.toLowerCase().trim()
+  password = password.trim()
+
   try {
     checkIsString(firstName)
     checkIsString(lastName)
@@ -331,20 +335,13 @@ const updateUser = async (
     throw String(e)
   }
 
-  const users = await userCollection()
-
-  const hash = await bcrypt.hash(password, saltRounds)
-
-  firstName = firstName.toLowerCase().trim()
-  lastName = lastName.toLowerCase().trim()
-  email = email.toLowerCase().trim()
-  password = password.toLowerCase().trim()
-
   // check if email exists
   if (await users.findOne({ email: email })) throw 'Email address is taken.'
 
   // check if username exists
   if (await users.findOne({ username: username })) throw 'Username is taken.'
+
+  const hash = await bcrypt.hash(password, saltRounds)
 
   let updatedUser = {
     firstName: firstName,
@@ -354,6 +351,7 @@ const updateUser = async (
     password: hash,
   }
 
+  const users = await userCollection()
   const updatedInfo = await users.updateOne({ _id: id }, { $set: updatedUser })
 
   if (updatedInfo.modifiedCount === 0) {

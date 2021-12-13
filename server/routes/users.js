@@ -5,9 +5,9 @@ const {
   addToWatchlist,
   deleteFromWatchlist,
   updateUser,
+  getUser,
 } = require('../data/users')
 const { verifyToken } = require('../middleware/auth')
-const { getUser } = require('../data/users')
 
 function checkIsString(s) {
   if (typeof s != 'string') throw 'Given input is invalid'
@@ -75,9 +75,8 @@ router.put('/profile', verifyToken, async (req, res) => {
   } catch (e) {
     return res.status(400).send(String(e))
   }
-  // req.userId
-  let userId = req.userId
 
+  let userId = req.userId
   try {
     if (!userId) throw 'must provide user Id'
     userId = ObjectId(userId)
@@ -94,7 +93,6 @@ router.put('/profile', verifyToken, async (req, res) => {
       username,
       password
     )
-
     res.status(200).json(user)
   } catch (e) {
     res.status(500).send(String(e))

@@ -1,0 +1,21 @@
+.media-list-wrapper {
+  padding: 30px;
+}
+
+.media-list-wrapper + .media-list-wrapper {
+  margin-top: 60px;
+}
+
+.media-list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  grid-gap: 40px;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  padding-bottom: 40px;
+}
+
+.media-list-wrapper h2 {
+  margin: 0 0 40px 30px;
+}

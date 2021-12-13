@@ -77,11 +77,11 @@ const SignupPage = (props) => {
   }
 
   return (
-    <div className="login-container">
+    <div className="card-background signup-container">
       {props.loggedIn ? (
         <div>You are already signed in.</div>
       ) : (
-        <form id="new-user-form" onSubmit={onFormSubmit}>
+        <form id="signup-form" onSubmit={onFormSubmit}>
           <div className="user-input-container">
             <input
               id="input-firstname"
@@ -170,16 +170,11 @@ const SignupPage = (props) => {
             </label>
           </div>
 
-          {/* display error here */}
-          {error && <div className="login-error">{error}</div>}
-
-          <button className="form-reset" type="reset" form="new-user-form">
-            Reset
-          </button>
-
-          <button className="form-submit" type="submit" form="new-user-form">
+          <button className="form-submit" type="submit" form="signup-form">
             Submit
           </button>
+
+          {error && <div className="form-error">{error}</div>}
         </form>
       )}
     </div>

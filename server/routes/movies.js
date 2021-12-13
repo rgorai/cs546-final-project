@@ -91,7 +91,7 @@ router.get('/:id', async (req, res) => {
   try {
     res.status(200).json(await get(movieId))
   } catch (e) {
-    res.status(500).send(String(e))
+    res.status(404).send(String(e))
   }
 })
 
@@ -103,10 +103,8 @@ router.get('/name/:name', async (req, res) => {
   try {
     checkIsString(movieName)
   } catch (e) {
-    res.status(404).send(String(e))
+    res.status(400).send(String(e))
   }
-
-  //movieName = movieName.toLowerCase().trim()
 
   try {
     let movie = await getByName(movieName)
@@ -127,8 +125,6 @@ router.get('/genre/:genre', async (req, res) => {
     res.status(404).send(String(e))
   }
 
-  //genre = genre.toLowerCase().trim()
-
   try {
     let movie = await getByGenre(genre)
     res.status(200).json(movie)
@@ -138,74 +134,59 @@ router.get('/genre/:genre', async (req, res) => {
 })
 
 router.post('/', verifyToken, async (req, res) => {
-  let movieInfo = req.body
-  if (!movieInfo) {
+  let mediaInfo = req.body
+  if (!mediaInfo) {
     res.status(400).send('You must provide data to create a movie')
     return
   }
-
-  if (!movieInfo.name) {
+  if (!mediaInfo.name) {
     res.status(400).send('You must provide the name of the movie')
     return
   }
-  if (!movieInfo.releaseDate) {
+  if (!mediaInfo.releaseDate) {
     res.status(400).send('You must provide the release date of the movie')
     return
   }
-  if (!movieInfo.mpa_rating) {
+  if (!mediaInfo.mpa_rating) {
     res.status(400).send('You must provide genres of the movie')
     return
   }
-  if (!movieInfo.runtime) {
-    res.status(400).send('You must provide the runtime of the movie')
-    return
-  }
-  if (!movieInfo.genres) {
+  if (!mediaInfo.genres) {
     res.status(400).send('You must provide genres of the movie')
     return
   }
-  if (!movieInfo.description) {
+  if (!mediaInfo.description) {
     res.status(400).send('You must provide description of the movie')
     return
   }
-  if (!movieInfo.providers) {
+  if (!mediaInfo.providers) {
     res.status(400).send('You must provide the providers of the movie')
     return
   }
 
   try {
-    checkIsString(movieInfo.name)
-    checkIsString(movieInfo.releaseDate)
-    checkIsString(movieInfo.mpa_rating)
-    checkIsNumber(movieInfo.runtime)
-    checkIsArray(movieInfo.genres)
-    checkIsString(movieInfo.description)
-    checkIsArray(movieInfo.providers)
+    checkIsString(mediaInfo.name)
+    checkIsString(mediaInfo.releaseDate)
+    checkIsString(mediaInfo.mpa_rating)
+    checkIsArray(mediaInfo.genres)
+    checkIsString(mediaInfo.description)
+    checkIsArray(mediaInfo.providers)
 
     let currentDate = new Date()
-    if (new Date(movieInfo.releaseDate) > currentDate)
+    if (new Date(mediaInfo.releaseDate) > currentDate)
       throw 'Release data cannot be a future date'
   } catch (e) {
-    return res.status(404).send(String(e))
+    return res.status(400).send(String(e))
   }
-
-  // let tmdb_id = null
-  // let poster_path = null
-  // let video = null
-  // let revenue = null
 
   try {
     const newMovie = await createByUser(
-      movieInfo.name,
-      movieInfo.releaseDate,
-      movieInfo.mpa_rating,
-      movieInfo.runtime,
-      movieInfo.genres,
-      movieInfo.description,
-      // poster_path,
-      // video,
-      movieInfo.providers
-      // revenue
+      mediaInfo.name,
+      mediaInfo.releaseDate,
+      mediaInfo.mpa_rating,
+      mediaInfo.genres,
+      mediaInfo.description,
+      mediaInfo.providers
     )
     res.status(200).json(newMovie)
   } catch (e) {

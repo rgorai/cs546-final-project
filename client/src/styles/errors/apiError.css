@@ -2,7 +2,9 @@
   width: max-content !important;
   margin: auto;
   margin-top: 100px;
-  padding: 40px 40px 60px 40px;
+  padding: 70px;
+  padding-top: 40px;
+  color: white;
 }
 
 .error-status {

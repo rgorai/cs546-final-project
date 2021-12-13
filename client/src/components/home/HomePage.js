@@ -4,11 +4,7 @@ import axios from 'axios'
 
 import '../../styles/home/homePage.css'
 
-import MovieList from '../movies/MovieList'
-import ShowList from '../shows/ShowList'
-
-// import '../../styles/movies/movieList.css'
-// import '../../styles/shows/showList.css'
+import MediaList from '../movies/MediaList'
 
 const HomePage = (props) => {
   const [movieList, setMovieList] = useState([])
@@ -50,8 +46,8 @@ const HomePage = (props) => {
         </div>
       </div>
       <div className="home-media-list-container">
-        <MovieList name="Movies" movieList={movieList} />
-        <ShowList name="Shows" showList={showList} />
+        <MediaList title="Movies" mediaList={movieList} />
+        <MediaList title="Shows" mediaList={showList} />
       </div>
     </div>
   )

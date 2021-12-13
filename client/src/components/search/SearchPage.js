@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 import '../../styles/home/searchPage.css'
-import MovieList from '../movies/MovieList'
-import ShowList from '../shows/ShowList'
+import MediaList from '../movies/MediaList'
 
 const SearchPage = (props) => {
   const { query: searchName } = useParams()
@@ -27,32 +26,31 @@ const SearchPage = (props) => {
       {searchList && (
         <div className="search-page-container">
           <h2>Search Results:</h2>
-          {/* will be mapped to search result */}
           {searchList.movieResult.length === 0 &&
           searchList.showResult.length === 0 ? (
             <div>No Result found!</div>
           ) : (
             <div>
               {searchList.movieResult.length > 0 ? (
-                <MovieList
-                  genre="Movie Search Result"
-                  movieList={searchList.movieResult}
+                <MediaList
+                  title="Movie Search Result"
+                  mediaList={searchList.movieResult}
                 />
               ) : (
-                <MovieList
-                  genre="No search result for movies!"
-                  movieList={searchList.movieResult}
+                <MediaList
+                  title="No search result for movies!"
+                  mediaList={searchList.movieResult}
                 />
               )}
               {searchList.showResult.length > 0 ? (
-                <ShowList
-                  genre="Show Search Result"
-                  showList={searchList.showResult}
+                <MediaList
+                  title="Show Search Result"
+                  mediaList={searchList.showResult}
                 />
               ) : (
-                <ShowList
-                  genre="No search result for shows!"
-                  showList={searchList.showResult}
+                <MediaList
+                  title="No search result for shows!"
+                  mediaList={searchList.showResult}
                 />
               )}
             </div>
