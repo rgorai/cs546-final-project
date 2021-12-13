@@ -66,7 +66,7 @@ const createByUser = async (
   }
 
   let request = await requests.findOne({
-    name: name,
+    name: name.toLowerCase(),
     release_date: releaseDate,
   })
 
@@ -75,7 +75,7 @@ const createByUser = async (
   }
 
   const insertRet = await requests.insertOne({
-    name: name,
+    name: name.toLowerCase().trim(),
     release_date: releaseDate,
     mpa_rating: certifications,
     genres: genres,
