@@ -68,6 +68,7 @@ const SearchBar = (props) => {
         value={query}
         placeholder="Search movies and shows"
         className="searchInput"
+        autoComplete="off"
         onChange={handleFilter}
         onKeyPress={(event) => {
           if (event.code === 'Enter') {
@@ -102,26 +103,22 @@ const SearchBar = (props) => {
           <strong className="result-title">Movies</strong>
           {filteredData.movies.length === 0 && <p>No Results found!</p>}
           {filteredData.movies.map((i) => (
-            <p
-              onClick={() => {
-                setFilteredData(null)
-                navigate(`movies/single/${i._id}`)
-              }}
+            <Link
+              to={`movies/single/${i._id}`}
+              onClick={() => setShowDropdown(false)}
             >
               {i.name}
-            </p>
+            </Link>
           ))}
           <strong className="result-title">Shows</strong>
           {filteredData.shows.length === 0 && <p>No Results found!</p>}
           {filteredData.shows.map((i) => (
-            <p
-              onClick={() => {
-                setFilteredData(null)
-                navigate(`shows/single/${i._id}`)
-              }}
+            <Link
+              to={`shows/single/${i._id}`}
+              onClick={() => setShowDropdown(false)}
             >
               {i.name}
-            </p>
+            </Link>
           ))}
         </div>
       )}
