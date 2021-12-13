@@ -20,3 +20,7 @@
   margin-top: 10px;
   height: 30px;
 }
+
+.sort-item:hover, .sort-item:focus {
+  outline: 0 !important;
+}
