@@ -19,7 +19,7 @@ main {
 
 button {
   cursor: pointer;
-  background-color: #ff8c02;
+  background-color: #ffba02;
   font-weight: bold;
   color: rgba(8, 10, 12, 0.856); 
   border-radius: 9px;
@@ -116,7 +116,7 @@ input:hover, input:focus, textarea:hover, textarea:focus {
 }
 
 h1, h2, h3 {
-  color: #ff8c02 !important;
+  color: #ffba02 !important;
 }
 
 .media-top-right-container h1 {
@@ -198,11 +198,11 @@ h1, h2, h3 {
 
 .active-nav {
   font-weight: 600;
-  color: #ff8c02;
+  color: #ffba02;
 }
 
 .media-active-nav {
-  color: #ff8c02;
+  color: #ffba02;
   text-decoration: underline;
 }
 
@@ -255,7 +255,7 @@ h1, h2, h3 {
 }
 
 .user-input-container label {
-  color: #ff8c02;
+  color: #ffba02;
   font-size: 18px;
   margin-bottom: 8px;
   margin-left: 3px;

@@ -17,7 +17,7 @@ Built using HTML, CSS, Javascript, React.js, Node.js, Express and MongoDB.
 
 /client
 - Run 'yarn install' to install the required dependencies for our project
-- Run 'npm start'
+- Run 'yarn start'
 
 ### Note:
 - Please run client on Chrome
