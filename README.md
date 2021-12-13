@@ -13,9 +13,11 @@ Built using HTML, CSS, Javascript, React.js, Node.js, Express and MongoDB.
 /server
 - Run 'npm install' to install the required dependencies for our project
 - Then run 'npm run seed' to run the task of seeding the database
+- Run 'npm start'
 
 /client
 - Run 'yarn install' to install the required dependencies for our project
+- Run 'npm start'
 
 ### Note:
 - Please run client on Chrome
