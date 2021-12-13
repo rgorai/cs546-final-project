@@ -78,6 +78,7 @@ const SignupPage = (props) => {
 
   return (
     <div className="card-background signup-container">
+      <h1>Sign Up</h1>
       {props.loggedIn ? (
         <div>You are already signed in.</div>
       ) : (

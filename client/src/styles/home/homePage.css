@@ -1,27 +1,26 @@
-
-
-.trending-rank{
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-top: 0px;
-  padding-right: 90px !important;
-  padding-left: 90px !important;
-}
-  
 .home-page-container {
-  padding-top: 0px;
-  color: white;
-  /* padding: 2% */
+  width: 80%;
+  padding: 40px;
+  padding-top: 20px;
 }
 
-.home-page-container h1{
-  text-align: center !important;
+.home-page-container h1, h2 {
+  text-align: center;
 }
 
-.home-media-list-container {
-  padding: 50px;
+.home-page-container h2 {
+  color: white !important;
+  font-weight: 200 !important;
+}
+
+.home-page-container .media-list-wrapper {
+  background-color: initial;
+  margin-top: 0 !important;
+}
+
+.home-page-container .media-list-wrapper h2 {
+  color: #ff8c02 !important;
+  font-weight: 600 !important;
 }
 
 .red{
