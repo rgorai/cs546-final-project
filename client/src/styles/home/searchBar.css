@@ -30,8 +30,8 @@
   color: black;
 }
 
-.searchInput{
-  border-radius: 10px 0 0 10px !important;
+.searchInput {
+  /* border-radius: 10px 0 0 10px !important; */
 }
 
 .autocomplete-div p {
@@ -51,8 +51,19 @@
 }
 
 .search-reset-button {
+  width: 40px;
   border-radius: 0 10px 10px 0;
-  background-color: rgb(67, 78, 85);
+  box-sizing: border-box;
+  /* background-color: rgba(67, 78, 85, 0.37); */
+  background-color: transparent;
   color: white;
-  /* outline: 1px solid black; */
+  margin-left: -33px;
+  padding: 0;
+  color: rgb(109, 109, 109);
+  font-size: 22px;
+  font-weight: 100;
+}
+
+.search-reset-button:hover {
+  background-color: rgba(95, 95, 95, 0.219);
 }

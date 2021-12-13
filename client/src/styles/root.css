@@ -43,7 +43,7 @@ input, textarea {
   outline: 0;
   border: 0;
   border-radius: 10px;
-  transition: outline 0.2s ease-in-out;
+  transition: outline 0.2s ease-in-out !important;
 }
 
 textarea {
@@ -51,7 +51,7 @@ textarea {
 }
 
 input:hover, input:focus, textarea:hover, textarea:focus {
-  outline: 4px solid rgba(149, 183, 202, 0.733);
+  outline: 4px solid rgba(149, 183, 202, 0.733) !important;
 }
 
 .form-error {
@@ -232,4 +232,32 @@ h1, h2, h3 {
 .like-dislike-container label {
   font-size: 18px;
   margin-right: 30px;
+}
+
+.user-input-container {
+  display: flex;
+  flex-direction: column-reverse;
+  width: 100%;
+}
+
+.user-input-container + .user-input-container {
+  margin-top: 25px;
+}
+
+.user-input-container * {
+  width: 100%;
+}
+
+.user-input-container input {
+  font-size: 16px;
+  padding: 5px 10px;
+  height: 40px;
+}
+
+.user-input-container label {
+  color: #ff8c02;
+  font-size: 18px;
+  margin-bottom: 8px;
+  margin-left: 3px;
+  font-weight: 200;
 }

@@ -89,6 +89,7 @@ const EditUserProfile = (props) => {
     <ApiError error={error} />
   ) : user ? (
     <div className="card-background edit-user-container">
+      <h1>Edit Profile</h1>
       <form id="edit-user-form" onSubmit={onFormSubmit}>
         <div className="user-input-container">
           <input
