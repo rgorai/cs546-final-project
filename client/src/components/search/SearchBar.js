@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import '../../styles/home/searchBar.css'
-import { Router, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 // import router from '../../../../server/routes/search'
@@ -20,7 +20,6 @@ const SearchBar = (props) => {
         // console.log(res.data)
         setFullList(res.data)
       })
-      // should ui if fetch fails
       .catch((e) => console.log('search fetch error: ', e))
   }, [])
 

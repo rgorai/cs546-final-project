@@ -1,17 +1,42 @@
 [
     {
-        "review": "Great Cast. Feel Good"
+        "review": "Great Cast. Feel Good",
+        "rating": 1
     },
     {
-        "review": "Good for a sunday afternoon" 
+        "review": "Good for a sunday afternoon" ,
+        "rating": 1
     },
     {
-        "review": "Great storyline"
+        "review": "Great storyline",
+        "rating": 1
     },
     {
-       "review": "I saw it very late. the fame was one of basic motives. the theme - the second cause. for many friends, to see it was an experience. and it is an experience."
+        "review": "I saw it very late. the fame was one of basic motives. the theme - the second cause. for many friends, to see it was an experience. and it is an experience.",
+        "rating": 1
     },
     {
-        "review": "The beginning of a movie always sets the tone. Same goes for this movie here."
+        "review": "The beginning of a movie always sets the tone. Same goes for this movie here.",
+        "rating": 1
+    },
+    {
+        "review": "Terrible movie, hated it",
+        "rating": 0
+    },
+    {
+        "review": "Pretty boring show",
+        "rating": 0
+    },
+    {
+        "review": "it just wasnt for me",
+        "rating": 0
+    },
+    {
+        "review": "why would anyone watch this",
+        "rating": 0
+    },
+    {
+        "review": "SUCKS",
+        "rating": 0
     }
 ]
